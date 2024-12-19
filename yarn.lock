@@ -512,6 +512,11 @@
     bignumber.js "^9.1.2"
     net "^1.0.2"
 
+"@qubic-lib/qubic-ts-vault-library@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@qubic-lib/qubic-ts-vault-library/-/qubic-ts-vault-library-1.0.2.tgz#eadad4666c7b3105d92ea37cb6f3ea7f516097d8"
+  integrity sha512-sgaMOVUcakLT7sCTTMIn5k2mrToZhVHmlqGKgamDA7McRvg0i1e5L5SHjNQ4jOc9koyJ48f1qZRHAfeCG6LyzQ==
+
 "@rollup/rollup-android-arm-eabi@4.28.1":
   version "4.28.1"
   resolved "https://registry.yarnpkg.com/@rollup/rollup-android-arm-eabi/-/rollup-android-arm-eabi-4.28.1.tgz#7f4c4d8cd5ccab6e95d6750dbe00321c1f30791e"

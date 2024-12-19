@@ -1,10 +1,13 @@
-import router from './router'
 import { RouterProvider } from 'react-router-dom';
+import { QubicConnectProvider } from './components/connect/QubicConnectContext';
+import router from './router';
 
 function App() {
   return (
-    <RouterProvider router={router} />
-  )
+    <QubicConnectProvider>
+      <RouterProvider router={router} />
+    </QubicConnectProvider>
+  );
 }
 
-export default App
+export default App;

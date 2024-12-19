@@ -41,10 +41,10 @@ const ConnectModal = ({ open, onClose }: { open: boolean, onClose: () => void })
      * Connect with private seed
      */
     const privateKeyConnect = () => {
-        connect(privateSeed)
         connect({
           connectType: 'privateKey',
-          privateKey: privateSeed
+          privateKey: privateSeed,
+          publicKey: privateSeed
         })
         // reset and close
         setSelectedMode('none')
