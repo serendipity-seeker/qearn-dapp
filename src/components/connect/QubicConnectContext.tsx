@@ -5,6 +5,7 @@ import Crypto from '@qubic-lib/qubic-ts-library/dist/crypto';
 import { seedStringToBytes, digestBytesToString, publicKeyStringToBytes, publicKeyBytesToString } from '@qubic-lib/qubic-ts-library/dist/converter/converter.js';
 import { MetaMaskProvider } from './MetamaskContext';
 import { connectTypes, defaultSnapOrigin, tickOffset } from './config';
+import { TickInfo } from '@/types';
 
 interface Wallet {
   connectType: string;
@@ -22,7 +23,7 @@ interface QubicConnectContextType {
   getMetaMaskPublicId: (accountIdx?: number, confirm?: boolean) => Promise<string>;
   getSignedTx: (tx: Uint8Array, offset: number) => Promise<{ tx: Uint8Array; offset: number }>;
   broadcastTx: (tx: Uint8Array) => Promise<{ status: number; result: any }>;
-  getTickInfo: () => Promise<{ tick: number; epoch: number }>;
+  getTickInfo: () => Promise<TickInfo>;
   getBalance: (publicId: string) => Promise<{ balance: { id: string; balance: number } }>;
   tickOffset: number;
   getPaymentTx: (sender: string, receiver: string, amount: number, tick: number) => Promise<{ tx: Uint8Array; offset: number }>;
@@ -112,7 +113,7 @@ export function QubicConnectProvider({ children }: QubicConnectProviderProps) {
     const tick = await tickResult.json();
     if (!tick || !tick.tickInfo) {
       console.warn('getTickInfo: Invalid tick');
-      return { tickInfo: { tick: 0, epoch: 0 } };
+      return { tickInfo: {} as TickInfo };
     }
     return tick.tickInfo;
   };
