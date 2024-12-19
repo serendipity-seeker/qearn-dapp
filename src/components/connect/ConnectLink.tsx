@@ -13,7 +13,7 @@ const ConnectLink: React.FC = () => {
 
   return (
     <>
-      <div className="absolute right-12 sm:right-12 flex gap-[10px] justify-center items-center cursor-pointer" onClick={() => toggleConnectModal()}>
+      <div className="flex gap-[10px] justify-center items-center cursor-pointer" onClick={() => toggleConnectModal()}>
         {connected ? (
           <>
             <span className="hidden md:block font-space text-[16px] text-gray-50 mt-[5px] font-[500]">Connected</span>
