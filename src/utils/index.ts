@@ -26,3 +26,8 @@ export const byteArrayToHexString = (byteArray: any[]) => {
 export const isAddressValid = (toAddress: string) => toAddress.length === 60 && /^[A-Z]+$/.test(toAddress);
 export const isPositiveNumber = (amount: number) => !isNaN(Number(amount)) && Number(amount) > 0;
 export const isAmountValid = (amount: number) => isPositiveNumber(amount) && amount % 1 === 0;
+
+export const uint8ArrayToBase64 = (uint8Array: Uint8Array): string => {
+  const binaryString = String.fromCharCode.apply(null, Array.from(uint8Array));
+  return btoa(binaryString);
+};

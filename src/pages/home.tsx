@@ -1,20 +1,15 @@
-import { useQubicConnect } from '@/components/connect/QubicConnectContext';
 import Card from '@/components/ui/Card';
 import { useEffect } from 'react';
-import { TickInfo } from '@/types';
-import { useState } from 'react';
+import { useFetchTickInfo } from '@/hooks/useFetchTickInfo';
 
 const Home: React.FC = () => {
-  const { getTickInfo } = useQubicConnect();
-  const [tickInfo, setTickInfo] = useState<TickInfo | null>(null);
+  const { data: tickInfo, refetch } = useFetchTickInfo();
 
   useEffect(() => {
-    const fetchTickInfo = async () => {
-      const tickInfo = await getTickInfo();
-      setTickInfo(tickInfo);
-    };
-    fetchTickInfo();
-  }, [getTickInfo]);
+    setInterval(() => {
+      refetch();
+    }, 2000);
+  }, []);
 
   return (
     <div className="p-4">
