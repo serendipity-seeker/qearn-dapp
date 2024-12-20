@@ -1,26 +1,9 @@
 import Card from '@/components/ui/Card';
-import { useEffect, useRef } from 'react';
-import { useFetchTickInfo } from '@/hooks/useFetchTickInfo';
+import { useAtom } from 'jotai';
+import { tickInfoAtom } from '@/store/tickInfo';
 
 const Home: React.FC = () => {
-  const { data: tickInfo, refetch } = useFetchTickInfo();
-  const intervalRef = useRef<NodeJS.Timeout>();
-
-  useEffect(() => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-    }
-
-    intervalRef.current = setInterval(() => {
-      refetch();
-    }, 1000);
-
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    };
-  }, [refetch]);
+  const [tickInfo] = useAtom(tickInfoAtom);
 
   return (
     <div className="p-4">

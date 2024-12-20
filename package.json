@@ -12,7 +12,9 @@
     "@metamask/providers": "^18.3.0",
     "@qubic-lib/qubic-ts-library": "^0.1.5",
     "@qubic-lib/qubic-ts-vault-library": "^1.0.2",
+    "@tanstack/react-query": "^5.62.8",
     "clsx": "^2.1.1",
+    "jotai": "^2.10.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.0.2"
