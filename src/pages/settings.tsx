@@ -1,11 +1,18 @@
 import { Switch, Disclosure } from '@headlessui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Card from '@/components/ui/Card';
+import { settingsAtom } from '@/store/settings';
+import { useAtom } from 'jotai';
 
 const Settings: React.FC = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [notifications, setNotifications] = useState(false);
-  const [sliderValue, setSliderValue] = useState(3);
+  const [tickOffset, setTickOffset] = useState(3);
+  const [, setSettings] = useAtom(settingsAtom);
+
+  useEffect(() => {
+    setSettings((prev) => ({ ...prev, darkMode, notifications, tickOffset }));
+  }, [darkMode, notifications, tickOffset]);
 
   return (
     <Card className="max-w-lg p-6">
@@ -16,9 +23,9 @@ const Settings: React.FC = () => {
           <div className="flex justify-between items-center">
             <div className="space-y-2">
               <h3 className="text-lg font-medium">Tick Offset</h3>
-              <p className="text-sm">Current value: {sliderValue}</p>
+              <p className="text-sm">Current value: {tickOffset}</p>
             </div>
-            <input type="range" min="3" max="15" value={sliderValue} onChange={(e) => setSliderValue(parseInt(e.target.value))} className="w-32" step="1" />
+            <input type="range" min="3" max="15" value={tickOffset} onChange={(e) => setTickOffset(parseInt(e.target.value))} className="w-32" step="1" />
           </div>
 
           <div className="space-y-4">
