@@ -36,7 +36,9 @@ const Layout: React.FC = () => {
     <div className="min-h-screen flex flex-col bg-gray-90">
       <Header logo={logo} />
       <div className="flex-1 pt-[80px]">
-        <Outlet />
+        <div className="p-4">
+          <Outlet />
+        </div>
       </div>
       <Footer />
     </div>
