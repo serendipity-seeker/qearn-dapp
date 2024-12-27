@@ -16,3 +16,9 @@ export type Balance = {
   numberOfIncomingTransfers: number;
   numberOfOutgoingTransfers: number;
 };
+
+export type Settings = {
+  tickOffset: number;
+  darkMode: boolean;
+  notifications: boolean;
+};
