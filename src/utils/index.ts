@@ -1,3 +1,5 @@
+import { DynamicPayload } from '@qubic-lib/qubic-ts-library/dist/qubic-types/DynamicPayload';
+
 // format number input to 100,000,000 format
 export const formatQubicAmount = (amount: number, seperator = ',') => {
   return amount
@@ -30,4 +32,58 @@ export const isAmountValid = (amount: number) => isPositiveNumber(amount) && amo
 export const uint8ArrayToBase64 = (uint8Array: Uint8Array): string => {
   const binaryString = String.fromCharCode.apply(null, Array.from(uint8Array));
   return btoa(binaryString);
+};
+
+export const base64ToUint8Array = (base64: string): Uint8Array => {
+  const binaryString = atob(base64);
+  return new Uint8Array(binaryString.split('').map((char) => char.charCodeAt(0)));
+};
+
+export const createDataView = (size: number): { buffer: ArrayBuffer; view: DataView } => {
+  const buffer = new ArrayBuffer(size);
+  return { buffer, view: new DataView(buffer) };
+};
+
+interface ICreatePayload {
+  data: number;
+  type: 'uint8' | 'uint16' | 'uint32' | 'bigint64';
+}
+
+export const createPayload = (data: ICreatePayload[]) => {
+  const TYPE_SIZES = {
+    uint8: 1,
+    uint16: 2,
+    uint32: 4,
+    bigint64: 8,
+  };
+
+  const totalSize = data.reduce((acc, { type }) => acc + TYPE_SIZES[type], 0);
+
+  const { buffer, view } = createDataView(totalSize);
+
+  let offset = 0;
+  const setters = {
+    uint8: (v: DataView, o: number, d: number) => {
+      v.setUint8(o, d);
+      return 1;
+    },
+    uint16: (v: DataView, o: number, d: number) => {
+      v.setUint16(o, d, true);
+      return 2;
+    },
+    uint32: (v: DataView, o: number, d: number) => {
+      v.setUint32(o, d, true);
+      return 4;
+    },
+    bigint64: (v: DataView, o: number, d: number) => {
+      v.setBigUint64(o, BigInt(d), true);
+      return 8;
+    },
+  };
+
+  data.forEach(({ type, data: value }) => {
+    offset += setters[type](view, offset, value);
+  });
+
+  return new Uint8Array(buffer);
 };

@@ -22,3 +22,41 @@ export type Settings = {
   darkMode: boolean;
   notifications: boolean;
 };
+
+export interface IQuerySC {
+  contractIndex: number;
+  inputType: number;
+  inputSize: number;
+  requestData: string;
+}
+
+export interface IQuerySCResponse {
+  responseData: string;
+}
+
+export interface LockInfoPerEpoch {
+  lockAmount: number;
+  bonusAmount: number;
+  currentLockedAmount: number;
+  currentBonusAmount: number;
+  yieldPercentage: number;
+}
+
+export interface IStakeStatus {
+  publicId: string;
+  lockedEpoch: number;
+  lockedAmount: number;
+  lockedWeeks: number;
+  totalLockedAmountInEpoch: number;
+  currentBonusAmountInEpoch: number;
+  earlyUnlockReward: number;
+  fullUnlockReward: number;
+  earlyUnlockRewardRatio: number;
+  fullUnlockRewardRatio: number;
+}
+
+export interface IEndedStakeStatus {
+  unLockedAmount: number;
+  rewardedAmount: number;
+  status?: boolean;
+}
