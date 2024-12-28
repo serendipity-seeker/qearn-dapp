@@ -15,38 +15,34 @@ export const createTx = (sender: string, receiver: string, amount: number, tick:
   };
 };
 
-export const qearnSCTx = async (seed: string, contractIndex: number, inputType: number, inputSize: number, amount: number, payload: any, tick: number) => {
-  try {
-    const idPackage = await qHelper.createIdPackage(seed);
+export const createQearnPayload = (UnlockAmount: number, LockedEpoch: number) => {
+  const dynamicPayload = new DynamicPayload(12);
+  const buffer = createPayload([
+    { data: UnlockAmount, type: 'bigint64' },
+    { data: LockedEpoch, type: 'uint32' },
+  ]);
+  dynamicPayload.setPayload(new Uint8Array(buffer));
+  return dynamicPayload;
+};
 
+export const createSCTx = async (sourceID: string, contractIndex: number, inputType: number, inputSize: number, amount: number, payload?: DynamicPayload, tick: number) => {
+  try {
     const destinationPublicKey = new Uint8Array(QubicDefinitions.PUBLIC_KEY_LENGTH);
     destinationPublicKey.fill(0);
     destinationPublicKey[0] = contractIndex;
 
-    const dynamicPayload = new DynamicPayload(inputSize);
-    const { buffer } = createPayload([
-      { data: payload.UnlockAmount, type: 'bigint64' },
-      { data: payload.LockedEpoch, type: 'uint32' },
-    ]);
-    dynamicPayload.setPayload(new Uint8Array(buffer));
-
     const tx = new QubicTransaction()
-      .setSourcePublicKey(idPackage.publicId)
+      .setSourcePublicKey(sourceID)
       .setDestinationPublicKey(await qHelper.getIdentity(destinationPublicKey))
       .setAmount(amount)
       .setTick(tick + 5)
       .setInputType(inputType)
       .setInputSize(inputSize);
-    if (dynamicPayload.getPackageSize() > 0) {
-      tx.setPayload(dynamicPayload);
+    if (payload) {
+      tx.setPayload(payload);
     }
-    const res = await tx.build(seed);
-    const txResult = await broadcastTx(res);
-    return {
-      txResult,
-    };
+    return tx;
   } catch (error) {
     console.error('Error signing transaction:', error);
-    throw new Error('Failed to sign and broadcast transaction.');
   }
 };
