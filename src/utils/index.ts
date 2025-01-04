@@ -1,4 +1,4 @@
-import { DynamicPayload } from '@qubic-lib/qubic-ts-library/dist/qubic-types/DynamicPayload';
+import REWARD_DATA from '@/data/rewardData.json';
 
 // format number input to 100,000,000 format
 export const formatQubicAmount = (amount: number, seperator = ',') => {
@@ -86,4 +86,20 @@ export const createPayload = (data: ICreatePayload[]) => {
   });
 
   return new Uint8Array(buffer);
+};
+
+
+export const calculateRewards = (lockAmount: number, totalLockedAmount: number, currentBonusAmount: number, yieldPercentage: number, currentEpoch: number, lockedEpoch: number) => {
+  const fullUnlockPercent = yieldPercentage / 100000;
+  const fullUnlockReward = currentBonusAmount * (lockAmount / totalLockedAmount);
+
+  const earlyUnlockPercent = REWARD_DATA.find((data) => data.weekFrom < currentEpoch - lockedEpoch && data.weekTo + 1 >= currentEpoch - lockedEpoch)?.earlyUnlock || 0;
+  const earlyUnlockReward = fullUnlockReward * (earlyUnlockPercent / 100);
+
+  return {
+    earlyUnlockReward,
+    earlyUnlockRewardRatio: (fullUnlockPercent * earlyUnlockPercent) / 100,
+    fullUnlockReward,
+    fullUnlockRewardRatio: fullUnlockPercent,
+  };
 };
