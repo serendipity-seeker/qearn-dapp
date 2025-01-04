@@ -25,7 +25,7 @@ export const createQearnPayload = (UnlockAmount: number, LockedEpoch: number) =>
   return dynamicPayload;
 };
 
-export const createSCTx = async (sourceID: string, contractIndex: number, inputType: number, inputSize: number, amount: number, payload?: DynamicPayload, tick: number) => {
+export const createSCTx = async (sourceID: string, contractIndex: number, inputType: number, inputSize: number, amount: number, tick: number, payload?: DynamicPayload) => {
   try {
     const destinationPublicKey = new Uint8Array(QubicDefinitions.PUBLIC_KEY_LENGTH);
     destinationPublicKey.fill(0);
