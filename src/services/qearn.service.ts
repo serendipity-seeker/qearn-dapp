@@ -5,11 +5,11 @@ import { createQearnPayload, createSCTx } from './tx.service';
 
 // Lock and Unlock transactions
 export const lockQubic = async (seed: string, amount: number, tick: number) => {
-  return createSCTx(seed, 9, 1, 0, amount, createQearnPayload(amount, tick), tick);
+  return createSCTx(seed, 9, 1, 0, amount, tick, createQearnPayload(amount, tick));
 };
 
 export const unLockQubic = async (seed: string, amount: number, epoch: number, tick: number) => {
-  return createSCTx(seed, 9, 2, 12, 0, createQearnPayload(amount, epoch), tick);
+  return createSCTx(seed, 9, 2, 12, 0, tick, createQearnPayload(amount, epoch));
 };
 
 // Query
