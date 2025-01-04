@@ -1,4 +1,4 @@
-import { LockInfoPerEpoch } from '@/types';
+import { ILockInfo } from '@/types';
 import { fetchQuerySC } from './rpc.service';
 import { base64ToUint8Array, uint8ArrayToBase64 } from '@/utils';
 import { createQearnPayload, createSCTx } from './tx.service';
@@ -13,7 +13,7 @@ export const unLockQubic = async (seed: string, amount: number, epoch: number, t
 };
 
 // Query
-export const getLockInfoPerEpoch = async (epoch: number): Promise<LockInfoPerEpoch> => {
+export const getLockInfoPerEpoch = async (epoch: number): Promise<ILockInfo> => {
   const view = new DataView(new Uint8Array(4).buffer);
   view.setUint32(0, epoch, true);
 

@@ -34,7 +34,7 @@ export interface IQuerySCResponse {
   responseData: string;
 }
 
-export interface LockInfoPerEpoch {
+export interface ILockInfo {
   lockAmount: number;
   bonusAmount: number;
   currentLockedAmount: number;
@@ -59,4 +59,8 @@ export interface IEndedStakeStatus {
   unLockedAmount: number;
   rewardedAmount: number;
   status?: boolean;
+}
+
+export interface IQearnStats {
+  [epoch: number]: ILockInfo;
 }
