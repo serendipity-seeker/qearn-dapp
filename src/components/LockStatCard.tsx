@@ -47,7 +47,7 @@ const LockStatCard: React.FC<ILockStatCardProps> = ({ currentEpoch }) => {
           
           <div className="space-y-2">
             <p className="text-sm text-gray-500">Yield Percentage</p>
-            <p className="text-2xl font-semibold">{currentStats.yieldPercentage / 1e6}%</p>
+            <p className="text-2xl font-semibold">{currentStats.yieldPercentage / 1e5}%</p>
           </div>
         </div>
       </div>
