@@ -1,4 +1,4 @@
-import REWARD_DATA from '@/data/rewardData.json';
+import { REWARD_DATA } from '@/data/contants';
 
 // format number input to 100,000,000 format
 export const formatQubicAmount = (amount: number, seperator = ',') => {
