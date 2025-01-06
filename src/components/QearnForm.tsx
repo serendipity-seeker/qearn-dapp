@@ -98,7 +98,7 @@ const QearnForm: React.FC = () => {
   };
 
   return (
-    <Card className="max-w-lg p-8 bg-gradient-to-br from-gray-90 to-gray-80">
+    <Card className="w-full max-w-lg p-8 bg-gradient-to-br from-gray-90 to-gray-80">
       <div className="space-y-6">
         <div className="flex items-center justify-center space-x-3">
           <FaLock className="text-3xl text-primary" />
