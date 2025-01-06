@@ -1,4 +1,3 @@
-import { DEFAULT_TX_SIZE } from '@/constants';
 import { createPayload } from '@/utils';
 import { DynamicPayload } from '@qubic-lib/qubic-ts-library/dist/qubic-types/DynamicPayload';
 import { QubicTransaction } from '@qubic-lib/qubic-ts-library/dist/qubic-types/QubicTransaction';
@@ -9,10 +8,7 @@ const qHelper = new QubicHelper();
 
 export const createTx = (sender: string, receiver: string, amount: number, tick: number) => {
   const tx = new QubicTransaction().setSourcePublicKey(sender).setDestinationPublicKey(receiver).setAmount(amount).setTick(tick);
-  return {
-    tx: tx.getPackageData(),
-    offset: DEFAULT_TX_SIZE,
-  };
+  return tx;
 };
 
 export const createQearnPayload = (UnlockAmount: number, LockedEpoch: number) => {
