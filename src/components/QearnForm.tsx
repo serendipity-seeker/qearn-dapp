@@ -9,7 +9,7 @@ import { truncateMiddle } from '@/utils';
 import { useQubicConnect } from './connect/QubicConnectContext';
 import { lockQubic } from '@/services/qearn.service';
 import { broadcastTx, fetchBalance } from '@/services/rpc.service';
-import { FaLock, FaWallet, FaClock } from 'react-icons/fa';
+import { FaLock } from 'react-icons/fa';
 import { toast } from 'react-hot-toast';
 import InputNumbers from './ui/InputNumbers';
 
@@ -102,36 +102,20 @@ const QearnForm: React.FC = () => {
       <div className="space-y-6">
         <div className="flex items-center justify-center space-x-3">
           <FaLock className="text-3xl text-primary" />
-          <h1 className="text-4xl font-bold text-center bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Qearn</h1>
+          <h1 className="text-4xl text-center">Qearn</h1>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
-            <div className="flex items-center space-x-2 mb-2">
-              <FaWallet className="text-gray-400" />
-              <span className="text-gray-300">Select Account</span>
-            </div>
             <Dropdown label="Select Account" options={accounts} selected={selectedAccount} setSelected={setSelectedAccount} />
           </div>
 
           <div>
-            <div className="flex items-center space-x-2 mb-2">
-              <FaLock className="text-gray-400" />
-              <label htmlFor="amount" className="text-gray-300">
-                Lock Amount
-              </label>
-            </div>
-            <InputNumbers
-              id="amount"
-              label="Lock Amount"
-              placeholder="Enter amount"
-              onChange={handleAmountChange}
-            />
+            <InputNumbers id="amount" label="Lock Amount" placeholder="Enter amount" onChange={handleAmountChange} />
           </div>
 
           <div>
             <div className="flex items-center space-x-2 mb-2">
-              <FaClock className="text-gray-400" />
               <label htmlFor="targetTick" className="text-gray-300">
                 Target Tick
               </label>
