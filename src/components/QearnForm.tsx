@@ -69,7 +69,7 @@ const QearnForm: React.FC = () => {
             {errors.targetTick && <p className="text-red-500 text-sm">{errors.targetTick.message}</p>}
           </div>
 
-          <Button label="Lock" className="w-full" type="submit"/>
+          <Button label="Lock" className="w-full" type="submit" primary={true} />
         </form>
       </div>
     </Card>

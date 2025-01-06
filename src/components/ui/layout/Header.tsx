@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import ConnectLink from '../../connect/ConnectLink';
+import WalletInfoLabel from '@/components/WalletInfoLabel';
 
 interface HeaderProps {
   logo?: string;
@@ -15,6 +16,7 @@ const Header = ({ logo = '/qubic.svg' }: HeaderProps): JSX.Element => {
       </div>
 
       <div className="flex items-center gap-2">
+        <WalletInfoLabel />
         <ConnectLink />
       </div>
     </div>

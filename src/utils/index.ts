@@ -1,4 +1,5 @@
 import { REWARD_DATA } from '@/data/contants';
+import { toast } from 'react-hot-toast';
 
 // format number input to 100,000,000 format
 export const formatQubicAmount = (amount: number, seperator = ',') => {
@@ -14,6 +15,11 @@ export const truncateMiddle = (str: string, charsToRemove: number) => {
   const end = start + charsToRemove;
 
   return str.slice(0, start) + '...' + str.slice(end);
+};
+
+export const copyText = (text: string) => {
+  navigator.clipboard.writeText(text);
+  toast.success('Copied to clipboard');
 };
 
 export const sumArray = (arr: any[]) => arr.reduce((acc, curr) => acc + curr, 0);

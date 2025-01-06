@@ -11,7 +11,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <QubicConnectProvider>
         <RouterProvider router={router} />
-        <Toaster />
+        <Toaster position="top-right" />
       </QubicConnectProvider>
     </QueryClientProvider>
   );
