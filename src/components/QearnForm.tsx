@@ -11,6 +11,7 @@ import { lockQubic } from '@/services/qearn.service';
 import { broadcastTx, fetchBalance } from '@/services/rpc.service';
 import { FaLock, FaWallet, FaClock } from 'react-icons/fa';
 import { toast } from 'react-hot-toast';
+import InputNumbers from './ui/InputNumbers';
 
 const QearnForm: React.FC = () => {
   const [tickInfo] = useAtom(tickInfoAtom);
@@ -92,8 +93,8 @@ const QearnForm: React.FC = () => {
     }
   };
 
-  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ ...prev, amount: e.target.value }));
+  const handleAmountChange = (value: string) => {
+    setFormData((prev) => ({ ...prev, amount: value }));
   };
 
   return (
@@ -120,12 +121,10 @@ const QearnForm: React.FC = () => {
                 Lock Amount
               </label>
             </div>
-            <input
+            <InputNumbers
               id="amount"
-              type="number"
-              className="w-full p-4 bg-gray-80 border-2 border-gray-70 text-white rounded-lg placeholder-gray-500 focus:border-primary transition-colors outline-none"
+              label="Lock Amount"
               placeholder="Enter amount"
-              value={formData.amount}
               onChange={handleAmountChange}
             />
           </div>
