@@ -12,8 +12,8 @@ const Layout: React.FC = () => {
       <div className="absolute bottom-10 right-10">
         <FaCoins className="text-[240px] text-white opacity-20" />
       </div>
-      <div className="flex-1 pt-[80px]">
-        <div className="p-4">
+      <div className="flex flex-1 pt-[80px]">
+        <div className="p-4 flex-1">
           <Outlet />
         </div>
         <Fetcher />

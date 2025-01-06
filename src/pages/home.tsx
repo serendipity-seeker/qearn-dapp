@@ -1,11 +1,11 @@
+import AccountInfo from '@/components/AccountInfo';
 import QearnForm from '@/components/QearnForm';
-import TickInfoCard from '@/components/TickInfoCard';
 
 const Home: React.FC = () => {
   return (
-    <div className="flex flex-col gap-4">
-      <TickInfoCard />
+    <div className="flex flex-col gap-4 justify-center">
       <QearnForm />
+      <AccountInfo />
     </div>
   );
 };
