@@ -89,7 +89,7 @@ export function WalletConnectProvider({ children }: WalletConnectProviderProps) 
 
     return await signClient.request({
       topic: sessionTopic,
-      chainId: 'qubic:mainnet',
+      chainId: 'qubic:main',
       request: {
         method: 'qubic_sendQubic',
         params: {
@@ -105,7 +105,7 @@ export function WalletConnectProvider({ children }: WalletConnectProviderProps) 
 
     return await signClient.request({
       topic: sessionTopic,
-      chainId: 'qubic:mainnet',
+      chainId: 'qubic:main',
       request: {
         method: 'qubic_signTransaction',
         params: {
@@ -121,7 +121,7 @@ export function WalletConnectProvider({ children }: WalletConnectProviderProps) 
 
     return await signClient.request({
       topic: sessionTopic,
-      chainId: 'qubic:mainnet',
+      chainId: 'qubic:main',
       request: {
         method: 'qubic_sign',
         params,
