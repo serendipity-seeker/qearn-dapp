@@ -3,6 +3,7 @@ import { QubicHelper } from '@qubic-lib/qubic-ts-library/dist/qubicHelper';
 import Crypto from '@qubic-lib/qubic-ts-library/dist/crypto';
 import { MetaMaskProvider } from './MetamaskContext';
 import { connectTypes, defaultSnapOrigin } from './config';
+import { WalletConnectProvider } from './WalletConnectContext';
 
 interface Wallet {
   connectType: string;
@@ -141,9 +142,11 @@ export function QubicConnectProvider({ children }: QubicConnectProviderProps) {
   };
 
   return (
-    <MetaMaskProvider>
-      <QubicConnectContext.Provider value={contextValue}>{children}</QubicConnectContext.Provider>
-    </MetaMaskProvider>
+    <WalletConnectProvider>
+      <MetaMaskProvider>
+        <QubicConnectContext.Provider value={contextValue}>{children}</QubicConnectContext.Provider>
+      </MetaMaskProvider>
+    </WalletConnectProvider>
   );
 }
 
