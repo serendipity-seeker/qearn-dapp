@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 // @ts-ignore
 import { QubicVault } from '@qubic-lib/qubic-ts-vault-library';
 // @ts-ignore
@@ -41,7 +41,7 @@ const ConnectModal = ({ open, onClose }: { open: boolean; onClose: () => void })
   // WC
   const [qrCode, setQrCode] = useState<string>('');
   const [connectionURI, setConnectionURI] = useState<string>('');
-  const { connect: walletConnectConnect, approve } = useWalletConnect();
+  const { connect: walletConnectConnect, isConnected, requestAccounts } = useWalletConnect();
   /**
    * Connect with private seed
    */
@@ -91,11 +91,33 @@ const ConnectModal = ({ open, onClose }: { open: boolean; onClose: () => void })
    * Connect with WalletConnect
    */
   const generateURI = async () => {
-    const uri = await walletConnectConnect();
+    const { uri, approve } = await walletConnectConnect();
     setConnectionURI(uri);
     const result = await generateQRCode(uri);
     setQrCode(result);
+    await approve();
   };
+
+  const wcConnect = async () => {
+    try {
+      const accounts = await requestAccounts();
+      const wallet = {
+        connectType: 'walletconnect',
+        publicKey: accounts[0].address,
+      };
+      connect(wallet);
+      setSelectedMode('none');
+      onClose();
+    } catch (error) {
+      console.error('Failed to connect with WalletConnect:', error);
+    }
+  };
+
+  useEffect(() => {
+    if (isConnected) {
+      wcConnect();
+    }
+  }, [isConnected]);
 
   // check if input is valid seed (55 chars and only lowercase letters)
   const privateKeyValidate = (pk: string) => {
@@ -199,7 +221,6 @@ const ConnectModal = ({ open, onClose }: { open: boolean; onClose: () => void })
                       onClick={() => {
                         setSelectedMode('walletconnect');
                         generateURI();
-                        approve();
                       }}
                     >
                       <img src="https://walletconnect.com/walletconnect-logo.png" alt="Wallet Connect Logo" className="w-6 h-6" />

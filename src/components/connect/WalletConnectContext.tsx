@@ -1,14 +1,15 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import SignClient from '@walletconnect/sign-client';
+import { WalletConnectAccount } from './types/account';
 
 interface WalletConnectContextType {
   signClient: SignClient | null;
   sessionTopic: string;
   isConnecting: boolean;
   isConnected: boolean;
-  connect: () => Promise<string>;
-  approve: () => Promise<void>;
+  connect: () => Promise<{ uri: string; approve: () => Promise<void> }>;
   disconnect: () => Promise<void>;
+  requestAccounts: () => Promise<WalletConnectAccount[]>;
   sendQubic: (params: { fromID: string; toID: string; amount: string }) => Promise<any>;
   signTransaction: (params: { fromID: string; toID: string; amount: string; tick: number; inputType: string; payload: string }) => Promise<any>;
   signMessage: (params: { fromID: string; message: string }) => Promise<any>;
@@ -25,13 +26,12 @@ export function WalletConnectProvider({ children }: WalletConnectProviderProps) 
   const [sessionTopic, setSessionTopic] = useState<string>('');
   const [isConnecting, setIsConnecting] = useState<boolean>(false);
   const [isConnected, setIsConnected] = useState<boolean>(false);
-  const [approval, setApproval] = useState<(() => Promise<any>) | null>(null);
 
   const connect = async () => {
-    if (!signClient) return '';
+    if (!signClient) return { uri: '', approve: async () => {} };
     setIsConnecting(true);
     try {
-      const { uri, approval: approvalPromise } = await signClient.connect({
+      const { uri, approval } = await signClient.connect({
         requiredNamespaces: {
           qubic: {
             chains: ['qubic:main'],
@@ -41,29 +41,26 @@ export function WalletConnectProvider({ children }: WalletConnectProviderProps) 
         },
       });
 
-      setApproval(() => approvalPromise);
       console.log('Generated URL:', uri);
-      return uri;
+
+      const approve = async () => {
+        try {
+          const session = await approval();
+          console.log('Connection approved', session);
+          setSessionTopic(session.topic);
+          setIsConnected(true);
+          localStorage.setItem('sessionTopic', session.topic);
+        } catch (e) {
+          console.error('Connection rejected:', e);
+        }
+      };
+
+      return { uri: uri || '', approve };
     } catch (error) {
       console.error('Failed to connect:', error);
-      return '';
+      return { uri: '', approve: async () => {} };
     } finally {
       setIsConnecting(false);
-    }
-  };
-
-  const approve = async () => {
-    if (!approval) return;
-    try {
-      const session = await approval();
-      console.log('Connection approved', session);
-      setSessionTopic(session.topic);
-      setIsConnected(true);
-      localStorage.setItem('sessionTopic', session.topic);
-    } catch (e) {
-      console.error('Connection rejected:', e);
-    } finally {
-      setApproval(null);
     }
   };
 
@@ -81,6 +78,28 @@ export function WalletConnectProvider({ children }: WalletConnectProviderProps) 
       localStorage.removeItem('sessionTopic');
     } catch (error) {
       console.error('Failed to disconnect:', error);
+    }
+  };
+
+  const requestAccounts = async () => {
+    if (!signClient || !sessionTopic) throw new Error('Not connected');
+
+    try {
+      const result = await signClient.request({
+        topic: sessionTopic,
+        chainId: 'qubic:main',
+        request: {
+          method: 'qubic_requestAccounts',
+          params: {
+            nonce: Date.now().toString(),
+          },
+        },
+      });
+      console.log('Requested accounts:', result);
+      return result as WalletConnectAccount[];
+    } catch (error) {
+      console.error('Failed to request accounts:', error);
+      throw error;
     }
   };
 
@@ -172,8 +191,8 @@ export function WalletConnectProvider({ children }: WalletConnectProviderProps) 
     isConnecting,
     isConnected,
     connect,
-    approve,
     disconnect,
+    requestAccounts,
     sendQubic,
     signTransaction,
     signMessage,
