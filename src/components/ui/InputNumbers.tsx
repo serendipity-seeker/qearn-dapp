@@ -1,5 +1,6 @@
 import React, { useState, forwardRef, useImperativeHandle, ChangeEvent } from 'react';
 import LabelWithPopover from './LabelWithPopover';
+import { formatQubicAmount } from '@/utils';
 
 interface InputNumbersProps {
   id: string;
@@ -18,8 +19,8 @@ const InputNumbers = forwardRef<InputNumbersRef, InputNumbersProps>(({ id, label
   const [error, setError] = useState<string>('');
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value;
-    setValue(newValue);
+    const newValue = e.target.value.replace(/,/g, '');
+    setValue(formatQubicAmount(Number(newValue)));
     if (newValue === '') {
       setError('This field is required');
     } else {
@@ -49,7 +50,7 @@ const InputNumbers = forwardRef<InputNumbersRef, InputNumbersProps>(({ id, label
       )}
       <input
         id={id}
-        type="number"
+        type="text"
         className={`w-full p-4 bg-gray-80 border border-gray-70 text-white rounded-lg placeholder-gray-500 ${error && 'border-red-500'}`}
         placeholder={placeholder}
         value={value}

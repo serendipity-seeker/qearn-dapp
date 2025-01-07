@@ -1,5 +1,6 @@
 import { REWARD_DATA } from '@/data/contants';
 import { toast } from 'react-hot-toast';
+import QRCode from 'qrcode';
 
 // format number input to 100,000,000 format
 export const formatQubicAmount = (amount: number, seperator = ',') => {
@@ -94,7 +95,6 @@ export const createPayload = (data: ICreatePayload[]) => {
   return new Uint8Array(buffer);
 };
 
-
 export const calculateRewards = (lockAmount: number, totalLockedAmount: number, currentBonusAmount: number, yieldPercentage: number, currentEpoch: number, lockedEpoch: number) => {
   const fullUnlockPercent = yieldPercentage / 100000;
   const fullUnlockReward = currentBonusAmount * (lockAmount / totalLockedAmount);
@@ -108,4 +108,13 @@ export const calculateRewards = (lockAmount: number, totalLockedAmount: number, 
     fullUnlockReward,
     fullUnlockRewardRatio: fullUnlockPercent,
   };
+};
+
+export const generateQRCode = async (text: string) => {
+  try {
+    const qrCodeDataURL = await QRCode.toDataURL(text);
+    return qrCodeDataURL;
+  } catch (err) {
+    console.error('Failed to generate QR code', err);
+  }
 };
