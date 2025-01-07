@@ -1,3 +1,4 @@
+import { copyText } from '@/utils';
 import React, { useState } from 'react';
 
 interface Option {
@@ -25,7 +26,7 @@ const Dropdown: React.FC<DropdownProps> = ({ label, options, selected, setSelect
         <span className="text-primary-40 font-space cursor-pointer">{label}</span>
         <span className="ml-2 text-primary-40">▼</span>
       </div>
-      {options[selected] && <span className="mt-1 text-grey-400">{options[selected].label}</span>}
+      {options[selected] && <span className="mt-1 text-grey-400 cursor-pointer" onClick={() => copyText(options[selected].value)}>{options[selected].label}</span>}
       {isDropdownOpen && (
         <div className="absolute mt-2 bg-white border border-gray-300 rounded shadow-lg">
           {options.map((option, index) => (
