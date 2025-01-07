@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 // @ts-ignore
 import { QubicVault } from '@qubic-lib/qubic-ts-vault-library';
 // @ts-ignore
@@ -13,6 +13,8 @@ import { connectSnap, getSnap } from './utils';
 import { Account } from './types';
 import { MetaMaskTypo } from './MetaMaskTypo';
 import { MetaMaskLogo } from './MetaMaskLogo';
+import { useWalletConnect } from './WalletConnectContext.tsx';
+import { generateQRCode } from '@/utils/index.ts';
 
 export enum MetamaskActions {
   SetInstalled = 'SetInstalled',
@@ -36,7 +38,10 @@ const ConnectModal = ({ open, onClose }: { open: boolean; onClose: () => void })
   // account selection
   const [accounts, setAccounts] = useState<Account[]>([]);
   const [selectedAccount, setSelectedAccount] = useState(0);
-
+  // WC
+  const [qrCode, setQrCode] = useState<string>('');
+  const [connectionURI, setConnectionURI] = useState<string>('');
+  const { connect: walletConnectConnect, isConnected, requestAccounts } = useWalletConnect();
   /**
    * Connect with private seed
    */
@@ -80,6 +85,39 @@ const ConnectModal = ({ open, onClose }: { open: boolean; onClose: () => void })
       });
     }
   };
+
+  /**
+   *
+   * Connect with WalletConnect
+   */
+  const generateURI = async () => {
+    const { uri, approve } = await walletConnectConnect();
+    setConnectionURI(uri);
+    const result = await generateQRCode(uri);
+    setQrCode(result);
+    await approve();
+  };
+
+  const wcConnect = async () => {
+    try {
+      const accounts = await requestAccounts();
+      const wallet = {
+        connectType: 'walletconnect',
+        publicKey: accounts[0].address,
+      };
+      connect(wallet);
+      setSelectedMode('none');
+      onClose();
+    } catch (error) {
+      console.error('Failed to connect with WalletConnect:', error);
+    }
+  };
+
+  useEffect(() => {
+    if (isConnected) {
+      wcConnect();
+    }
+  }, [isConnected]);
 
   // check if input is valid seed (55 chars and only lowercase letters)
   const privateKeyValidate = (pk: string) => {
@@ -178,6 +216,16 @@ const ConnectModal = ({ open, onClose }: { open: boolean; onClose: () => void })
                       <MetaMaskLogo />
                       <MetaMaskTypo color="black" />
                     </button>
+                    <button
+                      className="bg-primary-40 p-3 rounded-lg text-black flex items-center justify-center gap-3 disabled:bg-gray-40"
+                      onClick={() => {
+                        generateURI();
+                        setSelectedMode('walletconnect');
+                      }}
+                    >
+                      <img src="https://raw.githubusercontent.com/WalletConnect/walletconnect-assets/refs/heads/master/Logo/Black/Logo.svg" alt="Wallet Connect Logo" className="w-8 h-8" />
+                      Wallet Connect
+                    </button>
                     <div className="flex items-center justify-center w-full my-4">
                       <div className="flex-grow border-t border-gray-300"></div>
                       <span className="px-4 text-red text-">⚠️ BE CAREFUL!</span>
@@ -258,6 +306,21 @@ const ConnectModal = ({ open, onClose }: { open: boolean; onClose: () => void })
                 Connect your MetaMask wallet. You need to have MetaMask installed and unlocked.
                 <div className="flex flex-col gap-2 mt-5">
                   <HeaderButtons state={state} onConnectClick={() => mmSnapConnect()} />
+                  <button className="bg-[rgba(26,222,245,0.1)] p-3 rounded-lg text-primary-40" onClick={() => setSelectedMode('none')}>
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {selectedMode === 'walletconnect' && (
+              <div className="text-[rgba(128,139,155,1)] mt-4">
+                Connect your Qubic Wallet. You need to have Qubic Wallet installed and unlocked.
+                <div className="flex flex-col gap-2 mt-5">
+                  <img src={qrCode} alt="Wallet Connect QR Code" className="mx-auto w-54 h-54" />
+                  <button onClick={() => window.open(`qubic-wallet://pairwc/${connectionURI}`, '_blank')} className="bg-primary-40 p-3 rounded-lg text-black flex items-center justify-center gap-3 disabled:bg-gray-40">
+                    Open in Qubic Wallet
+                  </button>
                   <button className="bg-[rgba(26,222,245,0.1)] p-3 rounded-lg text-primary-40" onClick={() => setSelectedMode('none')}>
                     Cancel
                   </button>
