@@ -14,7 +14,7 @@ const Fetcher: React.FC = () => {
   const epoch = useRef<number>(tickInfo?.epoch || 142);
   const [, setQearnStats] = useAtom(qearnStatsAtom);
 
-  // Fetch tick info every 1 second
+  // Fetch tick info every 2 second
   useEffect(() => {
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
@@ -26,7 +26,7 @@ const Fetcher: React.FC = () => {
         setTickInfo(data);
         epoch.current = data.epoch;
       }
-    }, 1000);
+    }, 2000);
 
     return () => {
       if (intervalRef.current) {

@@ -11,7 +11,15 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <QubicConnectProvider>
         <RouterProvider router={router} />
-        <Toaster position="top-right" />
+        <Toaster
+          position="top-right"
+          toastOptions={{
+            style: {
+              background: '#202E3C',
+              color: '#fff',
+            },
+          }}
+        />
       </QubicConnectProvider>
     </QueryClientProvider>
   );

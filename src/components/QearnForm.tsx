@@ -4,16 +4,21 @@ import Button from './ui/Button';
 import Dropdown from './ui/Dropdown';
 import { tickInfoAtom } from '@/store/tickInfo';
 import { settingsAtom } from '@/store/settings';
-import { useEffect, useState, useMemo, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { truncateMiddle } from '@/utils';
 import { useQubicConnect } from './connect/QubicConnectContext';
+import { lockQubic } from '@/services/qearn.service';
+import { broadcastTx, fetchBalance } from '@/services/rpc.service';
+import { FaLock } from 'react-icons/fa';
+import { toast } from 'react-hot-toast';
+import InputNumbers from './ui/InputNumbers';
 
 const QearnForm: React.FC = () => {
   const [tickInfo] = useAtom(tickInfoAtom);
   const [settings] = useAtom(settingsAtom);
   const [selectedAccount, setSelectedAccount] = useState(0);
   const [accounts, setAccounts] = useState<{ label: string; value: string }[]>([]);
-  const { wallet } = useQubicConnect();
+  const { wallet, getSignedTx } = useQubicConnect();
 
   useEffect(() => {
     if (wallet) {
@@ -36,76 +41,103 @@ const QearnForm: React.FC = () => {
         }));
       }
     }
-  }, [tickInfo?.tick, settings.tickOffset]); // Only depend on the specific values we use
+  }, [tickInfo?.tick, settings.tickOffset]);
 
-  const handleSubmit = useCallback(
-    (e: React.FormEvent) => {
-      e.preventDefault();
+  const validateForm = async (): Promise<boolean> => {
+    if (!formData.amount || !formData.targetTick) {
+      toast.error('All fields must be filled');
+      return false;
+    }
 
-      const isAmountValid = formData.amount !== '';
-      const isTargetTickValid = formData.targetTick !== '';
+    const amount = Number(formData.amount);
+    const targetTick = Number(formData.targetTick);
+    const currentTick = tickInfo?.tick || 0;
+    const walletBalance = (await fetchBalance(accounts[selectedAccount].value)) || 0;
 
-      if (isAmountValid && isTargetTickValid) {
-        console.log({
-          account: accounts[selectedAccount]?.value || '',
-          amount: Number(formData.amount),
-          targetTick: Number(formData.targetTick),
-        });
-      }
-    },
-    [formData, accounts, selectedAccount]
-  );
+    if (amount > walletBalance.balance) {
+      toast.error('Amount exceeds wallet balance');
+      return false;
+    }
 
-  const handleAmountChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ ...prev, amount: e.target.value }));
-  }, []);
+    if (amount < 10_000_000) {
+      toast.error('Amount must be at least 10M');
+      return false;
+    }
 
-  const memoizedForm = useMemo(
-    () => (
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="space-y-2">
-          <Dropdown label="Select Account" options={accounts} selected={selectedAccount} setSelected={setSelectedAccount} />
-        </div>
+    if (targetTick <= currentTick) {
+      toast.error('Target tick must be greater than current tick');
+      return false;
+    }
 
-        <div>
-          <label htmlFor="amount" className="block text-white mb-2">
-            Lock Amount
-          </label>
-          <input
-            id="amount"
-            type="number"
-            className="w-full p-4 bg-gray-80 border border-gray-70 text-white rounded-lg placeholder-gray-500"
-            placeholder="Enter amount"
-            value={formData.amount}
-            onChange={handleAmountChange}
-          />
-        </div>
+    return true;
+  };
 
-        <div>
-          <label htmlFor="targetTick" className="block text-white mb-2">
-            Target Tick
-          </label>
-          <input
-            id="targetTick"
-            type="number"
-            className="w-full p-4 bg-gray-80 border border-gray-70 text-white rounded-lg placeholder-gray-500"
-            placeholder="Enter target tick"
-            value={formData.targetTick}
-            disabled={true}
-          />
-        </div>
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-        <Button label="Lock" className="w-full" type="submit" primary={true} />
-      </form>
-    ),
-    [accounts, selectedAccount, formData, handleSubmit, handleAmountChange]
-  );
+    if (!(await validateForm())) {
+      return;
+    }
+
+    try {
+      const tx = await lockQubic(accounts[selectedAccount].value, Number(formData.amount), Number(formData.targetTick));
+      // temp build for getting uint8array type of tx because QubicTransaction doesn't return uint8array before it is built
+      const tmpTx = await tx?.build('0'.repeat(55))!;
+      // 64 is the length of the signature
+      const { tx: signedTx } = await getSignedTx(tmpTx, tmpTx.length - 64);
+
+      const res = await broadcastTx(signedTx);
+      console.log(await res.json());
+    } catch (err) {
+      toast.error('Transaction failed');
+    }
+  };
+
+  const handleAmountChange = (value: string) => {
+    setFormData((prev) => ({ ...prev, amount: value }));
+  };
 
   return (
-    <Card className="max-w-lg p-6">
-      <div className="space-y-4">
-        <h1 className="text-3xl text-center">Qearn</h1>
-        {memoizedForm}
+    <Card className="w-full max-w-lg p-8 bg-gradient-to-br from-gray-90 to-gray-80">
+      <div className="space-y-6">
+        <div className="flex items-center justify-center space-x-3">
+          <FaLock className="text-3xl text-primary" />
+          <h1 className="text-4xl text-center">Qearn</h1>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="space-y-2">
+            <Dropdown label="Select Account" options={accounts} selected={selectedAccount} setSelected={setSelectedAccount} />
+          </div>
+
+          <div>
+            <InputNumbers id="amount" label="Lock Amount" placeholder="Enter amount" onChange={handleAmountChange} />
+          </div>
+
+          <div>
+            <div className="flex items-center space-x-2 mb-2">
+              <label htmlFor="targetTick" className="text-gray-300">
+                Target Tick
+              </label>
+            </div>
+            <input
+              id="targetTick"
+              type="number"
+              className="w-full p-4 bg-gray-80 border-2 border-gray-70 text-white rounded-lg placeholder-gray-500 cursor-not-allowed opacity-75"
+              placeholder="Enter target tick"
+              value={formData.targetTick}
+              disabled={true}
+            />
+          </div>
+
+          <Button
+            label="Lock Funds"
+            className="w-full py-4 text-lg font-semibold transition-transform hover:scale-[1.02] active:scale-[0.98]"
+            type="submit"
+            primary={true}
+            icon={<FaLock className="mr-2" />}
+          />
+        </form>
       </div>
     </Card>
   );
