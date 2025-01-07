@@ -15,7 +15,6 @@ import { MetaMaskTypo } from './MetaMaskTypo';
 import { MetaMaskLogo } from './MetaMaskLogo';
 import { useWalletConnect } from './WalletConnectContext.tsx';
 import { generateQRCode } from '@/utils/index.ts';
-import Button from '../ui/Button.tsx';
 
 export enum MetamaskActions {
   SetInstalled = 'SetInstalled',
@@ -295,7 +294,7 @@ const ConnectModal = ({ open, onClose }: { open: boolean; onClose: () => void })
 
             {selectedMode === 'walletconnect' && (
               <div className="text-[rgba(128,139,155,1)] mt-4">
-                Connect your WalletConnect wallet. You need to have WalletConnect installed and unlocked.
+                Connect your Qubic Wallet. You need to have Qubic Wallet installed and unlocked.
                 <div className="flex flex-col gap-2 mt-5">
                   <img src={qrCode} alt="Wallet Connect QR Code" className="mx-auto w-54 h-54" />
                   <a href={`qubic-wallet://pairwc/${connectionURI}`} target="_blank" className="bg-primary-40 p-3 rounded-lg text-black flex items-center justify-center gap-3 disabled:bg-gray-40">
