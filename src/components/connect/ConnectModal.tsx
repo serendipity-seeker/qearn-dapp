@@ -13,6 +13,9 @@ import { connectSnap, getSnap } from './utils';
 import { Account } from './types';
 import { MetaMaskTypo } from './MetaMaskTypo';
 import { MetaMaskLogo } from './MetaMaskLogo';
+import { useWalletConnect } from './WalletConnectContext.tsx';
+import { generateQRCode } from '@/utils/index.ts';
+import Button from '../ui/Button.tsx';
 
 export enum MetamaskActions {
   SetInstalled = 'SetInstalled',
@@ -36,7 +39,10 @@ const ConnectModal = ({ open, onClose }: { open: boolean; onClose: () => void })
   // account selection
   const [accounts, setAccounts] = useState<Account[]>([]);
   const [selectedAccount, setSelectedAccount] = useState(0);
-
+  // WC
+  const [qrCode, setQrCode] = useState<string>('');
+  const [connectionURI, setConnectionURI] = useState<string>('');
+  const { connect: walletConnectConnect, approve } = useWalletConnect();
   /**
    * Connect with private seed
    */
@@ -79,6 +85,17 @@ const ConnectModal = ({ open, onClose }: { open: boolean; onClose: () => void })
         payload: error,
       });
     }
+  };
+
+  /**
+   *
+   * Connect with WalletConnect
+   */
+  const generateURI = async () => {
+    const uri = await walletConnectConnect();
+    setConnectionURI(uri);
+    const result = await generateQRCode(uri);
+    setQrCode(result);
   };
 
   // check if input is valid seed (55 chars and only lowercase letters)
@@ -178,6 +195,17 @@ const ConnectModal = ({ open, onClose }: { open: boolean; onClose: () => void })
                       <MetaMaskLogo />
                       <MetaMaskTypo color="black" />
                     </button>
+                    <button
+                      className="bg-primary-40 p-4 mt-4 rounded-lg flex items-center justify-center gap-3"
+                      onClick={() => {
+                        setSelectedMode('walletconnect');
+                        generateURI();
+                        approve();
+                      }}
+                    >
+                      <img src="https://walletconnect.com/walletconnect-logo.png" alt="Wallet Connect Logo" className="w-6 h-6" />
+                      Wallet Connect
+                    </button>
                     <div className="flex items-center justify-center w-full my-4">
                       <div className="flex-grow border-t border-gray-300"></div>
                       <span className="px-4 text-red text-">⚠️ BE CAREFUL!</span>
@@ -258,6 +286,21 @@ const ConnectModal = ({ open, onClose }: { open: boolean; onClose: () => void })
                 Connect your MetaMask wallet. You need to have MetaMask installed and unlocked.
                 <div className="flex flex-col gap-2 mt-5">
                   <HeaderButtons state={state} onConnectClick={() => mmSnapConnect()} />
+                  <button className="bg-[rgba(26,222,245,0.1)] p-3 rounded-lg text-primary-40" onClick={() => setSelectedMode('none')}>
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {selectedMode === 'walletconnect' && (
+              <div className="text-[rgba(128,139,155,1)] mt-4">
+                Connect your WalletConnect wallet. You need to have WalletConnect installed and unlocked.
+                <div className="flex flex-col gap-2 mt-5">
+                  <img src={qrCode} alt="Wallet Connect QR Code" className="mx-auto w-54 h-54" />
+                  <a href={`qubic-wallet://pairwc/${connectionURI}`} target="_blank" className="bg-primary-40 p-3 rounded-lg text-black flex items-center justify-center gap-3 disabled:bg-gray-40">
+                    Open in Qubic Wallet
+                  </a>
                   <button className="bg-[rgba(26,222,245,0.1)] p-3 rounded-lg text-primary-40" onClick={() => setSelectedMode('none')}>
                     Cancel
                   </button>
