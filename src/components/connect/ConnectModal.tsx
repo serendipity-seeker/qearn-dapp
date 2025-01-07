@@ -15,7 +15,6 @@ import { MetaMaskTypo } from './MetaMaskTypo';
 import { MetaMaskLogo } from './MetaMaskLogo';
 import { useWalletConnect } from './WalletConnectContext.tsx';
 import { generateQRCode } from '@/utils/index.ts';
-import { WCLogo } from './WCLogo.tsx';
 
 export enum MetamaskActions {
   SetInstalled = 'SetInstalled',
