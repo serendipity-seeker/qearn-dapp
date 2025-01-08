@@ -6,6 +6,7 @@ import { PublicKey } from '@qubic-lib/qubic-ts-library/dist/qubic-types/PublicKe
 import { Long } from '@qubic-lib/qubic-ts-library/dist/qubic-types/Long';
 import { DynamicPayload } from '@qubic-lib/qubic-ts-library/dist/qubic-types/DynamicPayload';
 import { Signature } from '@qubic-lib/qubic-ts-library/dist/qubic-types/Signature';
+import { PUBLIC_KEY_LENGTH, SIGNATURE_LENGTH } from '@qubic-lib/qubic-ts-library/dist/crypto';
 
 // format number input to 100,000,000 format
 export const formatQubicAmount = (amount: number, seperator = ',') => {
@@ -58,17 +59,17 @@ export const createDataView = (size: number): { buffer: ArrayBuffer; view: DataV
 
 export const decodeUint8ArrayTx = (tx: Uint8Array) => {
   const new_tx = new QubicTransaction();
-  const inputSize = Number(tx.slice(78, 80));
-  const payloadStart = 80;
+  const inputSize = Number(tx.slice(PUBLIC_KEY_LENGTH * 2 + 14, PUBLIC_KEY_LENGTH * 2 + 16));
+  const payloadStart = PUBLIC_KEY_LENGTH * 2 + 16;
   const payloadEnd = payloadStart + inputSize;
-  const signatureEnd = payloadEnd + 64;
+  const signatureEnd = payloadEnd + SIGNATURE_LENGTH;
 
   new_tx
-    .setSourcePublicKey(new PublicKey(tx.slice(0, 32)))
-    .setDestinationPublicKey(new PublicKey(tx.slice(32, 64)))
-    .setAmount(new Long(tx.slice(64, 72)))
-    .setTick(Number(tx.slice(72, 76)))
-    .setInputType(Number(tx.slice(76, 78)))
+    .setSourcePublicKey(new PublicKey(tx.slice(0, PUBLIC_KEY_LENGTH)))
+    .setDestinationPublicKey(new PublicKey(tx.slice(PUBLIC_KEY_LENGTH, PUBLIC_KEY_LENGTH * 2)))
+    .setAmount(new Long(tx.slice(PUBLIC_KEY_LENGTH * 2, PUBLIC_KEY_LENGTH * 2 + 8)))
+    .setTick(Number(tx.slice(PUBLIC_KEY_LENGTH * 2 + 8, PUBLIC_KEY_LENGTH * 2 + 12)))
+    .setInputType(Number(tx.slice(PUBLIC_KEY_LENGTH * 2 + 12, PUBLIC_KEY_LENGTH * 2 + 14)))
     .setInputSize(inputSize);
 
   const payload = new DynamicPayload(inputSize);
