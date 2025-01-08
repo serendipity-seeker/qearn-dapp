@@ -6,7 +6,6 @@ import { connectTypes, defaultSnapOrigin } from './config';
 import { useWalletConnect } from './WalletConnectContext';
 import { QubicTransaction } from '@qubic-lib/qubic-ts-library/dist/qubic-types/QubicTransaction';
 import { decodeUint8ArrayTx, uint8ArrayToBase64 } from '@/utils';
-import toast from 'react-hot-toast';
 
 interface Wallet {
   connectType: string;
@@ -120,15 +119,16 @@ export function QubicConnectProvider({ children }: QubicConnectProviderProps) {
       if (tx instanceof Uint8Array) {
         tx = decodeUint8ArrayTx(tx);
       }
+      const fromID = await qHelper.getIdentity(tx.sourcePublicKey.getIdentity());
+      const toID = await qHelper.getIdentity(tx.destinationPublicKey.getIdentity());
       const wcResult = await signTransaction({
-        fromID: tx.sourcePublicKey.getIdentityAsSring()!,
-        toID: tx.destinationPublicKey.getIdentityAsSring()!,
-        amount: tx.amount.toString(),
-        tick: tx.tick,
+        fromID: fromID,
+        toID: toID,
+        amount: tx.amount.getNumber().toString(),
+        tick: tx.tick.toString(),
         inputType: tx.inputType.toString(),
         payload: uint8ArrayToBase64(tx.payload.getPackageData()),
       });
-      toast.success(JSON.stringify(wcResult));
       signedtx = new Uint8Array(wcResult.signedTx);
     } else {
       if (tx instanceof QubicTransaction) {
