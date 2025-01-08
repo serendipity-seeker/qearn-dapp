@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import ConnectLink from '../../connect/ConnectLink';
-import WalletInfoLabel from '@/components/WalletInfoLabel';
 import TickInfoLabel from '@/components/TickInfoLabel';
 
 interface HeaderProps {

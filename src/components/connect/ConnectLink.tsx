@@ -3,11 +3,6 @@ import unlocked from '../../assets/unlocked.svg';
 import ConnectModal from './ConnectModal';
 import { useQubicConnect } from './QubicConnectContext';
 
-interface ConnectModalProps {
-  open: boolean;
-  onClose: () => void;
-}
-
 const ConnectLink: React.FC = () => {
   const { connected, showConnectModal, toggleConnectModal } = useQubicConnect();
 

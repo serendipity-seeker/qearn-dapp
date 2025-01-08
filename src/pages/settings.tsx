@@ -30,7 +30,7 @@ const Settings: React.FC = () => {
 
           <div className="space-y-4">
             <Disclosure>
-              {({ open }) => (
+              {({}) => (
                 <>
                   <div className="flex justify-between items-center">
                     <div className="space-y-2">
@@ -53,7 +53,7 @@ const Settings: React.FC = () => {
             </Disclosure>
 
             <Disclosure>
-              {({ open }) => (
+              {({}) => (
                 <>
                   <div className="flex justify-between items-center">
                     <div className="space-y-2">
