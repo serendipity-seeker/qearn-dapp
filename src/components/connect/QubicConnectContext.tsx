@@ -1,9 +1,12 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { QubicHelper } from '@qubic-lib/qubic-ts-library/dist/qubicHelper';
-import Crypto from '@qubic-lib/qubic-ts-library/dist/crypto';
+import Crypto, { SIGNATURE_LENGTH } from '@qubic-lib/qubic-ts-library/dist/crypto';
 import { MetaMaskProvider } from './MetamaskContext';
 import { connectTypes, defaultSnapOrigin } from './config';
-import { WalletConnectProvider } from './WalletConnectContext';
+import { useWalletConnect, WalletConnectProvider } from './WalletConnectContext';
+import { QubicTransaction } from '@qubic-lib/qubic-ts-library/dist/qubic-types/QubicTransaction';
+import { decodeUint8ArrayTx, uint8ArrayToBase64 } from '@/utils';
+import toast from 'react-hot-toast';
 
 interface Wallet {
   connectType: string;
@@ -19,7 +22,7 @@ interface QubicConnectContextType {
   disconnect: () => void;
   toggleConnectModal: () => void;
   getMetaMaskPublicId: (accountIdx?: number, confirm?: boolean) => Promise<string>;
-  getSignedTx: (tx: Uint8Array, offset: number) => Promise<{ tx: Uint8Array; offset: number }>;
+  getSignedTx: (tx: Uint8Array | QubicTransaction) => Promise<{ tx: Uint8Array }>;
 }
 
 const QubicConnectContext = createContext<QubicConnectContextType | undefined>(undefined);
@@ -32,6 +35,7 @@ export function QubicConnectProvider({ children }: QubicConnectProviderProps) {
   const [connected, setConnected] = useState<boolean>(false);
   const [wallet, setWallet] = useState<Wallet | null>(null);
   const [showConnectModal, setShowConnectModal] = useState<boolean>(false);
+  const { signTransaction, signMessage } = useWalletConnect();
 
   const qHelper = new QubicHelper();
 
@@ -93,8 +97,7 @@ export function QubicConnectProvider({ children }: QubicConnectProviderProps) {
       },
     });
   };
-
-  const getSignedTx = async (tx: Uint8Array, offset: number) => {
+  const getSignedTx = async (tx: Uint8Array | QubicTransaction) => {
     if (!wallet || !connectTypes.includes(wallet.connectType)) {
       throw new Error('Unsupported connectType: ' + wallet?.connectType);
     }
@@ -102,31 +105,53 @@ export function QubicConnectProvider({ children }: QubicConnectProviderProps) {
     let signedtx: Uint8Array | null = null;
 
     if (wallet.connectType === 'mmSnap') {
-      const mmResult = await getMetaMaskSignedTx(tx, offset);
+      // MetaMask need uint8Array tx to sign
+      if (tx instanceof QubicTransaction) {
+        tx = await tx.build('0'.repeat(55));
+      }
+      const mmResult = await getMetaMaskSignedTx(tx, tx.length - SIGNATURE_LENGTH);
       const binaryTx = atob(mmResult.signedTx);
       signedtx = new Uint8Array(binaryTx.length);
       for (let i = 0; i < binaryTx.length; i++) {
         signedtx[i] = binaryTx.charCodeAt(i);
       }
+    } else if (wallet.connectType === 'walletconnect') {
+      // WalletConnect need decoded tx to sign
+      if (tx instanceof Uint8Array) {
+        tx = decodeUint8ArrayTx(tx);
+      }
+      const wcResult = await signTransaction({
+        fromID: tx.sourcePublicKey.getIdentityAsSring()!,
+        toID: tx.destinationPublicKey.getIdentityAsSring()!,
+        amount: tx.amount.toString(),
+        tick: tx.tick,
+        inputType: tx.inputType.toString(),
+        payload: uint8ArrayToBase64(tx.payload.getPackageData()),
+      });
+      toast.success(JSON.stringify(wcResult));
+      signedtx = new Uint8Array(wcResult.signedTx);
     } else {
+      if (tx instanceof QubicTransaction) {
+        tx = await tx.build('0'.repeat(55));
+      }
       const qCrypto = await Crypto;
       if (!wallet.privateKey) throw new Error('Private key required');
       const idPackage = await qHelper.createIdPackage(wallet.privateKey);
-      const digest = new Uint8Array(64);
-      const toSign = tx.slice(0, offset);
+      const digest = new Uint8Array(SIGNATURE_LENGTH);
+      const toSign = tx.slice(0, tx.length - SIGNATURE_LENGTH);
 
-      qCrypto.K12(toSign, digest, 64);
+      qCrypto.K12(toSign, digest, SIGNATURE_LENGTH);
       signedtx = qCrypto.schnorrq.sign(idPackage.privateKey, idPackage.publicKey, digest);
     }
-
+    if (tx instanceof QubicTransaction) {
+      tx = await tx.build('0'.repeat(55));
+    }
     if (signedtx) {
-      tx.set(signedtx, offset);
-      offset += 64;
+      tx.set(signedtx, tx.length - SIGNATURE_LENGTH);
     }
 
     return {
       tx,
-      offset,
     };
   };
 
@@ -142,11 +167,9 @@ export function QubicConnectProvider({ children }: QubicConnectProviderProps) {
   };
 
   return (
-    <WalletConnectProvider>
-      <MetaMaskProvider>
-        <QubicConnectContext.Provider value={contextValue}>{children}</QubicConnectContext.Provider>
-      </MetaMaskProvider>
-    </WalletConnectProvider>
+    <MetaMaskProvider>
+      <QubicConnectContext.Provider value={contextValue}>{children}</QubicConnectContext.Provider>
+    </MetaMaskProvider>
   );
 }
 
