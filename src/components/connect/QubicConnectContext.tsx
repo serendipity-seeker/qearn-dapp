@@ -3,7 +3,7 @@ import { QubicHelper } from '@qubic-lib/qubic-ts-library/dist/qubicHelper';
 import Crypto, { SIGNATURE_LENGTH } from '@qubic-lib/qubic-ts-library/dist/crypto';
 import { MetaMaskProvider } from './MetamaskContext';
 import { connectTypes, defaultSnapOrigin } from './config';
-import { useWalletConnect, WalletConnectProvider } from './WalletConnectContext';
+import { useWalletConnect } from './WalletConnectContext';
 import { QubicTransaction } from '@qubic-lib/qubic-ts-library/dist/qubic-types/QubicTransaction';
 import { decodeUint8ArrayTx, uint8ArrayToBase64 } from '@/utils';
 import toast from 'react-hot-toast';
@@ -35,7 +35,7 @@ export function QubicConnectProvider({ children }: QubicConnectProviderProps) {
   const [connected, setConnected] = useState<boolean>(false);
   const [wallet, setWallet] = useState<Wallet | null>(null);
   const [showConnectModal, setShowConnectModal] = useState<boolean>(false);
-  const { signTransaction, signMessage } = useWalletConnect();
+  const { signTransaction } = useWalletConnect();
 
   const qHelper = new QubicHelper();
 

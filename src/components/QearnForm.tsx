@@ -84,7 +84,7 @@ const QearnForm: React.FC = () => {
       // temp build for getting uint8array type of tx because QubicTransaction doesn't return uint8array before it is built
       const tmpTx = await tx?.build('0'.repeat(55))!;
       // 64 is the length of the signature
-      const { tx: signedTx } = await getSignedTx(tmpTx, tmpTx.length - 64);
+      const { tx: signedTx } = await getSignedTx(tmpTx);
 
       const res = await broadcastTx(signedTx);
       console.log(await res.json());
