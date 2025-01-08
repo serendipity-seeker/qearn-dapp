@@ -5,7 +5,8 @@ import { MetaMaskProvider } from './MetamaskContext';
 import { connectTypes, defaultSnapOrigin } from './config';
 import { useWalletConnect } from './WalletConnectContext';
 import { QubicTransaction } from '@qubic-lib/qubic-ts-library/dist/qubic-types/QubicTransaction';
-import { decodeUint8ArrayTx, uint8ArrayToBase64 } from '@/utils';
+import { base64ToUint8Array, decodeUint8ArrayTx, uint8ArrayToBase64 } from '@/utils';
+import { DEFAULT_TX_SIZE } from '@/constants';
 
 interface Wallet {
   connectType: string;
@@ -121,7 +122,7 @@ export function QubicConnectProvider({ children }: QubicConnectProviderProps) {
       }
       const fromID = await qHelper.getIdentity(tx.sourcePublicKey.getIdentity());
       const toID = await qHelper.getIdentity(tx.destinationPublicKey.getIdentity());
-      const wcResult = await signTransaction({
+      const wcResult: { transactionId: string; signedTransaction: string; } = await signTransaction({
         fromID: fromID,
         toID: toID,
         amount: tx.amount.getNumber().toString(),
@@ -129,7 +130,7 @@ export function QubicConnectProvider({ children }: QubicConnectProviderProps) {
         inputType: tx.inputType.toString(),
         payload: uint8ArrayToBase64(tx.payload.getPackageData()),
       });
-      signedtx = new Uint8Array(wcResult.signedTx);
+      signedtx = base64ToUint8Array(wcResult.signedTransaction);
     } else {
       if (tx instanceof QubicTransaction) {
         tx = await tx.build('0'.repeat(55));
@@ -143,15 +144,9 @@ export function QubicConnectProvider({ children }: QubicConnectProviderProps) {
       qCrypto.K12(toSign, digest, SIGNATURE_LENGTH);
       signedtx = qCrypto.schnorrq.sign(idPackage.privateKey, idPackage.publicKey, digest);
     }
-    if (tx instanceof QubicTransaction) {
-      tx = await tx.build('0'.repeat(55));
-    }
-    if (signedtx) {
-      tx.set(signedtx, tx.length - SIGNATURE_LENGTH);
-    }
 
     return {
-      tx,
+      tx: signedtx || new Uint8Array(DEFAULT_TX_SIZE),
     };
   };
 
