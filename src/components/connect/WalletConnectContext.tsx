@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import SignClient from '@walletconnect/sign-client';
 import { WalletConnectAccount } from './types/account';
+import toast from 'react-hot-toast';
 
 interface WalletConnectContextType {
   signClient: SignClient | null;
@@ -11,7 +12,7 @@ interface WalletConnectContextType {
   disconnect: () => Promise<void>;
   requestAccounts: () => Promise<WalletConnectAccount[]>;
   sendQubic: (params: { fromID: string; toID: string; amount: string }) => Promise<any>;
-  signTransaction: (params: { fromID: string; toID: string; amount: string; tick: number; inputType: string; payload: string }) => Promise<any>;
+  signTransaction: (params: { fromID: string; toID: string; amount: string; tick: string; inputType: string; payload: string }) => Promise<any>;
   signMessage: (params: { fromID: string; message: string }) => Promise<any>;
 }
 
@@ -119,20 +120,25 @@ export function WalletConnectProvider({ children }: WalletConnectProviderProps) 
     });
   };
 
-  const signTransaction = async (params: { fromID: string; toID: string; amount: string; tick: number; inputType: string; payload: string }) => {
+  const signTransaction = async (params: { fromID: string; toID: string; amount: string; tick: string; inputType: string; payload: string }) => {
     if (!signClient || !sessionTopic) throw new Error('Not connected');
 
-    return await signClient.request({
-      topic: sessionTopic,
-      chainId: 'qubic:main',
-      request: {
-        method: 'qubic_signTransaction',
-        params: {
-          ...params,
-          nonce: Date.now().toString(),
+    try {
+      return await signClient.request({
+        topic: sessionTopic,
+        chainId: 'qubic:main',
+        request: {
+          method: 'qubic_signTransaction',
+          params: {
+            ...params,
+            nonce: Date.now().toString(),
+          },
         },
-      },
-    });
+      });
+    } catch (error) {
+      toast.error(error.message);
+      throw error;
+    }
   };
 
   const signMessage = async (params: { fromID: string; message: string }) => {

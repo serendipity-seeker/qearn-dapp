@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Card from '../ui/Card';
 import Button from '../ui/Button';
 import CloseIcon from '../../assets/close.svg';
-import { useQubicConnect } from './QubicConnectContext';
+import { fetchTickInfo } from '@/services/rpc.service';
 
 interface Transaction {
   description: string;
@@ -25,7 +25,6 @@ interface ConfirmTxModalProps {
 }
 
 const ConfirmTxModal = ({ tx, open, onClose, onConfirm, beTickOffset = 3 }: ConfirmTxModalProps) => {
-  const { getTickInfo } = useQubicConnect();
   const [confirmedTx, setConfirmedTx] = useState<ConfirmResult | null>(null);
   const [initialTick, setInitialTick] = useState<number | null>(null);
   const [tick, setTick] = useState<number | null>(null);
@@ -36,8 +35,8 @@ const ConfirmTxModal = ({ tx, open, onClose, onConfirm, beTickOffset = 3 }: Conf
 
   useEffect(() => {
     const fetchTick = async () => {
-      const t = await getTickInfo();
-      setTick(t);
+      const tickInfo = await fetchTickInfo();
+      setTick(tickInfo.tick);
     };
 
     if (confirmedTx) {
@@ -46,7 +45,7 @@ const ConfirmTxModal = ({ tx, open, onClose, onConfirm, beTickOffset = 3 }: Conf
     }
 
     return () => clearInterval(intervalId); // Cleanup interval on unmount or when confirmedTx changes
-  }, [confirmedTx, getTick]);
+  }, [confirmedTx]);
 
   useEffect(() => {
     if (tick !== null && confirmedTx !== null && initialTick !== null && confirmedTx.targetTick) {
@@ -65,8 +64,8 @@ const ConfirmTxModal = ({ tx, open, onClose, onConfirm, beTickOffset = 3 }: Conf
       cTx.targetTick = cTx.targetTick + beTickOffset; // add ticks as quottery backend buffer
     }
     // Fetch initial tick value
-    const initialTickValue = await getTick();
-    setInitialTick(initialTickValue);
+    const tickInfo = await fetchTickInfo();
+    setInitialTick(tickInfo.tick);
     setConfirmedTx(cTx);
   };
 
