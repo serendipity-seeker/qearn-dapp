@@ -40,5 +40,6 @@ export const createSCTx = async (sourceID: string, contractIndex: number, inputT
     return tx;
   } catch (error) {
     console.error('Error signing transaction:', error);
+    return new QubicTransaction();
   }
 };

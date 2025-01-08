@@ -5,11 +5,11 @@ import { createQearnPayload, createSCTx } from './tx.service';
 
 // Lock and Unlock transactions
 export const lockQubic = async (sourceID: string, amount: number, tick: number) => {
-  return createSCTx(sourceID, 9, 1, 0, amount, tick, createQearnPayload(amount, tick));
+  return await createSCTx(sourceID, 9, 1, 0, amount, tick, createQearnPayload(amount, tick));
 };
 
 export const unLockQubic = async (sourceID: string, amount: number, epoch: number, tick: number) => {
-  return createSCTx(sourceID, 9, 2, 12, 0, tick, createQearnPayload(amount, epoch));
+  return await createSCTx(sourceID, 9, 2, 12, 0, tick, createQearnPayload(amount, epoch));
 };
 
 // Query
