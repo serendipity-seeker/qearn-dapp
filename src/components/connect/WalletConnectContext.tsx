@@ -11,9 +11,9 @@ interface WalletConnectContextType {
   connect: () => Promise<{ uri: string; approve: () => Promise<void> }>;
   disconnect: () => Promise<void>;
   requestAccounts: () => Promise<WalletConnectAccount[]>;
-  sendQubic: (params: { fromID: string; toID: string; amount: string }) => Promise<any>;
-  signTransaction: (params: { fromID: string; toID: string; amount: string; tick: string; inputType: string; payload: string }) => Promise<any>;
-  signMessage: (params: { fromID: string; message: string }) => Promise<any>;
+  sendQubic: (params: { from: string; to: string; amount: number }) => Promise<any>;
+  signTransaction: (params: { from: string; to: string; amount: number; tick: number; inputType: number; payload: string | null }) => Promise<any>;
+  signMessage: (params: { from: string; message: string }) => Promise<any>;
 }
 
 const WalletConnectContext = createContext<WalletConnectContextType | undefined>(undefined);
@@ -104,7 +104,7 @@ export function WalletConnectProvider({ children }: WalletConnectProviderProps) 
     }
   };
 
-  const sendQubic = async (params: { fromID: string; toID: string; amount: string }) => {
+  const sendQubic = async (params: { from: string; to: string; amount: number }) => {
     if (!signClient || !sessionTopic) throw new Error('Not connected');
 
     return await signClient.request({
@@ -120,7 +120,7 @@ export function WalletConnectProvider({ children }: WalletConnectProviderProps) 
     });
   };
 
-  const signTransaction = async (params: { fromID: string; toID: string; amount: string; tick: string; inputType: string; payload: string }) => {
+  const signTransaction = async (params: { fromID: string; toID: string; amount: number; tick: number; inputType: number; payload: string | null }) => {
     if (!signClient || !sessionTopic) throw new Error('Not connected');
 
     try {
@@ -141,7 +141,7 @@ export function WalletConnectProvider({ children }: WalletConnectProviderProps) 
     }
   };
 
-  const signMessage = async (params: { fromID: string; message: string }) => {
+  const signMessage = async (params: { from: string; message: string }) => {
     if (!signClient || !sessionTopic) throw new Error('Not connected');
 
     return await signClient.request({

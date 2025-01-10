@@ -3,11 +3,12 @@ import { useEffect, useState } from 'react';
 import Card from '@/components/ui/Card';
 import { settingsAtom } from '@/store/settings';
 import { useAtom } from 'jotai';
+import { DEFAULT_TICK_OFFSET } from '@/constants';
 
 const Settings: React.FC = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [notifications, setNotifications] = useState(false);
-  const [tickOffset, setTickOffset] = useState(3);
+  const [tickOffset, setTickOffset] = useState(DEFAULT_TICK_OFFSET);
   const [, setSettings] = useAtom(settingsAtom);
 
   useEffect(() => {

@@ -7,24 +7,28 @@ import { settingsAtom } from '@/store/settings';
 import { useEffect, useState } from 'react';
 import { truncateMiddle } from '@/utils';
 import { useQubicConnect } from './connect/QubicConnectContext';
-import { lockQubic } from '@/services/qearn.service';
+import { lockQubic, unLockQubic } from '@/services/qearn.service';
 import { broadcastTx, fetchBalance } from '@/services/rpc.service';
 import { FaLock } from 'react-icons/fa';
 import { toast } from 'react-hot-toast';
 import InputNumbers from './ui/InputNumbers';
+import { balancesAtom } from '@/store/balances';
+import { pendingTxAtom } from '@/store/pendingTx';
 
 const QearnForm: React.FC = () => {
   const [tickInfo] = useAtom(tickInfoAtom);
   const [settings] = useAtom(settingsAtom);
   const [selectedAccount, setSelectedAccount] = useState(0);
   const [accounts, setAccounts] = useState<{ label: string; value: string }[]>([]);
-  const { wallet, getSignedTx } = useQubicConnect();
+  const { getSignedTx } = useQubicConnect();
+  const [balances] = useAtom(balancesAtom);
+  const [pendingTx, setPendingTx] = useAtom(pendingTxAtom);
 
   useEffect(() => {
-    if (wallet) {
-      setAccounts([{ label: truncateMiddle(wallet.publicKey, 45), value: wallet.publicKey }]);
+    if (balances.length > 0) {
+      setAccounts([{ label: truncateMiddle(balances[0].id, 45), value: balances[0].id }]);
     }
-  }, [wallet]);
+  }, [balances]);
 
   const [formData, setFormData] = useState({
     amount: '',
@@ -59,7 +63,7 @@ const QearnForm: React.FC = () => {
       return false;
     }
 
-    if (amount < 10_000_000) {
+    if (amount < 10000000) {
       toast.error('Amount must be at least 10M');
       return false;
     }
@@ -80,13 +84,23 @@ const QearnForm: React.FC = () => {
     }
 
     try {
+      // const tx = await unLockQubic(accounts[selectedAccount].value, Number(formData.amount), tickInfo?.epoch || 0, Number(formData.targetTick));
       const tx = await lockQubic(accounts[selectedAccount].value, Number(formData.amount), Number(formData.targetTick));
       const { tx: signedTx } = await getSignedTx(tx);
 
       const res = await broadcastTx(signedTx);
-      console.log(await res.json());
+      setPendingTx({
+        txId: res.transactionId,
+        publicId: accounts[selectedAccount].value,
+        initAmount: balances[selectedAccount].balance,
+        amount: Number(formData.amount),
+        epoch: tickInfo?.epoch || 0,
+        targetTick: Number(formData.targetTick),
+        type: 'qearn',
+      });
+      toast.success('Transaction sent, it will take some time to be confirmed and executed');
     } catch (err) {
-      toast.error('Transaction failed');
+      toast.error('Something went wrong');
     }
   };
 
@@ -109,6 +123,9 @@ const QearnForm: React.FC = () => {
 
           <div>
             <InputNumbers id="amount" label="Lock Amount" placeholder="Enter amount" onChange={handleAmountChange} />
+            <p className="text-gray-300 text-sm text-right">
+              Balance: <span className="font-bold text-primary">{balances[selectedAccount]?.balance || 0}</span> QUBIC
+            </p>
           </div>
 
           <div>

@@ -4,6 +4,7 @@ import Dashboard from '@/pages/dashboard';
 import { createBrowserRouter } from 'react-router-dom';
 import Error404 from '@/pages/error404';
 import Settings from '@/pages/settings';
+import Helpers from '@/pages/helpers';
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: '/settings',
         element: <Settings />,
+      },
+      {
+        path: '/helpers',
+        element: <Helpers />,
       },
     ],
   },
