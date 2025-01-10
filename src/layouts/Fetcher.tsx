@@ -5,6 +5,9 @@ import { qearnStatsAtom } from '@/store/qearnStat';
 import { useAtom } from 'jotai';
 import { useEffect, useRef } from 'react';
 import { QEARN_START_EPOCH } from '@/data/contants';
+import { useQubicConnect } from '@/components/connect/QubicConnectContext';
+import { fetchBalance } from '@/services/rpc.service';
+import { balancesAtom } from '@/store/balances';
 
 const Fetcher: React.FC = () => {
   const { refetch: refetchTickInfo } = useFetchTickInfo();
@@ -45,7 +48,7 @@ const Fetcher: React.FC = () => {
       }
 
       const results = await Promise.all(promises);
-      
+
       const newStats = results.reduce<Record<number, any>>((acc, epochLockInfo, index) => {
         if (epochLockInfo) {
           acc[epoch.current - index] = epochLockInfo;
@@ -53,11 +56,24 @@ const Fetcher: React.FC = () => {
         return acc;
       }, {});
 
-      setQearnStats(prev => ({ ...prev, ...newStats }));
+      setQearnStats((prev) => ({ ...prev, ...newStats }));
     };
-    
+
     fetchEpochData();
   }, [epoch.current]);
+
+  const { wallet } = useQubicConnect();
+  const [, setBalance] = useAtom(balancesAtom);
+
+  useEffect(() => {
+    const setUserAccount = async () => {
+      if (wallet) {
+        const balance = await fetchBalance(wallet.publicKey);
+        setBalance([balance]);
+      }
+    };
+    setUserAccount();
+  }, [wallet]);
 
   return null;
 };

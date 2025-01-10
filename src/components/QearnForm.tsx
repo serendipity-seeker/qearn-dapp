@@ -12,19 +12,21 @@ import { broadcastTx, fetchBalance } from '@/services/rpc.service';
 import { FaLock } from 'react-icons/fa';
 import { toast } from 'react-hot-toast';
 import InputNumbers from './ui/InputNumbers';
+import { balancesAtom } from '@/store/balances';
 
 const QearnForm: React.FC = () => {
   const [tickInfo] = useAtom(tickInfoAtom);
   const [settings] = useAtom(settingsAtom);
   const [selectedAccount, setSelectedAccount] = useState(0);
   const [accounts, setAccounts] = useState<{ label: string; value: string }[]>([]);
-  const { wallet, getSignedTx } = useQubicConnect();
+  const { getSignedTx } = useQubicConnect();
+  const [balances] = useAtom(balancesAtom);
 
   useEffect(() => {
-    if (wallet) {
-      setAccounts([{ label: truncateMiddle(wallet.publicKey, 45), value: wallet.publicKey }]);
+    if (balances.length > 0) {
+      setAccounts([{ label: truncateMiddle(balances[0].id, 45), value: balances[0].id }]);
     }
-  }, [wallet]);
+  }, [balances]);
 
   const [formData, setFormData] = useState({
     amount: '',
@@ -84,6 +86,9 @@ const QearnForm: React.FC = () => {
       const { tx: signedTx } = await getSignedTx(tx);
 
       const res = await broadcastTx(signedTx);
+
+      toast.success('Transaction sent, it will take some time to confirm');
+      // setPendingTx(res.json());
       console.log(await res.json());
     } catch (err) {
       toast.error('Transaction failed');
@@ -109,6 +114,9 @@ const QearnForm: React.FC = () => {
 
           <div>
             <InputNumbers id="amount" label="Lock Amount" placeholder="Enter amount" onChange={handleAmountChange} />
+            <p className="text-gray-300 text-sm text-right">
+              Balance: <span className="font-bold text-primary">{balances[selectedAccount].balance}</span> QUBIC
+            </p>
           </div>
 
           <div>
