@@ -1,5 +1,5 @@
 import { useFetchTickInfo } from '@/hooks/useFetchTickInfo';
-import { getLockInfoPerEpoch } from '@/services/qearn.service';
+import { getLockInfoPerEpoch, getUserLockInfo, getUserLockStatus } from '@/services/qearn.service';
 import { tickInfoAtom } from '@/store/tickInfo';
 import { qearnStatsAtom } from '@/store/qearnStat';
 import { useAtom } from 'jotai';
@@ -38,7 +38,7 @@ const Fetcher: React.FC = () => {
     };
   }, [refetchTickInfo, setTickInfo]);
 
-  // Fetch epoch data
+  // Fetch epoch lock data
   useEffect(() => {
     const fetchEpochData = async () => {
       const promises = [];
@@ -64,7 +64,7 @@ const Fetcher: React.FC = () => {
 
   // Wallet Setter
   const { wallet } = useQubicConnect();
-  const [, setBalance] = useAtom(balancesAtom);
+  const [balances, setBalance] = useAtom(balancesAtom);
 
   useEffect(() => {
     const setUserAccount = async () => {
@@ -75,6 +75,17 @@ const Fetcher: React.FC = () => {
     };
     setUserAccount();
   }, [wallet]);
+
+  // Fetch user lock data
+  useEffect(() => {
+    if (!balances.length) return;
+    const fetchUserLockData = async () => {
+      console.log(balances[0].id, epoch.current);
+      const lockInfo = await getUserLockStatus(balances[0].id, epoch.current);
+      console.log('lockInfo', lockInfo);
+    };
+    fetchUserLockData();
+  }, [balances, epoch.current]);
 
   return null;
 };
