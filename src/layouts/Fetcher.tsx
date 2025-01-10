@@ -1,10 +1,13 @@
 import { useFetchTickInfo } from '@/hooks/useFetchTickInfo';
-import { getLockInfoPerEpoch } from '@/services/qearn.service';
+import { getLockInfoPerEpoch, getUserLockInfo, getUserLockStatus } from '@/services/qearn.service';
 import { tickInfoAtom } from '@/store/tickInfo';
 import { qearnStatsAtom } from '@/store/qearnStat';
 import { useAtom } from 'jotai';
 import { useEffect, useRef } from 'react';
 import { QEARN_START_EPOCH } from '@/data/contants';
+import { useQubicConnect } from '@/components/connect/QubicConnectContext';
+import { fetchBalance } from '@/services/rpc.service';
+import { balancesAtom } from '@/store/balances';
 
 const Fetcher: React.FC = () => {
   const { refetch: refetchTickInfo } = useFetchTickInfo();
@@ -22,7 +25,7 @@ const Fetcher: React.FC = () => {
 
     intervalRef.current = setInterval(async () => {
       const { data } = await refetchTickInfo();
-      if (data) {
+      if (data && data?.tick) {
         setTickInfo(data);
         epoch.current = data.epoch;
       }
@@ -35,7 +38,7 @@ const Fetcher: React.FC = () => {
     };
   }, [refetchTickInfo, setTickInfo]);
 
-  // Fetch epoch data
+  // Fetch epoch lock data
   useEffect(() => {
     const fetchEpochData = async () => {
       const promises = [];
@@ -45,7 +48,7 @@ const Fetcher: React.FC = () => {
       }
 
       const results = await Promise.all(promises);
-      
+
       const newStats = results.reduce<Record<number, any>>((acc, epochLockInfo, index) => {
         if (epochLockInfo) {
           acc[epoch.current - index] = epochLockInfo;
@@ -53,11 +56,36 @@ const Fetcher: React.FC = () => {
         return acc;
       }, {});
 
-      setQearnStats(prev => ({ ...prev, ...newStats }));
+      setQearnStats((prev) => ({ ...prev, ...newStats }));
     };
-    
+
     fetchEpochData();
   }, [epoch.current]);
+
+  // Wallet Setter
+  const { wallet } = useQubicConnect();
+  const [balances, setBalance] = useAtom(balancesAtom);
+
+  useEffect(() => {
+    const setUserAccount = async () => {
+      if (wallet) {
+        const balance = await fetchBalance(wallet.publicKey);
+        setBalance([balance]);
+      }
+    };
+    setUserAccount();
+  }, [wallet]);
+
+  // Fetch user lock data
+  useEffect(() => {
+    if (!balances.length) return;
+    const fetchUserLockData = async () => {
+      console.log(balances[0].id, epoch.current);
+      const lockInfo = await getUserLockStatus(balances[0].id, epoch.current);
+      console.log('lockInfo', lockInfo);
+    };
+    fetchUserLockData();
+  }, [balances, epoch.current]);
 
   return null;
 };

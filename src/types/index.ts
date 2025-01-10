@@ -17,12 +17,6 @@ export type Balance = {
   numberOfOutgoingTransfers: number;
 };
 
-export type Settings = {
-  tickOffset: number;
-  darkMode: boolean;
-  notifications: boolean;
-};
-
 export interface IQuerySC {
   contractIndex: number;
   inputType: number;
@@ -42,7 +36,7 @@ export interface ILockInfo {
   yieldPercentage: number;
 }
 
-export interface IStakeStatus {
+export interface ILockStatus {
   publicId: string;
   lockedEpoch: number;
   lockedAmount: number;
@@ -61,6 +55,7 @@ export interface IEndedStakeStatus {
   status?: boolean;
 }
 
-export interface IQearnStats {
-  [epoch: number]: ILockInfo;
+export interface TxStatus {
+  txId: string;
+  moneyFlew: boolean;
 }

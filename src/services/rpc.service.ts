@@ -1,5 +1,5 @@
 import { httpEndpoint } from '@/constants';
-import { Balance, IQuerySC, IQuerySCResponse, TickInfo } from '@/types';
+import { Balance, IQuerySC, IQuerySCResponse, TickInfo, TxStatus } from '@/types';
 import { uint8ArrayToBase64 } from '@/utils';
 
 export const fetchTickInfo = async (): Promise<TickInfo> => {
@@ -26,11 +26,12 @@ export const broadcastTx = async (tx: Uint8Array) => {
   const url = `${httpEndpoint}/v1/broadcast-transaction`;
   const txEncoded = uint8ArrayToBase64(tx);
   const body = { encodedTransaction: txEncoded };
-  const response = await fetch(url, {
+  const result = await fetch(url, {
     method: 'POST',
     body: JSON.stringify(body),
   });
-  return response;
+  const broadcastResult = await result.json();
+  return broadcastResult;
 };
 
 export const fetchQuerySC = async (query: IQuerySC): Promise<IQuerySCResponse> => {
@@ -43,4 +44,13 @@ export const fetchQuerySC = async (query: IQuerySC): Promise<IQuerySCResponse> =
   });
   const result = await queryResult.json();
   return result;
+};
+
+export const fetchTxStatus = async (txId: string): Promise<TxStatus> => {
+  const txStatusResult = await fetch(`${httpEndpoint}/v1/tx-status/${txId}`);
+  let txStatus = {} as { transactionStatus: TxStatus };
+  if (txStatusResult.status == 200) {
+    txStatus = await txStatusResult.json();
+  }
+  return txStatus.transactionStatus;
 };

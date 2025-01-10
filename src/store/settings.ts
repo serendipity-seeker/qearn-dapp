@@ -1,6 +1,11 @@
 import { DEFAULT_TICK_OFFSET } from '@/constants';
-import { Settings } from '@/types';
 import { atom } from 'jotai';
+
+export type Settings = {
+  tickOffset: number;
+  darkMode: boolean;
+  notifications: boolean;
+};
 
 export const settingsAtom = atom<Settings>({
   tickOffset: DEFAULT_TICK_OFFSET,

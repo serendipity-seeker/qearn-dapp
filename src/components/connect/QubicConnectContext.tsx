@@ -97,57 +97,53 @@ export function QubicConnectProvider({ children }: QubicConnectProviderProps) {
       },
     });
   };
-  const getSignedTx = async (tx: Uint8Array | QubicTransaction) => {
+  const getSignedTx = async (tx: Uint8Array | QubicTransaction): Promise<{ tx: Uint8Array }> => {
     if (!wallet || !connectTypes.includes(wallet.connectType)) {
-      throw new Error('Unsupported connectType: ' + wallet?.connectType);
+      throw new Error(`Unsupported connectType: ${wallet?.connectType}`);
     }
 
-    let signedtx: Uint8Array | null = null;
+    const processedTx = tx instanceof QubicTransaction ? await tx.build('0'.repeat(55)) : tx;
 
-    if (wallet.connectType === 'mmSnap') {
-      // MetaMask need uint8Array tx to sign
-      if (tx instanceof QubicTransaction) {
-        tx = await tx.build('0'.repeat(55));
+    switch (wallet.connectType) {
+      case 'mmSnap': {
+        const mmResult = await getMetaMaskSignedTx(processedTx, processedTx.length - SIGNATURE_LENGTH);
+        const binaryTx = atob(mmResult.signedTx);
+        const signature = new Uint8Array(binaryTx.length);
+        for (let i = 0; i < binaryTx.length; i++) {
+          signature[i] = binaryTx.charCodeAt(i);
+        }
+        processedTx.set(signature, processedTx.length - SIGNATURE_LENGTH);
+        return { tx: processedTx };
       }
-      const mmResult = await getMetaMaskSignedTx(tx, tx.length - SIGNATURE_LENGTH);
-      const binaryTx = atob(mmResult.signedTx);
-      signedtx = new Uint8Array(binaryTx.length);
-      for (let i = 0; i < binaryTx.length; i++) {
-        signedtx[i] = binaryTx.charCodeAt(i);
-      }
-    } else if (wallet.connectType === 'walletconnect') {
-      // WalletConnect need decoded tx to sign
-      if (tx instanceof Uint8Array) {
-        tx = decodeUint8ArrayTx(tx);
-      }
-      const fromID = await qHelper.getIdentity(tx.sourcePublicKey.getIdentity());
-      const toID = await qHelper.getIdentity(tx.destinationPublicKey.getIdentity());
-      const wcResult: { transactionId: string; signedTransaction: string; } = await signTransaction({
-        fromID: fromID,
-        toID: toID,
-        amount: tx.amount.getNumber().toString(),
-        tick: tx.tick.toString(),
-        inputType: tx.inputType.toString(),
-        payload: uint8ArrayToBase64(tx.payload.getPackageData()),
-      });
-      signedtx = base64ToUint8Array(wcResult.signedTransaction);
-    } else {
-      if (tx instanceof QubicTransaction) {
-        tx = await tx.build('0'.repeat(55));
-      }
-      const qCrypto = await Crypto;
-      if (!wallet.privateKey) throw new Error('Private key required');
-      const idPackage = await qHelper.createIdPackage(wallet.privateKey);
-      const digest = new Uint8Array(SIGNATURE_LENGTH);
-      const toSign = tx.slice(0, tx.length - SIGNATURE_LENGTH);
 
-      qCrypto.K12(toSign, digest, SIGNATURE_LENGTH);
-      signedtx = qCrypto.schnorrq.sign(idPackage.privateKey, idPackage.publicKey, digest);
+      case 'walletconnect': {
+        const decodedTx = processedTx instanceof Uint8Array ? decodeUint8ArrayTx(processedTx) : processedTx;
+        const [from, to] = await Promise.all([qHelper.getIdentity(decodedTx.sourcePublicKey.getIdentity()), qHelper.getIdentity(decodedTx.destinationPublicKey.getIdentity())]);
+        const payloadBase64 = uint8ArrayToBase64(decodedTx.payload.getPackageData());
+
+        const wcResult = await signTransaction({
+          from,
+          to,
+          amount: Number(decodedTx.amount.getNumber()),
+          tick: decodedTx.tick,
+          inputType: decodedTx.inputType,
+          payload: payloadBase64 == '' ? null : payloadBase64,
+        });
+        return { tx: base64ToUint8Array(wcResult.signedTransaction) };
+      }
+
+      default: {
+        if (!wallet.privateKey) throw new Error('Private key required');
+        const qCrypto = await Crypto;
+        const idPackage = await qHelper.createIdPackage(wallet.privateKey);
+        const digest = new Uint8Array(SIGNATURE_LENGTH);
+        const toSign = processedTx.slice(0, processedTx.length - SIGNATURE_LENGTH);
+
+        qCrypto.K12(toSign, digest, SIGNATURE_LENGTH);
+        const signedTx = qCrypto.schnorrq.sign(idPackage.privateKey, idPackage.publicKey, digest);
+        return { tx: signedTx || new Uint8Array(DEFAULT_TX_SIZE) };
+      }
     }
-
-    return {
-      tx: signedtx || new Uint8Array(DEFAULT_TX_SIZE),
-    };
   };
 
   const contextValue: QubicConnectContextType = {
