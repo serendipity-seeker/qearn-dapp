@@ -7,7 +7,7 @@ import { settingsAtom } from '@/store/settings';
 import { useEffect, useState } from 'react';
 import { truncateMiddle } from '@/utils';
 import { useQubicConnect } from './connect/QubicConnectContext';
-import { lockQubic } from '@/services/qearn.service';
+import { lockQubic, unLockQubic } from '@/services/qearn.service';
 import { broadcastTx, fetchBalance } from '@/services/rpc.service';
 import { FaLock } from 'react-icons/fa';
 import { toast } from 'react-hot-toast';
@@ -84,6 +84,7 @@ const QearnForm: React.FC = () => {
     }
 
     try {
+      // const tx = await unLockQubic(accounts[selectedAccount].value, Number(formData.amount), tickInfo?.epoch || 0, Number(formData.targetTick));
       const tx = await lockQubic(accounts[selectedAccount].value, Number(formData.amount), Number(formData.targetTick));
       const { tx: signedTx } = await getSignedTx(tx);
 
