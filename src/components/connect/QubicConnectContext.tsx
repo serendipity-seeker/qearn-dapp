@@ -112,24 +112,22 @@ export function QubicConnectProvider({ children }: QubicConnectProviderProps) {
         for (let i = 0; i < binaryTx.length; i++) {
           signature[i] = binaryTx.charCodeAt(i);
         }
-        processedTx.set(signature, processedTx.length - SIGNATURE_LENGTH) 
+        processedTx.set(signature, processedTx.length - SIGNATURE_LENGTH);
         return { tx: processedTx };
       }
 
       case 'walletconnect': {
         const decodedTx = processedTx instanceof Uint8Array ? decodeUint8ArrayTx(processedTx) : processedTx;
-        const [fromID, toID] = await Promise.all([
-          qHelper.getIdentity(decodedTx.sourcePublicKey.getIdentity()),
-          qHelper.getIdentity(decodedTx.destinationPublicKey.getIdentity())
-        ]);
-        
+        const [from, to] = await Promise.all([qHelper.getIdentity(decodedTx.sourcePublicKey.getIdentity()), qHelper.getIdentity(decodedTx.destinationPublicKey.getIdentity())]);
+        const payloadBase64 = uint8ArrayToBase64(decodedTx.payload.getPackageData());
+
         const wcResult = await signTransaction({
-          fromID,
-          toID,
-          amount: decodedTx.amount.getNumber().toString(),
-          tick: decodedTx.tick.toString(),
-          inputType: decodedTx.inputType.toString(),
-          payload: uint8ArrayToBase64(decodedTx.payload.getPackageData()),
+          from,
+          to,
+          amount: Number(decodedTx.amount.getNumber()),
+          tick: decodedTx.tick,
+          inputType: decodedTx.inputType,
+          payload: payloadBase64 == '' ? null : payloadBase64,
         });
         return { tx: base64ToUint8Array(wcResult.signedTransaction) };
       }

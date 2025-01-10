@@ -63,7 +63,7 @@ const QearnForm: React.FC = () => {
       return false;
     }
 
-    if (amount < 100) {
+    if (amount < 10000000) {
       toast.error('Amount must be at least 10M');
       return false;
     }

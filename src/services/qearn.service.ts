@@ -8,7 +8,7 @@ const qHelper = new QubicHelper();
 
 // Lock and Unlock transactions
 export const lockQubic = async (sourceID: string, amount: number, tick: number) => {
-  return await createSCTx(sourceID, 9, 1, 0, amount, tick, createQearnPayload(amount, tick));
+  return await createSCTx(sourceID, 9, 1, 0, amount, tick);
 };
 
 export const unLockQubic = async (sourceID: string, amount: number, epoch: number, tick: number) => {
