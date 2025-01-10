@@ -62,6 +62,7 @@ const Fetcher: React.FC = () => {
     fetchEpochData();
   }, [epoch.current]);
 
+  // Wallet Setter
   const { wallet } = useQubicConnect();
   const [, setBalance] = useAtom(balancesAtom);
 

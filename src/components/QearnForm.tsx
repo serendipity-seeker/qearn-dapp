@@ -13,6 +13,7 @@ import { FaLock } from 'react-icons/fa';
 import { toast } from 'react-hot-toast';
 import InputNumbers from './ui/InputNumbers';
 import { balancesAtom } from '@/store/balances';
+import { pendingTxAtom } from '@/store/pendingTx';
 
 const QearnForm: React.FC = () => {
   const [tickInfo] = useAtom(tickInfoAtom);
@@ -21,6 +22,7 @@ const QearnForm: React.FC = () => {
   const [accounts, setAccounts] = useState<{ label: string; value: string }[]>([]);
   const { getSignedTx } = useQubicConnect();
   const [balances] = useAtom(balancesAtom);
+  const [pendingTx, setPendingTx] = useAtom(pendingTxAtom);
 
   useEffect(() => {
     if (balances.length > 0) {
@@ -61,7 +63,7 @@ const QearnForm: React.FC = () => {
       return false;
     }
 
-    if (amount < 10_000_000) {
+    if (amount < 100) {
       toast.error('Amount must be at least 10M');
       return false;
     }
@@ -86,12 +88,18 @@ const QearnForm: React.FC = () => {
       const { tx: signedTx } = await getSignedTx(tx);
 
       const res = await broadcastTx(signedTx);
-
+      setPendingTx({
+        txId: res.transactionId,
+        publicId: accounts[selectedAccount].value,
+        initAmount: balances[selectedAccount].balance,
+        amount: Number(formData.amount),
+        epoch: tickInfo?.epoch || 0,
+        targetTick: Number(formData.targetTick),
+        type: 'qearn',
+      });
       toast.success('Transaction sent, it will take some time to confirm');
-      // setPendingTx(res.json());
-      console.log(await res.json());
     } catch (err) {
-      toast.error('Transaction failed');
+      toast.error('Something went wrong');
     }
   };
 
@@ -115,7 +123,7 @@ const QearnForm: React.FC = () => {
           <div>
             <InputNumbers id="amount" label="Lock Amount" placeholder="Enter amount" onChange={handleAmountChange} />
             <p className="text-gray-300 text-sm text-right">
-              Balance: <span className="font-bold text-primary">{balances[selectedAccount].balance}</span> QUBIC
+              Balance: <span className="font-bold text-primary">{balances[selectedAccount]?.balance || 0}</span> QUBIC
             </p>
           </div>
 

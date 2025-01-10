@@ -54,3 +54,8 @@ export interface IEndedStakeStatus {
   rewardedAmount: number;
   status?: boolean;
 }
+
+export interface TxStatus {
+  txId: string;
+  moneyFlew: boolean;
+}
