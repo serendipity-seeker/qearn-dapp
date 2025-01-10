@@ -49,5 +49,5 @@ export const fetchQuerySC = async (query: IQuerySC): Promise<IQuerySCResponse> =
 export const fetchTxStatus = async (txId: string): Promise<TxStatus> => {
   const txStatusResult = await fetch(`${httpEndpoint}/v1/tx-status/${txId}`);
   const txStatus = await txStatusResult.json();
-  return txStatus;
+  return txStatus.transactionStatus;
 };

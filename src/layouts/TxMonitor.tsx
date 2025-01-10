@@ -1,5 +1,6 @@
 import { getUserLockInfo } from '@/services/qearn.service';
-import { fetchTxStatus } from '@/services/rpc.service';
+import { fetchBalance } from '@/services/rpc.service';
+import { balancesAtom } from '@/store/balances';
 import { IPendingTx, pendingTxAtom } from '@/store/pendingTx';
 import { tickInfoAtom } from '@/store/tickInfo';
 import { useAtom } from 'jotai';
@@ -9,38 +10,25 @@ import { toast } from 'react-hot-toast';
 const TxMonitor: React.FC = () => {
   const [tickInfo] = useAtom(tickInfoAtom);
   const [pendingTx, setPendingTx] = useAtom(pendingTxAtom);
+  const [, setBalance] = useAtom(balancesAtom);
 
   useEffect(() => {
     if (Object.keys(pendingTx).length == 0) return;
 
     const checkTxResult = async () => {
       if (tickInfo?.tick > pendingTx.targetTick) {
-
-        // this is correct way for exact checking SC, but we can just check tx status only
-
-        // if (pendingTx.type == 'qearn') {
-        //   const updatedBalance = await getUserLockInfo(pendingTx.publicId, pendingTx.epoch);
-        //   if (updatedBalance - pendingTx.initAmount == pendingTx.amount) {
-        //     if (pendingTx.amount > 0) {
-        //       toast.success('Locked successfully');
-        //     } else {
-        //       toast.success('Unlocked successfully');
-        //     }
-        //   } else {
-        //     toast.error('Transaction failed');
-        //   }
-        // } else {
-        try {
-          const txStatus = await fetchTxStatus(pendingTx.txId);
-          if (txStatus.moneyFlew) {
+        const lockedAmount = await getUserLockInfo(pendingTx.publicId, pendingTx.epoch);
+        if (lockedAmount - pendingTx.initAmount == pendingTx.amount) {
+          if (pendingTx.amount > 0) {
             toast.success('Locked successfully');
           } else {
-            toast.error('Unlocked successfully');
+            toast.success('Unlocked successfully');
           }
-        } catch (error) {
+        } else {
           toast.error('Transaction failed');
         }
-        // }
+        const updatedBalance = await fetchBalance(pendingTx.publicId);
+        setBalance([updatedBalance]);
         setPendingTx({} as IPendingTx);
       }
     };
