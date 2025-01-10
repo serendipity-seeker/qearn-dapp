@@ -108,11 +108,12 @@ export function QubicConnectProvider({ children }: QubicConnectProviderProps) {
       case 'mmSnap': {
         const mmResult = await getMetaMaskSignedTx(processedTx, processedTx.length - SIGNATURE_LENGTH);
         const binaryTx = atob(mmResult.signedTx);
-        const signedTx = new Uint8Array(binaryTx.length);
+        const signature = new Uint8Array(binaryTx.length);
         for (let i = 0; i < binaryTx.length; i++) {
-          signedTx[i] = binaryTx.charCodeAt(i);
+          signature[i] = binaryTx.charCodeAt(i);
         }
-        return { tx: signedTx };
+        processedTx.set(signature, processedTx.length - SIGNATURE_LENGTH) 
+        return { tx: processedTx };
       }
 
       case 'walletconnect': {
