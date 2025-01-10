@@ -2,6 +2,9 @@ import { ILockInfo } from '@/types';
 import { fetchQuerySC } from './rpc.service';
 import { base64ToUint8Array, uint8ArrayToBase64 } from '@/utils';
 import { createQearnPayload, createSCTx } from './tx.service';
+import { QubicHelper } from '@qubic-lib/qubic-ts-library/dist/qubicHelper';
+
+const qHelper = new QubicHelper();
 
 // Lock and Unlock transactions
 export const lockQubic = async (sourceID: string, amount: number, tick: number) => {
@@ -46,7 +49,12 @@ export const getLockInfoPerEpoch = async (epoch: number): Promise<ILockInfo> => 
   };
 };
 
-export const getUserLockInfo = async (user: Uint8Array, epoch: number): Promise<number> => {
+export const getUserLockInfo = async (user: Uint8Array | string, epoch: number): Promise<number> => {
+  if (typeof user === 'string') {
+    const idPackage = await qHelper.createIdPackage(user);
+    user = idPackage.publicKey;
+  }
+
   const view = new DataView(new Uint8Array(36).buffer);
   user.forEach((byte, index) => view.setUint8(index, byte));
   view.setUint32(32, epoch, true);
@@ -79,7 +87,12 @@ export const getStateOfRound = async (epoch: number): Promise<{ state: number }>
   return { state: new DataView(base64ToUint8Array(res.responseData).buffer).getUint32(0, true) };
 };
 
-export const getUserLockStatus = async (user: Uint8Array, currentEpoch: number): Promise<number[]> => {
+export const getUserLockStatus = async (user: Uint8Array | string, currentEpoch: number): Promise<number[]> => {
+  if (typeof user === 'string') {
+    const idPackage = await qHelper.createIdPackage(user);
+    user = idPackage.publicKey;
+  }
+
   const view = new DataView(new Uint8Array(32).buffer);
   user.forEach((byte, index) => view.setUint8(index, byte));
 
@@ -101,7 +114,12 @@ export const getUserLockStatus = async (user: Uint8Array, currentEpoch: number):
     .reduce((epochs, bit, index) => (bit === '1' ? [...epochs, currentEpoch - index] : epochs), [] as number[]);
 };
 
-export const getEndedStatus = async (user: Uint8Array): Promise<{ fullUnlockedAmount?: number; fullRewardedAmount?: number; earlyUnlockedAmount?: number; earlyRewardedAmount?: number }> => {
+export const getEndedStatus = async (user: Uint8Array | string): Promise<{ fullUnlockedAmount?: number; fullRewardedAmount?: number; earlyUnlockedAmount?: number; earlyRewardedAmount?: number }> => {
+  if (typeof user === 'string') {
+    const idPackage = await qHelper.createIdPackage(user);
+    user = idPackage.publicKey;
+  }
+
   const view = new DataView(new Uint8Array(32).buffer);
   user.forEach((byte, index) => view.setUint8(index, byte));
 
