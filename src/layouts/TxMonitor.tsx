@@ -15,25 +15,32 @@ const TxMonitor: React.FC = () => {
 
     const checkTxResult = async () => {
       if (tickInfo?.tick > pendingTx.targetTick) {
-        if (pendingTx.type == 'lock') {
-          const updatedBalance = await getUserLockInfo(pendingTx.publicId, pendingTx.epoch);
-          if (updatedBalance - pendingTx.initAmount == pendingTx.amount) {
-            if (pendingTx.amount > 0) {
-              toast.success('Locked successfully');
-            } else {
-              toast.success('Unlocked successfully');
-            }
-          } else {
-            toast.error('Transaction failed');
-          }
-        } else {
+
+        // this is correct way for exact checking SC, but we can just check tx status only
+
+        // if (pendingTx.type == 'qearn') {
+        //   const updatedBalance = await getUserLockInfo(pendingTx.publicId, pendingTx.epoch);
+        //   if (updatedBalance - pendingTx.initAmount == pendingTx.amount) {
+        //     if (pendingTx.amount > 0) {
+        //       toast.success('Locked successfully');
+        //     } else {
+        //       toast.success('Unlocked successfully');
+        //     }
+        //   } else {
+        //     toast.error('Transaction failed');
+        //   }
+        // } else {
+        try {
           const txStatus = await fetchTxStatus(pendingTx.txId);
           if (txStatus.moneyFlew) {
-            toast.success('Transfered successfully');
+            toast.success('Locked successfully');
           } else {
-            toast.error('Transaction failed');
+            toast.error('Unlocked successfully');
           }
+        } catch (error) {
+          toast.error('Transaction failed');
         }
+        // }
         setPendingTx({} as IPendingTx);
       }
     };
