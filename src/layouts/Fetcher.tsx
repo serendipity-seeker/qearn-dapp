@@ -25,7 +25,7 @@ const Fetcher: React.FC = () => {
 
     intervalRef.current = setInterval(async () => {
       const { data } = await refetchTickInfo();
-      if (data) {
+      if (data && data?.tick) {
         setTickInfo(data);
         epoch.current = data.epoch;
       }

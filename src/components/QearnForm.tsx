@@ -97,7 +97,7 @@ const QearnForm: React.FC = () => {
         targetTick: Number(formData.targetTick),
         type: 'qearn',
       });
-      toast.success('Transaction sent, it will take some time to confirm');
+      toast.success('Transaction sent, it will take some time to be confirmed and executed');
     } catch (err) {
       toast.error('Something went wrong');
     }
