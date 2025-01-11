@@ -35,11 +35,11 @@ const initialTxForm = {
 
 const initialPayloadField = {
   data: '',
-  type: 'uint8'
+  type: 'uint8',
 };
 
 const initialPayloadForm = {
-  fields: [initialPayloadField]
+  fields: [initialPayloadField],
 };
 
 const Helpers: React.FC = () => {
@@ -115,41 +115,41 @@ const Helpers: React.FC = () => {
   };
 
   const addPayloadField = () => {
-    setPayloadForm(prev => ({
-      fields: [...prev.fields, initialPayloadField]
+    setPayloadForm((prev) => ({
+      fields: [...prev.fields, initialPayloadField],
     }));
   };
 
   const removePayloadField = (index: number) => {
-    setPayloadForm(prev => ({
-      fields: prev.fields.filter((_, i) => i !== index)
+    setPayloadForm((prev) => ({
+      fields: prev.fields.filter((_, i) => i !== index),
     }));
   };
 
   const updatePayloadField = (index: number, field: typeof initialPayloadField) => {
-    setPayloadForm(prev => ({
-      fields: prev.fields.map((f, i) => i === index ? field : f)
+    setPayloadForm((prev) => ({
+      fields: prev.fields.map((f, i) => (i === index ? field : f)),
     }));
   };
 
   const handleCreatePayload = () => {
     try {
-      const invalidFields = payloadForm.fields.some(field => !field.data || !field.type);
+      const invalidFields = payloadForm.fields.some((field) => !field.data || !field.type);
       if (invalidFields) {
         return handleError('Please fill in all payload fields');
       }
 
-      const payload = createPayload(payloadForm.fields.map(field => ({
-        data: field.data.startsWith('0x') ? 
-          parseInt(field.data, 16) : 
-          Number(field.data),
-        type: field.type as 'uint8' | 'uint16' | 'uint32' | 'bigint64'
-      })));
+      const payload = createPayload(
+        payloadForm.fields.map((field) => ({
+          data: field.data.startsWith('0x') ? parseInt(field.data, 16) : Number(field.data),
+          type: field.type as 'uint8' | 'uint16' | 'uint32' | 'bigint64',
+        }))
+      );
 
-      setTxForm(prev => ({
+      setTxForm((prev) => ({
         ...prev,
         payload: uint8ArrayToBase64(payload),
-        inputSize: payload.length.toString()
+        inputSize: payload.length.toString(),
       }));
 
       toast.success('Payload created successfully');
@@ -284,13 +284,11 @@ const Helpers: React.FC = () => {
   const renderSelect = (label: string, value: string, onChange: (value: string) => void, options: string[]) => (
     <div>
       <label className="block text-sm font-medium mb-2">{label}</label>
-      <select 
-        className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-primary"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-      >
-        {options.map(option => (
-          <option key={option} value={option}>{option}</option>
+      <select className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-primary" value={value} onChange={(e) => onChange(e.target.value)}>
+        {options.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
         ))}
       </select>
     </div>
@@ -358,51 +356,6 @@ const Helpers: React.FC = () => {
         <Card className="p-6">
           <div className="space-y-4">
             <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-semibold">Payload Maker</h2>
-              <Button onClick={() => setPayloadForm(initialPayloadForm)} className="px-3" label="Clean" />
-            </div>
-
-            <div className="space-y-4">
-              {payloadForm.fields.map((field, index) => (
-                <div key={index} className="p-4 bg-gray-800 rounded-lg">
-                  <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-lg font-semibold">Field {index + 1}</h3>
-                    {index > 0 && (
-                      <Button onClick={() => removePayloadField(index)} className="px-3" label="Remove" />
-                    )}
-                  </div>
-                  {renderInput(
-                    'Data (decimal or hex)',
-                    field.data,
-                    (value) => updatePayloadField(index, { ...field, data: value }),
-                    'Enter data (e.g. 123 or 0xFF)'
-                  )}
-                  {renderSelect(
-                    'Type',
-                    field.type,
-                    (value) => updatePayloadField(index, { ...field, type: value }),
-                    ['uint8', 'uint16', 'uint32', 'bigint64']
-                  )}
-                </div>
-              ))}
-              
-              <Button onClick={addPayloadField} className="w-full" label="Add Field" />
-              <Button onClick={handleCreatePayload} className="mt-4 w-full" primary label="Create Combined Payload" />
-              
-              {txForm.payload && (
-                <div>
-                  {renderOutput('Combined Payload (Base64)', txForm.payload)}
-                  {renderOutput('Input Type', txForm.inputType)}
-                  {renderOutput('Input Size', txForm.inputSize)}
-                </div>
-              )}
-            </div>
-          </div>
-        </Card>
-
-        <Card className="p-6">
-          <div className="space-y-4">
-            <div className="flex justify-between items-center">
               <h2 className="text-2xl font-semibold">Transaction Creator</h2>
               <Button onClick={cleanStates.txCreator} className="px-3" label="Clean" />
             </div>
@@ -434,6 +387,39 @@ const Helpers: React.FC = () => {
               <Button onClick={parseTx} className="mt-2 w-full" primary label="Parse Transaction" />
 
               {Object.entries(txInfo).map(([key, value]) => renderOutput(key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1'), value.toString()))}
+            </div>
+          </div>
+        </Card>
+
+        <Card className="p-6">
+          <div className="space-y-4">
+            <div className="flex justify-between items-center">
+              <h2 className="text-2xl font-semibold">Payload Creator</h2>
+              <Button onClick={() => setPayloadForm(initialPayloadForm)} className="px-3" label="Clean" />
+            </div>
+
+            <div className="space-y-4">
+              {payloadForm.fields.map((field, index) => (
+                <div key={index} className="p-4 bg-gray-800 rounded-lg">
+                  <div className="flex justify-between items-center mb-4">
+                    <h3 className="text-lg font-semibold">Field {index + 1}</h3>
+                    {index > 0 && <Button onClick={() => removePayloadField(index)} className="px-3" label="Remove" />}
+                  </div>
+                  {renderInput('Data (decimal or hex)', field.data, (value) => updatePayloadField(index, { ...field, data: value }), 'Enter data (e.g. 123 or 0xFF)')}
+                  {renderSelect('Type', field.type, (value) => updatePayloadField(index, { ...field, type: value }), ['uint8', 'uint16', 'uint32', 'bigint64'])}
+                </div>
+              ))}
+
+              <Button onClick={addPayloadField} className="w-full" label="Add Field" />
+              <Button onClick={handleCreatePayload} className="mt-4 w-full" primary label="Create Combined Payload" />
+
+              {txForm.payload && (
+                <div>
+                  {renderOutput('Combined Payload (Base64)', txForm.payload)}
+                  {renderOutput('Input Type', txForm.inputType)}
+                  {renderOutput('Input Size', txForm.inputSize)}
+                </div>
+              )}
             </div>
           </div>
         </Card>
