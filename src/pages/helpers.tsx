@@ -3,21 +3,24 @@ import Button from '@/components/ui/Button';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { QubicHelper } from '@qubic-lib/qubic-ts-library/dist/qubicHelper';
-import { decodeUint8ArrayTx, base64ToUint8Array, uint8ArrayToBase64 } from '@/utils';
+import { decodeUint8ArrayTx, base64ToUint8Array, uint8ArrayToBase64, generateSeed } from '@/utils';
 import { QubicTransaction } from '@qubic-lib/qubic-ts-library/dist/qubic-types/QubicTransaction';
+import { createTx } from '@/services/tx.service';
+import { useAtomValue } from 'jotai';
+import { tickInfoAtom } from '@/store/tickInfo';
 
 const qHelper = new QubicHelper();
 
 const Helpers: React.FC = () => {
   const [publicId, setPublicId] = useState('');
-  const [publicKey, setPublicKey] = useState('');
+  const [publicKey, setPublicKey] = useState<Uint8Array>(new Uint8Array());
   const [uint8Input, setUint8Input] = useState('');
   const [base64Input, setBase64Input] = useState('');
   const [uint8Output, setUint8Output] = useState('');
   const [base64Output, setBase64Output] = useState('');
   const [txInfo, setTxInfo] = useState<{
-    sourcePublicKey: string;
-    destinationPublicKey: string;
+    sourcePublicId: string;
+    destinationPublicId: string;
     amount: string;
     tick: number;
     inputType: number;
@@ -25,8 +28,8 @@ const Helpers: React.FC = () => {
     payload: string;
     signature: string;
   }>({
-    sourcePublicKey: '',
-    destinationPublicKey: '',
+    sourcePublicId: '',
+    destinationPublicId: '',
     amount: '',
     tick: 0,
     inputType: 0,
@@ -35,6 +38,8 @@ const Helpers: React.FC = () => {
     signature: '',
   });
 
+  const tickInfo = useAtomValue(tickInfoAtom);
+
   const getPublicKeyFromId = async () => {
     try {
       if (!publicId) {
@@ -42,7 +47,11 @@ const Helpers: React.FC = () => {
         return;
       }
       const idPackage = await qHelper.createIdPackage(publicId);
-      setPublicKey(uint8ArrayToBase64(idPackage.publicKey));
+      if (idPackage.publicKey.length !== 32) {
+        toast.error('Invalid public key length - must be 32 bytes');
+        return;
+      }
+      setPublicKey(idPackage.publicKey);
     } catch (error) {
       toast.error('Invalid Public ID format');
     }
@@ -50,12 +59,15 @@ const Helpers: React.FC = () => {
 
   const getPublicIdFromKey = async () => {
     try {
-      if (!publicKey) {
+      if (!publicKey.length) {
         toast.error('Please enter a Public Key');
         return;
       }
-      const pubKeyBytes = base64ToUint8Array(publicKey);
-      const id = await qHelper.getIdentity(pubKeyBytes);
+      if (publicKey.length !== 32) {
+        toast.error('Invalid public key length - must be 32 bytes');
+        return;
+      }
+      const id = await qHelper.getIdentity(publicKey);
       setPublicId(id);
     } catch (error) {
       toast.error('Invalid Public Key format');
@@ -89,7 +101,7 @@ const Helpers: React.FC = () => {
     }
   };
 
-  const parseTx = () => {
+  const parseTx = async () => {
     try {
       if (!uint8Input) {
         toast.error('Please enter a transaction Uint8 Array');
@@ -98,10 +110,18 @@ const Helpers: React.FC = () => {
       const uint8Array = new Uint8Array(uint8Input.split(',').map(Number));
       const tx = decodeUint8ArrayTx(uint8Array);
 
+      const sourcePublicId = await qHelper.getIdentity(tx.sourcePublicKey.getPackageData());
+      const destinationPublicId = await qHelper.getIdentity(tx.destinationPublicKey.getPackageData());
+
+      if (sourcePublicId.length !== 60 || destinationPublicId.length !== 60) {
+        toast.error('Invalid public key length in transaction - must be 60 characters');
+        return;
+      }
+
       setTxInfo({
-        sourcePublicKey: uint8ArrayToBase64(tx.sourcePublicKey.getPackageData()),
-        destinationPublicKey: uint8ArrayToBase64(tx.destinationPublicKey.getPackageData()),
-        amount: tx.amount.toString(),
+        sourcePublicId: sourcePublicId,
+        destinationPublicId: destinationPublicId,
+        amount: tx.amount.getNumber().toString(),
         tick: tx.tick,
         inputType: tx.inputType,
         inputSize: tx.inputSize,
@@ -113,6 +133,51 @@ const Helpers: React.FC = () => {
     }
   };
 
+  const generateRandomTx = async () => {
+    try {
+      const senderSeed = generateSeed();
+      const sender = await qHelper.createIdPackage(senderSeed);
+      const receiver = await qHelper.createIdPackage(generateSeed());
+      const amount = Math.floor(Math.random() * 1000000) + 1;
+      const currentTick = tickInfo.tick;
+      const tx = createTx(sender.publicId, receiver.publicId, amount, currentTick + 5);
+
+      const txUint8 = await tx.build(senderSeed);
+      setUint8Input(txUint8.toString());
+
+      toast.success('Random transaction generated and parsed');
+    } catch (error) {
+      console.log(error);
+      toast.error('Error generating random transaction');
+    }
+  };
+
+  const cleanPublicIdKey = () => {
+    setPublicId('');
+    setPublicKey(new Uint8Array());
+  };
+
+  const cleanUint8Base64 = () => {
+    setUint8Input('');
+    setBase64Input('');
+    setUint8Output('');
+    setBase64Output('');
+  };
+
+  const cleanTxParser = () => {
+    setUint8Input('');
+    setTxInfo({
+      sourcePublicId: '',
+      destinationPublicId: '',
+      amount: '',
+      tick: 0,
+      inputType: 0,
+      inputSize: 0,
+      payload: '',
+      signature: '',
+    });
+  };
+
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <h1 className="text-4xl font-bold text-center mb-8">QHelpers</h1>
@@ -120,7 +185,10 @@ const Helpers: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card className="p-6">
           <div className="space-y-4">
-            <h2 className="text-2xl font-semibold text-center">Public ID ↔ Key</h2>
+            <div className="flex justify-between items-center">
+              <h2 className="text-2xl font-semibold">Public ID ↔ Key</h2>
+              <Button onClick={cleanPublicIdKey} className="px-3" label="Clean" />
+            </div>
 
             <div className="space-y-4">
               <div>
@@ -135,7 +203,7 @@ const Helpers: React.FC = () => {
                 <Button onClick={getPublicKeyFromId} className="mt-2 w-full" primary label="Get Public Key" />
                 <div className="mt-2 p-3 bg-gray-800 rounded-lg break-all">
                   <p className="text-sm text-gray-400">Output:</p>
-                  <p className="font-mono">{publicKey}</p>
+                  <p className="font-mono">{publicKey.toString()}</p>
                 </div>
               </div>
 
@@ -145,8 +213,14 @@ const Helpers: React.FC = () => {
                   type="text"
                   className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-primary"
                   placeholder="Enter Public Key"
-                  value={publicKey}
-                  onChange={(e) => setPublicKey(e.target.value)}
+                  value={publicKey.toString()}
+                  onChange={(e) => {
+                    try {
+                      setPublicKey(base64ToUint8Array(e.target.value));
+                    } catch (error) {
+                      // Handle invalid base64 input silently
+                    }
+                  }}
                 />
                 <Button onClick={getPublicIdFromKey} className="mt-2 w-full" primary label="Get Public ID" />
                 <div className="mt-2 p-3 bg-gray-800 rounded-lg break-all">
@@ -160,7 +234,10 @@ const Helpers: React.FC = () => {
 
         <Card className="p-6">
           <div className="space-y-4">
-            <h2 className="text-2xl font-semibold text-center">Uint8 ↔ Base64</h2>
+            <div className="flex justify-between items-center">
+              <h2 className="text-2xl font-semibold">Uint8 ↔ Base64</h2>
+              <Button onClick={cleanUint8Base64} className="px-3" label="Clean" />
+            </div>
 
             <div className="space-y-4">
               <div>
@@ -200,10 +277,15 @@ const Helpers: React.FC = () => {
 
         <Card className="p-6">
           <div className="space-y-4">
-            <h2 className="text-2xl font-semibold text-center">Transaction Parser</h2>
+            <div className="flex justify-between items-center">
+              <h2 className="text-2xl font-semibold">Transaction Parser</h2>
+              <Button onClick={cleanTxParser} className="px-3" label="Clean" />
+            </div>
 
             <div className="space-y-4">
               <div>
+                <Button onClick={generateRandomTx} className="w-full mb-4" primary label="Generate Random Transaction" />
+
                 <label className="block text-sm font-medium mb-2">Transaction Uint8 Array</label>
                 <textarea
                   className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-primary"
@@ -215,9 +297,9 @@ const Helpers: React.FC = () => {
                 <Button onClick={parseTx} className="mt-2 w-full" primary label="Parse Transaction" />
                 <div className="mt-2 p-3 bg-gray-800 rounded-lg break-all">
                   <p className="text-sm text-gray-400">Source Public Key:</p>
-                  <p className="font-mono">{txInfo.sourcePublicKey}</p>
+                  <p className="font-mono">{txInfo.sourcePublicId}</p>
                   <p className="text-sm text-gray-400 mt-2">Destination Public Key:</p>
-                  <p className="font-mono">{txInfo.destinationPublicKey}</p>
+                  <p className="font-mono">{txInfo.destinationPublicId}</p>
                   <p className="text-sm text-gray-400 mt-2">Amount:</p>
                   <p className="font-mono">{txInfo.amount}</p>
                   <p className="text-sm text-gray-400 mt-2">Tick:</p>
