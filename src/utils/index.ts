@@ -59,7 +59,7 @@ export const createDataView = (size: number): { buffer: ArrayBuffer; view: DataV
 
 export const decodeUint8ArrayTx = (tx: Uint8Array) => {
   const new_tx = new QubicTransaction();
-  const inputSize = Number(tx.slice(PUBLIC_KEY_LENGTH * 2 + 14, PUBLIC_KEY_LENGTH * 2 + 16));
+  const inputSize = Number(tx.slice(PUBLIC_KEY_LENGTH * 2 + 14, PUBLIC_KEY_LENGTH * 2 + 16)) || 0;
   const payloadStart = PUBLIC_KEY_LENGTH * 2 + 16;
   const payloadEnd = payloadStart + inputSize;
   const signatureEnd = payloadEnd + SIGNATURE_LENGTH;
@@ -72,9 +72,11 @@ export const decodeUint8ArrayTx = (tx: Uint8Array) => {
     .setInputType(new DataView(tx.slice(PUBLIC_KEY_LENGTH * 2 + 12, PUBLIC_KEY_LENGTH * 2 + 14).buffer).getUint16(0, true))
     .setInputSize(inputSize);
 
-  const payload = new DynamicPayload(inputSize);
-  payload.setPayload(tx.slice(payloadStart, payloadEnd));
-  new_tx.setPayload(payload);
+  if (inputSize > 0) {
+    const payload = new DynamicPayload(inputSize);
+    payload.setPayload(tx.slice(payloadStart, payloadEnd));
+    new_tx.setPayload(payload);
+  }
   new_tx.signature = new Signature(tx.slice(payloadEnd, signatureEnd));
 
   return new_tx;
@@ -150,11 +152,11 @@ export const generateQRCode = async (text: string) => {
 };
 
 export const generateSeed = (): string => {
-  const letters = "abcdefghijklmnopqrstuvwxyz";
+  const letters = 'abcdefghijklmnopqrstuvwxyz';
   const letterSize = letters.length;
-  let seed = "";
+  let seed = '';
   for (let i = 0; i < 55; i++) {
     seed += letters[Math.floor(Math.random() * letterSize)];
   }
   return seed;
-}
+};
