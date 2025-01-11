@@ -7,6 +7,8 @@ import { decodeUint8ArrayTx, base64ToUint8Array, uint8ArrayToBase64, generateSee
 import { createTx } from '@/services/tx.service';
 import { useAtomValue } from 'jotai';
 import { tickInfoAtom } from '@/store/tickInfo';
+import { useQubicConnect } from '@/components/connect/QubicConnectContext';
+import { broadcastTx } from '@/services/rpc.service';
 
 const qHelper = new QubicHelper();
 
@@ -21,6 +23,16 @@ const initialTxInfo = {
   signature: '',
 };
 
+const initialTxForm = {
+  sourceId: '',
+  destinationId: '',
+  amount: '',
+  tick: '',
+  inputType: '',
+  inputSize: '',
+  payload: '',
+};
+
 const Helpers: React.FC = () => {
   const [publicId, setPublicId] = useState('');
   const [publicKey, setPublicKey] = useState<Uint8Array>(new Uint8Array());
@@ -29,8 +41,10 @@ const Helpers: React.FC = () => {
   const [uint8Output, setUint8Output] = useState('');
   const [base64Output, setBase64Output] = useState('');
   const [txInfo, setTxInfo] = useState(initialTxInfo);
+  const [txForm, setTxForm] = useState(initialTxForm);
 
   const tickInfo = useAtomValue(tickInfoAtom);
+  const { getSignedTx } = useQubicConnect();
 
   const handleError = (message: string) => {
     toast.error(message);
@@ -137,6 +151,35 @@ const Helpers: React.FC = () => {
     }
   };
 
+  const handleCreateTx = async () => {
+    try {
+      if (!txForm.sourceId || !txForm.destinationId || !txForm.amount || !txForm.tick) {
+        return handleError('Please fill in required fields');
+      }
+
+      const tx = createTx(txForm.sourceId, txForm.destinationId, Number(txForm.amount), Number(txForm.tick));
+
+      if (txForm.inputType) {
+        tx.setInputType(Number(txForm.inputType));
+      }
+      if (txForm.inputSize) {
+        tx.setInputSize(Number(txForm.inputSize));
+      }
+      if (txForm.payload) {
+        const payloadBytes = base64ToUint8Array(txForm.payload);
+        tx.setPayload(payloadBytes);
+      }
+
+      const { tx: signedTx } = await getSignedTx(tx);
+      const res = await broadcastTx(signedTx);
+
+      toast.success('Transaction sent successfully! ID: ' + res.transactionId);
+    } catch (error) {
+      console.error(error);
+      handleError('Error creating transaction');
+    }
+  };
+
   const cleanStates = {
     publicIdKey: () => {
       setPublicId('');
@@ -151,6 +194,9 @@ const Helpers: React.FC = () => {
     txParser: () => {
       setUint8Input('');
       setTxInfo(initialTxInfo);
+    },
+    txCreator: () => {
+      setTxForm(initialTxForm);
     },
   };
 
@@ -232,6 +278,27 @@ const Helpers: React.FC = () => {
               {renderInput('Base64', base64Input, setBase64Input, 'Enter Base64 string', 3)}
               <Button onClick={() => handleConversion('toUint8')} className="mt-2 w-full" primary label="Convert to Uint8" />
               {renderOutput('Output', uint8Output)}
+            </div>
+          </div>
+        </Card>
+
+        <Card className="p-6">
+          <div className="space-y-4">
+            <div className="flex justify-between items-center">
+              <h2 className="text-2xl font-semibold">Transaction Creator</h2>
+              <Button onClick={cleanStates.txCreator} className="px-3" label="Clean" />
+            </div>
+
+            <div className="space-y-4">
+              {renderInput('Source ID *', txForm.sourceId, (value) => setTxForm((prev) => ({ ...prev, sourceId: value })), 'Enter source public ID')}
+              {renderInput('Destination ID *', txForm.destinationId, (value) => setTxForm((prev) => ({ ...prev, destinationId: value })), 'Enter destination public ID')}
+              {renderInput('Amount *', txForm.amount, (value) => setTxForm((prev) => ({ ...prev, amount: value })), 'Enter amount')}
+              {renderInput('Tick *', txForm.tick || String(tickInfo.tick + 5), (value) => setTxForm((prev) => ({ ...prev, tick: value })), 'Enter tick')}
+              {renderInput('Input Type', txForm.inputType, (value) => setTxForm((prev) => ({ ...prev, inputType: value })), 'Enter input type')}
+              {renderInput('Input Size', txForm.inputSize, (value) => setTxForm((prev) => ({ ...prev, inputSize: value })), 'Enter input size')}
+              {renderInput('Payload (Base64)', txForm.payload, (value) => setTxForm((prev) => ({ ...prev, payload: value })), 'Enter payload in Base64', 3)}
+
+              <Button onClick={handleCreateTx} className="mt-2 w-full" primary label="Create & Sign Transaction" />
             </div>
           </div>
         </Card>
