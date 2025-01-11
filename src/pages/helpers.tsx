@@ -3,7 +3,7 @@ import Button from '@/components/ui/Button';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { QubicHelper } from '@qubic-lib/qubic-ts-library/dist/qubicHelper';
-import { decodeUint8ArrayTx, base64ToUint8Array, uint8ArrayToBase64, generateSeed } from '@/utils';
+import { decodeUint8ArrayTx, base64ToUint8Array, uint8ArrayToBase64, generateSeed, createPayload } from '@/utils';
 import { createTx } from '@/services/tx.service';
 import { useAtomValue } from 'jotai';
 import { tickInfoAtom } from '@/store/tickInfo';
@@ -33,6 +33,15 @@ const initialTxForm = {
   payload: '',
 };
 
+const initialPayloadField = {
+  data: '',
+  type: 'uint8'
+};
+
+const initialPayloadForm = {
+  fields: [initialPayloadField]
+};
+
 const Helpers: React.FC = () => {
   const [publicId, setPublicId] = useState('');
   const [publicKey, setPublicKey] = useState<Uint8Array>(new Uint8Array());
@@ -42,6 +51,7 @@ const Helpers: React.FC = () => {
   const [base64Output, setBase64Output] = useState('');
   const [txInfo, setTxInfo] = useState(initialTxInfo);
   const [txForm, setTxForm] = useState(initialTxForm);
+  const [payloadForm, setPayloadForm] = useState(initialPayloadForm);
 
   const tickInfo = useAtomValue(tickInfoAtom);
   const { getSignedTx } = useQubicConnect();
@@ -101,6 +111,51 @@ const Helpers: React.FC = () => {
       }
     } catch {
       handleError(`Invalid ${type === 'toBase64' ? 'Uint8 Array' : 'Base64'} format`);
+    }
+  };
+
+  const addPayloadField = () => {
+    setPayloadForm(prev => ({
+      fields: [...prev.fields, initialPayloadField]
+    }));
+  };
+
+  const removePayloadField = (index: number) => {
+    setPayloadForm(prev => ({
+      fields: prev.fields.filter((_, i) => i !== index)
+    }));
+  };
+
+  const updatePayloadField = (index: number, field: typeof initialPayloadField) => {
+    setPayloadForm(prev => ({
+      fields: prev.fields.map((f, i) => i === index ? field : f)
+    }));
+  };
+
+  const handleCreatePayload = () => {
+    try {
+      const invalidFields = payloadForm.fields.some(field => !field.data || !field.type);
+      if (invalidFields) {
+        return handleError('Please fill in all payload fields');
+      }
+
+      const payload = createPayload(payloadForm.fields.map(field => ({
+        data: field.data.startsWith('0x') ? 
+          parseInt(field.data, 16) : 
+          Number(field.data),
+        type: field.type as 'uint8' | 'uint16' | 'uint32' | 'bigint64'
+      })));
+
+      setTxForm(prev => ({
+        ...prev,
+        payload: uint8ArrayToBase64(payload),
+        inputSize: payload.length.toString()
+      }));
+
+      toast.success('Payload created successfully');
+    } catch (error) {
+      console.error(error);
+      handleError('Error creating payload');
     }
   };
 
@@ -167,7 +222,9 @@ const Helpers: React.FC = () => {
       }
       if (txForm.payload) {
         const payloadBytes = base64ToUint8Array(txForm.payload);
-        tx.setPayload(payloadBytes);
+        const dynamicPayload = new DynamicPayload(payloadBytes.length);
+        dynamicPayload.setPayload(payloadBytes);
+        tx.setPayload(dynamicPayload);
       }
 
       const { tx: signedTx } = await getSignedTx(tx);
@@ -197,6 +254,7 @@ const Helpers: React.FC = () => {
     },
     txCreator: () => {
       setTxForm(initialTxForm);
+      setPayloadForm(initialPayloadForm);
     },
   };
 
@@ -220,6 +278,21 @@ const Helpers: React.FC = () => {
           onChange={(e) => onChange(e.target.value)}
         />
       )}
+    </div>
+  );
+
+  const renderSelect = (label: string, value: string, onChange: (value: string) => void, options: string[]) => (
+    <div>
+      <label className="block text-sm font-medium mb-2">{label}</label>
+      <select 
+        className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-primary"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+      >
+        {options.map(option => (
+          <option key={option} value={option}>{option}</option>
+        ))}
+      </select>
     </div>
   );
 
@@ -278,6 +351,51 @@ const Helpers: React.FC = () => {
               {renderInput('Base64', base64Input, setBase64Input, 'Enter Base64 string', 3)}
               <Button onClick={() => handleConversion('toUint8')} className="mt-2 w-full" primary label="Convert to Uint8" />
               {renderOutput('Output', uint8Output)}
+            </div>
+          </div>
+        </Card>
+
+        <Card className="p-6">
+          <div className="space-y-4">
+            <div className="flex justify-between items-center">
+              <h2 className="text-2xl font-semibold">Payload Maker</h2>
+              <Button onClick={() => setPayloadForm(initialPayloadForm)} className="px-3" label="Clean" />
+            </div>
+
+            <div className="space-y-4">
+              {payloadForm.fields.map((field, index) => (
+                <div key={index} className="p-4 bg-gray-800 rounded-lg">
+                  <div className="flex justify-between items-center mb-4">
+                    <h3 className="text-lg font-semibold">Field {index + 1}</h3>
+                    {index > 0 && (
+                      <Button onClick={() => removePayloadField(index)} className="px-3" label="Remove" />
+                    )}
+                  </div>
+                  {renderInput(
+                    'Data (decimal or hex)',
+                    field.data,
+                    (value) => updatePayloadField(index, { ...field, data: value }),
+                    'Enter data (e.g. 123 or 0xFF)'
+                  )}
+                  {renderSelect(
+                    'Type',
+                    field.type,
+                    (value) => updatePayloadField(index, { ...field, type: value }),
+                    ['uint8', 'uint16', 'uint32', 'bigint64']
+                  )}
+                </div>
+              ))}
+              
+              <Button onClick={addPayloadField} className="w-full" label="Add Field" />
+              <Button onClick={handleCreatePayload} className="mt-4 w-full" primary label="Create Combined Payload" />
+              
+              {txForm.payload && (
+                <div>
+                  {renderOutput('Combined Payload (Base64)', txForm.payload)}
+                  {renderOutput('Input Type', txForm.inputType)}
+                  {renderOutput('Input Size', txForm.inputSize)}
+                </div>
+              )}
             </div>
           </div>
         </Card>
