@@ -98,9 +98,7 @@ const Fetcher: React.FC = () => {
   useEffect(() => {
     if (!balances.length) return;
     const fetchUserLockData = async () => {
-      console.log(balances[0].id, epoch.current);
       const lockInfo = await getUserLockStatus(balances[0].id, epoch.current);
-      console.log('lockInfo', lockInfo);
     };
     fetchUserLockData();
   }, [balances, epoch.current]);
