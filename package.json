@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^2.2.0",
+    "@js-joda/core": "^5.6.4",
     "@metamask/providers": "^18.3.0",
     "@qubic-lib/qubic-ts-library": "^0.1.5",
     "@qubic-lib/qubic-ts-vault-library": "^1.0.2",
