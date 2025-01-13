@@ -7,6 +7,7 @@ import { Long } from '@qubic-lib/qubic-ts-library/dist/qubic-types/Long';
 import { DynamicPayload } from '@qubic-lib/qubic-ts-library/dist/qubic-types/DynamicPayload';
 import { Signature } from '@qubic-lib/qubic-ts-library/dist/qubic-types/Signature';
 import { PUBLIC_KEY_LENGTH, SIGNATURE_LENGTH } from '@qubic-lib/qubic-ts-library/dist/crypto';
+import { LocalDateTime, ZoneOffset, DayOfWeek, Duration } from '@js-joda/core';
 
 // format number input to 100,000,000 format
 export const formatQubicAmount = (amount: number, seperator = ',') => {
@@ -159,4 +160,23 @@ export const generateSeed = (): string => {
     seed += letters[Math.floor(Math.random() * letterSize)];
   }
   return seed;
+};
+
+export const getTimeToNewEpoch = () => {
+  const now = LocalDateTime.now(ZoneOffset.UTC);
+  
+  let nextWednesday = now.withHour(12).withMinute(0).withSecond(0).withNano(0);
+  
+  while (nextWednesday.dayOfWeek() !== DayOfWeek.WEDNESDAY || 
+         (nextWednesday.dayOfWeek() === DayOfWeek.WEDNESDAY && now.isAfter(nextWednesday))) {
+    nextWednesday = nextWednesday.plusDays(1);
+  }
+
+  const duration = Duration.between(now, nextWednesday);
+  
+  return {
+    days: duration.toDays(),
+    hours: duration.toHours() % 24,
+    minutes: duration.toMinutes() % 60
+  };
 };

@@ -8,6 +8,8 @@ import { QEARN_START_EPOCH } from '@/data/contants';
 import { useQubicConnect } from '@/components/connect/QubicConnectContext';
 import { fetchBalance } from '@/services/rpc.service';
 import { balancesAtom } from '@/store/balances';
+import { closeTimeAtom } from '@/store/closeTime';
+import { getTimeToNewEpoch } from '@/utils';
 
 const Fetcher: React.FC = () => {
   const { refetch: refetchTickInfo } = useFetchTickInfo();
@@ -38,6 +40,15 @@ const Fetcher: React.FC = () => {
     };
   }, [refetchTickInfo, setTickInfo]);
 
+  // Update close time
+  const [, setCloseTime] = useAtom(closeTimeAtom);
+  useEffect(() => {
+    setTimeout(() => {
+      const timeToNewEpoch = getTimeToNewEpoch();
+      setCloseTime(timeToNewEpoch);
+    }, 1000);
+  }, []);
+
   // Fetch epoch lock data
   useEffect(() => {
     const fetchEpochData = async () => {
@@ -48,15 +59,22 @@ const Fetcher: React.FC = () => {
       }
 
       const results = await Promise.all(promises);
-
-      const newStats = results.reduce<Record<number, any>>((acc, epochLockInfo, index) => {
-        if (epochLockInfo) {
-          acc[epoch.current - index] = epochLockInfo;
-        }
-        return acc;
-      }, {});
-
-      setQearnStats((prev) => ({ ...prev, ...newStats }));
+      const newStats = results.reduce<Record<number, any> & { totalLockAmount: number; totalBonusAmount: number; averageYieldPercentage: number }>(
+        (acc, epochLockInfo, index) => {
+          if (epochLockInfo) {
+            acc[epoch.current - index] = epochLockInfo;
+            acc.totalLockAmount += epochLockInfo.currentLockedAmount;
+            acc.totalBonusAmount += epochLockInfo.currentBonusAmount;
+            acc.averageYieldPercentage = ((acc.averageYieldPercentage || 0) * index + epochLockInfo.yieldPercentage) / (index + 1);
+          }
+          return acc;
+        },
+        { totalLockAmount: 0, totalBonusAmount: 0, averageYieldPercentage: 0 }
+      );
+      setQearnStats((prev) => ({
+        ...prev,
+        ...newStats,
+      }));
     };
 
     fetchEpochData();
@@ -80,9 +98,7 @@ const Fetcher: React.FC = () => {
   useEffect(() => {
     if (!balances.length) return;
     const fetchUserLockData = async () => {
-      console.log(balances[0].id, epoch.current);
       const lockInfo = await getUserLockStatus(balances[0].id, epoch.current);
-      console.log('lockInfo', lockInfo);
     };
     fetchUserLockData();
   }, [balances, epoch.current]);

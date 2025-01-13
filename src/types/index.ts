@@ -59,3 +59,17 @@ export interface TxStatus {
   txId: string;
   moneyFlew: boolean;
 }
+
+export interface LatestStats {
+  timestamp: string;
+  circulatingSupply: string;
+  activeAddresses: number;
+  price: number;
+  marketCap: string;
+  epoch: number;
+  currentTick: number;
+  ticksInCurrentEpoch: number;
+  emptyTicksInCurrentEpoch: number;
+  epochTickQuality: number;
+  burnedQus: string;
+}
