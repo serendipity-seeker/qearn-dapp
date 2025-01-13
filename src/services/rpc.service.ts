@@ -1,5 +1,5 @@
 import { httpEndpoint } from '@/constants';
-import { Balance, IQuerySC, IQuerySCResponse, TickInfo, TxStatus } from '@/types';
+import { Balance, IQuerySC, IQuerySCResponse, LatestStats, TickInfo, TxStatus } from '@/types';
 import { uint8ArrayToBase64 } from '@/utils';
 
 export const fetchTickInfo = async (): Promise<TickInfo> => {
@@ -53,4 +53,18 @@ export const fetchTxStatus = async (txId: string): Promise<TxStatus> => {
     txStatus = await txStatusResult.json();
   }
   return txStatus.transactionStatus;
+};
+
+export const fetchLatestStats = async (): Promise<LatestStats> => {
+  const latestStatsResult = await fetch(`${httpEndpoint}/v1/latest-stats`);
+  if (!latestStatsResult.ok) {
+    console.warn('fetchLatestStats: Failed to fetch latest stats');
+    return {} as LatestStats;
+  }
+  const latestStats = await latestStatsResult.json();
+  if (!latestStats || !latestStats.data) {
+    console.warn('fetchLatestStats: Invalid response data');
+    return {} as LatestStats;
+  }
+  return latestStats.data;
 };
