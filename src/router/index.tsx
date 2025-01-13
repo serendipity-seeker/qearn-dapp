@@ -5,6 +5,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import Error404 from '@/pages/error404';
 import Settings from '@/pages/settings';
 import Helpers from '@/pages/helpers';
+import Welcome from '@/pages/welcome';
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
+        element: <Welcome />,
+      },
+      {
+        path: '/home',
         element: <Home />,
       },
       {
