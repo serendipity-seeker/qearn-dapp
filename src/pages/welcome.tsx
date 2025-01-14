@@ -1,5 +1,4 @@
 import Button from '@/components/ui/Button';
-import KeyInfoBanner from '@/components/InfoBanner';
 import { qearnStatsAtom } from '@/store/qearnStat';
 import { tickInfoAtom } from '@/store/tickInfo';
 import { useAtom } from 'jotai';
