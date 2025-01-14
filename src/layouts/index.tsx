@@ -4,6 +4,7 @@ import Footer from '@/components/ui/layout/Footer';
 import logo from '@/assets/qearn.svg';
 import Fetcher from './Fetcher';
 import TxMonitor from './TxMonitor';
+import InfoBanner from '@/components/InfoBanner';
 
 const Layout: React.FC = () => {
   return (
@@ -16,6 +17,7 @@ const Layout: React.FC = () => {
         <Fetcher />
         <TxMonitor />
       </div>
+      <InfoBanner />
       <Footer />
     </div>
   );
