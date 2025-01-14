@@ -1,5 +1,7 @@
 # QEARN dApp
 
+![image](https://github.com/user-attachments/assets/20b3cf7d-e5b5-4d7d-98cb-cf83dda10bdc)
+
 ## Introduction to Qearn
 
 Qearn is a revolutionary staking mechanism designed to reduce Qubic's circulating supply while providing attractive risk-free yields to token holders. The core concept involves allocating 100B QU per week as rewards for users who lock their tokens for 52 weeks.
