@@ -64,7 +64,7 @@ const AccountSelector: React.FC<AccountSelectorProps> = ({ label, options, selec
           </div>
           {options[selected] && (
             <div className="flex items-center mt-2">
-              <span className="text-gray-50 break-all">{options[selected].value}</span>
+              <span className="break-all">{options[selected].value}</span>
               <button
                 onClick={(e) => {
                   e.stopPropagation();

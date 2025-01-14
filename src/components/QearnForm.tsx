@@ -58,7 +58,6 @@ const QearnForm: React.FC = () => {
   };
 
   const handleSubmit = async () => {
-    toast.error('SUBMITTING...');
     if (!(await validate())) {
       return;
     }
@@ -94,23 +93,14 @@ const QearnForm: React.FC = () => {
         <h1 className="text-4xl">Lock $QUBIC</h1>
 
         <div className="space-y-6">
-          <AccountSelector label="Select Account" options={accounts} selected={selectedAccount} setSelected={setSelectedAccount} />
-
-          <div>
-            <InputNumbers id="amount" label="Lock Amount" placeholder="Enter amount" onChange={handleAmountChange} />
-            <p className="text-gray-300 text-sm text-right">
-              Balance: <span className="font-bold text-primary">{balances[selectedAccount]?.balance || 0}</span> QUBIC
+          <div className="space-y-2">
+            <AccountSelector label="Select Account" options={accounts} selected={selectedAccount} setSelected={setSelectedAccount} />
+            <p className="text-gray-50 text-sm flex justify-between">
+              <span className="font-bold text-primary">Available:</span> <span className="font-bold text-primary">{balances[selectedAccount]?.balance || 0} QUBIC</span>
             </p>
           </div>
-
-          <Button
-            label="Lock Funds"
-            className="w-full py-4 text-lg font-semibold transition-transform hover:scale-[1.02] active:scale-[0.98]"
-            type="submit"
-            primary={true}
-            icon={<FaLock className="mr-2" />}
-            onClick={handleSubmit}
-          />
+          <InputNumbers id="amount" label="Lock Amount" placeholder="Enter amount" onChange={handleAmountChange} />
+          <Button label="Lock Funds" className="w-full py-4 text-lg font-semibold transition-transform hover:scale-[1.02] active:scale-[0.98]" primary={true} onClick={handleSubmit} />
         </div>
       </div>
     </Card>
