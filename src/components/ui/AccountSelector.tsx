@@ -65,15 +65,16 @@ const AccountSelector: React.FC<AccountSelectorProps> = ({ label, options, selec
           {options[selected] && (
             <div className="flex items-center mt-2">
               <span className="break-all">{options[selected].value}</span>
-              <button
+              <div
+                role="button"
                 onClick={(e) => {
                   e.stopPropagation();
                   handleCopy(options[selected].value);
                 }}
-                className="ml-2 p-1 bg-gray-80 hover:bg-gray-70 rounded transition-colors"
+                className="ml-2 p-1 bg-gray-80 hover:bg-gray-70 cursor-pointer rounded transition-colors"
               >
                 {isCopied ? <MdCheck className="w-4 h-4 text-success-40" /> : <MdContentCopy className="w-4 h-4 text-gray-50" />}
-              </button>
+              </div>
             </div>
           )}
         </button>
