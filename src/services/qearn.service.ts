@@ -51,8 +51,7 @@ export const getLockInfoPerEpoch = async (epoch: number): Promise<ILockInfo> => 
 
 export const getUserLockInfo = async (user: Uint8Array | string, epoch: number): Promise<number> => {
   if (typeof user === 'string') {
-    const idPackage = await qHelper.createIdPackage(user);
-    user = idPackage.publicKey;
+    user = qHelper.getIdentityBytes(user);
   }
 
   const view = new DataView(new Uint8Array(36).buffer);
@@ -89,8 +88,7 @@ export const getStateOfRound = async (epoch: number): Promise<{ state: number }>
 
 export const getUserLockStatus = async (user: Uint8Array | string, currentEpoch: number): Promise<number[]> => {
   if (typeof user === 'string') {
-    const idPackage = await qHelper.createIdPackage(user);
-    user = idPackage.publicKey;
+    user = await qHelper.getIdentityBytes(user);
   }
 
   const view = new DataView(new Uint8Array(32).buffer);
@@ -116,8 +114,7 @@ export const getUserLockStatus = async (user: Uint8Array | string, currentEpoch:
 
 export const getEndedStatus = async (user: Uint8Array | string): Promise<{ fullUnlockedAmount?: number; fullRewardedAmount?: number; earlyUnlockedAmount?: number; earlyRewardedAmount?: number }> => {
   if (typeof user === 'string') {
-    const idPackage = await qHelper.createIdPackage(user);
-    user = idPackage.publicKey;
+    user = await qHelper.getIdentityBytes(user);
   }
 
   const view = new DataView(new Uint8Array(32).buffer);
