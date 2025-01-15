@@ -2,14 +2,13 @@ import { useState } from 'react';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import { QubicHelper } from '@qubic-lib/qubic-ts-library/dist/qubicHelper';
-import { base64ToUint8Array } from '@/utils';
 import { toast } from 'react-hot-toast';
 import { renderInput, renderOutput } from './common';
 
 const qHelper = new QubicHelper();
 
 export const PublicIdKeyConverter = () => {
-  const [publicId, setPublicId] = useState('');
+  const [publicId, setPublicId] = useState<string>('');
   const [publicKey, setPublicKey] = useState<string>('');
 
   const validatePublicKey = (key: Uint8Array | string) => {
@@ -23,11 +22,11 @@ export const PublicIdKeyConverter = () => {
   const getPublicKeyFromId = async () => {
     try {
       if (!publicId) return handleError('Please enter a Public ID');
-      const idPackage = await qHelper.createIdPackage(publicId);
-      if (!validatePublicKey(idPackage.publicKey)) {
+      const pubKey = qHelper.getIdentityBytes(publicId);
+      if (!validatePublicKey(pubKey)) {
         return handleError('Invalid public key length - must be 32 bytes');
       }
-      setPublicKey(idPackage.publicKey.toString());
+      setPublicKey(pubKey.toString());
     } catch {
       handleError('Invalid Public ID format');
     }
@@ -78,16 +77,12 @@ export const PublicIdKeyConverter = () => {
         <div className="space-y-4">
           {renderInput('Public ID', publicId, setPublicId, 'Enter Public ID')}
           <Button onClick={getPublicKeyFromId} className="mt-2 w-full" primary label="Get Public Key" />
-          {renderOutput('Output', publicKey.toString())}
+          {renderOutput('Output', publicKey)}
 
           {renderInput(
             'Public Key',
             publicKey,
-            (value) => {
-              try {
-                setPublicKey(value);
-              } catch {} // Handle invalid base64 input silently
-            },
+            setPublicKey,
             'Enter Public Key'
           )}
           <Button onClick={getPublicIdFromKey} className="mt-2 w-full" primary label="Get Public ID" />
