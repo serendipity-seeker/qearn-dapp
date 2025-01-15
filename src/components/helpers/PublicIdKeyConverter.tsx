@@ -10,7 +10,7 @@ const qHelper = new QubicHelper();
 
 export const PublicIdKeyConverter = () => {
   const [publicId, setPublicId] = useState('');
-  const [publicKey, setPublicKey] = useState<Uint8Array>(new Uint8Array());
+  const [publicKey, setPublicKey] = useState<string>('');
 
   const validatePublicKey = (key: Uint8Array | string) => {
     if (typeof key === 'string' && key.length !== 60) return false;
@@ -27,7 +27,7 @@ export const PublicIdKeyConverter = () => {
       if (!validatePublicKey(idPackage.publicKey)) {
         return handleError('Invalid public key length - must be 32 bytes');
       }
-      setPublicKey(idPackage.publicKey);
+      setPublicKey(idPackage.publicKey.toString());
     } catch {
       handleError('Invalid Public ID format');
     }
@@ -36,10 +36,27 @@ export const PublicIdKeyConverter = () => {
   const getPublicIdFromKey = async () => {
     try {
       if (!publicKey.length) return handleError('Please enter a Public Key');
-      if (!validatePublicKey(publicKey)) {
+      if (
+        !validatePublicKey(
+          new Uint8Array(
+            publicKey
+              .trim()
+              .split(',')
+              .map((str) => Number(str))
+          )
+        )
+      ) {
         return handleError('Invalid public key length - must be 32 bytes');
       }
-      const id = await qHelper.getIdentity(publicKey);
+      const id = await qHelper.getIdentity(
+        new Uint8Array(
+          publicKey
+            .trim()
+            .split(',')
+            .map((str) => Number(str))
+        )
+      );
+      alert(id);
       setPublicId(id);
     } catch {
       handleError('Invalid Public Key format');
@@ -48,7 +65,7 @@ export const PublicIdKeyConverter = () => {
 
   const cleanStates = () => {
     setPublicId('');
-    setPublicKey(new Uint8Array());
+    setPublicKey('');
   };
 
   return (
@@ -66,10 +83,10 @@ export const PublicIdKeyConverter = () => {
 
           {renderInput(
             'Public Key',
-            publicKey.toString(),
+            publicKey,
             (value) => {
               try {
-                setPublicKey(base64ToUint8Array(value));
+                setPublicKey(value);
               } catch {} // Handle invalid base64 input silently
             },
             'Enter Public Key'
@@ -80,4 +97,4 @@ export const PublicIdKeyConverter = () => {
       </div>
     </Card>
   );
-}; 
+};
