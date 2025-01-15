@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import { toast } from 'react-hot-toast';
@@ -88,9 +88,11 @@ export const TransactionParser = () => {
           {renderInput('Transaction Uint8 Array', uint8Input, setUint8Input, 'Enter transaction Uint8 Array', 3)}
           <Button onClick={parseTx} className="mt-2 w-full" primary label="Parse Transaction" />
 
-          {Object.entries(txInfo).map(([key, value]) => 
-            renderOutput(key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1'), value.toString())
-          )}
+          {Object.entries(txInfo).map(([key, value]) => (
+            <Fragment key={key}>
+              {renderOutput(key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1'), value.toString())}
+            </Fragment>
+          ))}
         </div>
       </div>
     </Card>
