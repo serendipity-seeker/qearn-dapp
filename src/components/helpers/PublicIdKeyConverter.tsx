@@ -56,7 +56,6 @@ export const PublicIdKeyConverter = () => {
             .map((str) => Number(str))
         )
       );
-      alert(id);
       setPublicId(id);
     } catch {
       handleError('Invalid Public Key format');
