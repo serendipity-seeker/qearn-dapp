@@ -136,7 +136,7 @@ export function WalletConnectProvider({ children }: WalletConnectProviderProps) 
         },
       });
     } catch (error) {
-      toast.error(error.message);
+      toast.error((error as Error)?.message || 'Failed to sign transaction');
       throw error;
     }
   };
