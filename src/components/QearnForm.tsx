@@ -5,7 +5,7 @@ import { tickInfoAtom } from '@/store/tickInfo';
 import { settingsAtom } from '@/store/settings';
 import { useEffect, useState } from 'react';
 import { useQubicConnect } from './connect/QubicConnectContext';
-import { lockQubic, unLockQubic } from '@/services/qearn.service';
+import { lockQubic } from '@/services/qearn.service';
 import { broadcastTx, fetchBalance } from '@/services/rpc.service';
 import { toast } from 'react-hot-toast';
 import InputNumbers from './ui/InputNumbers';

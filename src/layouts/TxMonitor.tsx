@@ -1,10 +1,9 @@
 import { getUserLockInfo } from '@/services/qearn.service';
-import { fetchBalance, fetchTxStatus } from '@/services/rpc.service';
+import { fetchBalance } from '@/services/rpc.service';
 import { balancesAtom } from '@/store/balances';
 import { IPendingTx, pendingTxAtom } from '@/store/pendingTx';
 import { tickInfoAtom } from '@/store/tickInfo';
 import { userLockInfoAtom } from '@/store/userLockInfo';
-import { TxStatus } from '@/types';
 import { useAtom } from 'jotai';
 import { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
@@ -13,7 +12,7 @@ const TxMonitor: React.FC = () => {
   const [tickInfo] = useAtom(tickInfoAtom);
   const [pendingTx, setPendingTx] = useAtom(pendingTxAtom);
   const [, setBalance] = useAtom(balancesAtom);
-  const [userLockInfo, setUserLockInfo] = useAtom(userLockInfoAtom);
+  const [, setUserLockInfo] = useAtom(userLockInfoAtom);
 
   const checkTxResult = async () => {
     if (tickInfo?.tick > pendingTx.targetTick) {
