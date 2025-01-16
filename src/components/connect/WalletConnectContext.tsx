@@ -120,7 +120,7 @@ export function WalletConnectProvider({ children }: WalletConnectProviderProps) 
     });
   };
 
-  const signTransaction = async (params: { fromID: string; toID: string; amount: number; tick: number; inputType: number; payload: string | null }) => {
+  const signTransaction = async (params: { from: string; to: string; amount: number; tick: number; inputType: number; payload: string | null }) => {
     if (!signClient || !sessionTopic) throw new Error('Not connected');
 
     try {

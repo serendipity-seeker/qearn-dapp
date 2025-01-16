@@ -7,12 +7,12 @@ import { useEffect, useState } from 'react';
 import { useQubicConnect } from './connect/QubicConnectContext';
 import { lockQubic, unLockQubic } from '@/services/qearn.service';
 import { broadcastTx, fetchBalance } from '@/services/rpc.service';
-import { FaLock } from 'react-icons/fa';
 import { toast } from 'react-hot-toast';
 import InputNumbers from './ui/InputNumbers';
 import { balancesAtom } from '@/store/balances';
 import { pendingTxAtom } from '@/store/pendingTx';
 import AccountSelector from './ui/AccountSelector';
+import { userLockInfoAtom } from '@/store/userLockInfo';
 
 const QearnForm: React.FC = () => {
   const [tickInfo] = useAtom(tickInfoAtom);
@@ -23,6 +23,7 @@ const QearnForm: React.FC = () => {
   const { getSignedTx } = useQubicConnect();
   const [balances] = useAtom(balancesAtom);
   const [, setPendingTx] = useAtom(pendingTxAtom);
+  const [userLockInfo] = useAtom(userLockInfoAtom);
 
   useEffect(() => {
     if (balances.length > 0) {
@@ -66,13 +67,12 @@ const QearnForm: React.FC = () => {
       // const tx = await unLockQubic(accounts[selectedAccount].value, amount, tickInfo?.epoch || 0, tickInfo?.tick + settings.tickOffset);
       const tx = await lockQubic(accounts[selectedAccount].value, amount, tickInfo?.tick + settings.tickOffset);
       const { tx: signedTx } = await getSignedTx(tx);
-
       const res = await broadcastTx(signedTx);
       setPendingTx({
         txId: res.transactionId,
         publicId: accounts[selectedAccount].value,
-        initAmount: balances[selectedAccount].balance,
-        amount,
+        initAmount: userLockInfo[accounts[selectedAccount].value]?.[tickInfo?.epoch || 0] || 0,
+        amount: amount,
         epoch: tickInfo?.epoch || 0,
         targetTick: tickInfo?.tick + settings.tickOffset,
         type: 'qearn',
