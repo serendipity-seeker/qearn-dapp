@@ -67,7 +67,6 @@ const QearnForm: React.FC = () => {
       // const tx = await unLockQubic(accounts[selectedAccount].value, amount, tickInfo?.epoch || 0, tickInfo?.tick + settings.tickOffset);
       const tx = await lockQubic(accounts[selectedAccount].value, amount, tickInfo?.tick + settings.tickOffset);
       const { tx: signedTx } = await getSignedTx(tx);
-      console.log(userLockInfo);
       const res = await broadcastTx(signedTx);
       setPendingTx({
         txId: res.transactionId,

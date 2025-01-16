@@ -23,7 +23,6 @@ const TxMonitor: React.FC = () => {
         return;
       }
       const lockedAmount = await getUserLockInfo(pendingTx.publicId, pendingTx.epoch);
-      console.log(lockedAmount, pendingTx.initAmount, pendingTx.amount);
       if (lockedAmount - pendingTx.initAmount == pendingTx.amount) {
         if (pendingTx.amount > 0) {
           toast.success('Locked successfully');

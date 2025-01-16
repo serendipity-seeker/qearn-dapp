@@ -60,7 +60,7 @@ export const createDataView = (size: number): { buffer: ArrayBuffer; view: DataV
 
 export const decodeUint8ArrayTx = (tx: Uint8Array) => {
   const new_tx = new QubicTransaction();
-  const inputSize = Number(tx.slice(PUBLIC_KEY_LENGTH * 2 + 14, PUBLIC_KEY_LENGTH * 2 + 16)) || 0;
+  const inputSize = new DataView(tx.slice(PUBLIC_KEY_LENGTH * 2 + 14, PUBLIC_KEY_LENGTH * 2 + 16).buffer).getUint16(0, true) || 0;
   const payloadStart = PUBLIC_KEY_LENGTH * 2 + 16;
   const payloadEnd = payloadStart + inputSize;
   const signatureEnd = payloadEnd + SIGNATURE_LENGTH;
