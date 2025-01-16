@@ -73,3 +73,9 @@ export interface LatestStats {
   epochTickQuality: number;
   burnedQus: string;
 }
+
+export interface IUserLockInfo {
+  [id: string]: {
+    [epoch: number]: number;
+  };
+}
