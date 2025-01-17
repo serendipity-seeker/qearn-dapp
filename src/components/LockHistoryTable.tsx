@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
-import { Switch } from '@headlessui/react';
 import Card from './ui/Card';
-import { balancesAtom } from '@/store/balances';
 import { useAtom } from 'jotai';
 import { userLockInfoAtom } from '@/store/userLockInfo';
 import AccountSelector from './ui/AccountSelector';
-import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
+import { createColumnHelper, flexRender, getCoreRowModel, useReactTable, SortingState, getSortedRowModel } from '@tanstack/react-table';
 import { qearnStatsAtom } from '@/store/qearnStat';
 import { calculateRewards } from '@/utils';
 import { tickInfoAtom } from '@/store/tickInfo';
+import { MdArrowDownward, MdArrowUpward } from 'react-icons/md';
+import Button from './ui/Button';
 
 interface ITableData {
   lockedEpoch: number;
@@ -20,15 +20,14 @@ interface ITableData {
 }
 
 const LockHistoryTable: React.FC = () => {
-  const [showingEnded, setShowingEnded] = useState(false);
   const [selectedAccount, setSelectedAccount] = useState<number>(0);
   const [isLoading] = useState(false);
   const [accounts, setAccounts] = useState<{ label: string; value: string }[]>([]);
-  const [balances] = useAtom(balancesAtom);
   const [userLockInfo] = useAtom(userLockInfoAtom);
   const [qearnStats] = useAtom(qearnStatsAtom);
   const [tableData, setTableData] = useState<ITableData[]>([]);
   const [tickInfo] = useAtom(tickInfoAtom);
+  const [sorting, setSorting] = useState<SortingState>([]);
 
   const columnHelper = createColumnHelper<ITableData>();
   const lockedColumns = [
@@ -59,25 +58,30 @@ const LockHistoryTable: React.FC = () => {
     columnHelper.display({
       id: 'actions',
       header: 'Actions',
-      cell: () => <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">Unlock Early</button>,
+      cell: () => <Button className="px-4 py-2 bg-blue-500 transition-colors" primary={true} label="Unlock Early" />,
     }),
   ];
   const table = useReactTable({
     data: tableData,
     columns: lockedColumns,
+    state: {
+      sorting,
+    },
+    onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
   });
 
   useEffect(() => {
-    if (balances.length > 0) {
-      setAccounts([{ label: `Account 1`, value: balances[0].id }]);
+    if (Object.keys(userLockInfo).length > 0) {
+      setAccounts([{ label: `Account 1`, value: Object.keys(userLockInfo)[0] }]);
     }
-  }, [balances]);
+  }, [userLockInfo]);
 
   useEffect(() => {
-    if (accounts.length < 0 || !qearnStats || !userLockInfo || !balances) return;
+    if (accounts.length < 0 || !qearnStats || !userLockInfo) return;
     setTableData(
-      Object.entries(userLockInfo[balances[selectedAccount]?.id] || {}).map(([epochStr, amount]) => {
+      Object.entries(userLockInfo[accounts[selectedAccount]?.value] || {}).map(([epochStr, amount]) => {
         const lockedEpoch = parseInt(epochStr);
         const rewards = calculateRewards(
           amount,
@@ -97,26 +101,12 @@ const LockHistoryTable: React.FC = () => {
         };
       }) as any[]
     );
-  }, [accounts, qearnStats, userLockInfo, balances]);
+  }, [accounts, qearnStats, userLockInfo]);
 
   return (
     <Card className="p-6 space-y-6">
       <div className="space-y-4">
         <AccountSelector label="Select Account" options={accounts} selected={selectedAccount} setSelected={setSelectedAccount} />
-
-        <div className="flex justify-between items-center">
-          <Switch
-            checked={showingEnded}
-            onChange={setShowingEnded}
-            className="group relative flex h-7 w-14 cursor-pointer rounded-full bg-white/10 p-1 transition-colors duration-200 ease-in-out focus:outline-none data-[focus]:outline-1 data-[focus]:outline-white data-[checked]:bg-white/10"
-          >
-            <span
-              aria-hidden="true"
-              className="pointer-events-none inline-block size-5 translate-x-0 rounded-full bg-white ring-0 shadow-lg transition duration-200 ease-in-out group-data-[checked]:translate-x-7"
-            />
-          </Switch>
-          <span className="text-sm">{showingEnded ? 'Showing Unlocked' : 'Showing Locked'}</span>
-        </div>
 
         {isLoading ? (
           <div className="flex justify-center p-8">
@@ -129,8 +119,27 @@ const LockHistoryTable: React.FC = () => {
                 {table.getHeaderGroups().map((headerGroup) => (
                   <tr key={headerGroup.id}>
                     {headerGroup.headers.map((header) => (
-                      <th key={header.id} className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
-                        {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                      <th
+                        key={header.id}
+                        className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider cursor-pointer group"
+                        onClick={header.column.getToggleSortingHandler()}
+                      >
+                        <div className="flex items-center gap-2">
+                          {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                          {header.column.getCanSort() && (
+                            <div className="opacity-0 group-hover:opacity-100 transition-opacity">
+                              {{
+                                asc: <MdArrowUpward className="w-4 h-4" />,
+                                desc: <MdArrowDownward className="w-4 h-4" />,
+                              }[header.column.getIsSorted() as string] ?? (
+                                <div className="w-4 h-4 flex flex-col">
+                                  <MdArrowUpward className="w-3 h-3" />
+                                  <MdArrowDownward className="w-3 h-3" />
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </div>
                       </th>
                     ))}
                   </tr>
@@ -139,7 +148,7 @@ const LockHistoryTable: React.FC = () => {
               <tbody className="divide-y divide-gray-700">
                 {table.getRowModel().rows.length === 0 ? (
                   <tr>
-                    <td colSpan={showingEnded ? 3 : 8} className="text-center py-8">
+                    <td colSpan={8} className="text-center py-8">
                       No data available
                     </td>
                   </tr>
