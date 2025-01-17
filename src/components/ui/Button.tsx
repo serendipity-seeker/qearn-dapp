@@ -22,7 +22,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 const Button = ({ primary = false, label, className, icon, ...props }: ButtonProps) => {
   const mode = primary ? 'bg-primary-40 text-black' : 'bg-[rgba(26,222,245,0.1)] text-primary-40';
   return (
-    <button type="button" className={clsx('p-4 rounded-lg flex items-center justify-center border-none hover:scale-[1.02] active:scale-[0.98] transition-transform', mode, className)} {...props}>
+    <button type="button" className={clsx('p-3 rounded-xl flex items-center justify-center border-none hover:scale-[1.02] active:scale-[0.98] transition-transform', mode, className)} {...props}>
       {icon}
       {label}
     </button>

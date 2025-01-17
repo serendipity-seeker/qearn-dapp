@@ -13,6 +13,8 @@ import { balancesAtom } from '@/store/balances';
 import { pendingTxAtom } from '@/store/pendingTx';
 import AccountSelector from './ui/AccountSelector';
 import { userLockInfoAtom } from '@/store/userLockInfo';
+import { useDisclosure } from '@/hooks/useDisclosure';
+import ConfirmModal from './ui/ConfirmModal';
 
 const QearnForm: React.FC = () => {
   const [tickInfo] = useAtom(tickInfoAtom);
@@ -24,6 +26,7 @@ const QearnForm: React.FC = () => {
   const [balances] = useAtom(balancesAtom);
   const [, setPendingTx] = useAtom(pendingTxAtom);
   const [userLockInfo] = useAtom(userLockInfoAtom);
+  const { open, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     if (balances.length > 0) {
@@ -59,9 +62,7 @@ const QearnForm: React.FC = () => {
   };
 
   const handleSubmit = async () => {
-    if (!(await validate())) {
-      return;
-    }
+    if (!(await validate())) return;
 
     try {
       // const tx = await unLockQubic(accounts[selectedAccount].value, amount, tickInfo?.epoch || 0, tickInfo?.tick + settings.tickOffset);
@@ -100,9 +101,24 @@ const QearnForm: React.FC = () => {
             </p>
           </div>
           <InputNumbers id="amount" label="Lock Amount" placeholder="Enter amount" onChange={handleAmountChange} />
-          <Button label="Lock Funds" className="w-full py-4 text-lg font-semibold transition-transform hover:scale-[1.02] active:scale-[0.98]" primary={true} onClick={handleSubmit} />
+          <Button label="Lock Funds" className="w-full py-4 text-lg font-semibold transition-transform hover:scale-[1.02] active:scale-[0.98]" primary={true} onClick={onOpen} />
         </div>
       </div>
+
+      <ConfirmModal
+        open={open}
+        onClose={onClose}
+        onConfirm={handleSubmit}
+        title="Lock $QUBIC?"
+        description={
+          <div>
+            <p>
+              Are you sure you want to lock <span className="text-white">{amount}</span>QUBIC?
+            </p>
+            <p>You will be able to unlock it anytime.</p>
+          </div>
+        }
+      />
     </Card>
   );
 };
