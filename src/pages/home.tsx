@@ -26,7 +26,7 @@ const Home: React.FC = () => {
           className={`px-2 py-1 font-medium text-gray-400 hover:text-white cursor-pointer
               ${activeTab === 0 ? 'text-white' : ''}`}
         >
-          Lock
+          Locking
         </div>
         <div
           ref={tabRefs[1]}
@@ -34,7 +34,7 @@ const Home: React.FC = () => {
           className={`px-2 py-1 font-medium text-gray-400 hover:text-white cursor-pointer
               ${activeTab === 1 ? 'text-white' : ''}`}
         >
-          History
+          Locking History
         </div>
         <motion.div
           className="absolute bottom-0 h-0.5 bg-white"
