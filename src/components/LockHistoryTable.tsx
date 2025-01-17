@@ -9,6 +9,14 @@ import { calculateRewards } from '@/utils';
 import { tickInfoAtom } from '@/store/tickInfo';
 import { MdArrowDownward, MdArrowUpward } from 'react-icons/md';
 import Button from './ui/Button';
+import { useDisclosure } from '@/hooks/useDisclosure';
+import ConfirmModal from './ui/ConfirmModal';
+import { toast } from 'react-hot-toast';
+import { lockQubic, unLockQubic } from '@/services/qearn.service';
+import { broadcastTx } from '@/services/rpc.service';
+import { pendingTxAtom } from '@/store/pendingTx';
+import { settingsAtom } from '@/store/settings';
+import { useQubicConnect } from './connect/QubicConnectContext';
 
 interface ITableData {
   lockedEpoch: number;
@@ -28,6 +36,11 @@ const LockHistoryTable: React.FC = () => {
   const [tableData, setTableData] = useState<ITableData[]>([]);
   const [tickInfo] = useAtom(tickInfoAtom);
   const [sorting, setSorting] = useState<SortingState>([]);
+  const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
+  const [, setPendingTx] = useAtom(pendingTxAtom);
+  const [settings] = useAtom(settingsAtom);
+  const { getSignedTx } = useQubicConnect();
+  const { open, onOpen, onClose } = useDisclosure();
 
   const columnHelper = createColumnHelper<ITableData>();
   const lockedColumns = [
@@ -58,7 +71,17 @@ const LockHistoryTable: React.FC = () => {
     columnHelper.display({
       id: 'actions',
       header: 'Actions',
-      cell: () => <Button className="px-4 py-2 bg-blue-500 transition-colors" primary={true} label="Unlock Early" />,
+      cell: (info: any) => (
+        <Button
+          className="px-4 py-2 bg-blue-500 transition-colors"
+          primary={true}
+          label="Unlock Early"
+          onClick={() => {
+            setSelectedIdx(info.row.index);
+            onOpen();
+          }}
+        />
+      ),
     }),
   ];
   const table = useReactTable({
@@ -103,8 +126,29 @@ const LockHistoryTable: React.FC = () => {
     );
   }, [accounts, qearnStats, userLockInfo]);
 
+  const handleUnlockEarly = async () => {
+    try {
+      const tx = await unLockQubic(accounts[selectedAccount].value, tableData[selectedIdx || 0].lockedAmount, tickInfo?.epoch || 0, tickInfo?.tick + settings.tickOffset);
+      const { tx: signedTx } = await getSignedTx(tx);
+      const res = await broadcastTx(signedTx);
+      setPendingTx({
+        txId: res.transactionId,
+        publicId: accounts[selectedAccount].value,
+        initAmount: userLockInfo[accounts[selectedAccount].value]?.[tickInfo?.epoch || 0] || 0,
+        amount: -tableData[selectedIdx || 0].lockedAmount || 0,
+        epoch: tickInfo?.epoch || 0,
+        targetTick: tickInfo?.tick + settings.tickOffset,
+        type: 'qearn',
+      });
+      toast.success('Transaction sent, it will take some time to be confirmed and executed');
+    } catch (err) {
+      toast.error('Something went wrong');
+      console.log(err);
+    }
+  };
+
   return (
-    <Card className="p-6 space-y-6">
+    <Card className="p-6 space-y-6 overflow-hidden">
       <div className="space-y-4">
         <AccountSelector label="Select Account" options={accounts} selected={selectedAccount} setSelected={setSelectedAccount} />
 
@@ -113,61 +157,61 @@ const LockHistoryTable: React.FC = () => {
             <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-white"></div>
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-700">
-              <thead>
-                {table.getHeaderGroups().map((headerGroup) => (
-                  <tr key={headerGroup.id}>
-                    {headerGroup.headers.map((header) => (
-                      <th
-                        key={header.id}
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider cursor-pointer group"
-                        onClick={header.column.getToggleSortingHandler()}
-                      >
-                        <div className="flex items-center gap-2">
-                          {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-                          {header.column.getCanSort() && (
-                            <div className="opacity-0 group-hover:opacity-100 transition-opacity">
-                              {{
-                                asc: <MdArrowUpward className="w-4 h-4" />,
-                                desc: <MdArrowDownward className="w-4 h-4" />,
-                              }[header.column.getIsSorted() as string] ?? (
-                                <div className="w-4 h-4 flex flex-col">
-                                  <MdArrowUpward className="w-3 h-3" />
-                                  <MdArrowDownward className="w-3 h-3" />
-                                </div>
-                              )}
-                            </div>
-                          )}
-                        </div>
-                      </th>
+          <table className="min-w-full divide-y divide-gray-700 overflow-x-auto">
+            <thead>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <tr key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => (
+                    <th
+                      key={header.id}
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider cursor-pointer group text-nowrap"
+                      onClick={header.column.getToggleSortingHandler()}
+                    >
+                      <div className="flex items-center gap-2">
+                        {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                        {header.column.getCanSort() && (
+                          <div className="opacity-0 group-hover:opacity-100 transition-opacity">
+                            {{
+                              asc: <MdArrowUpward className="w-4 h-4" />,
+                              desc: <MdArrowDownward className="w-4 h-4" />,
+                            }[header.column.getIsSorted() as string] ?? (
+                              <div className="w-4 h-4 flex flex-col">
+                                <MdArrowUpward className="w-3 h-3" />
+                                <MdArrowDownward className="w-3 h-3" />
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    </th>
+                  ))}
+                </tr>
+              ))}
+            </thead>
+            <tbody className="divide-y divide-gray-700">
+              {table.getRowModel().rows.length === 0 ? (
+                <tr>
+                  <td colSpan={8} className="text-center py-8">
+                    No data available
+                  </td>
+                </tr>
+              ) : (
+                table.getRowModel().rows.map((row) => (
+                  <tr key={row.id}>
+                    {row.getVisibleCells().map((cell) => (
+                      <td key={cell.id} className="px-6 py-4 whitespace-nowrap text-sm">
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </td>
                     ))}
                   </tr>
-                ))}
-              </thead>
-              <tbody className="divide-y divide-gray-700">
-                {table.getRowModel().rows.length === 0 ? (
-                  <tr>
-                    <td colSpan={8} className="text-center py-8">
-                      No data available
-                    </td>
-                  </tr>
-                ) : (
-                  table.getRowModel().rows.map((row) => (
-                    <tr key={row.id}>
-                      {row.getVisibleCells().map((cell) => (
-                        <td key={cell.id} className="px-6 py-4 whitespace-nowrap text-sm">
-                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                        </td>
-                      ))}
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
+                ))
+              )}
+            </tbody>
+          </table>
         )}
       </div>
+
+      <ConfirmModal open={open} onClose={onClose} onConfirm={handleUnlockEarly} title="Unlock Early" description={<div>Are you sure you want to unlock early?</div>} />
     </Card>
   );
 };

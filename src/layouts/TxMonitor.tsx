@@ -5,7 +5,7 @@ import { IPendingTx, pendingTxAtom } from '@/store/pendingTx';
 import { tickInfoAtom } from '@/store/tickInfo';
 import { userLockInfoAtom } from '@/store/userLockInfo';
 import { useAtom } from 'jotai';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 
 const TxMonitor: React.FC = () => {
@@ -13,35 +13,40 @@ const TxMonitor: React.FC = () => {
   const [pendingTx, setPendingTx] = useAtom(pendingTxAtom);
   const [, setBalance] = useAtom(balancesAtom);
   const [, setUserLockInfo] = useAtom(userLockInfoAtom);
+  const [isMonitoring, setIsMonitoring] = useState(false);
 
   const checkTxResult = async () => {
-    if (tickInfo?.tick > pendingTx.targetTick) {
-      if (tickInfo?.tick > pendingTx.targetTick + 15) {
-        toast.error('Transaction failed');
-        setPendingTx({} as IPendingTx);
-        return;
-      }
-      const lockedAmount = await getUserLockInfo(pendingTx.publicId, pendingTx.epoch);
-      if (lockedAmount - pendingTx.initAmount == pendingTx.amount) {
-        if (pendingTx.amount > 0) {
-          toast.success('Locked successfully');
-        } else {
-          toast.success('Unlocked successfully');
+    if (isMonitoring) {
+      if (tickInfo?.tick > pendingTx.targetTick) {
+        if (tickInfo?.tick > pendingTx.targetTick + 15) {
+          toast.error('Transaction failed');
+          setIsMonitoring(false);
+          setPendingTx({} as IPendingTx);
+          return;
         }
-      } else {
-        return;
+        const lockedAmount = await getUserLockInfo(pendingTx.publicId, pendingTx.epoch);
+        if (lockedAmount - pendingTx.initAmount == pendingTx.amount) {
+          if (pendingTx.amount > 0) {
+            toast.success('Locked successfully');
+          } else {
+            toast.success('Unlocked successfully');
+          }
+        } else {
+          return;
+        }
+        const updatedLockAmount = await getUserLockInfo(pendingTx.publicId, pendingTx.epoch);
+        setUserLockInfo((prev) => ({
+          ...prev,
+          [pendingTx.publicId]: {
+            ...prev[pendingTx.publicId],
+            [pendingTx.epoch]: updatedLockAmount,
+          },
+        }));
+        const updatedBalance = await fetchBalance(pendingTx.publicId);
+        setBalance([updatedBalance]);
+        setPendingTx({} as IPendingTx);
+        setIsMonitoring(false);
       }
-      const updatedLockAmount = await getUserLockInfo(pendingTx.publicId, pendingTx.epoch);
-      setUserLockInfo((prev) => ({
-        ...prev,
-        [pendingTx.publicId]: {
-          ...prev[pendingTx.publicId],
-          [pendingTx.epoch]: updatedLockAmount,
-        },
-      }));
-      const updatedBalance = await fetchBalance(pendingTx.publicId);
-      setBalance([updatedBalance]);
-      setPendingTx({} as IPendingTx);
     }
   };
 
@@ -67,8 +72,15 @@ const TxMonitor: React.FC = () => {
 
   useEffect(() => {
     if (Object.keys(pendingTx).length == 0) return;
+    setIsMonitoring(true);
     checkTxResult();
   }, [tickInfo, pendingTx]);
+
+  useEffect(() => {
+    if (isMonitoring) {
+      toast.loading('Monitoring transaction...', { position: 'bottom-right' });
+    }
+  }, [isMonitoring]);
 
   return null;
 };
