@@ -18,7 +18,7 @@ interface UnlockModalProps {
   onCancel?: () => void;
 }
 
-const UnlockModal: React.FC<UnlockModalProps> = ({ open, onClose, onConfirm, onCancel, data }) => {
+const UnlockModal: React.FC<UnlockModalProps> = ({ open, onClose, onConfirm, data }) => {
   const [tickInfo] = useAtom(tickInfoAtom);
 
   return (
