@@ -17,6 +17,7 @@ import { broadcastTx } from '@/services/rpc.service';
 import { pendingTxAtom } from '@/store/pendingTx';
 import { settingsAtom } from '@/store/settings';
 import { useQubicConnect } from './connect/QubicConnectContext';
+import UnlockModal from './UnlockModal';
 
 interface ITableData {
   lockedEpoch: number;
@@ -61,11 +62,11 @@ const LockHistoryTable: React.FC = () => {
       cell: (info: any) => info.getValue().toLocaleString(),
     }),
     columnHelper.accessor('earlyUnlockReward', {
-      header: 'Early Unlock %',
+      header: 'Current Reward %',
       cell: (info: any) => `${info.row.original.earlyUnlockReward.reward.toLocaleString()} / ${info.row.original.earlyUnlockReward.ratio.toFixed(2)}%`,
     }),
     columnHelper.accessor('fullUnlockReward', {
-      header: 'Full Unlock %',
+      header: 'Full Reward %',
       cell: (info: any) => `${info.row.original.fullUnlockReward.reward.toLocaleString()} / ${info.row.original.fullUnlockReward.ratio.toFixed(2)}%`,
     }),
     columnHelper.display({
@@ -157,61 +158,62 @@ const LockHistoryTable: React.FC = () => {
             <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-white"></div>
           </div>
         ) : (
-          <table className="min-w-full divide-y divide-gray-700 overflow-x-auto">
-            <thead>
-              {table.getHeaderGroups().map((headerGroup) => (
-                <tr key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => (
-                    <th
-                      key={header.id}
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider cursor-pointer group text-nowrap"
-                      onClick={header.column.getToggleSortingHandler()}
-                    >
-                      <div className="flex items-center gap-2">
-                        {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-                        {header.column.getCanSort() && (
-                          <div className="opacity-0 group-hover:opacity-100 transition-opacity">
-                            {{
-                              asc: <MdArrowUpward className="w-4 h-4" />,
-                              desc: <MdArrowDownward className="w-4 h-4" />,
-                            }[header.column.getIsSorted() as string] ?? (
-                              <div className="w-4 h-4 flex flex-col">
-                                <MdArrowUpward className="w-3 h-3" />
-                                <MdArrowDownward className="w-3 h-3" />
-                              </div>
-                            )}
-                          </div>
-                        )}
-                      </div>
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody className="divide-y divide-gray-700">
-              {table.getRowModel().rows.length === 0 ? (
-                <tr>
-                  <td colSpan={8} className="text-center py-8">
-                    No data available
-                  </td>
-                </tr>
-              ) : (
-                table.getRowModel().rows.map((row) => (
-                  <tr key={row.id}>
-                    {row.getVisibleCells().map((cell) => (
-                      <td key={cell.id} className="px-6 py-4 whitespace-nowrap text-sm">
-                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                      </td>
+          <div className="w-full overflow-x-auto">
+            <table className="divide-y divide-gray-700">
+              <thead className="bg-gray-90">
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <tr key={headerGroup.id}>
+                    {headerGroup.headers.map((header) => (
+                      <th
+                        key={header.id}
+                        className="px-4 py-3 text-center text-xs font-medium text-gray-300 uppercase tracking-wider cursor-pointer group text-nowrap"
+                        onClick={header.column.getToggleSortingHandler()}
+                      >
+                        <div className="flex items-center gap-2">
+                          {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                          {header.column.getCanSort() && (
+                            <div className="opacity-0 group-hover:opacity-100 transition-opacity">
+                              {{
+                                asc: <MdArrowUpward className="w-4 h-4" />,
+                                desc: <MdArrowDownward className="w-4 h-4" />,
+                              }[header.column.getIsSorted() as string] ?? (
+                                <div className="w-4 h-4 flex flex-col">
+                                  <MdArrowUpward className="w-3 h-3" />
+                                  <MdArrowDownward className="w-3 h-3" />
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      </th>
                     ))}
                   </tr>
-                ))
-              )}
-            </tbody>
-          </table>
+                ))}
+              </thead>
+              <tbody className="divide-y divide-gray-700">
+                {table.getRowModel().rows.length === 0 ? (
+                  <tr>
+                    <td colSpan={8} className="text-center py-8">
+                      No data available
+                    </td>
+                  </tr>
+                ) : (
+                  table.getRowModel().rows.map((row) => (
+                    <tr key={row.id}>
+                      {row.getVisibleCells().map((cell) => (
+                        <td key={cell.id} className="px-4 py-4 text-nowrap text-sm text-center">
+                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        </td>
+                      ))}
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
-
-      <ConfirmModal open={open} onClose={onClose} onConfirm={handleUnlockEarly} title="Unlock Early" description={<div>Are you sure you want to unlock early?</div>} />
+      <UnlockModal open={open} onClose={onClose} onConfirm={handleUnlockEarly} />
     </Card>
   );
 };
