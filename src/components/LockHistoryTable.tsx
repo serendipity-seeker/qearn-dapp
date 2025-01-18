@@ -24,8 +24,8 @@ interface ITableData {
   lockedAmount: number;
   totalLockedAmountInEpoch: number;
   currentBonusAmountInEpoch: number;
-  earlyUnlockReward: number;
-  fullUnlockReward: number;
+  earlyUnlockReward: { reward: number; ratio: number };
+  fullUnlockReward: { reward: number; ratio: number };
 }
 
 const LockHistoryTable: React.FC = () => {
@@ -213,7 +213,17 @@ const LockHistoryTable: React.FC = () => {
           </div>
         )}
       </div>
-      <UnlockModal open={open} onClose={onClose} onConfirm={handleUnlockEarly} />
+      <UnlockModal
+        open={open}
+        onClose={onClose}
+        onConfirm={handleUnlockEarly}
+        data={{
+          currentReward: tableData[selectedIdx || 0]?.earlyUnlockReward?.reward || 0,
+          lockedAmount: tableData[selectedIdx || 0]?.lockedAmount || 0,
+          apy: tableData[selectedIdx || 0]?.earlyUnlockReward?.ratio || 0,
+          epoch: tableData[selectedIdx || 0]?.lockedEpoch || 0,
+        }}
+      />
     </Card>
   );
 };
