@@ -20,7 +20,7 @@ const LockStatCard: React.FC<ILockStatCardProps> = ({ currentEpoch }) => {
   }, [qearnStats, currentEpoch]);
 
   return (
-    <Card className="max-w-lg p-6">
+    <Card className="max-w-md p-6">
       <div className="space-y-4">
         <h1 className="text-3xl text-center ">Lock Information {currentEpoch}</h1>
 

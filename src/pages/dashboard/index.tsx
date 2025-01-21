@@ -4,6 +4,7 @@ import { PublicKey } from '@qubic-lib/qubic-ts-library/dist/qubic-types/PublicKe
 import LockStatCard from '@/components/LockStatCard';
 import { tickInfoAtom } from '@/store/tickInfo';
 import { useAtom } from 'jotai';
+import TVL from './charts/TVL';
 
 const Dashboard: React.FC = () => {
   const [tickInfo] = useAtom(tickInfoAtom);
@@ -32,8 +33,9 @@ const Dashboard: React.FC = () => {
     testAPIs();
   }, []);
   return (
-    <div>
+    <div className="flex flex-col gap-4">
       <LockStatCard currentEpoch={currentEpoch} />
+      <TVL />
     </div>
   );
 };
