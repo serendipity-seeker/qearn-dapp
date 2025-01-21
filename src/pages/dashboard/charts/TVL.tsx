@@ -52,7 +52,7 @@ const TVL: React.FC = () => {
   const chartComponents = [TitleComponent, TooltipComponent, LegendComponent, PieChart, SVGRenderer, LabelLayout];
 
   return (
-    <Card className="min-w-md p-4">
+    <Card className="max-w-lg p-4">
       <EChart style={{ height: '400px' }} theme={custom} use={chartComponents} {...option} />
     </Card>
   );
