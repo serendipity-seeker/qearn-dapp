@@ -8,36 +8,43 @@ import { EChartsOption } from 'echarts';
 import { useAtom } from 'jotai';
 import { qearnStatsAtom } from '@/store/qearnStat';
 import { custom } from '@/data/chart-theme';
+import { getBurnedAndBoostedStats } from '@/services/qearn.service';
+import { tickInfoAtom } from '@/store/tickInfo';
+import { IBurnNBoostedStats } from '@/types';
+import { useState, useMemo, useEffect } from 'react';
 
-const TVL: React.FC = () => {
+const BonusAmountAnalyzer: React.FC = () => {
+  const [burnNBoostedStats, setBurnNBoostedStats] = useState<IBurnNBoostedStats>({} as IBurnNBoostedStats);
+  const [tickInfo] = useAtom(tickInfoAtom);
+  const currentEpoch = useMemo(() => tickInfo?.epoch || 142, [tickInfo?.epoch]);
   const [qearnStats] = useAtom(qearnStatsAtom);
 
-  const data = Object.entries(qearnStats)
-    .filter(([epoch]) => Number(epoch))
-    .map(([epoch, stats]) => ({
-      value: stats?.currentLockedAmount || 0,
-      name: `EP${epoch}`,
-    }));
+  useEffect(() => {
+    getBurnedAndBoostedStats().then(setBurnNBoostedStats);
+  }, [currentEpoch]);
 
   const option: EChartsOption = {
     title: {
-      text: 'Total Locked $QUBIC',
-      subtext: 'Locked Amounts per Epoch',
+      text: 'Bonus Distribution',
       left: 'center',
     },
     tooltip: {
       trigger: 'item',
     },
     legend: {
-      orient: 'vertical',
-      left: 'left',
+      orient: 'horizontal',
+      bottom: '0',
     },
     series: [
       {
-        name: 'Locked Amounts',
+        name: 'Bonus Distribution',
         type: 'pie',
         radius: '50%',
-        data,
+        data: [
+          { value: burnNBoostedStats?.boostedAmount || 0, name: 'Boosted Bonus' },
+          { value: burnNBoostedStats?.burnedAmount || 0, name: 'Burned Bonus' },
+          { value: burnNBoostedStats?.rewardedAmount || 0, name: 'Rewarded Bonus' },
+        ],
         emphasis: {
           itemStyle: {
             shadowBlur: 10,
@@ -58,4 +65,4 @@ const TVL: React.FC = () => {
   );
 };
 
-export default TVL;
+export default BonusAmountAnalyzer;

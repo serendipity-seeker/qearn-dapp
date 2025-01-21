@@ -5,6 +5,8 @@ import LockStatCard from '@/components/LockStatCard';
 import { tickInfoAtom } from '@/store/tickInfo';
 import { useAtom } from 'jotai';
 import TVL from './charts/TVL';
+import QearnSummarize from './charts/QearnSummarize';
+import BonusAmountAnalyzer from './charts/BonusAmountAnalyzer';
 
 const Dashboard: React.FC = () => {
   const [tickInfo] = useAtom(tickInfoAtom);
@@ -29,13 +31,11 @@ const Dashboard: React.FC = () => {
     console.log('Burned And Boosted Stats Per Epoch', burnedAndBoostedStatsPerEpoch);
   };
 
-  useEffect(() => {
-    testAPIs();
-  }, []);
   return (
-    <div className="flex flex-col gap-4">
-      <LockStatCard currentEpoch={currentEpoch} />
+    <div className="flex gap-4 flex-wrap">
+      <QearnSummarize />
       <TVL />
+      <BonusAmountAnalyzer />
     </div>
   );
 };
