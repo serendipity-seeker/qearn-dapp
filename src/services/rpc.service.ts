@@ -1,5 +1,5 @@
 import { httpEndpoint } from '@/constants';
-import { Balance, IQuerySC, IQuerySCResponse, LatestStats, TickInfo, TxStatus } from '@/types';
+import { Balance, IQuerySC, IQuerySCResponse, LatestStats, RichList, TickInfo, TxStatus } from '@/types';
 import { uint8ArrayToBase64 } from '@/utils';
 
 export const fetchTickInfo = async (): Promise<TickInfo> => {
@@ -67,4 +67,10 @@ export const fetchLatestStats = async (): Promise<LatestStats> => {
     return {} as LatestStats;
   }
   return latestStats.data;
+};
+
+export const fetchRichList = async (page: number, pageSize: number): Promise<RichList> => {
+  const richListResult = await fetch(`${httpEndpoint}/v1/rich-list?page=${page}&pageSize=${pageSize}`);
+  const richList = await richListResult.json();
+  return richList.data;
 };
