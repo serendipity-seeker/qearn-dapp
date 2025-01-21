@@ -3,21 +3,21 @@ import Card from '@/components/ui/Card';
 import { TitleComponent, TooltipComponent, LegendComponent } from 'echarts/components';
 import { PieChart } from 'echarts/charts';
 import { LabelLayout } from 'echarts/features';
-import { CanvasRenderer } from 'echarts/renderers';
+import { SVGRenderer } from 'echarts/renderers';
 import { EChartsOption } from 'echarts';
 import { useAtom } from 'jotai';
 import { qearnStatsAtom } from '@/store/qearnStat';
+import { custom } from '@/data/chart-theme';
 
 const TVL: React.FC = () => {
   const [qearnStats] = useAtom(qearnStatsAtom);
-  const data =
-    Object.keys(qearnStats).map((epoch) => {
-      if (!Number(epoch)) return;
-      return {
-        value: qearnStats[Number(epoch)]?.currentLockedAmount || 0,
-        name: `EP${epoch}`,
-      };
-    }) || [];
+
+  const data = Object.entries(qearnStats)
+    .filter(([epoch]) => Number(epoch))
+    .map(([epoch, stats]) => ({
+      value: stats?.currentLockedAmount || 0,
+      name: `EP${epoch}`,
+    }));
 
   const option: EChartsOption = {
     title: {
@@ -37,7 +37,7 @@ const TVL: React.FC = () => {
         name: 'Locked Amounts',
         type: 'pie',
         radius: '50%',
-        data: data,
+        data,
         emphasis: {
           itemStyle: {
             shadowBlur: 10,
@@ -49,15 +49,11 @@ const TVL: React.FC = () => {
     ],
   };
 
+  const chartComponents = [TitleComponent, TooltipComponent, LegendComponent, PieChart, SVGRenderer, LabelLayout];
+
   return (
     <Card className="min-w-md p-4">
-      <EChart
-        style={{
-          height: '400px',
-        }}
-        use={[TitleComponent, TooltipComponent, LegendComponent, PieChart, CanvasRenderer, LabelLayout]}
-        {...option}
-      />
+      <EChart style={{ height: '400px' }} theme={custom} use={chartComponents} {...option} />
     </Card>
   );
 };
