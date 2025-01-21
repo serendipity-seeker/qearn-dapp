@@ -79,3 +79,15 @@ export interface IUserLockInfo {
     [epoch: number]: number;
   };
 }
+
+export interface RichList {
+  pagination: {
+    totalRecords: number;
+    currentPage: number;
+    totalPages: number;
+  };
+  epoch: number;
+  richList: {
+    entities: { identity: string; balance: string }[];
+  };
+}
