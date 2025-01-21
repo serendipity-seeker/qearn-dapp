@@ -60,17 +60,21 @@ const Fetcher: React.FC = () => {
       }
 
       const results = await Promise.all(promises);
-      const newStats = results.reduce<Record<number, any> & { totalLockAmount: number; totalBonusAmount: number; averageYieldPercentage: number }>(
+      const newStats = results.reduce<
+        Record<number, any> & { totalInitialLockAmount: number; totalInitialBonusAmount: number; totalLockAmount: number; totalBonusAmount: number; averageYieldPercentage: number }
+      >(
         (acc, epochLockInfo, index) => {
           if (epochLockInfo) {
             acc[epoch.current - index] = epochLockInfo;
+            acc.totalInitialLockAmount += epochLockInfo.lockAmount;
+            acc.totalInitialBonusAmount += epochLockInfo.bonusAmount;
             acc.totalLockAmount += epochLockInfo.currentLockedAmount;
             acc.totalBonusAmount += epochLockInfo.currentBonusAmount;
             acc.averageYieldPercentage = ((acc.averageYieldPercentage || 0) * index + epochLockInfo.yieldPercentage) / (index + 1);
           }
           return acc;
         },
-        { totalLockAmount: 0, totalBonusAmount: 0, averageYieldPercentage: 0 }
+        { totalInitialLockAmount: 0, totalInitialBonusAmount: 0, totalLockAmount: 0, totalBonusAmount: 0, averageYieldPercentage: 0 }
       );
       setQearnStats((prev) => ({
         ...prev,

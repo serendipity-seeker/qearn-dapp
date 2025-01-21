@@ -126,3 +126,13 @@ export interface EpochTicks {
   };
   ticks: { tickNumber: number; isEmpty: boolean }[];
 }
+
+export interface IBurnNBoostedStats {
+  burnedAmount: number;
+  averageBurnedPercent: number;
+  boostedAmount: number;
+  averageBoostedPercent: number;
+  rewardedAmount: number;
+  averageRewardedPercent: number;
+}
+
