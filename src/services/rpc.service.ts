@@ -1,5 +1,5 @@
 import { httpEndpoint } from '@/constants';
-import { Balance, IQuerySC, IQuerySCResponse, LatestStats, RichList, TickInfo, TxStatus } from '@/types';
+import { Balance, EpochTicks, IQuerySC, IQuerySCResponse, LatestStats, RichList, TickInfo, TxHistory, TxStatus } from '@/types';
 import { uint8ArrayToBase64 } from '@/utils';
 
 export const fetchTickInfo = async (): Promise<TickInfo> => {
@@ -73,4 +73,16 @@ export const fetchRichList = async (page: number, pageSize: number): Promise<Ric
   const richListResult = await fetch(`${httpEndpoint}/v1/rich-list?page=${page}&pageSize=${pageSize}`);
   const richList = await richListResult.json();
   return richList.data;
+};
+
+export const fetchTxHistory = async (publicId: string, startTick: number, endTick: number): Promise<TxHistory> => {
+  const txHistoryResult = await fetch(`${httpEndpoint}/v2/identities/${publicId}/transfers?startTick=${startTick}&endTick=${endTick}`);
+  const txHistory = await txHistoryResult.json();
+  return txHistory.data;
+};
+
+export const fetchEpochTicks = async (epoch: number, page: number, pageSize: number): Promise<EpochTicks> => {
+  const epochTicksResult = await fetch(`${httpEndpoint}/v2/epochs/${epoch}/ticks?page=${page}&pageSize=${pageSize}`);
+  const epochTicks = await epochTicksResult.json();
+  return epochTicks.data;
 };
