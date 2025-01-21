@@ -91,3 +91,38 @@ export interface RichList {
     entities: { identity: string; balance: string }[];
   };
 }
+
+export interface Transaction {
+  sourceId: string;
+  destId: string;
+  amount: string;
+  tickNumber: number;
+  inputType: number;
+  inputSize: number;
+  inputHex: string;
+  signatureHex: string;
+  txId: string;
+}
+export interface TxHistory {
+  transactions: {
+    tickNumber: number;
+    identity: string;
+    transactions: {
+      transaction: Transaction;
+      timestamp: string;
+      moneyFlew: boolean;
+    }[];
+  }[];
+}
+
+export interface EpochTicks {
+  pagination: {
+    totalRecords: number;
+    currentPage: number;
+    totalPages: number;
+    pageSize: number;
+    nextPage: number;
+    previousPage: number;
+  };
+  ticks: { tickNumber: number; isEmpty: boolean }[];
+}

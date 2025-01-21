@@ -1,5 +1,9 @@
 export const QEARN_START_EPOCH = 138;
 
+export const QEARN_START_TICK = 17560000;
+
+export const QEARN_SC_ADDRESS = 'JAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAVKHO';
+
 export const REWARD_DATA = [
   { weekFrom: 0, weekTo: 3, earlyUnlock: 0, burn: 0, boost: 100 },
   { weekFrom: 4, weekTo: 7, earlyUnlock: 5, burn: 45, boost: 50 },
