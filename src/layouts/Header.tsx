@@ -10,7 +10,7 @@ const Header: React.FC<HeaderProps> = ({ logo = '/qubic.svg' }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 z-10 flex w-full flex-wrap items-center justify-between border-b border-solid border-gray-70 bg-gray-90 px-4 sm:px-12 h-[78px]">
+    <header className="fixed top-0 z-10 flex w-full flex-wrap items-center justify-between border-b border-solid border-card-border bg-card px-4 sm:px-12 h-[78px]">
       <div className="flex items-center justify-between w-full lg:w-auto">
         <Link to="/">
           <img src={logo} alt="logo" className="h-8" />

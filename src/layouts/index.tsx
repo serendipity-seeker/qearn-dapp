@@ -8,7 +8,7 @@ import InfoBanner from '@/components/InfoBanner';
 
 const Layout: React.FC = () => {
   return (
-    <div className="relative min-h-screen flex flex-col bg-gray-90">
+    <div className="relative min-h-screen flex flex-col text-foreground bg-background">
       <Header logo={logo} />
       <div className="flex flex-1 pt-[80px]">
         <div className="p-4 flex-1">

@@ -8,15 +8,28 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: var(--foreground);
+  background-color: var(--background);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --background: theme('colors.white');
+  --foreground: theme('colors.gray.950');
+  --card: theme('colors.transparent');
+  --card-border: theme('colors.gray.200');
+  --inactive-text: theme('colors.gray.500');
 }
 
+.dark {
+  --background: theme('colors.gray.90');
+  --foreground: theme('colors.white');
+  --card: theme('colors.gray.80');
+  --card-border: theme('colors.gray.70');
+  --inactive-text: theme('colors.gray.500');
+}
 a {
   font-weight: 500;
   color: #646cff;
