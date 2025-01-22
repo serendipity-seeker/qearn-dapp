@@ -1,11 +1,11 @@
-import pkg from '../../../../package.json';
-import logoShort from '../../../assets/logo/logo-text-short.svg';
+import pkg from '../../package.json';
+import logoShort from '@/assets/logo/logo-text-short.svg';
 
 interface FooterProps {
   appVersion?: string;
 }
 
-const Footer = ({ appVersion }: FooterProps): JSX.Element | null => {
+const Footer: React.FC<FooterProps> = ({ appVersion }): JSX.Element | null => {
   return (
     <div className="px-5 sm:px-20 md:px-100 py-10 flex flex-col sm:flex-row items-center justify-center gap-10">
       <div className="flex gap-10">

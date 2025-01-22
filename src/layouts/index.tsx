@@ -1,9 +1,9 @@
 import { Outlet } from 'react-router-dom';
-import Header from '@/components/ui/layout/Header';
-import Footer from '@/components/ui/layout/Footer';
+import Header from '@/layouts/Header';
+import Footer from '@/layouts/Footer';
 import logo from '@/assets/qearn.svg';
-import Fetcher from './Fetcher';
-import TxMonitor from './TxMonitor';
+import Fetcher from '@/components/fetchers/Fetcher';
+import TxMonitor from '@/components/fetchers/TxMonitor';
 import InfoBanner from '@/components/InfoBanner';
 
 const Layout: React.FC = () => {
