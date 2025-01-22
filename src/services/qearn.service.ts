@@ -1,4 +1,4 @@
-import { ILockInfo } from '@/types';
+import { IBurnNBoostedStats, ILockInfo } from '@/types';
 import { fetchQuerySC } from './rpc.service';
 import { base64ToUint8Array, uint8ArrayToBase64 } from '@/utils';
 import { createQearnPayload, createSCTx } from './tx.service';
@@ -140,14 +140,7 @@ export const getEndedStatus = async (user: Uint8Array | string): Promise<{ fullU
   };
 };
 
-export const getBurnedAndBoostedStats = async (): Promise<{
-  burnedAmount: number;
-  averageBurnedPercent: number;
-  boostedAmount: number;
-  averageBoostedPercent: number;
-  rewardedAmount: number;
-  averageRewardedPercent: number;
-}> => {
+export const getBurnedAndBoostedStats = async (): Promise<IBurnNBoostedStats> => {
   const res = await fetchQuerySC({
     contractIndex: 9,
     inputType: 7,

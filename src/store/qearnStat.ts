@@ -3,6 +3,8 @@ import { atom } from 'jotai';
 
 export interface IQearnStats {
   [epoch: number]: ILockInfo;
+  totalInitialLockAmount: number;
+  totalInitialBonusAmount: number;
   totalLockAmount: number;
   totalBonusAmount: number;
   averageYieldPercentage: number;
