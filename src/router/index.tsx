@@ -6,6 +6,7 @@ import Error404 from '@/pages/error404';
 import Settings from '@/pages/settings';
 import Helpers from '@/pages/helpers';
 import Welcome from '@/pages/welcome';
+import Faq from '@/pages/faq';
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: '/helpers',
         element: <Helpers />,
+      },
+      {
+        path: '/faq',
+        element: <Faq />,
       },
     ],
   },

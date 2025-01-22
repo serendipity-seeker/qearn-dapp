@@ -16,7 +16,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --background: rgba(255, 255, 255, 0.87);;
+  --background: theme(colors.primary.20);
   --foreground: theme('colors.gray.950');
   --card: rgba(255, 255, 255, 0.87);
   --card-border: theme('colors.gray.50');

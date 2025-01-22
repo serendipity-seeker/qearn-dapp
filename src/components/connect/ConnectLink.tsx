@@ -11,12 +11,12 @@ const ConnectLink: React.FC = () => {
       <div className="flex gap-[10px] justify-center items-center cursor-pointer" onClick={() => toggleConnectModal()}>
         {connected ? (
           <>
-            <span className="hidden md:block font-space text-[16px] text-gray-50 mt-[5px] font-[500]">Connected</span>
+            <span className="font-space text-[16px] text-gray-50 mt-[5px] font-[500]">Connected</span>
             <img src={lock} alt="locked lock icon" />
           </>
         ) : (
           <>
-            <span className="hidden md:block font-space text-[16px] text-gray-50 mt-[5px] font-[500]">Connect Wallet</span>
+            <span className="font-space text-[16px] text-gray-50 mt-[5px] font-[500]">Connect Wallet</span>
             <img src={unlocked} alt="unlocked lock icon" />
           </>
         )}
