@@ -92,8 +92,7 @@ const AccountSelector: React.FC<AccountSelectorProps> = ({ label, options, selec
                 <button
                   key={index}
                   className={`
-                    w-full p-4 text-left bg-background hover:bg-primary-30
-                    transition-colors duration-150
+                    w-full p-4 text-left bg-card transition-colors duration-150
                   `}
                   onClick={() => {
                     setSelected(index);
