@@ -9,22 +9,24 @@ const queryClient = new QueryClient();
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <WalletConnectProvider>
-        <QubicConnectProvider>
-          <RouterProvider router={router} />
-          <Toaster
-            position="top-right"
-            toastOptions={{
-              style: {
-                background: '#202E3C',
-                color: '#fff',
-              },
-            }}
-          />
-        </QubicConnectProvider>
-      </WalletConnectProvider>
-    </QueryClientProvider>
+    <div className="bg-background text-foreground dark">
+      <QueryClientProvider client={queryClient}>
+        <WalletConnectProvider>
+          <QubicConnectProvider>
+            <RouterProvider router={router} />
+            <Toaster
+              position="top-right"
+              toastOptions={{
+                style: {
+                  background: '#202E3C',
+                  color: '#fff',
+                },
+              }}
+            />
+          </QubicConnectProvider>
+        </WalletConnectProvider>
+      </QueryClientProvider>
+    </div>
   );
 }
 

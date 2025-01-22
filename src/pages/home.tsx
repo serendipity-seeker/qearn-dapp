@@ -23,21 +23,21 @@ const Home: React.FC = () => {
         <div
           ref={tabRefs[0]}
           onClick={() => setActiveTab(0)}
-          className={`px-2 py-1 font-medium text-gray-400 hover:text-white cursor-pointer
-              ${activeTab === 0 ? 'text-white' : ''}`}
+          className={`px-2 py-1 font-medium text-foreground hover:text-primary-30 cursor-pointer
+              ${activeTab === 0 ? 'text-foreground' : ''}`}
         >
           Locking
         </div>
         <div
           ref={tabRefs[1]}
           onClick={() => setActiveTab(1)}
-          className={`px-2 py-1 font-medium text-gray-400 hover:text-white cursor-pointer
-              ${activeTab === 1 ? 'text-white' : ''}`}
+          className={`px-2 py-1 font-medium text-foreground hover:text-primary-30 cursor-pointer
+              ${activeTab === 1 ? 'text-foreground' : ''}`}
         >
           Locking History
         </div>
         <motion.div
-          className="absolute bottom-0 h-0.5 bg-white"
+          className="absolute bottom-0 h-0.5 bg-foreground"
           animate={{
             left: tabUnderlineLeft,
             width: tabUnderlineWidth,

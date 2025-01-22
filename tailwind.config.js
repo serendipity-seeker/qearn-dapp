@@ -25,7 +25,6 @@ module.exports = {
         background: 'var(--background)',
         card: 'var(--card)',
         'card-border': 'var(--card-border)',
-        'inactive-text': 'var(--inactive-text)',
 
         primary: {
           20: '#CCFCFF',

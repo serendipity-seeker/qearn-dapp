@@ -159,13 +159,13 @@ const LockHistoryTable: React.FC = () => {
         ) : (
           <div className="w-full overflow-x-auto">
             <table className="divide-y divide-gray-700">
-              <thead className="bg-gray-90">
+              <thead className="bg-background">
                 {table.getHeaderGroups().map((headerGroup) => (
                   <tr key={headerGroup.id}>
                     {headerGroup.headers.map((header) => (
                       <th
                         key={header.id}
-                        className="px-4 py-3 text-center text-xs font-medium text-gray-300 uppercase tracking-wider cursor-pointer group text-nowrap"
+                        className="px-4 py-3 text-center text-xs font-medium text-foreground uppercase tracking-wider cursor-pointer group text-nowrap"
                         onClick={header.column.getToggleSortingHandler()}
                       >
                         <div className="flex items-center gap-2">

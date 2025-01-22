@@ -42,13 +42,13 @@ const AccountSelector: React.FC<AccountSelectorProps> = ({ label, options, selec
       <label className="mb-2 block">{label}</label>
       <div
         className={`
-          relative bg-gray-80 rounded-lg border
-          ${error ? 'border-error-40' : 'border-gray-70'}
+          relative bg-card rounded-lg border
+          ${error ? 'border-error-40' : 'border-card-border'}
           transition-all duration-200
         `}
       >
         <button
-          className="w-full p-4 text-left focus:outline-none bg-gray-80"
+          className="w-full p-4 text-left focus:outline-none bg-card"
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
           onKeyDown={handleKeyDown}
           aria-expanded={isDropdownOpen}
@@ -71,7 +71,7 @@ const AccountSelector: React.FC<AccountSelectorProps> = ({ label, options, selec
                   e.stopPropagation();
                   handleCopy(options[selected].value);
                 }}
-                className="ml-2 p-1 bg-gray-80 hover:bg-gray-70 cursor-pointer rounded transition-colors"
+                className="ml-2 p-1 bg-card hover:bg-card-border cursor-pointer rounded transition-colors"
               >
                 {isCopied ? <MdCheck className="w-4 h-4 text-success-40" /> : <MdContentCopy className="w-4 h-4 text-gray-50" />}
               </div>
@@ -86,14 +86,13 @@ const AccountSelector: React.FC<AccountSelectorProps> = ({ label, options, selec
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.2 }}
-              className="absolute z-10 w-full mt-1 bg-gray-80 border border-gray-70 rounded-lg"
+              className="absolute z-10 w-full mt-1 bg-card border border-card-border rounded-lg"
             >
               {options.map((option, index) => (
                 <button
                   key={index}
                   className={`
-                    w-full p-4 text-left bg-gray-80 hover:bg-gray-70
-                    ${selected === index ? 'bg-primary-90 text-primary-40' : 'text-white'}
+                    w-full p-4 text-left bg-background hover:bg-primary-30
                     transition-colors duration-150
                   `}
                   onClick={() => {

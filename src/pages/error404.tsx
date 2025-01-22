@@ -9,7 +9,7 @@ const Error404: React.FC = () => {
       <h1 className="text-7xl font-bold">404</h1>
       <p className="text-2xl mt-4">Page Not Found</p>
       <div className="mt-6">
-        <Button label="Go back to Home" onClick={() => navigate('/')} />
+        <Button variant="primary" label="Go back to Home" onClick={() => navigate('/')} />
       </div>
     </div>
   );

@@ -44,14 +44,14 @@ const InputNumbers = forwardRef<InputNumbersRef, InputNumbersProps>(({ id, label
     <div>
       {description && <LabelWithPopover htmlFor={id} label={label} description={description} />}
       {!description && (
-        <label htmlFor={id} className="block text-white mb-2">
+        <label htmlFor={id} className="block mb-2">
           {label}
         </label>
       )}
       <input
         id={id}
         type="text"
-        className={`w-full p-4 bg-gray-80 border border-gray-70 text-white rounded-lg placeholder-gray-500 ${error && 'border-red-500'}`}
+        className={`w-full p-4 bg-card border border-card-border rounded-lg placeholder-gray-500 ${error && 'border-red-500'}`}
         placeholder={placeholder}
         value={value}
         onChange={handleChange}

@@ -19,8 +19,7 @@
   --background: theme('colors.white');
   --foreground: theme('colors.gray.950');
   --card: theme('colors.transparent');
-  --card-border: theme('colors.gray.200');
-  --inactive-text: theme('colors.gray.500');
+  --card-border: theme('colors.gray.50');
 }
 
 .dark {
@@ -28,7 +27,6 @@
   --foreground: theme('colors.white');
   --card: theme('colors.gray.80');
   --card-border: theme('colors.gray.70');
-  --inactive-text: theme('colors.gray.500');
 }
 a {
   font-weight: 500;

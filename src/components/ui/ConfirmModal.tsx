@@ -27,13 +27,13 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({ open, onClose, onConfirm, t
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.95, opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="min-w-[440px] bg-gray-70 p-6 rounded-lg shadow-lg flex flex-col gap-4"
+            className="min-w-[440px] bg-background p-6 rounded-lg shadow-lg flex flex-col gap-4"
             onClick={e => e.stopPropagation()}
           >
             <div className="flex flex-col gap-2">
               <div className="flex justify-between items-center">
-                <h2 className="text-white text-2xl">{title}</h2>
-                <IoClose onClick={onClose} className="text-white text-2xl cursor-pointer" />
+                <h2 className="text-foreground text-2xl">{title}</h2>
+                <IoClose onClick={onClose} className="text-foreground text-2xl cursor-pointer" />
               </div>
               <div className="text-gray-400">{description}</div>
             </div>
