@@ -22,7 +22,7 @@ const Welcome: React.FC = () => {
         </h2>
         <h5 className="text-xl mt-4 md:text-2xl text-gray-50 max-w-[748px] text-center">Connect your wallet to start locking</h5>
         <Link to="/home" className="w-full max-w-xs md:w-80">
-          <Button primary className="w-full" label="Start Locking" />
+          <Button variant="primary" className="w-full" label="Start Locking" />
         </Link>
       </div>
     </div>

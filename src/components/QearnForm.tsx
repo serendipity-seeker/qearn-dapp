@@ -101,7 +101,7 @@ const QearnForm: React.FC = () => {
             </p>
           </div>
           <InputNumbers id="amount" label="Lock Amount" placeholder="Enter amount" onChange={handleAmountChange} />
-          <Button label="Lock Funds" className="w-full py-4 text-lg font-semibold transition-transform hover:scale-[1.02] active:scale-[0.98]" primary={true} onClick={onOpen} />
+          <Button label="Lock Funds" className="w-full py-4 text-lg font-semibold transition-transform hover:scale-[1.02] active:scale-[0.98]" variant="primary" onClick={onOpen} />
         </div>
       </div>
 

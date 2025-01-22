@@ -74,7 +74,7 @@ const LockHistoryTable: React.FC = () => {
       cell: (info: any) => (
         <Button
           className="px-4 py-2 bg-blue-500 transition-colors"
-          primary={true}
+          variant="primary"
           label="Unlock Early"
           onClick={() => {
             setSelectedIdx(info.row.index);

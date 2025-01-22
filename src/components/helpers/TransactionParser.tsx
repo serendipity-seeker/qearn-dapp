@@ -84,9 +84,9 @@ export const TransactionParser = () => {
         </div>
 
         <div className="space-y-4">
-          <Button onClick={generateRandomTx} className="w-full mb-4" primary label="Generate Random Transaction" />
+          <Button onClick={generateRandomTx} className="w-full mb-4" variant="primary" label="Generate Random Transaction" />
           {renderInput('Transaction Uint8 Array', uint8Input, setUint8Input, 'Enter transaction Uint8 Array', 3)}
-          <Button onClick={parseTx} className="mt-2 w-full" primary label="Parse Transaction" />
+          <Button onClick={parseTx} className="mt-2 w-full" variant="primary" label="Parse Transaction" />
 
           {Object.entries(txInfo).map(([key, value]) => (
             <Fragment key={key}>

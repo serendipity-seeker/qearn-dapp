@@ -49,7 +49,7 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({ open, onClose, onConfirm, t
               />
               <Button
                 className="w-1/2"
-                primary
+                variant="primary"
                 onClick={() => {
                   onConfirm?.();
                   onClose?.();

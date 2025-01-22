@@ -23,7 +23,7 @@ export const RandomSeedGenerator = () => {
         </div>
 
         <div className="space-y-4">
-          <Button onClick={handleGenerateRandomSeed} className="w-full" primary label="Generate Random Seed" />
+          <Button onClick={handleGenerateRandomSeed} className="w-full" variant="primary" label="Generate Random Seed" />
           {randomSeed && renderOutput('Generated Seed', randomSeed)}
         </div>
       </div>

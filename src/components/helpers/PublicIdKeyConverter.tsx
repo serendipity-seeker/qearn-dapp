@@ -76,7 +76,7 @@ export const PublicIdKeyConverter = () => {
 
         <div className="space-y-4">
           {renderInput('Public ID', publicId, setPublicId, 'Enter Public ID')}
-          <Button onClick={getPublicKeyFromId} className="mt-2 w-full" primary label="Get Public Key" />
+          <Button onClick={getPublicKeyFromId} className="mt-2 w-full" variant="primary" label="Get Public Key" />
           {renderOutput('Output', publicKey)}
 
           {renderInput(
@@ -85,7 +85,7 @@ export const PublicIdKeyConverter = () => {
             setPublicKey,
             'Enter Public Key'
           )}
-          <Button onClick={getPublicIdFromKey} className="mt-2 w-full" primary label="Get Public ID" />
+          <Button onClick={getPublicIdFromKey} className="mt-2 w-full" variant="primary" label="Get Public ID" />
           {renderOutput('Output', publicId)}
         </div>
       </div>

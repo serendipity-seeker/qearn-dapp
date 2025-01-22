@@ -102,7 +102,7 @@ const ConfirmTxModal = ({ tx, open, onClose, onConfirm, beTickOffset = 3 }: Conf
                   <p className="text-white">{tx.description}</p>
                   <Button
                     label="Confirm"
-                    primary={true}
+                    variant="primary"
                     onClick={async () => {
                       const confirmResult = await onConfirm();
                       // check if confirmed has finished with status 200

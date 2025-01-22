@@ -74,7 +74,7 @@ export const TransactionCreator = () => {
           {renderInput('Input Size', txForm.inputSize, (value) => setTxForm((prev) => ({ ...prev, inputSize: value })), 'Enter input size')}
           {renderInput('Payload (Base64)', txForm.payload, (value) => setTxForm((prev) => ({ ...prev, payload: value })), 'Enter payload in Base64', 3)}
 
-          <Button onClick={handleCreateTx} className="mt-2 w-full" primary label="Create & Sign Transaction" />
+          <Button onClick={handleCreateTx} className="mt-2 w-full" variant="primary" label="Create & Sign Transaction" />
         </div>
       </div>
     </Card>
