@@ -10,6 +10,7 @@ module.exports = {
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./index.html', './src/**/*.{js,jsx,ts,tsx}'],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: ({ colors }) => ({
@@ -19,12 +20,18 @@ module.exports = {
         black: '#22292F',
         white: '#fff',
         'smoke-light': 'rgba(0, 0, 0, 0.4)',
+
+        foreground: 'var(--foreground)',
+        background: 'var(--background)',
+        card: 'var(--card)',
+        'card-border': 'var(--card-border)',
+
         primary: {
           20: '#CCFCFF',
-          30: '#202E3C',
+          30: '#B0F9FE',
           40: '#61F0FE',
-          50: '#61F0FE',
-          60: '#101820',
+          50: '#1ADEF5',
+          60: '#03C1DB',
           70: '#019AB8',
           90: '#112C35',
         },
@@ -34,7 +41,7 @@ module.exports = {
           70: '#202E3C',
           80: '#151E27',
           90: '#101820',
-          100: '#F5F5F5',
+          100: '#0C131B',
           200: '#EEEEEE',
           300: '#E0E0E0',
           400: '#BDBDBD',

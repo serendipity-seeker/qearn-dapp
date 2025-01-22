@@ -2,9 +2,10 @@ import clsx from 'clsx';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /**
-   * Is this the principal call to action on the page?
+   * Button variant - primary is the main call to action, secondary is for important but not main actions,
+   * tertiary is for least critical actions
    */
-  primary?: boolean;
+  variant?: 'primary' | 'secondary' | 'tertiary';
   /**
    * Button contents
    */
@@ -17,12 +18,17 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 }
 
 /**
- * Primary UI component for user interaction
+ * Button component with primary, secondary and tertiary variants
  */
-const Button = ({ primary = false, label, className, icon, ...props }: ButtonProps) => {
-  const mode = primary ? 'bg-primary-40 text-black' : 'bg-[rgba(26,222,245,0.1)] text-primary-40';
+const Button: React.FC<ButtonProps> = ({ variant = 'secondary', label, className, icon, ...props }) => {
+  const variants = {
+    primary: 'bg-primary-40 text-black hover:bg-primary-50',
+    secondary: 'bg-[rgba(26,222,245,0.1)] text-primary-30 hover:bg-[rgba(26,222,245,0.2)]',
+    tertiary: 'bg-transparent text-primary-30 hover:text-primary-40',
+  };
+
   return (
-    <button type="button" className={clsx('p-3 rounded-xl flex items-center justify-center border-none hover:scale-[1.02] active:scale-[0.98] transition-transform', mode, className)} {...props}>
+    <button type="button" className={clsx('p-3 rounded-xl flex items-center justify-center border-none', 'focus:ring', variants[variant], className)} {...props}>
       {icon}
       {label}
     </button>

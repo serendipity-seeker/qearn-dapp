@@ -46,11 +46,11 @@ export const Uint8Base64Converter = () => {
 
         <div className="space-y-4">
           {renderInput('Uint8 Array', uint8Input, setUint8Input, 'Enter comma-separated Uint8 Array', 3)}
-          <Button onClick={() => handleConversion('toBase64')} className="mt-2 w-full" primary label="Convert to Base64" />
+          <Button onClick={() => handleConversion('toBase64')} className="mt-2 w-full" variant="primary" label="Convert to Base64" />
           {renderOutput('Output', base64Output)}
 
           {renderInput('Base64', base64Input, setBase64Input, 'Enter Base64 string', 3)}
-          <Button onClick={() => handleConversion('toUint8')} className="mt-2 w-full" primary label="Convert to Uint8" />
+          <Button onClick={() => handleConversion('toUint8')} className="mt-2 w-full" variant="primary" label="Convert to Uint8" />
           {renderOutput('Output', uint8Output)}
         </div>
       </div>

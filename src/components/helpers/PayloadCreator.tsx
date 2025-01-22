@@ -84,7 +84,7 @@ export const PayloadCreator = () => {
           ))}
 
           <Button onClick={addPayloadField} className="w-full" label="Add Field" />
-          <Button onClick={handleCreatePayload} className="mt-4 w-full" primary label="Create Combined Payload" />
+          <Button onClick={handleCreatePayload} className="mt-4 w-full" variant="primary" label="Create Combined Payload" />
 
           {output.payload && (
             <>

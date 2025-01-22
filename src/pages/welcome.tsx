@@ -4,6 +4,7 @@ import { tickInfoAtom } from '@/store/tickInfo';
 import { useAtom } from 'jotai';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const Welcome: React.FC = () => {
   const [qearnStats] = useAtom(qearnStatsAtom);
@@ -15,17 +16,26 @@ const Welcome: React.FC = () => {
   }, [tickInfo]);
 
   return (
-    <div className="flex flex-col justify-between items-center gap-4 md:gap-8 h-full">
-      <div className="flex flex-1 flex-col justify-center items-center gap-4">
-        <h2 className="text-4xl md:text-7xl font-bold max-w-[748px] text-center">
-          Earn <span className="text-primary-50">{(qearnStats[tickInfo?.epoch]?.yieldPercentage / 100000 || 0).toFixed(2)}%</span> Rewards by Staking $QUBIC
-        </h2>
-        <h5 className="text-xl mt-4 md:text-2xl text-gray-50 max-w-[748px] text-center">Connect your wallet to start locking</h5>
-        <Link to="/home" className="w-full max-w-xs md:w-80">
-          <Button primary className="w-full" label="Start Locking" />
-        </Link>
-      </div>
-    </div>
+    <motion.div className="flex flex-col justify-between items-center gap-4 md:gap-8 h-full" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+      <motion.div className="flex flex-1 flex-col justify-center items-center gap-4" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, delay: 0.2 }}>
+        <motion.h2 className="text-4xl md:text-7xl font-bold max-w-[748px] text-center" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }}>
+          Earn <span className="text-primary-40">{(qearnStats[tickInfo?.epoch]?.yieldPercentage / 100000 || 0).toFixed(2)}%</span> Rewards by Staking $QUBIC
+        </motion.h2>
+        <motion.h5
+          className="text-xl mt-4 md:text-2xl text-gray-50 max-w-[748px] text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+        >
+          Connect your wallet to start locking
+        </motion.h5>
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.8 }}>
+          <Link to="/home" className="w-full max-w-xs md:w-80">
+            <Button variant="primary" className="w-full" label="Start Locking" />
+          </Link>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 };
 

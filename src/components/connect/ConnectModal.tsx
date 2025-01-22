@@ -15,6 +15,7 @@ import { MetaMaskTypo } from './MetaMaskTypo';
 import { MetaMaskLogo } from './MetaMaskLogo';
 import { useWalletConnect } from './WalletConnectContext.tsx';
 import { generateQRCode } from '@/utils/index.ts';
+import WalletConnectLogo from '@/assets/wallet-connect.svg';
 
 export enum MetamaskActions {
   SetInstalled = 'SetInstalled',
@@ -217,13 +218,13 @@ const ConnectModal = ({ open, onClose }: { open: boolean; onClose: () => void })
                       <MetaMaskTypo color="black" />
                     </button>
                     <button
-                      className="bg-primary-40 p-3 rounded-lg text-black flex items-center justify-center gap-3 disabled:bg-gray-40"
+                      className="bg-primary-40 p-2 rounded-lg text-black flex items-center justify-center gap-3 disabled:bg-gray-40"
                       onClick={() => {
                         generateURI();
                         setSelectedMode('walletconnect');
                       }}
                     >
-                      <img src="https://raw.githubusercontent.com/WalletConnect/walletconnect-assets/refs/heads/master/Logo/Black/Logo.svg" alt="Wallet Connect Logo" className="w-8 h-8" />
+                      <img src={WalletConnectLogo} alt="Wallet Connect Logo" className="w-10 h-10" />
                       Wallet Connect
                     </button>
                     <div className="flex items-center justify-center w-full my-4">
@@ -318,7 +319,10 @@ const ConnectModal = ({ open, onClose }: { open: boolean; onClose: () => void })
                 Connect your Qubic Wallet. You need to have Qubic Wallet installed and unlocked.
                 <div className="flex flex-col gap-2 mt-5">
                   <img src={qrCode} alt="Wallet Connect QR Code" className="mx-auto w-54 h-54" />
-                  <button onClick={() => window.open(`qubic-wallet://pairwc/${connectionURI}`, '_blank')} className="bg-primary-40 p-3 rounded-lg text-black flex items-center justify-center gap-3 disabled:bg-gray-40">
+                  <button
+                    onClick={() => window.open(`qubic-wallet://pairwc/${connectionURI}`, '_blank')}
+                    className="bg-primary-40 p-3 rounded-lg text-black flex items-center justify-center gap-3 disabled:bg-gray-40"
+                  >
                     Open in Qubic Wallet
                   </button>
                   <button className="bg-[rgba(26,222,245,0.1)] p-3 rounded-lg text-primary-40" onClick={() => setSelectedMode('none')}>

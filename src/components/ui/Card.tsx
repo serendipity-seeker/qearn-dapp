@@ -9,7 +9,7 @@ interface CardProps {
 
 const Card = ({ children, className, onClick }: CardProps) => {
   return (
-    <div className={clsx('bg-gray-80 border-gray-70 border-[1px] rounded-[8px]', className)} onClick={onClick}>
+    <div className={clsx('bg-card border-card-border border-[1px] rounded-[8px]', className)} onClick={onClick}>
       {children}
     </div>
   );
