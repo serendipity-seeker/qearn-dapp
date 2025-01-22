@@ -10,13 +10,14 @@ import { fetchBalance } from '@/services/rpc.service';
 import { balancesAtom } from '@/store/balances';
 import { closeTimeAtom } from '@/store/closeTime';
 import { getTimeToNewEpoch } from '@/utils';
+import { userLockInfoAtom } from '@/store/userLockInfo';
 
 const Fetcher: React.FC = () => {
   const { refetch: refetchTickInfo } = useFetchTickInfo();
   const intervalRef = useRef<NodeJS.Timeout>();
   const [tickInfo, setTickInfo] = useAtom(tickInfoAtom);
 
-  const epoch = useRef<number>(tickInfo?.epoch || 142);
+  const epoch = useRef<number>(tickInfo?.epoch);
   const [, setQearnStats] = useAtom(qearnStatsAtom);
 
   // Fetch tick info every 2 second
@@ -95,10 +96,22 @@ const Fetcher: React.FC = () => {
   }, [wallet]);
 
   // Fetch user lock data
+  const [userLockInfo, setUserLockInfo] = useAtom(userLockInfoAtom);
+
   useEffect(() => {
-    if (!balances.length) return;
+    if (!balances.length || !epoch.current) return;
     const fetchUserLockData = async () => {
-      const lockInfo = await getUserLockStatus(balances[0].id, epoch.current);
+      const lockEpochs = await getUserLockStatus(balances[0].id, epoch.current);
+      lockEpochs.forEach(async (epoch) => {
+        const lockedAmount = await getUserLockInfo(balances[0].id, epoch);
+        setUserLockInfo({
+          ...userLockInfo,
+          [balances[0].id]: {
+            ...userLockInfo[balances[0].id],
+            [epoch]: lockedAmount,
+          },
+        });
+      });
     };
     fetchUserLockData();
   }, [balances, epoch.current]);

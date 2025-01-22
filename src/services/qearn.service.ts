@@ -51,8 +51,7 @@ export const getLockInfoPerEpoch = async (epoch: number): Promise<ILockInfo> => 
 
 export const getUserLockInfo = async (user: Uint8Array | string, epoch: number): Promise<number> => {
   if (typeof user === 'string') {
-    const idPackage = await qHelper.createIdPackage(user);
-    user = idPackage.publicKey;
+    user = qHelper.getIdentityBytes(user);
   }
 
   const view = new DataView(new Uint8Array(36).buffer);
@@ -89,8 +88,7 @@ export const getStateOfRound = async (epoch: number): Promise<{ state: number }>
 
 export const getUserLockStatus = async (user: Uint8Array | string, currentEpoch: number): Promise<number[]> => {
   if (typeof user === 'string') {
-    const idPackage = await qHelper.createIdPackage(user);
-    user = idPackage.publicKey;
+    user = qHelper.getIdentityBytes(user);
   }
 
   const view = new DataView(new Uint8Array(32).buffer);
@@ -116,8 +114,7 @@ export const getUserLockStatus = async (user: Uint8Array | string, currentEpoch:
 
 export const getEndedStatus = async (user: Uint8Array | string): Promise<{ fullUnlockedAmount?: number; fullRewardedAmount?: number; earlyUnlockedAmount?: number; earlyRewardedAmount?: number }> => {
   if (typeof user === 'string') {
-    const idPackage = await qHelper.createIdPackage(user);
-    user = idPackage.publicKey;
+    user = qHelper.getIdentityBytes(user);
   }
 
   const view = new DataView(new Uint8Array(32).buffer);
@@ -141,4 +138,55 @@ export const getEndedStatus = async (user: Uint8Array | string): Promise<{ fullU
     earlyUnlockedAmount: getValue(16),
     earlyRewardedAmount: getValue(24),
   };
+};
+
+export const getBurnedAndBoostedStats = async (): Promise<{
+  burnedAmount: number;
+  averageBurnedPercent: number;
+  boostedAmount: number;
+  averageBoostedPercent: number;
+  rewardedAmount: number;
+  averageRewardedPercent: number;
+}> => {
+  const res = await fetchQuerySC({
+    contractIndex: 9,
+    inputType: 7,
+    inputSize: 0,
+    requestData: '',
+  });
+
+  if (!res.responseData) return { burnedAmount: 0, averageBurnedPercent: 0, boostedAmount: 0, averageBoostedPercent: 0, rewardedAmount: 0, averageRewardedPercent: 0 };
+
+  const responseView = new DataView(base64ToUint8Array(res.responseData).buffer);
+  const getValue = (offset: number) => Number(responseView.getBigUint64(offset, true));
+
+  return {
+    burnedAmount: getValue(0),
+    averageBurnedPercent: getValue(8),
+    boostedAmount: getValue(16),
+    averageBoostedPercent: getValue(24),
+    rewardedAmount: getValue(32),
+    averageRewardedPercent: getValue(40),
+  };
+};
+
+export const getBurnedAndBoostedStatsPerEpoch = async (
+  epoch: number
+): Promise<{ burnedAmount: number; burnedPercent: number; boostedAmount: number; boostedPercent: number; rewardedAmount: number; rewardedPercent: number }> => {
+  const view = new DataView(new Uint8Array(4).buffer);
+  view.setUint32(0, epoch, true);
+
+  const res = await fetchQuerySC({
+    contractIndex: 9,
+    inputType: 8,
+    inputSize: 4,
+    requestData: uint8ArrayToBase64(new Uint8Array(view.buffer)),
+  });
+
+  if (!res.responseData) return { burnedAmount: 0, burnedPercent: 0, boostedAmount: 0, boostedPercent: 0, rewardedAmount: 0, rewardedPercent: 0 };
+
+  const responseView = new DataView(base64ToUint8Array(res.responseData).buffer);
+  const getValue = (offset: number) => Number(responseView.getBigUint64(offset, true));
+
+  return { burnedAmount: getValue(0), burnedPercent: getValue(8), boostedAmount: getValue(16), boostedPercent: getValue(24), rewardedAmount: getValue(32), rewardedPercent: getValue(40) };
 };
