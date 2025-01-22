@@ -24,7 +24,7 @@ const Header: React.FC<HeaderProps> = ({ logo = '/qubic.svg' }) => {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="fixed top-0 z-10 flex w-full flex-wrap items-center justify-between bg-background/80 border-b border-solid border-card-border px-4 sm:px-12 h-[78px]"
+      className="fixed top-0 z-10 flex w-full flex-wrap items-center justify-between bg-background border-b border-solid border-card-border px-4 sm:px-12 h-[78px]"
     >
       <div className="flex items-center justify-between w-full">
         <Link to="/" className="transition-opacity hover:opacity-80">
