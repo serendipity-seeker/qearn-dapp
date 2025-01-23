@@ -39,7 +39,7 @@ const Header: React.FC<HeaderProps> = ({ logo = '/qubic.svg' }) => {
                 { path: '/home', label: 'Locking' },
                 { path: '/dashboard', label: 'Dashboard' },
                 { path: '/faq', label: 'FAQ' },
-                { path: '/helpers', label: 'Helpers' },
+                // { path: '/helpers', label: 'Helpers' },
               ].map(({ path, label }) => (
                 <NavigationMenu.Item key={path}>
                   <NavigationMenu.Link asChild>
