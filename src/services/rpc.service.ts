@@ -72,7 +72,7 @@ export const fetchLatestStats = async (): Promise<LatestStats> => {
 export const fetchRichList = async (page: number, pageSize: number): Promise<RichList> => {
   const richListResult = await fetch(`${httpEndpoint}/v1/rich-list?page=${page}&pageSize=${pageSize}`);
   const richList = await richListResult.json();
-  return richList.data;
+  return richList;
 };
 
 export const fetchTxHistory = async (publicId: string, startTick: number, endTick: number): Promise<TxHistory> => {

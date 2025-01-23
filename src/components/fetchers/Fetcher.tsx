@@ -6,11 +6,12 @@ import { useAtom } from 'jotai';
 import { useEffect, useRef } from 'react';
 import { QEARN_START_EPOCH } from '@/data/contants';
 import { useQubicConnect } from '@/components/connect/QubicConnectContext';
-import { fetchBalance } from '@/services/rpc.service';
+import { fetchBalance, fetchLatestStats } from '@/services/rpc.service';
 import { balancesAtom } from '@/store/balances';
 import { closeTimeAtom } from '@/store/closeTime';
 import { getTimeToNewEpoch } from '@/utils';
 import { userLockInfoAtom } from '@/store/userLockInfo';
+import { latestStatsAtom } from '@/store/latestStats';
 
 const Fetcher: React.FC = () => {
   const { refetch: refetchTickInfo } = useFetchTickInfo();
@@ -40,6 +41,12 @@ const Fetcher: React.FC = () => {
       }
     };
   }, [refetchTickInfo, setTickInfo]);
+
+  // Fetch latest stats
+  const [, setLatestStats] = useAtom(latestStatsAtom);
+  useEffect(() => {
+    fetchLatestStats().then(setLatestStats);
+  }, []);
 
   // Update close time
   const [, setCloseTime] = useAtom(closeTimeAtom);
