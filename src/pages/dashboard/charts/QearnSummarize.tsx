@@ -18,7 +18,7 @@ const QearnSummarize: React.FC = () => {
   }, [currentEpoch]);
 
   return (
-    <Card className="max-w-lg p-6">
+    <Card className="max-w-lg min-h-[400px] p-6">
       <div className="space-y-4">
         <h1 className="text-3xl text-center ">Qearn Summarize</h1>
 

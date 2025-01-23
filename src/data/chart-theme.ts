@@ -1,6 +1,6 @@
 export const custom = {
-  color: ['#61f0fe', '#019ab8', '#ccfcff', '#72ccff'],
-  backgroundColor: 'transparent',
+  color: ['#fc97af', '#87f7cf', '#f7f494', '#72ccff', '#f7c5a0', '#d4a4eb', '#d2f5a6', '#76f2f2'],
+  backgroundColor: '#151e27',
   textStyle: {},
   title: {
     textStyle: {
@@ -101,7 +101,7 @@ export const custom = {
     symbolSize: '0',
     symbol: 'circle',
     smooth: true,
-    color: ['#61f0fe', '#019ab8', '#ccfcff', '#72ccff'],
+    color: ['#fc97af', '#87f7cf', '#f7f494', '#72ccff', '#f7c5a0', '#d4a4eb', '#d2f5a6', '#76f2f2'],
     label: {
       color: '#293441',
     },

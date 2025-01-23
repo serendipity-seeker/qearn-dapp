@@ -29,8 +29,8 @@ const TVL: React.FC = () => {
       trigger: 'item',
     },
     legend: {
-      orient: 'vertical',
-      left: 'left',
+      orient: 'horizontal',
+      bottom: '5%',
     },
     series: [
       {
