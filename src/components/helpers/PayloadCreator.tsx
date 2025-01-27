@@ -51,9 +51,9 @@ export const PayloadCreator = () => {
       );
 
       setOutput({
-        payload: uint8ArrayToBase64(payload),
+        payload: uint8ArrayToBase64(payload.getPackageData()),
         inputType: '1',
-        inputSize: payload.length.toString(),
+        inputSize: payload.getPackageSize().toString(),
       });
 
       toast.success('Payload created successfully');
