@@ -128,15 +128,15 @@ const LockHistoryTable: React.FC = () => {
 
   const handleUnlockEarly = async () => {
     try {
-      const tx = await unLockQubic(accounts[selectedAccount].value, tableData[selectedIdx || 0].lockedAmount, tickInfo?.epoch || 0, tickInfo?.tick + settings.tickOffset);
+      const tx = await unLockQubic(accounts[selectedAccount].value, tableData[selectedIdx || 0].lockedAmount, tableData[selectedIdx || 0].lockedEpoch, tickInfo?.tick + settings.tickOffset);
       const { tx: signedTx } = await getSignedTx(tx);
       const res = await broadcastTx(signedTx);
       setPendingTx({
         txId: res.transactionId,
         publicId: accounts[selectedAccount].value,
-        initAmount: userLockInfo[accounts[selectedAccount].value]?.[tickInfo?.epoch || 0] || 0,
+        initAmount: userLockInfo[accounts[selectedAccount].value]?.[tableData[selectedIdx || 0].lockedEpoch] || 0,
         amount: -tableData[selectedIdx || 0].lockedAmount || 0,
-        epoch: tickInfo?.epoch || 0,
+        epoch: tableData[selectedIdx || 0].lockedEpoch,
         targetTick: tickInfo?.tick + settings.tickOffset,
         type: 'qearn',
       });
