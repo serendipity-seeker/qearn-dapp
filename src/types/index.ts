@@ -36,6 +36,15 @@ export interface ILockInfo {
   yieldPercentage: number;
 }
 
+export interface IBurnedAndBoostedStats {
+  burnedAmount: number;
+  burnedPercent: number;
+  boostedAmount: number;
+  boostedPercent: number;
+  rewardedAmount: number;
+  rewardedPercent: number;
+}
+
 export interface ILockStatus {
   publicId: string;
   lockedEpoch: number;

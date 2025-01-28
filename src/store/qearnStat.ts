@@ -1,8 +1,8 @@
-import { ILockInfo } from '@/types';
+import { IBurnedAndBoostedStats, ILockInfo } from '@/types';
 import { atom } from 'jotai';
 
 export interface IQearnStats {
-  [epoch: number]: ILockInfo;
+  [epoch: number]: ILockInfo & IBurnedAndBoostedStats;
   totalInitialLockAmount: number;
   totalInitialBonusAmount: number;
   totalLockAmount: number;

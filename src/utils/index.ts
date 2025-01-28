@@ -97,6 +97,7 @@ export const createPayload = (data: ICreatePayload[]) => {
   };
 
   const totalSize = data.reduce((acc, { type }) => acc + TYPE_SIZES[type], 0);
+  const dynamicPayload = new DynamicPayload(totalSize);
 
   const { buffer, view } = createDataView(totalSize);
 
@@ -124,7 +125,10 @@ export const createPayload = (data: ICreatePayload[]) => {
     offset += setters[type](view, offset, value);
   });
 
-  return new Uint8Array(buffer);
+  const result = new Uint8Array(buffer);
+
+  dynamicPayload.setPayload(result);
+  return dynamicPayload;
 };
 
 export const calculateRewards = (lockAmount: number, totalLockedAmount: number, currentBonusAmount: number, yieldPercentage: number, currentEpoch: number, lockedEpoch: number) => {

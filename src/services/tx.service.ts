@@ -1,4 +1,3 @@
-import { createPayload } from '@/utils';
 import { DynamicPayload } from '@qubic-lib/qubic-ts-library/dist/qubic-types/DynamicPayload';
 import { QubicTransaction } from '@qubic-lib/qubic-ts-library/dist/qubic-types/QubicTransaction';
 import { QubicDefinitions } from '@qubic-lib/qubic-ts-library/dist/QubicDefinitions';
@@ -9,16 +8,6 @@ const qHelper = new QubicHelper();
 export const createTx = (sender: string, receiver: string, amount: number, tick: number) => {
   const tx = new QubicTransaction().setSourcePublicKey(sender).setDestinationPublicKey(receiver).setAmount(amount).setTick(tick);
   return tx;
-};
-
-export const createQearnPayload = (UnlockAmount: number, LockedEpoch: number) => {
-  const dynamicPayload = new DynamicPayload(12);
-  const buffer = createPayload([
-    { data: UnlockAmount, type: 'bigint64' },
-    { data: LockedEpoch, type: 'uint32' },
-  ]);
-  dynamicPayload.setPayload(new Uint8Array(buffer));
-  return dynamicPayload;
 };
 
 export const createSCTx = async (sourceID: string, contractIndex: number, inputType: number, inputSize: number, amount: number, tick: number, payload?: DynamicPayload) => {

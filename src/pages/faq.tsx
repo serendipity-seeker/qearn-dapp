@@ -11,24 +11,73 @@ const Faq: React.FC = () => {
         {[
           {
             title: 'What is Qearn?',
-            content: 'Qearn is a platform that allows you to lock your QUBIC tokens and earn rewards. The more you lock, the more rewards you earn.',
+            content:
+              'Qearn is a smart contract-based platform that allows users to lock funds for rewards while offering flexible unlocking options with associated penalties for early unlocking. It’s designed to incentivize long-term participation while maintaining liquidity for users.',
           },
           {
-            title: 'What are the benefits of locking?',
+            title: 'How does Qearn generate rewards?',
+            content: 'Rewards in Qearn are distributed from the bonus pool allocated to each epoch. These rewards are calculated based on the total locked amount and the epoch bonus allocation.',
+          },
+          {
+            title: 'What is an epoch in Qearn?',
+            content:
+              'An epoch is a time period during which locking and unlocking activities are managed. In Qearn, epochs are tracked weekly, with each user’s lock duration and rewards calculated based on these intervals.',
+          },
+          {
+            title: 'What is the minimum amount required to lock funds?',
+            content: 'The minimum locking amount is 10,000,000 Qubic. Any attempt to lock less will result in a failed transaction.',
+          },
+          {
+            title: 'Is there a maximum amount I can lock?',
+            content: 'Yes, the maximum lock amount per user in a single epoch is 1,000,000,000,000 Qubic.',
+          },
+          {
+            title: 'Can I lock funds multiple times in the same epoch?',
+            content: ' Yes, you can lock funds multiple times in the same epoch. The amounts will be aggregated, provided the total does not exceed the maximum lock limit.',
+          },
+          {
+            title: 'Can I unlock my funds early?',
             content: (
               <>
-                <p>Locking provides several benefits including:</p>
+                <p>Yes, early unlocking is allowed but comes with penalties:</p>
                 <ul className="list-disc list-inside mt-2 text-muted-foreground">
-                  <li>Earning passive rewards</li>
-                  <li>Supporting network security</li>
-                  <li>Bring token price stability</li>
+                  <li>
+                    <span className="font-bold">Reduced rewards:</span> Depending on how early you unlock, a percentage of the rewards will be forfeited.
+                  </li>
+                  <li>
+                    <span className="font-bold">Burned amount:</span> A portion of the unlocked amount will be burned, decreasing the circulating supply.
+                  </li>
                 </ul>
               </>
             ),
           },
           {
-            title: 'How can I get started?',
-            content: 'To get started, connect your wallet using the connect button in the top right corner. Once connected, you can navigate to the Locking page to stake your QUBIC tokens.',
+            title: 'What are the penalties for early unlocking?',
+            content: (
+              <>
+                <p>Penalties vary based on how many weeks your funds were locked. For example:</p>
+                <ul className="list-disc list-inside mt-2 text-muted-foreground">
+                  <li>
+                    Unlocking after 4-7 weeks incurs a <span className="font-bold">5% reward penalty</span> and a <span className="font-bold">45% burn rate</span>.
+                  </li>
+                  <li>
+                    Unlocking after 36-39 weeks incurs a <span className="font-bold">40% reward penalty</span> and a <span className="font-bold">30% burn rate</span>.
+                  </li>
+                </ul>
+              </>
+            ),
+          },
+          {
+            title: 'What happens if I keep my funds locked for the full period?',
+            content: 'If you lock your funds for the full 52 weeks, you will receive the maximum rewards and incur no penalties.',
+          },
+          {
+            title: 'How are rewards calculated?',
+            content: 'Rewards are calculated based on the epoch&apos;s bonus pool and the total locked amount. The yield is proportional to your share of the locked funds in the epoch.',
+          },
+          {
+            title: 'Are bonuses fixed or variable?',
+            content: ' Bonuses are variable and depend on the funds available in the bonus pool at the start of each epoch. Unused bonuses are burned at the end of an epoch.',
           },
           {
             title: 'How can I connect wallet to this dapp?',

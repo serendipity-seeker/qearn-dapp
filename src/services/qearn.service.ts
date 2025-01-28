@@ -1,7 +1,7 @@
 import { IBurnNBoostedStats, ILockInfo } from '@/types';
 import { fetchQuerySC } from './rpc.service';
-import { base64ToUint8Array, uint8ArrayToBase64 } from '@/utils';
-import { createQearnPayload, createSCTx } from './tx.service';
+import { base64ToUint8Array, createPayload, uint8ArrayToBase64 } from '@/utils';
+import { createSCTx } from './tx.service';
 import { QubicHelper } from '@qubic-lib/qubic-ts-library/dist/qubicHelper';
 
 const qHelper = new QubicHelper();
@@ -12,7 +12,11 @@ export const lockQubic = async (sourceID: string, amount: number, tick: number) 
 };
 
 export const unLockQubic = async (sourceID: string, amount: number, epoch: number, tick: number) => {
-  return await createSCTx(sourceID, 9, 2, 12, 0, tick, createQearnPayload(amount, epoch));
+  const payload = createPayload([
+    { data: amount, type: 'bigint64' },
+    { data: epoch, type: 'uint32' },
+  ]);
+  return await createSCTx(sourceID, 9, 2, payload.getPackageSize(), 0, tick, payload);
 };
 
 // Query

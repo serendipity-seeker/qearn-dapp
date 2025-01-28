@@ -9,7 +9,7 @@ const queryClient = new QueryClient();
 
 function App() {
   return (
-    <div className="bg-background text-foreground dark">
+    <div className="bg-background text-foreground dark font-space">
       <QueryClientProvider client={queryClient}>
         <WalletConnectProvider>
           <QubicConnectProvider>
