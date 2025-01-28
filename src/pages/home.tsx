@@ -18,47 +18,41 @@ const Home: React.FC = () => {
   }, [activeTab]);
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4">
-      <div className="flex gap-3 mb-4 relative">
-        <div
-          ref={tabRefs[0]}
-          onClick={() => setActiveTab(0)}
-          className={`px-2 py-1 font-medium text-foreground hover:text-primary-30 cursor-pointer
+    <div className="w-full max-w-6xl mx-auto px-4 flex justify-center">
+      <div>
+        <div className="flex gap-3 mb-4 relative">
+          <div
+            ref={tabRefs[0]}
+            onClick={() => setActiveTab(0)}
+            className={`px-2 py-1 font-medium text-foreground hover:text-primary-30 cursor-pointer
               ${activeTab === 0 ? 'text-foreground' : ''}`}
-        >
-          Locking
-        </div>
-        <div
-          ref={tabRefs[1]}
-          onClick={() => setActiveTab(1)}
-          className={`px-2 py-1 font-medium text-foreground hover:text-primary-30 cursor-pointer
+          >
+            Locking
+          </div>
+          <div
+            ref={tabRefs[1]}
+            onClick={() => setActiveTab(1)}
+            className={`px-2 py-1 font-medium text-foreground hover:text-primary-30 cursor-pointer
               ${activeTab === 1 ? 'text-foreground' : ''}`}
-        >
-          Locking History
+          >
+            Locking History
+          </div>
+          <motion.div
+            className="absolute bottom-0 h-0.5 bg-foreground"
+            animate={{
+              left: tabUnderlineLeft,
+              width: tabUnderlineWidth,
+            }}
+            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+          />
         </div>
-        <motion.div
-          className="absolute bottom-0 h-0.5 bg-foreground"
-          animate={{
-            left: tabUnderlineLeft,
-            width: tabUnderlineWidth,
-          }}
-          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        />
+        <AnimatePresence mode="wait">
+          <motion.div key={activeTab} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.2 }}>
+            {activeTab === 0 && <QearnForm />}
+            {activeTab === 1 && <LockHistoryTable />}
+          </motion.div>
+        </AnimatePresence>
       </div>
-      <AnimatePresence mode="wait">
-        <motion.div key={activeTab} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.2 }}>
-          {activeTab === 0 && (
-            <div className="flex justify-center">
-              <QearnForm />
-            </div>
-          )}
-          {activeTab === 1 && (
-            <div className="flex justify-center">
-              <LockHistoryTable />
-            </div>
-          )}
-        </motion.div>
-      </AnimatePresence>
     </div>
   );
 };

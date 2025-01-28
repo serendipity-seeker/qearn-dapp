@@ -21,7 +21,7 @@ const InfoBanner: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -20 }}
         transition={{ duration: 0.5 }}
-        className="w-full p-6 flex md:flex-row flex-col justify-center items-center gap-6 border-t-2 border-b-2 border-gray-50"
+        className="w-full p-6 flex md:flex-row flex-col justify-center items-center gap-6 border-t-2 border-b-2 border-gray-50 border-opacity-20"
       >
         <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} transition={{ delay: 0.2, duration: 0.5 }}>
           <span>
@@ -34,7 +34,7 @@ const InfoBanner: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ delay: 0.4, duration: 0.5 }}
-          className="text-center px-4 md:border-l-2 md:border-r-2 md:border-gray-50"
+          className="text-center px-4 md:border-l-2 md:border-r-2 md:border-gray-50 border-opacity-20"
         >
           <FaClockSolid className="inline mr-1" />
           Weekly Locking Closes in {closeTime.days} d {closeTime.hours} h {closeTime.minutes} min

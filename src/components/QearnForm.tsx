@@ -91,12 +91,12 @@ const QearnForm: React.FC = () => {
   return (
     <Card className="w-full max-w-lg p-8">
       <div className="space-y-6">
-        <h1 className="text-4xl">Lock $QUBIC</h1>
+        <h1 className="text-2xl">Lock $QUBIC</h1>
 
         <div className="space-y-6">
           <div className="space-y-2">
-            <AccountSelector label="Select Account" options={accounts} selected={selectedAccount} setSelected={setSelectedAccount} />
-            <p className="text-gray-50 text-sm flex justify-between">
+            <AccountSelector label="Account" options={accounts} selected={selectedAccount} setSelected={setSelectedAccount} />
+            <p className="text-gray-50 text-sm flex justify-between px-4">
               <span className="font-bold text-primary">Available:</span> <span className="font-bold text-primary">{balances[selectedAccount]?.balance || 0} QUBIC</span>
             </p>
           </div>
