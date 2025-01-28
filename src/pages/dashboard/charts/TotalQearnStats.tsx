@@ -21,7 +21,7 @@ interface ITableData {
 const TotalQearnStats: React.FC = () => {
   const [qearnStats] = useAtom(qearnStatsAtom);
   const [sorting, setSorting] = useState<SortingState>([{ id: 'epoch', desc: true }]);
-  console.log(qearnStats);
+
   const columnHelper = createColumnHelper<ITableData>();
   const columns = useMemo(
     () => [
@@ -41,38 +41,38 @@ const TotalQearnStats: React.FC = () => {
         sortingFn: 'basic',
       }),
       columnHelper.accessor('yieldPercentage', {
-        header: 'Yield %',
+        header: 'APY %',
         cell: (info) => (info.getValue() / 100000).toFixed(2) + '%',
         sortingFn: 'basic',
       }),
       columnHelper.accessor('burnedAmount', {
-        header: 'Burned Amount',
-        cell: (info) => info.getValue()?.toLocaleString(),
-        sortingFn: 'basic',
-      }),
-      columnHelper.accessor('burnedPercent', {
-        header: 'Burned %',
-        cell: (info) => (info.getValue() / 100000).toFixed(2) + '%',
+        header: 'Burned',
+        cell: (info) => (
+          <div className="flex flex-col">
+            <span>{info.getValue()?.toLocaleString()}</span>
+            <span className="text-gray-500">({(info.row.original.burnedPercent / 100000).toFixed(2)}%)</span>
+          </div>
+        ),
         sortingFn: 'basic',
       }),
       columnHelper.accessor('boostedAmount', {
-        header: 'Boosted Amount',
-        cell: (info) => info.getValue()?.toLocaleString(),
-        sortingFn: 'basic',
-      }),
-      columnHelper.accessor('boostedPercent', {
-        header: 'Boosted %',
-        cell: (info) => (info.getValue() / 100000).toFixed(2) + '%',
+        header: 'Boosted',
+        cell: (info) => (
+          <div className="flex flex-col">
+            <span>{info.getValue()?.toLocaleString()}</span>
+            <span className="text-gray-500">({(info.row.original.boostedPercent / 100000).toFixed(2)}%)</span>
+          </div>
+        ),
         sortingFn: 'basic',
       }),
       columnHelper.accessor('rewardedAmount', {
-        header: 'Rewarded Amount',
-        cell: (info) => info.getValue()?.toLocaleString(),
-        sortingFn: 'basic',
-      }),
-      columnHelper.accessor('rewardedPercent', {
-        header: 'Rewarded %',
-        cell: (info) => (info.getValue() / 100000).toFixed(2) + '%',
+        header: 'Rewarded',
+        cell: (info) => (
+          <div className="flex flex-col">
+            <span>{info.getValue()?.toLocaleString()}</span>
+            <span className="text-gray-500">({(info.row.original.rewardedPercent / 100000).toFixed(2)}%)</span>
+          </div>
+        ),
         sortingFn: 'basic',
       }),
     ],
@@ -116,25 +116,25 @@ const TotalQearnStats: React.FC = () => {
       <div className="space-y-4">
         <h1 className="text-3xl text-center">Total Qearn Stats</h1>
 
-        <div className="grid grid-cols-2 gap-4 mb-6">
-          <div className="space-y-2">
+        <div className="flex flex-wrap gap-4 mb-6">
+          <div className="space-y-2 flex-1">
             <p className="text-sm text-gray-500">Total Initial Lock Amount</p>
             <p className="text-2xl font-semibold">{qearnStats.totalInitialLockAmount?.toLocaleString() || 0}</p>
           </div>
-          <div className="space-y-2">
+          <div className="space-y-2 flex-1">
             <p className="text-sm text-gray-500">Total Initial Bonus Amount</p>
             <p className="text-2xl font-semibold">{qearnStats.totalInitialBonusAmount?.toLocaleString() || 0}</p>
           </div>
-          <div className="space-y-2">
+          <div className="space-y-2 flex-1">
             <p className="text-sm text-gray-500">Total Lock Amount</p>
             <p className="text-2xl font-semibold">{qearnStats.totalLockAmount?.toLocaleString() || 0}</p>
           </div>
-          <div className="space-y-2">
+          <div className="space-y-2 flex-1">
             <p className="text-sm text-gray-500">Total Bonus Amount</p>
             <p className="text-2xl font-semibold">{qearnStats.totalBonusAmount?.toLocaleString() || 0}</p>
           </div>
-          <div className="space-y-2 col-span-2">
-            <p className="text-sm text-gray-500">Average Yield Percentage</p>
+          <div className="space-y-2 flex-1">
+            <p className="text-sm text-gray-500">Average APY</p>
             <p className="text-2xl font-semibold">{(qearnStats.averageYieldPercentage / 100000).toFixed(2) || 0}%</p>
           </div>
         </div>
