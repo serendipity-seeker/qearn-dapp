@@ -27,6 +27,7 @@ const TVL: React.FC = () => {
     },
     tooltip: {
       trigger: 'item',
+      formatter: '{b}: {c} ({d}%)',
     },
     legend: {
       orient: 'horizontal',

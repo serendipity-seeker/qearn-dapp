@@ -34,12 +34,13 @@ const Richlist: React.FC = () => {
 
   const option: EChartsOption = {
     title: {
-      text: 'Distribution Ratio',
+      text: 'Qubic Richlist',
       left: 'center',
       textAlign: 'center',
     },
     tooltip: {
       trigger: 'item',
+      formatter: '{b}: {c} ({d}%)',
     },
     series: [
       {
@@ -50,6 +51,7 @@ const Richlist: React.FC = () => {
         data: richlist.map((item) => ({
           value: item.balance,
           name: item.identity,
+          percentage: (item.balance * 100) / Number(latestStats.circulatingSupply),
         })),
         emphasis: {
           itemStyle: {
