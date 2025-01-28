@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import TVL from './charts/TVL';
 import BonusAmountAnalyzer from './charts/BonusAmountAnalyzer';
 import Richlist from './charts/Richlist';
+import TotalQearnStats from './charts/TotalQearnStats';
 
 const Dashboard: React.FC = () => {
   return (
@@ -17,6 +18,9 @@ const Dashboard: React.FC = () => {
       </motion.div>
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8, duration: 0.5 }}>
         <Richlist />
+      </motion.div>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8, duration: 0.5 }}>
+        <TotalQearnStats />
       </motion.div>
     </motion.div>
   );

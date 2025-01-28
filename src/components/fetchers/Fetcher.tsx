@@ -1,5 +1,5 @@
 import { useFetchTickInfo } from '@/hooks/useFetchTickInfo';
-import { getLockInfoPerEpoch, getUserLockInfo, getUserLockStatus } from '@/services/qearn.service';
+import { getBurnedAndBoostedStatsPerEpoch, getLockInfoPerEpoch, getUserLockInfo, getUserLockStatus } from '@/services/qearn.service';
 import { tickInfoAtom } from '@/store/tickInfo';
 import { qearnStatsAtom } from '@/store/qearnStat';
 import { useAtom } from 'jotai';
@@ -60,19 +60,28 @@ const Fetcher: React.FC = () => {
   // Fetch epoch lock data
   useEffect(() => {
     const fetchEpochData = async () => {
-      const promises = [];
+      const lockInfoPromises = [];
       for (let i = epoch.current; i >= epoch.current - 52; i--) {
         if (i < QEARN_START_EPOCH) continue;
-        promises.push(getLockInfoPerEpoch(i));
+        lockInfoPromises.push(getLockInfoPerEpoch(i));
       }
 
-      const results = await Promise.all(promises);
-      const newStats = results.reduce<
+      const lockInfoResults = await Promise.all(lockInfoPromises);
+
+      const burnedAndBoostedStatsPromises = [];
+      for (let i = epoch.current; i >= epoch.current - 52; i--) {
+        if (i < QEARN_START_EPOCH) continue;
+        burnedAndBoostedStatsPromises.push(getBurnedAndBoostedStatsPerEpoch(i));
+      }
+
+      const burnedAndBoostedStatsResults = await Promise.all(burnedAndBoostedStatsPromises);
+      console.log('burnedAndBoostedStatsResults', burnedAndBoostedStatsResults);
+      const newStats = lockInfoResults.reduce<
         Record<number, any> & { totalInitialLockAmount: number; totalInitialBonusAmount: number; totalLockAmount: number; totalBonusAmount: number; averageYieldPercentage: number }
       >(
         (acc, epochLockInfo, index) => {
           if (epochLockInfo) {
-            acc[epoch.current - index] = epochLockInfo;
+            acc[epoch.current - index] = { ...epochLockInfo, ...burnedAndBoostedStatsResults[index] };
             acc.totalInitialLockAmount += epochLockInfo.lockAmount;
             acc.totalInitialBonusAmount += epochLockInfo.bonusAmount;
             acc.totalLockAmount += epochLockInfo.currentLockedAmount;
