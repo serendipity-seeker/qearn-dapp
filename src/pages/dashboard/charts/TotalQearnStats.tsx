@@ -27,30 +27,30 @@ const TotalQearnStats: React.FC = () => {
     () => [
       columnHelper.accessor('epoch', {
         header: 'Epoch',
-        cell: (info) => info.getValue(),
+        cell: (info) => <span className="font-semibold">EP{info.getValue()}</span>,
         sortingFn: 'basic',
       }),
       columnHelper.accessor('lockedAmount', {
         header: 'Locked Amount',
-        cell: (info) => info.getValue()?.toLocaleString(),
+        cell: (info) => <span className="font-medium text-emerald-400">{info.getValue()?.toLocaleString()}</span>,
         sortingFn: 'basic',
       }),
       columnHelper.accessor('bonusAmount', {
         header: 'Bonus Amount',
-        cell: (info) => info.getValue()?.toLocaleString(),
+        cell: (info) => <span className="font-medium text-blue-400">{info.getValue()?.toLocaleString()}</span>,
         sortingFn: 'basic',
       }),
       columnHelper.accessor('yieldPercentage', {
         header: 'APY %',
-        cell: (info) => (info.getValue() / 100000).toFixed(2) + '%',
+        cell: (info) => <span className="font-medium text-yellow-400">{(info.getValue() / 100000).toFixed(2)}%</span>,
         sortingFn: 'basic',
       }),
       columnHelper.accessor('burnedAmount', {
         header: 'Burned',
         cell: (info) => (
           <div className="flex flex-col">
-            <span>{info.getValue()?.toLocaleString()}</span>
-            <span className="text-gray-500">({(info.row.original.burnedPercent / 100000).toFixed(2)}%)</span>
+            <span className="font-medium text-red-400">{info.getValue()?.toLocaleString()}</span>
+            <span className="text-xs text-gray-50">({(info.row.original.burnedPercent / 100000).toFixed(2)}%)</span>
           </div>
         ),
         sortingFn: 'basic',
@@ -59,8 +59,8 @@ const TotalQearnStats: React.FC = () => {
         header: 'Boosted',
         cell: (info) => (
           <div className="flex flex-col">
-            <span>{info.getValue()?.toLocaleString()}</span>
-            <span className="text-gray-500">({(info.row.original.boostedPercent / 100000).toFixed(2)}%)</span>
+            <span className="font-medium text-purple-400">{info.getValue()?.toLocaleString()}</span>
+            <span className="text-xs text-gray-50">({(info.row.original.boostedPercent / 100000).toFixed(2)}%)</span>
           </div>
         ),
         sortingFn: 'basic',
@@ -69,8 +69,8 @@ const TotalQearnStats: React.FC = () => {
         header: 'Rewarded',
         cell: (info) => (
           <div className="flex flex-col">
-            <span>{info.getValue()?.toLocaleString()}</span>
-            <span className="text-gray-500">({(info.row.original.rewardedPercent / 100000).toFixed(2)}%)</span>
+            <span className="font-medium text-orange-400">{info.getValue()?.toLocaleString()}</span>
+            <span className="text-xs text-gray-50">({(info.row.original.rewardedPercent / 100000).toFixed(2)}%)</span>
           </div>
         ),
         sortingFn: 'basic',
@@ -112,42 +112,42 @@ const TotalQearnStats: React.FC = () => {
   });
 
   return (
-    <Card className="p-6 space-y-6 overflow-hidden">
-      <div className="space-y-4">
-        <h1 className="text-3xl text-center">Total Qearn Stats</h1>
+    <Card className="p-8 space-y-8 overflow-hidden backdrop-blur-sm">
+      <div className="space-y-6">
+        <h1 className="text-4xl font-bold text-center bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Total Qearn Stats</h1>
 
-        <div className="flex flex-wrap gap-4 mb-6">
-          <div className="space-y-2 flex-1">
-            <p className="text-sm text-gray-500">Total Initial Lock Amount</p>
-            <p className="text-2xl font-semibold">{qearnStats.totalInitialLockAmount?.toLocaleString() || 0}</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+          <div className="p-4 rounded-lg bg-gray-90 space-y-2">
+            <p className="text-sm text-gray-50">Total Initial Lock Amount</p>
+            <p className="text-2xl font-bold text-emerald-400">{qearnStats.totalInitialLockAmount?.toLocaleString() || 0}</p>
           </div>
-          <div className="space-y-2 flex-1">
-            <p className="text-sm text-gray-500">Total Initial Bonus Amount</p>
-            <p className="text-2xl font-semibold">{qearnStats.totalInitialBonusAmount?.toLocaleString() || 0}</p>
+          <div className="p-4 rounded-lg bg-gray-90 space-y-2">
+            <p className="text-sm text-gray-50">Total Initial Bonus Amount</p>
+            <p className="text-2xl font-bold text-blue-400">{qearnStats.totalInitialBonusAmount?.toLocaleString() || 0}</p>
           </div>
-          <div className="space-y-2 flex-1">
-            <p className="text-sm text-gray-500">Total Lock Amount</p>
-            <p className="text-2xl font-semibold">{qearnStats.totalLockAmount?.toLocaleString() || 0}</p>
+          <div className="p-4 rounded-lg bg-gray-90 space-y-2">
+            <p className="text-sm text-gray-50">Total Lock Amount</p>
+            <p className="text-2xl font-bold text-purple-400">{qearnStats.totalLockAmount?.toLocaleString() || 0}</p>
           </div>
-          <div className="space-y-2 flex-1">
-            <p className="text-sm text-gray-500">Total Bonus Amount</p>
-            <p className="text-2xl font-semibold">{qearnStats.totalBonusAmount?.toLocaleString() || 0}</p>
+          <div className="p-4 rounded-lg bg-gray-90 space-y-2">
+            <p className="text-sm text-gray-50">Total Bonus Amount</p>
+            <p className="text-2xl font-bold text-orange-400">{qearnStats.totalBonusAmount?.toLocaleString() || 0}</p>
           </div>
-          <div className="space-y-2 flex-1">
-            <p className="text-sm text-gray-500">Average APY</p>
-            <p className="text-2xl font-semibold">{(qearnStats.averageYieldPercentage / 100000).toFixed(2) || 0}%</p>
+          <div className="p-4 rounded-lg bg-gray-90 space-y-2">
+            <p className="text-sm text-gray-50">Average APY</p>
+            <p className="text-2xl font-bold text-yellow-400">{(qearnStats.averageYieldPercentage / 100000).toFixed(2) || 0}%</p>
           </div>
         </div>
 
-        <div className="w-full overflow-x-auto">
-          <table className="divide-y divide-gray-700 min-w-full">
-            <thead className="bg-background">
+        <div className="w-full overflow-x-auto rounded-lg border border-gray-70">
+          <table className="min-w-full divide-y divide-gray-70">
+            <thead className="bg-gray-90">
               {table.getHeaderGroups().map((headerGroup) => (
                 <tr key={headerGroup.id}>
                   {headerGroup.headers.map((header) => (
                     <th
                       key={header.id}
-                      className="px-4 py-3 text-center text-xs font-medium text-foreground uppercase tracking-wider cursor-pointer group text-nowrap"
+                      className="px-6 py-4 text-center text-xs font-semibold text-gray-50 uppercase tracking-wider cursor-pointer group text-nowrap"
                       onClick={header.column.getToggleSortingHandler()}
                     >
                       <div className="flex items-center gap-2 justify-center">
@@ -171,11 +171,11 @@ const TotalQearnStats: React.FC = () => {
                 </tr>
               ))}
             </thead>
-            <tbody className="divide-y divide-gray-700">
+            <tbody className="divide-y divide-gray-70 bg-gray-70/30">
               {table.getRowModel().rows.map((row) => (
-                <tr key={row.id} className="hover:bg-gray-800/50 transition-colors">
+                <tr key={row.id} className="hover:bg-gray-70/30 transition-colors">
                   {row.getVisibleCells().map((cell) => (
-                    <td key={cell.id} className="px-4 py-4 text-nowrap text-sm text-center">
+                    <td key={cell.id} className="px-6 py-4 text-nowrap text-sm text-center">
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </td>
                   ))}
