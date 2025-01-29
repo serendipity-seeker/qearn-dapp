@@ -89,7 +89,7 @@ const QearnForm: React.FC = () => {
   };
 
   return (
-    <Card className="w-full max-w-lg p-8">
+    <Card className="w-[460px] p-8">
       <div className="space-y-6">
         <h1 className="text-2xl">Lock $QUBIC</h1>
 

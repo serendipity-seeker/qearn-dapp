@@ -2,8 +2,10 @@ import { useAtom } from 'jotai';
 import { qearnStatsAtom } from '@/store/qearnStat';
 import Card from '@/components/ui/Card';
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable, SortingState, getSortedRowModel } from '@tanstack/react-table';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { MdArrowDownward, MdArrowUpward } from 'react-icons/md';
+import { IBurnNBoostedStats } from '@/types';
+import { getBurnedAndBoostedStats } from '@/services/qearn.service';
 
 interface ITableData {
   epoch: number;
@@ -21,8 +23,14 @@ interface ITableData {
 const TotalQearnStats: React.FC = () => {
   const [qearnStats] = useAtom(qearnStatsAtom);
   const [sorting, setSorting] = useState<SortingState>([{ id: 'epoch', desc: true }]);
+  const [burnNBoostedStats, setBurnNBoostedStats] = useState<IBurnNBoostedStats>({} as IBurnNBoostedStats);
+
+  useEffect(() => {
+    getBurnedAndBoostedStats().then((stats) => setBurnNBoostedStats(stats));
+  }, []);
 
   const columnHelper = createColumnHelper<ITableData>();
+
   const columns = useMemo(
     () => [
       columnHelper.accessor('epoch', {
@@ -114,24 +122,16 @@ const TotalQearnStats: React.FC = () => {
   return (
     <Card className="p-8 space-y-8 overflow-hidden backdrop-blur-sm">
       <div className="space-y-6">
-        <h1 className="text-4xl font-bold text-center bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Total Qearn Stats</h1>
+        <h1 className="text-4xl font-bold text-center bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Qearn Overview</h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-          <div className="p-4 rounded-lg bg-gray-90 space-y-2">
-            <p className="text-sm text-gray-50">Total Initial Lock Amount</p>
-            <p className="text-2xl font-bold text-emerald-400">{qearnStats.totalInitialLockAmount?.toLocaleString() || 0}</p>
-          </div>
-          <div className="p-4 rounded-lg bg-gray-90 space-y-2">
-            <p className="text-sm text-gray-50">Total Initial Bonus Amount</p>
-            <p className="text-2xl font-bold text-blue-400">{qearnStats.totalInitialBonusAmount?.toLocaleString() || 0}</p>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div className="p-4 rounded-lg bg-gray-90 space-y-2">
             <p className="text-sm text-gray-50">Total Lock Amount</p>
-            <p className="text-2xl font-bold text-purple-400">{qearnStats.totalLockAmount?.toLocaleString() || 0}</p>
+            <p className="text-2xl font-bold text-purple-400">{(qearnStats.totalLockAmount + qearnStats.totalBonusAmount)?.toLocaleString() || 0}</p>
           </div>
           <div className="p-4 rounded-lg bg-gray-90 space-y-2">
-            <p className="text-sm text-gray-50">Total Bonus Amount</p>
-            <p className="text-2xl font-bold text-orange-400">{qearnStats.totalBonusAmount?.toLocaleString() || 0}</p>
+            <p className="text-sm text-gray-50">Total Burned Amount</p>
+            <p className="text-2xl font-bold text-red-400">{burnNBoostedStats.burnedAmount?.toLocaleString() || 0}</p>
           </div>
           <div className="p-4 rounded-lg bg-gray-90 space-y-2">
             <p className="text-sm text-gray-50">Average APY</p>
@@ -139,15 +139,15 @@ const TotalQearnStats: React.FC = () => {
           </div>
         </div>
 
-        <div className="w-full overflow-x-auto rounded-lg border border-gray-70">
-          <table className="min-w-full divide-y divide-gray-70">
+        <div className="w-full overflow-x-auto rounded-lg border border-gray-90">
+          <table className="min-w-full divide-y divide-gray-90">
             <thead className="bg-gray-90">
               {table.getHeaderGroups().map((headerGroup) => (
                 <tr key={headerGroup.id}>
                   {headerGroup.headers.map((header) => (
                     <th
                       key={header.id}
-                      className="px-6 py-4 text-center text-xs font-semibold text-gray-50 uppercase tracking-wider cursor-pointer group text-nowrap"
+                      className="px-3 py-3 text-center text-xs font-semibold text-gray-50 uppercase tracking-wider cursor-pointer group text-nowrap"
                       onClick={header.column.getToggleSortingHandler()}
                     >
                       <div className="flex items-center gap-2 justify-center">
@@ -171,11 +171,11 @@ const TotalQearnStats: React.FC = () => {
                 </tr>
               ))}
             </thead>
-            <tbody className="divide-y divide-gray-70 bg-gray-70/30">
+            <tbody className="divide-y divide-gray-90 bg-gray-90/30">
               {table.getRowModel().rows.map((row) => (
-                <tr key={row.id} className="hover:bg-gray-70/30 transition-colors">
+                <tr key={row.id} className="hover:bg-gray-90/30 transition-colors">
                   {row.getVisibleCells().map((cell) => (
-                    <td key={cell.id} className="px-6 py-4 text-nowrap text-sm text-center">
+                    <td key={cell.id} className="px-3 py-2 text-nowrap text-sm text-center">
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </td>
                   ))}
