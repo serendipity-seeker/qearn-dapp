@@ -124,14 +124,10 @@ const TotalQearnStats: React.FC = () => {
       <div className="space-y-6">
         <h1 className="text-4xl font-bold text-center bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Qearn Overview</h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div className="p-4 rounded-lg bg-gray-90 space-y-2">
             <p className="text-sm text-gray-50">Total Lock Amount</p>
-            <p className="text-2xl font-bold text-purple-400">{qearnStats.totalLockAmount?.toLocaleString() || 0}</p>
-          </div>
-          <div className="p-4 rounded-lg bg-gray-90 space-y-2">
-            <p className="text-sm text-gray-50">Total Bonus Amount</p>
-            <p className="text-2xl font-bold text-orange-400">{qearnStats.totalBonusAmount?.toLocaleString() || 0}</p>
+            <p className="text-2xl font-bold text-purple-400">{(qearnStats.totalLockAmount + qearnStats.totalBonusAmount)?.toLocaleString() || 0}</p>
           </div>
           <div className="p-4 rounded-lg bg-gray-90 space-y-2">
             <p className="text-sm text-gray-50">Total Burned Amount</p>
