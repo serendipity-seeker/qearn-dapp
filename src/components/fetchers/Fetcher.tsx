@@ -1,17 +1,22 @@
-import { useFetchTickInfo } from '@/hooks/useFetchTickInfo';
-import { getBurnedAndBoostedStatsPerEpoch, getLockInfoPerEpoch, getUserLockInfo, getUserLockStatus } from '@/services/qearn.service';
-import { tickInfoAtom } from '@/store/tickInfo';
-import { qearnStatsAtom } from '@/store/qearnStat';
-import { useAtom } from 'jotai';
-import { useEffect, useRef } from 'react';
-import { QEARN_START_EPOCH } from '@/data/contants';
-import { useQubicConnect } from '@/components/connect/QubicConnectContext';
-import { fetchBalance, fetchLatestStats } from '@/services/rpc.service';
-import { balancesAtom } from '@/store/balances';
-import { closeTimeAtom } from '@/store/closeTime';
-import { getTimeToNewEpoch } from '@/utils';
-import { userLockInfoAtom } from '@/store/userLockInfo';
-import { latestStatsAtom } from '@/store/latestStats';
+import { useFetchTickInfo } from "@/hooks/useFetchTickInfo";
+import {
+  getBurnedAndBoostedStatsPerEpoch,
+  getLockInfoPerEpoch,
+  getUserLockInfo,
+  getUserLockStatus,
+} from "@/services/qearn.service";
+import { tickInfoAtom } from "@/store/tickInfo";
+import { qearnStatsAtom } from "@/store/qearnStat";
+import { useAtom } from "jotai";
+import { useEffect, useRef } from "react";
+import { QEARN_START_EPOCH } from "@/data/contants";
+import { useQubicConnect } from "@/components/connect/QubicConnectContext";
+import { fetchBalance, fetchLatestStats } from "@/services/rpc.service";
+import { balancesAtom } from "@/store/balances";
+import { closeTimeAtom } from "@/store/closeTime";
+import { getTimeToNewEpoch } from "@/utils";
+import { userLockInfoAtom } from "@/store/userLockInfo";
+import { latestStatsAtom } from "@/store/latestStats";
 
 const Fetcher: React.FC = () => {
   const { refetch: refetchTickInfo } = useFetchTickInfo();
@@ -75,9 +80,15 @@ const Fetcher: React.FC = () => {
       }
 
       const burnedAndBoostedStatsResults = await Promise.all(burnedAndBoostedStatsPromises);
-      console.log('burnedAndBoostedStatsResults', burnedAndBoostedStatsResults);
+      console.log("burnedAndBoostedStatsResults", burnedAndBoostedStatsResults);
       const newStats = lockInfoResults.reduce<
-        Record<number, any> & { totalInitialLockAmount: number; totalInitialBonusAmount: number; totalLockAmount: number; totalBonusAmount: number; averageYieldPercentage: number }
+        Record<number, any> & {
+          totalInitialLockAmount: number;
+          totalInitialBonusAmount: number;
+          totalLockAmount: number;
+          totalBonusAmount: number;
+          averageYieldPercentage: number;
+        }
       >(
         (acc, epochLockInfo, index) => {
           if (epochLockInfo) {
@@ -86,11 +97,19 @@ const Fetcher: React.FC = () => {
             acc.totalInitialBonusAmount += epochLockInfo.bonusAmount;
             acc.totalLockAmount += epochLockInfo.currentLockedAmount;
             acc.totalBonusAmount += epochLockInfo.currentBonusAmount;
-            if (index !== 0) acc.averageYieldPercentage = ((acc.averageYieldPercentage || 0) * index + epochLockInfo.yieldPercentage) / (index + 1);
+            if (index !== 0)
+              acc.averageYieldPercentage =
+                ((acc.averageYieldPercentage || 0) * index + epochLockInfo.yieldPercentage) / (index + 1);
           }
           return acc;
         },
-        { totalInitialLockAmount: 0, totalInitialBonusAmount: 0, totalLockAmount: 0, totalBonusAmount: 0, averageYieldPercentage: 0 }
+        {
+          totalInitialLockAmount: 0,
+          totalInitialBonusAmount: 0,
+          totalLockAmount: 0,
+          totalBonusAmount: 0,
+          averageYieldPercentage: 0,
+        },
       );
       setQearnStats((prev) => ({
         ...prev,

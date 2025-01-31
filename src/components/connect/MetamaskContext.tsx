@@ -1,8 +1,8 @@
-import type { Dispatch, ReactNode, Reducer } from 'react';
-import { createContext, useEffect, useReducer } from 'react';
+import type { Dispatch, ReactNode, Reducer } from "react";
+import { createContext, useEffect, useReducer } from "react";
 
-import type { Snap } from './types';
-import { detectSnaps, getSnap, isFlask } from './utils';
+import type { Snap } from "./types";
+import { detectSnaps, getSnap, isFlask } from "./utils";
 
 export type MetamaskState = {
   snapsDetected: boolean;
@@ -18,9 +18,7 @@ const initialState: MetamaskState = {
 
 type MetamaskDispatch = { type: MetamaskActions; payload: any };
 
-export const MetaMaskContext = createContext<
-  [MetamaskState, Dispatch<MetamaskDispatch>]
->([
+export const MetaMaskContext = createContext<[MetamaskState, Dispatch<MetamaskDispatch>]>([
   initialState,
   () => {
     /* no op */
@@ -28,10 +26,10 @@ export const MetaMaskContext = createContext<
 ]);
 
 export enum MetamaskActions {
-  SetInstalled = 'SetInstalled',
-  SetSnapsDetected = 'SetSnapsDetected',
-  SetError = 'SetError',
-  SetIsFlask = 'SetIsFlask',
+  SetInstalled = "SetInstalled",
+  SetSnapsDetected = "SetSnapsDetected",
+  SetError = "SetError",
+  SetIsFlask = "SetIsFlask",
 }
 
 const reducer: Reducer<MetamaskState, MetamaskDispatch> = (state, action) => {
@@ -83,11 +81,11 @@ export const MetaMaskProvider = ({ children }: { children: ReactNode }) => {
         });
       };
 
-      setSnapsCompatibility().catch(error => {
-        console.error('Error during initialization:', error);
+      setSnapsCompatibility().catch((error) => {
+        console.error("Error during initialization:", error);
       });
     } catch (error) {
-      console.error('Error in useEffect:', error);
+      console.error("Error in useEffect:", error);
     }
   }, []);
 
@@ -136,13 +134,9 @@ export const MetaMaskProvider = ({ children }: { children: ReactNode }) => {
   }, [state.error]);
 
   // TODO check this position
-  if (typeof window === 'undefined') {
+  if (typeof window === "undefined") {
     return <>{children}</>;
   }
 
-  return (
-    <MetaMaskContext.Provider value={[state, dispatch]}>
-      {children}
-    </MetaMaskContext.Provider>
-  );
+  return <MetaMaskContext.Provider value={[state, dispatch]}>{children}</MetaMaskContext.Provider>;
 };

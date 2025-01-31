@@ -144,4 +144,3 @@ export interface IBurnNBoostedStats {
   rewardedAmount: number;
   averageRewardedPercent: number;
 }
-

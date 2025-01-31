@@ -16,16 +16,16 @@
   -moz-osx-font-smoothing: grayscale;
 
   --background: #ffffff;
-  --foreground: theme('colors.gray.950');
+  --foreground: theme("colors.gray.950");
   --card: #ffffff;
-  --card-border: theme('colors.gray.50');
+  --card-border: theme("colors.gray.50");
 }
 
 .dark {
-  --background: theme('colors.gray.90');
+  --background: theme("colors.gray.90");
   --foreground: #ffffff;
-  --card: theme('colors.gray.80');
-  --card-border: theme('colors.gray.70');
+  --card: theme("colors.gray.80");
+  --card-border: theme("colors.gray.70");
 }
 a {
   font-weight: 500;

@@ -1,148 +1,148 @@
 export const dark = {
-  color: ['#fc97af', '#87f7cf', '#f7f494', '#72ccff', '#f7c5a0', '#d4a4eb', '#d2f5a6', '#76f2f2'],
-  backgroundColor: '#151e27',
+  color: ["#fc97af", "#87f7cf", "#f7f494", "#72ccff", "#f7c5a0", "#d4a4eb", "#d2f5a6", "#76f2f2"],
+  backgroundColor: "#151e27",
   textStyle: {},
   title: {
     textStyle: {
-      color: '#ffffff',
+      color: "#ffffff",
     },
     subtextStyle: {
-      color: '#dddddd',
+      color: "#dddddd",
     },
   },
   line: {
     itemStyle: {
-      borderWidth: '4',
+      borderWidth: "4",
     },
     lineStyle: {
-      width: '3',
+      width: "3",
     },
-    symbolSize: '0',
-    symbol: 'circle',
+    symbolSize: "0",
+    symbol: "circle",
     smooth: true,
   },
   radar: {
     itemStyle: {
-      borderWidth: '4',
+      borderWidth: "4",
     },
     lineStyle: {
-      width: '3',
+      width: "3",
     },
-    symbolSize: '0',
-    symbol: 'circle',
+    symbolSize: "0",
+    symbol: "circle",
     smooth: true,
   },
   bar: {
     itemStyle: {
       barBorderWidth: 0,
-      barBorderColor: '#ccc',
+      barBorderColor: "#ccc",
     },
   },
   pie: {
     itemStyle: {
       borderWidth: 0,
-      borderColor: '#ccc',
+      borderColor: "#ccc",
     },
   },
   scatter: {
     itemStyle: {
       borderWidth: 0,
-      borderColor: '#ccc',
+      borderColor: "#ccc",
     },
   },
   boxplot: {
     itemStyle: {
       borderWidth: 0,
-      borderColor: '#ccc',
+      borderColor: "#ccc",
     },
   },
   parallel: {
     itemStyle: {
       borderWidth: 0,
-      borderColor: '#ccc',
+      borderColor: "#ccc",
     },
   },
   sankey: {
     itemStyle: {
       borderWidth: 0,
-      borderColor: '#ccc',
+      borderColor: "#ccc",
     },
   },
   funnel: {
     itemStyle: {
       borderWidth: 0,
-      borderColor: '#ccc',
+      borderColor: "#ccc",
     },
   },
   gauge: {
     itemStyle: {
       borderWidth: 0,
-      borderColor: '#ccc',
+      borderColor: "#ccc",
     },
   },
   candlestick: {
     itemStyle: {
-      color: '#fc97af',
-      color0: 'transparent',
-      borderColor: '#fc97af',
-      borderColor0: '#87f7cf',
-      borderWidth: '2',
+      color: "#fc97af",
+      color0: "transparent",
+      borderColor: "#fc97af",
+      borderColor0: "#87f7cf",
+      borderWidth: "2",
     },
   },
   graph: {
     itemStyle: {
       borderWidth: 0,
-      borderColor: '#ccc',
+      borderColor: "#ccc",
     },
     lineStyle: {
-      width: '1',
-      color: '#ffffff',
+      width: "1",
+      color: "#ffffff",
     },
-    symbolSize: '0',
-    symbol: 'circle',
+    symbolSize: "0",
+    symbol: "circle",
     smooth: true,
-    color: ['#fc97af', '#87f7cf', '#f7f494', '#72ccff', '#f7c5a0', '#d4a4eb', '#d2f5a6', '#76f2f2'],
+    color: ["#fc97af", "#87f7cf", "#f7f494", "#72ccff", "#f7c5a0", "#d4a4eb", "#d2f5a6", "#76f2f2"],
     label: {
-      color: '#293441',
+      color: "#293441",
     },
   },
   map: {
     itemStyle: {
-      areaColor: '#f3f3f3',
-      borderColor: '#999999',
+      areaColor: "#f3f3f3",
+      borderColor: "#999999",
       borderWidth: 0.5,
     },
     label: {
-      color: '#893448',
+      color: "#893448",
     },
     emphasis: {
       itemStyle: {
-        areaColor: 'rgba(255,178,72,1)',
-        borderColor: '#eb8146',
+        areaColor: "rgba(255,178,72,1)",
+        borderColor: "#eb8146",
         borderWidth: 1,
       },
       label: {
-        color: 'rgb(137,52,72)',
+        color: "rgb(137,52,72)",
       },
     },
   },
   geo: {
     itemStyle: {
-      areaColor: '#f3f3f3',
-      borderColor: '#999999',
+      areaColor: "#f3f3f3",
+      borderColor: "#999999",
       borderWidth: 0.5,
     },
     label: {
-      color: '#893448',
+      color: "#893448",
     },
     emphasis: {
       itemStyle: {
-        areaColor: 'rgba(255,178,72,1)',
-        borderColor: '#eb8146',
+        areaColor: "rgba(255,178,72,1)",
+        borderColor: "#eb8146",
         borderWidth: 1,
       },
       label: {
-        color: 'rgb(137,52,72)',
+        color: "rgb(137,52,72)",
       },
     },
   },
@@ -150,29 +150,29 @@ export const dark = {
     axisLine: {
       show: true,
       lineStyle: {
-        color: '#666666',
+        color: "#666666",
       },
     },
     axisTick: {
       show: false,
       lineStyle: {
-        color: '#333',
+        color: "#333",
       },
     },
     axisLabel: {
       show: true,
-      color: '#aaaaaa',
+      color: "#aaaaaa",
     },
     splitLine: {
       show: false,
       lineStyle: {
-        color: ['#e6e6e6'],
+        color: ["#e6e6e6"],
       },
     },
     splitArea: {
       show: false,
       areaStyle: {
-        color: ['rgba(250,250,250,0.05)', 'rgba(200,200,200,0.02)'],
+        color: ["rgba(250,250,250,0.05)", "rgba(200,200,200,0.02)"],
       },
     },
   },
@@ -180,29 +180,29 @@ export const dark = {
     axisLine: {
       show: true,
       lineStyle: {
-        color: '#666666',
+        color: "#666666",
       },
     },
     axisTick: {
       show: false,
       lineStyle: {
-        color: '#333',
+        color: "#333",
       },
     },
     axisLabel: {
       show: true,
-      color: '#aaaaaa',
+      color: "#aaaaaa",
     },
     splitLine: {
       show: false,
       lineStyle: {
-        color: ['#e6e6e6'],
+        color: ["#e6e6e6"],
       },
     },
     splitArea: {
       show: false,
       areaStyle: {
-        color: ['rgba(250,250,250,0.05)', 'rgba(200,200,200,0.02)'],
+        color: ["rgba(250,250,250,0.05)", "rgba(200,200,200,0.02)"],
       },
     },
   },
@@ -210,29 +210,29 @@ export const dark = {
     axisLine: {
       show: true,
       lineStyle: {
-        color: '#666666',
+        color: "#666666",
       },
     },
     axisTick: {
       show: false,
       lineStyle: {
-        color: '#333',
+        color: "#333",
       },
     },
     axisLabel: {
       show: true,
-      color: '#aaaaaa',
+      color: "#aaaaaa",
     },
     splitLine: {
       show: false,
       lineStyle: {
-        color: ['#e6e6e6'],
+        color: ["#e6e6e6"],
       },
     },
     splitArea: {
       show: false,
       areaStyle: {
-        color: ['rgba(250,250,250,0.05)', 'rgba(200,200,200,0.02)'],
+        color: ["rgba(250,250,250,0.05)", "rgba(200,200,200,0.02)"],
       },
     },
   },
@@ -240,114 +240,114 @@ export const dark = {
     axisLine: {
       show: true,
       lineStyle: {
-        color: '#666666',
+        color: "#666666",
       },
     },
     axisTick: {
       show: false,
       lineStyle: {
-        color: '#333',
+        color: "#333",
       },
     },
     axisLabel: {
       show: true,
-      color: '#aaaaaa',
+      color: "#aaaaaa",
     },
     splitLine: {
       show: false,
       lineStyle: {
-        color: ['#e6e6e6'],
+        color: ["#e6e6e6"],
       },
     },
     splitArea: {
       show: false,
       areaStyle: {
-        color: ['rgba(250,250,250,0.05)', 'rgba(200,200,200,0.02)'],
+        color: ["rgba(250,250,250,0.05)", "rgba(200,200,200,0.02)"],
       },
     },
   },
   toolbox: {
     iconStyle: {
-      borderColor: '#999999',
+      borderColor: "#999999",
     },
     emphasis: {
       iconStyle: {
-        borderColor: '#666666',
+        borderColor: "#666666",
       },
     },
   },
   legend: {
     textStyle: {
-      color: '#999999',
+      color: "#999999",
     },
   },
   tooltip: {
     axisPointer: {
       lineStyle: {
-        color: '#cccccc',
+        color: "#cccccc",
         width: 1,
       },
       crossStyle: {
-        color: '#cccccc',
+        color: "#cccccc",
         width: 1,
       },
     },
   },
   timeline: {
     lineStyle: {
-      color: '#87f7cf',
+      color: "#87f7cf",
       width: 1,
     },
     itemStyle: {
-      color: '#87f7cf',
+      color: "#87f7cf",
       borderWidth: 1,
     },
     controlStyle: {
-      color: '#87f7cf',
-      borderColor: '#87f7cf',
+      color: "#87f7cf",
+      borderColor: "#87f7cf",
       borderWidth: 0.5,
     },
     checkpointStyle: {
-      color: '#fc97af',
-      borderColor: '#fc97af',
+      color: "#fc97af",
+      borderColor: "#fc97af",
     },
     label: {
-      color: '#87f7cf',
+      color: "#87f7cf",
     },
     emphasis: {
       itemStyle: {
-        color: '#f7f494',
+        color: "#f7f494",
       },
       controlStyle: {
-        color: '#87f7cf',
-        borderColor: '#87f7cf',
+        color: "#87f7cf",
+        borderColor: "#87f7cf",
         borderWidth: 0.5,
       },
       label: {
-        color: '#87f7cf',
+        color: "#87f7cf",
       },
     },
   },
   visualMap: {
-    color: ['#fc97af', '#87f7cf'],
+    color: ["#fc97af", "#87f7cf"],
   },
   dataZoom: {
-    backgroundColor: 'rgba(255,255,255,0)',
-    dataBackgroundColor: 'rgba(114,204,255,1)',
-    fillerColor: 'rgba(114,204,255,0.2)',
-    handleColor: '#72ccff',
-    handleSize: '100%',
+    backgroundColor: "rgba(255,255,255,0)",
+    dataBackgroundColor: "rgba(114,204,255,1)",
+    fillerColor: "rgba(114,204,255,0.2)",
+    handleColor: "#72ccff",
+    handleSize: "100%",
     textStyle: {
-      color: '#333333',
+      color: "#333333",
     },
   },
   markPoint: {
     label: {
-      color: '#293441',
+      color: "#293441",
     },
     emphasis: {
       label: {
-        color: '#293441',
+        color: "#293441",
       },
     },
   },
@@ -355,35 +355,35 @@ export const dark = {
 
 export const light = {
   color: [
-    '#2ec7c9',
-    '#b6a2de',
-    '#5ab1ef',
-    '#ffb980',
-    '#d87a80',
-    '#8d98b3',
-    '#e5cf0d',
-    '#97b552',
-    '#95706d',
-    '#dc69aa',
-    '#07a2a4',
-    '#9a7fd1',
-    '#588dd5',
-    '#f5994e',
-    '#c05050',
-    '#59678c',
-    '#c9ab00',
-    '#7eb00a',
-    '#6f5553',
-    '#c14089',
+    "#2ec7c9",
+    "#b6a2de",
+    "#5ab1ef",
+    "#ffb980",
+    "#d87a80",
+    "#8d98b3",
+    "#e5cf0d",
+    "#97b552",
+    "#95706d",
+    "#dc69aa",
+    "#07a2a4",
+    "#9a7fd1",
+    "#588dd5",
+    "#f5994e",
+    "#c05050",
+    "#59678c",
+    "#c9ab00",
+    "#7eb00a",
+    "#6f5553",
+    "#c14089",
   ],
-  backgroundColor: 'rgba(0,0,0,0)',
+  backgroundColor: "rgba(0,0,0,0)",
   textStyle: {},
   title: {
     textStyle: {
-      color: '#008acd',
+      color: "#008acd",
     },
     subtextStyle: {
-      color: '#aaaaaa',
+      color: "#aaaaaa",
     },
   },
   line: {
@@ -394,7 +394,7 @@ export const light = {
       width: 2,
     },
     symbolSize: 3,
-    symbol: 'emptyCircle',
+    symbol: "emptyCircle",
     smooth: true,
   },
   radar: {
@@ -405,141 +405,141 @@ export const light = {
       width: 2,
     },
     symbolSize: 3,
-    symbol: 'emptyCircle',
+    symbol: "emptyCircle",
     smooth: true,
   },
   bar: {
     itemStyle: {
       barBorderWidth: 0,
-      barBorderColor: '#ccc',
+      barBorderColor: "#ccc",
     },
   },
   pie: {
     itemStyle: {
       borderWidth: 0,
-      borderColor: '#ccc',
+      borderColor: "#ccc",
     },
   },
   scatter: {
     itemStyle: {
       borderWidth: 0,
-      borderColor: '#ccc',
+      borderColor: "#ccc",
     },
   },
   boxplot: {
     itemStyle: {
       borderWidth: 0,
-      borderColor: '#ccc',
+      borderColor: "#ccc",
     },
   },
   parallel: {
     itemStyle: {
       borderWidth: 0,
-      borderColor: '#ccc',
+      borderColor: "#ccc",
     },
   },
   sankey: {
     itemStyle: {
       borderWidth: 0,
-      borderColor: '#ccc',
+      borderColor: "#ccc",
     },
   },
   funnel: {
     itemStyle: {
       borderWidth: 0,
-      borderColor: '#ccc',
+      borderColor: "#ccc",
     },
   },
   gauge: {
     itemStyle: {
       borderWidth: 0,
-      borderColor: '#ccc',
+      borderColor: "#ccc",
     },
   },
   candlestick: {
     itemStyle: {
-      color: '#d87a80',
-      color0: '#2ec7c9',
-      borderColor: '#d87a80',
-      borderColor0: '#2ec7c9',
+      color: "#d87a80",
+      color0: "#2ec7c9",
+      borderColor: "#d87a80",
+      borderColor0: "#2ec7c9",
       borderWidth: 1,
     },
   },
   graph: {
     itemStyle: {
       borderWidth: 0,
-      borderColor: '#ccc',
+      borderColor: "#ccc",
     },
     lineStyle: {
       width: 1,
-      color: '#aaaaaa',
+      color: "#aaaaaa",
     },
     symbolSize: 3,
-    symbol: 'emptyCircle',
+    symbol: "emptyCircle",
     smooth: true,
     color: [
-      '#2ec7c9',
-      '#b6a2de',
-      '#5ab1ef',
-      '#ffb980',
-      '#d87a80',
-      '#8d98b3',
-      '#e5cf0d',
-      '#97b552',
-      '#95706d',
-      '#dc69aa',
-      '#07a2a4',
-      '#9a7fd1',
-      '#588dd5',
-      '#f5994e',
-      '#c05050',
-      '#59678c',
-      '#c9ab00',
-      '#7eb00a',
-      '#6f5553',
-      '#c14089',
+      "#2ec7c9",
+      "#b6a2de",
+      "#5ab1ef",
+      "#ffb980",
+      "#d87a80",
+      "#8d98b3",
+      "#e5cf0d",
+      "#97b552",
+      "#95706d",
+      "#dc69aa",
+      "#07a2a4",
+      "#9a7fd1",
+      "#588dd5",
+      "#f5994e",
+      "#c05050",
+      "#59678c",
+      "#c9ab00",
+      "#7eb00a",
+      "#6f5553",
+      "#c14089",
     ],
     label: {
-      color: '#eeeeee',
+      color: "#eeeeee",
     },
   },
   map: {
     itemStyle: {
-      areaColor: '#dddddd',
-      borderColor: '#eeeeee',
+      areaColor: "#dddddd",
+      borderColor: "#eeeeee",
       borderWidth: 0.5,
     },
     label: {
-      color: '#d87a80',
+      color: "#d87a80",
     },
     emphasis: {
       itemStyle: {
-        areaColor: 'rgba(254,153,78,1)',
-        borderColor: '#444',
+        areaColor: "rgba(254,153,78,1)",
+        borderColor: "#444",
         borderWidth: 1,
       },
       label: {
-        color: 'rgb(100,0,0)',
+        color: "rgb(100,0,0)",
       },
     },
   },
   geo: {
     itemStyle: {
-      areaColor: '#dddddd',
-      borderColor: '#eeeeee',
+      areaColor: "#dddddd",
+      borderColor: "#eeeeee",
       borderWidth: 0.5,
     },
     label: {
-      color: '#d87a80',
+      color: "#d87a80",
     },
     emphasis: {
       itemStyle: {
-        areaColor: 'rgba(254,153,78,1)',
-        borderColor: '#444',
+        areaColor: "rgba(254,153,78,1)",
+        borderColor: "#444",
         borderWidth: 1,
       },
       label: {
-        color: 'rgb(100,0,0)',
+        color: "rgb(100,0,0)",
       },
     },
   },
@@ -547,29 +547,29 @@ export const light = {
     axisLine: {
       show: true,
       lineStyle: {
-        color: '#008acd',
+        color: "#008acd",
       },
     },
     axisTick: {
       show: true,
       lineStyle: {
-        color: '#333',
+        color: "#333",
       },
     },
     axisLabel: {
       show: true,
-      color: '#333',
+      color: "#333",
     },
     splitLine: {
       show: false,
       lineStyle: {
-        color: ['#eee'],
+        color: ["#eee"],
       },
     },
     splitArea: {
       show: false,
       areaStyle: {
-        color: ['rgba(250,250,250,0.3)', 'rgba(200,200,200,0.3)'],
+        color: ["rgba(250,250,250,0.3)", "rgba(200,200,200,0.3)"],
       },
     },
   },
@@ -577,29 +577,29 @@ export const light = {
     axisLine: {
       show: true,
       lineStyle: {
-        color: '#008acd',
+        color: "#008acd",
       },
     },
     axisTick: {
       show: true,
       lineStyle: {
-        color: '#333',
+        color: "#333",
       },
     },
     axisLabel: {
       show: true,
-      color: '#333',
+      color: "#333",
     },
     splitLine: {
       show: true,
       lineStyle: {
-        color: ['#eee'],
+        color: ["#eee"],
       },
     },
     splitArea: {
       show: true,
       areaStyle: {
-        color: ['rgba(250,250,250,0.3)', 'rgba(200,200,200,0.3)'],
+        color: ["rgba(250,250,250,0.3)", "rgba(200,200,200,0.3)"],
       },
     },
   },
@@ -607,29 +607,29 @@ export const light = {
     axisLine: {
       show: true,
       lineStyle: {
-        color: '#008acd',
+        color: "#008acd",
       },
     },
     axisTick: {
       show: true,
       lineStyle: {
-        color: '#333',
+        color: "#333",
       },
     },
     axisLabel: {
       show: true,
-      color: '#333',
+      color: "#333",
     },
     splitLine: {
       show: true,
       lineStyle: {
-        color: ['#eee'],
+        color: ["#eee"],
       },
     },
     splitArea: {
       show: true,
       areaStyle: {
-        color: ['rgba(250,250,250,0.3)', 'rgba(200,200,200,0.3)'],
+        color: ["rgba(250,250,250,0.3)", "rgba(200,200,200,0.3)"],
       },
     },
   },
@@ -637,114 +637,114 @@ export const light = {
     axisLine: {
       show: true,
       lineStyle: {
-        color: '#008acd',
+        color: "#008acd",
       },
     },
     axisTick: {
       show: true,
       lineStyle: {
-        color: '#333',
+        color: "#333",
       },
     },
     axisLabel: {
       show: true,
-      color: '#333',
+      color: "#333",
     },
     splitLine: {
       show: true,
       lineStyle: {
-        color: ['#eee'],
+        color: ["#eee"],
       },
     },
     splitArea: {
       show: false,
       areaStyle: {
-        color: ['rgba(250,250,250,0.3)', 'rgba(200,200,200,0.3)'],
+        color: ["rgba(250,250,250,0.3)", "rgba(200,200,200,0.3)"],
       },
     },
   },
   toolbox: {
     iconStyle: {
-      borderColor: '#2ec7c9',
+      borderColor: "#2ec7c9",
     },
     emphasis: {
       iconStyle: {
-        borderColor: '#18a4a6',
+        borderColor: "#18a4a6",
       },
     },
   },
   legend: {
     textStyle: {
-      color: '#333333',
+      color: "#333333",
     },
   },
   tooltip: {
     axisPointer: {
       lineStyle: {
-        color: '#008acd',
-        width: '1',
+        color: "#008acd",
+        width: "1",
       },
       crossStyle: {
-        color: '#008acd',
-        width: '1',
+        color: "#008acd",
+        width: "1",
       },
     },
   },
   timeline: {
     lineStyle: {
-      color: '#008acd',
+      color: "#008acd",
       width: 1,
     },
     itemStyle: {
-      color: '#008acd',
+      color: "#008acd",
       borderWidth: 1,
     },
     controlStyle: {
-      color: '#008acd',
-      borderColor: '#008acd',
+      color: "#008acd",
+      borderColor: "#008acd",
       borderWidth: 0.5,
     },
     checkpointStyle: {
-      color: '#2ec7c9',
-      borderColor: '#2ec7c9',
+      color: "#2ec7c9",
+      borderColor: "#2ec7c9",
     },
     label: {
-      color: '#008acd',
+      color: "#008acd",
     },
     emphasis: {
       itemStyle: {
-        color: '#a9334c',
+        color: "#a9334c",
       },
       controlStyle: {
-        color: '#008acd',
-        borderColor: '#008acd',
+        color: "#008acd",
+        borderColor: "#008acd",
         borderWidth: 0.5,
       },
       label: {
-        color: '#008acd',
+        color: "#008acd",
       },
     },
   },
   visualMap: {
-    color: ['#5ab1ef', '#e0ffff'],
+    color: ["#5ab1ef", "#e0ffff"],
   },
   dataZoom: {
-    backgroundColor: 'rgba(47,69,84,0)',
-    dataBackgroundColor: '#efefff',
-    fillerColor: 'rgba(182,162,222,0.2)',
-    handleColor: '#008acd',
-    handleSize: '100%',
+    backgroundColor: "rgba(47,69,84,0)",
+    dataBackgroundColor: "#efefff",
+    fillerColor: "rgba(182,162,222,0.2)",
+    handleColor: "#008acd",
+    handleSize: "100%",
     textStyle: {
-      color: '#333333',
+      color: "#333333",
     },
   },
   markPoint: {
     label: {
-      color: '#eeeeee',
+      color: "#eeeeee",
     },
     emphasis: {
       label: {
-        color: '#eeeeee',
+        color: "#eeeeee",
       },
     },
   },

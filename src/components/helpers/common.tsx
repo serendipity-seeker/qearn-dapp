@@ -1,9 +1,15 @@
-export const renderInput = (label: string, value: string, onChange: (value: string) => void, placeholder: string, rows = 1) => (
+export const renderInput = (
+  label: string,
+  value: string,
+  onChange: (value: string) => void,
+  placeholder: string,
+  rows = 1,
+) => (
   <div>
-    <label className="block text-sm font-medium mb-2">{label}</label>
+    <label className="mb-2 block text-sm font-medium">{label}</label>
     {rows > 1 ? (
       <textarea
-        className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-primary"
+        className="focus:ring-primary w-full rounded-lg border border-gray-600 bg-gray-700 p-3 focus:ring-2"
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
@@ -12,7 +18,7 @@ export const renderInput = (label: string, value: string, onChange: (value: stri
     ) : (
       <input
         type="text"
-        className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-primary"
+        className="focus:ring-primary w-full rounded-lg border border-gray-600 bg-gray-700 p-3 focus:ring-2"
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
@@ -22,7 +28,7 @@ export const renderInput = (label: string, value: string, onChange: (value: stri
 );
 
 export const renderOutput = (label: string, value: string) => (
-  <div className="mt-2 p-3 bg-gray-800 rounded-lg break-all">
+  <div className="mt-2 break-all rounded-lg bg-gray-800 p-3">
     <p className="text-sm text-gray-400">{label}:</p>
     <p className="font-mono">{value}</p>
   </div>
@@ -30,10 +36,10 @@ export const renderOutput = (label: string, value: string) => (
 
 export const renderSelect = (label: string, value: string, onChange: (value: string) => void, options: string[]) => (
   <div>
-    <label className="block text-sm font-medium mb-2">{label}</label>
-    <select 
-      className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-primary" 
-      value={value} 
+    <label className="mb-2 block text-sm font-medium">{label}</label>
+    <select
+      className="focus:ring-primary w-full rounded-lg border border-gray-600 bg-gray-700 p-3 focus:ring-2"
+      value={value}
       onChange={(e) => onChange(e.target.value)}
     >
       {options.map((option) => (
@@ -43,4 +49,4 @@ export const renderSelect = (label: string, value: string, onChange: (value: str
       ))}
     </select>
   </div>
-); 
+);

@@ -1,15 +1,15 @@
-import Button from '@/components/ui/Button';
-import { useNavigate } from 'react-router-dom';
+import Button from "@/components/ui/Button";
+import { useNavigate } from "react-router-dom";
 
 const Error404: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
+    <div className="flex min-h-screen flex-col items-center justify-center">
       <h1 className="text-7xl font-bold">404</h1>
-      <p className="text-2xl mt-4">Page Not Found</p>
+      <p className="mt-4 text-2xl">Page Not Found</p>
       <div className="mt-6">
-        <Button variant="primary" label="Go back to Home" onClick={() => navigate('/')} />
+        <Button variant="primary" label="Go back to Home" onClick={() => navigate("/")} />
       </div>
     </div>
   );

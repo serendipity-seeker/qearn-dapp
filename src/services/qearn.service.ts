@@ -1,8 +1,8 @@
-import { IBurnNBoostedStats, ILockInfo } from '@/types';
-import { fetchQuerySC } from './rpc.service';
-import { base64ToUint8Array, createPayload, uint8ArrayToBase64 } from '@/utils';
-import { createSCTx } from './tx.service';
-import { QubicHelper } from '@qubic-lib/qubic-ts-library/dist/qubicHelper';
+import { IBurnNBoostedStats, ILockInfo } from "@/types";
+import { fetchQuerySC } from "./rpc.service";
+import { base64ToUint8Array, createPayload, uint8ArrayToBase64 } from "@/utils";
+import { createSCTx } from "./tx.service";
+import { QubicHelper } from "@qubic-lib/qubic-ts-library/dist/qubicHelper";
 
 const qHelper = new QubicHelper();
 
@@ -13,8 +13,8 @@ export const lockQubic = async (sourceID: string, amount: number, tick: number) 
 
 export const unLockQubic = async (sourceID: string, amount: number, epoch: number, tick: number) => {
   const payload = createPayload([
-    { data: amount, type: 'bigint64' },
-    { data: epoch, type: 'uint32' },
+    { data: amount, type: "bigint64" },
+    { data: epoch, type: "uint32" },
   ]);
   return await createSCTx(sourceID, 9, 2, payload.getPackageSize(), 0, tick, payload);
 };
@@ -54,7 +54,7 @@ export const getLockInfoPerEpoch = async (epoch: number): Promise<ILockInfo> => 
 };
 
 export const getUserLockInfo = async (user: Uint8Array | string, epoch: number): Promise<number> => {
-  if (typeof user === 'string') {
+  if (typeof user === "string") {
     user = qHelper.getIdentityBytes(user);
   }
 
@@ -91,7 +91,7 @@ export const getStateOfRound = async (epoch: number): Promise<{ state: number }>
 };
 
 export const getUserLockStatus = async (user: Uint8Array | string, currentEpoch: number): Promise<number[]> => {
-  if (typeof user === 'string') {
+  if (typeof user === "string") {
     user = qHelper.getIdentityBytes(user);
   }
 
@@ -111,13 +111,20 @@ export const getUserLockStatus = async (user: Uint8Array | string, currentEpoch:
 
   return state
     .toString(2)
-    .split('')
+    .split("")
     .reverse()
-    .reduce((epochs, bit, index) => (bit === '1' ? [...epochs, currentEpoch - index] : epochs), [] as number[]);
+    .reduce((epochs, bit, index) => (bit === "1" ? [...epochs, currentEpoch - index] : epochs), [] as number[]);
 };
 
-export const getEndedStatus = async (user: Uint8Array | string): Promise<{ fullUnlockedAmount?: number; fullRewardedAmount?: number; earlyUnlockedAmount?: number; earlyRewardedAmount?: number }> => {
-  if (typeof user === 'string') {
+export const getEndedStatus = async (
+  user: Uint8Array | string,
+): Promise<{
+  fullUnlockedAmount?: number;
+  fullRewardedAmount?: number;
+  earlyUnlockedAmount?: number;
+  earlyRewardedAmount?: number;
+}> => {
+  if (typeof user === "string") {
     user = qHelper.getIdentityBytes(user);
   }
 
@@ -149,10 +156,18 @@ export const getBurnedAndBoostedStats = async (): Promise<IBurnNBoostedStats> =>
     contractIndex: 9,
     inputType: 7,
     inputSize: 0,
-    requestData: '',
+    requestData: "",
   });
 
-  if (!res.responseData) return { burnedAmount: 0, averageBurnedPercent: 0, boostedAmount: 0, averageBoostedPercent: 0, rewardedAmount: 0, averageRewardedPercent: 0 };
+  if (!res.responseData)
+    return {
+      burnedAmount: 0,
+      averageBurnedPercent: 0,
+      boostedAmount: 0,
+      averageBoostedPercent: 0,
+      rewardedAmount: 0,
+      averageRewardedPercent: 0,
+    };
 
   const responseView = new DataView(base64ToUint8Array(res.responseData).buffer);
   const getValue = (offset: number) => Number(responseView.getBigUint64(offset, true));
@@ -168,8 +183,15 @@ export const getBurnedAndBoostedStats = async (): Promise<IBurnNBoostedStats> =>
 };
 
 export const getBurnedAndBoostedStatsPerEpoch = async (
-  epoch: number
-): Promise<{ burnedAmount: number; burnedPercent: number; boostedAmount: number; boostedPercent: number; rewardedAmount: number; rewardedPercent: number }> => {
+  epoch: number,
+): Promise<{
+  burnedAmount: number;
+  burnedPercent: number;
+  boostedAmount: number;
+  boostedPercent: number;
+  rewardedAmount: number;
+  rewardedPercent: number;
+}> => {
   const view = new DataView(new Uint8Array(4).buffer);
   view.setUint32(0, epoch, true);
 
@@ -180,10 +202,25 @@ export const getBurnedAndBoostedStatsPerEpoch = async (
     requestData: uint8ArrayToBase64(new Uint8Array(view.buffer)),
   });
 
-  if (!res.responseData) return { burnedAmount: 0, burnedPercent: 0, boostedAmount: 0, boostedPercent: 0, rewardedAmount: 0, rewardedPercent: 0 };
+  if (!res.responseData)
+    return {
+      burnedAmount: 0,
+      burnedPercent: 0,
+      boostedAmount: 0,
+      boostedPercent: 0,
+      rewardedAmount: 0,
+      rewardedPercent: 0,
+    };
 
   const responseView = new DataView(base64ToUint8Array(res.responseData).buffer);
   const getValue = (offset: number) => Number(responseView.getBigUint64(offset, true));
 
-  return { burnedAmount: getValue(0), burnedPercent: getValue(8), boostedAmount: getValue(16), boostedPercent: getValue(24), rewardedAmount: getValue(32), rewardedPercent: getValue(40) };
+  return {
+    burnedAmount: getValue(0),
+    burnedPercent: getValue(8),
+    boostedAmount: getValue(16),
+    boostedPercent: getValue(24),
+    rewardedAmount: getValue(32),
+    rewardedPercent: getValue(40),
+  };
 };

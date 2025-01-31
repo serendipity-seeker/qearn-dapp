@@ -1,41 +1,41 @@
-import Layout from '@/layouts';
-import Home from '@/pages/home';
-import Dashboard from '@/pages/dashboard';
-import { createBrowserRouter } from 'react-router-dom';
-import Error404 from '@/pages/error404';
-import Settings from '@/pages/settings';
-import Helpers from '@/pages/helpers';
-import Welcome from '@/pages/welcome';
-import Faq from '@/pages/faq';
+import Layout from "@/layouts";
+import Home from "@/pages/home";
+import Dashboard from "@/pages/dashboard";
+import { createBrowserRouter } from "react-router-dom";
+import Error404 from "@/pages/error404";
+import Settings from "@/pages/settings";
+import Helpers from "@/pages/helpers";
+import Welcome from "@/pages/welcome";
+import Faq from "@/pages/faq";
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <Layout />,
     errorElement: <Error404 />,
     children: [
       {
-        path: '/',
+        path: "/",
         element: <Welcome />,
       },
       {
-        path: '/home',
+        path: "/home",
         element: <Home />,
       },
       {
-        path: '/dashboard',
+        path: "/dashboard",
         element: <Dashboard />,
       },
       {
-        path: '/settings',
+        path: "/settings",
         element: <Settings />,
       },
       {
-        path: '/helpers',
+        path: "/helpers",
         element: <Helpers />,
       },
       {
-        path: '/faq',
+        path: "/faq",
         element: <Faq />,
       },
     ],

@@ -1,5 +1,5 @@
-import clsx from 'clsx';
-import { ReactNode, MouseEvent } from 'react';
+import clsx from "clsx";
+import { ReactNode, MouseEvent } from "react";
 
 interface CardProps {
   children: ReactNode;
@@ -9,7 +9,7 @@ interface CardProps {
 
 const Card = ({ children, className, onClick }: CardProps) => {
   return (
-    <div className={clsx('bg-card border-card-border border-[1px] rounded-[8px]', className)} onClick={onClick}>
+    <div className={clsx("rounded-[8px] border-[1px] border-card-border bg-card", className)} onClick={onClick}>
       {children}
     </div>
   );

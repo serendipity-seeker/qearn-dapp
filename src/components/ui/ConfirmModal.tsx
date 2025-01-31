@@ -1,6 +1,6 @@
-import Button from './Button';
-import { IoClose } from 'react-icons/io5';
-import { motion, AnimatePresence } from 'framer-motion';
+import Button from "./Button";
+import { IoClose } from "react-icons/io5";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface ConfirmModalProps {
   open: boolean;
@@ -19,7 +19,7 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({ open, onClose, onConfirm, t
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 flex justify-center items-center bg-black/50"
+          className="fixed inset-0 flex items-center justify-center bg-black/50"
           onClick={onClose}
         >
           <motion.div
@@ -27,18 +27,18 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({ open, onClose, onConfirm, t
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.95, opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="min-w-[440px] bg-background p-6 rounded-lg shadow-lg flex flex-col gap-4"
-            onClick={e => e.stopPropagation()}
+            className="flex min-w-[440px] flex-col gap-4 rounded-lg bg-background p-6 shadow-lg"
+            onClick={(e) => e.stopPropagation()}
           >
             <div className="flex flex-col gap-2">
-              <div className="flex justify-between items-center">
-                <h2 className="text-foreground text-2xl">{title}</h2>
-                <IoClose onClick={onClose} className="text-foreground text-2xl cursor-pointer" />
+              <div className="flex items-center justify-between">
+                <h2 className="text-2xl text-foreground">{title}</h2>
+                <IoClose onClick={onClose} className="cursor-pointer text-2xl text-foreground" />
               </div>
               <div className="text-gray-400">{description}</div>
             </div>
 
-            <div className="flex py-2 gap-4">
+            <div className="flex gap-4 py-2">
               <Button
                 className="w-1/2"
                 onClick={() => {

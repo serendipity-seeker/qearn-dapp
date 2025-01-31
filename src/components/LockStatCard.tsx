@@ -11,18 +11,22 @@ interface ILockStatCardProps {
 const LockStatCard: React.FC<ILockStatCardProps> = ({ currentEpoch }) => {
   const [qearnStats] = useAtom(qearnStatsAtom);
 
-  const currentStats = useMemo(() => qearnStats[currentEpoch] || {
-    currentBonusAmount: 0,
-    currentLockedAmount: 0,
-    bonusAmount: 0,
-    lockAmount: 0,
-    yieldPercentage: 0
-  }, [qearnStats, currentEpoch]);
+  const currentStats = useMemo(
+    () =>
+      qearnStats[currentEpoch] || {
+        currentBonusAmount: 0,
+        currentLockedAmount: 0,
+        bonusAmount: 0,
+        lockAmount: 0,
+        yieldPercentage: 0,
+      },
+    [qearnStats, currentEpoch],
+  );
 
   return (
     <Card className="max-w-lg p-6">
       <div className="space-y-4">
-        <h1 className="text-3xl text-center ">Lock Information {currentEpoch}</h1>
+        <h1 className="text-center text-3xl">Lock Information {currentEpoch}</h1>
 
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
@@ -44,10 +48,10 @@ const LockStatCard: React.FC<ILockStatCardProps> = ({ currentEpoch }) => {
             <p className="text-sm text-gray-500">Lock Amount</p>
             <p className="text-2xl font-semibold">{formatQubicAmount(currentStats.lockAmount)} QU</p>
           </div>
-          
+
           <div className="space-y-2">
             <p className="text-sm text-gray-500">Yield Percentage</p>
-            <p className="text-2xl font-semibold">{((currentStats.yieldPercentage / 1e5)).toFixed(2)}%</p>
+            <p className="text-2xl font-semibold">{(currentStats.yieldPercentage / 1e5).toFixed(2)}%</p>
           </div>
         </div>
       </div>

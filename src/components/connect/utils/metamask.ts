@@ -1,4 +1,4 @@
-import { getSnaps } from './snap';
+import { getSnaps } from "./snap";
 
 /**
  * Tries to detect if one of the injected providers is MetaMask and checks if snaps is available in that MetaMask version.
@@ -24,7 +24,7 @@ export const detectSnaps = async () => {
     }
   }
 
-  console.log('window.ethereum', window.ethereum);
+  console.log("window.ethereum", window.ethereum);
 
   if (window.ethereum?.providers) {
     for (const provider of window.ethereum.providers) {
@@ -60,11 +60,11 @@ export const isFlask = async () => {
 
   try {
     const clientVersion = await provider?.request({
-      method: 'web3_clientVersion',
+      method: "web3_clientVersion",
     });
 
-    console.log('clientVersion', clientVersion);
-    const isFlaskDetected = (clientVersion as string[])?.includes('flask');
+    console.log("clientVersion", clientVersion);
+    const isFlaskDetected = (clientVersion as string[])?.includes("flask");
 
     return Boolean(provider && isFlaskDetected);
   } catch {

@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
-import Card from '../ui/Card';
-import Button from '../ui/Button';
-import CloseIcon from '../../assets/close.svg';
-import { fetchTickInfo } from '@/services/rpc.service';
+import { useEffect, useState } from "react";
+import Card from "../ui/Card";
+import Button from "../ui/Button";
+import CloseIcon from "../../assets/close.svg";
+import { fetchTickInfo } from "@/services/rpc.service";
 
 interface Transaction {
   description: string;
@@ -72,25 +72,31 @@ const ConfirmTxModal = ({ tx, open, onClose, onConfirm, beTickOffset = 3 }: Conf
   return (
     <>
       {open && (
-        <div className="w-full p-5 h-full fixed top-0 left-0 overflow-x-hidden overflow-y-auto z-50 bg-smoke-light flex" onClick={() => onClose()}>
-          <Card className="relative p-8 w-full max-w-md m-auto flex-col flex" onClick={(e) => e.stopPropagation()}>
-            <div className="flex justify-between items-center">
+        <div
+          className="fixed left-0 top-0 z-50 flex h-full w-full overflow-y-auto overflow-x-hidden bg-smoke-light p-5"
+          onClick={() => onClose()}
+        >
+          <Card className="relative m-auto flex w-full max-w-md flex-col p-8" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between">
               <div className="text-2xl text-white">
                 qubic <span className="text-primary-40">connect</span>
               </div>
-              <img src={CloseIcon} onClick={onClose} alt="Close Modal Icon" className="w-5 h-5 cursor-pointer" />
+              <img src={CloseIcon} onClick={onClose} alt="Close Modal Icon" className="h-5 w-5 cursor-pointer" />
             </div>
-            <div className="flex flex-col gap-4 mt-4">
+            <div className="mt-4 flex flex-col gap-4">
               {confirmedTx && confirmedTx.targetTick && (
                 <>
                   <p className="text-white">
                     Current Tick: {tick} / {confirmedTx.targetTick}
                   </p>
-                  <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                  <div className="h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
                     <div
-                      className="bg-blue-600 h-2.5 rounded-full"
+                      className="h-2.5 rounded-full bg-blue-600"
                       style={{
-                        width: tick && initialTick ? `${Math.min(Math.max(((tick - initialTick) / (confirmedTx.targetTick - initialTick)) * 100, 0), 100)}%` : '0%',
+                        width:
+                          tick && initialTick
+                            ? `${Math.min(Math.max(((tick - initialTick) / (confirmedTx.targetTick - initialTick)) * 100, 0), 100)}%`
+                            : "0%",
                       }}
                     ></div>
                   </div>
