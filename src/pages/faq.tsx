@@ -133,10 +133,10 @@ const Faq: React.FC = () => {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.1 * (index + 1), duration: 0.5 }}
-            className="bg-card rounded-lg p-6 border border-card-border"
+            className="bg-card rounded-lg p-6 border border-card-border text-ellipsis"
           >
             <h2 className="text-xl font-semibold mb-3">{faq.title}</h2>
-            <div className="text-muted-foreground">{faq.content}</div>
+            <div className="text-muted-foreground text-justify">{faq.content}</div>
           </motion.div>
         ))}
       </div>

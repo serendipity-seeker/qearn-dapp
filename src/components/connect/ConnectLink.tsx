@@ -3,7 +3,7 @@ import unlocked from '../../assets/unlocked.svg';
 import ConnectModal from './ConnectModal';
 import { useQubicConnect } from './QubicConnectContext';
 
-const ConnectLink: React.FC = () => {
+const ConnectLink: React.FC<{ darkMode?: boolean }> = ({ darkMode }) => {
   const { connected, showConnectModal, toggleConnectModal } = useQubicConnect();
 
   return (
@@ -21,7 +21,7 @@ const ConnectLink: React.FC = () => {
           </>
         )}
       </div>
-      <ConnectModal open={showConnectModal} onClose={() => toggleConnectModal()} />
+      <ConnectModal open={showConnectModal} onClose={() => toggleConnectModal()} darkMode={darkMode} />
     </>
   );
 };

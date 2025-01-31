@@ -6,13 +6,13 @@ import Card from '../ui/Card';
 // @ts-ignore
 import { useQubicConnect } from './QubicConnectContext';
 import QubicConnectLogo from '../../assets/qubic-connect.svg';
+import QubicConnectLogoDark from '../../assets/qubic-connect-dark.svg';
 import CloseIcon from '../../assets/close.svg';
 import { HeaderButtons } from './Buttons';
 import { MetaMaskContext } from './MetamaskContext.tsx';
 import { connectSnap, getSnap } from './utils';
 import { Account } from './types';
-import { MetaMaskTypo } from './MetaMaskTypo';
-import { MetaMaskLogo } from './MetaMaskLogo';
+import MetaMaskLogo from '@/assets/metamask.svg';
 import { useWalletConnect } from './WalletConnectContext.tsx';
 import { generateQRCode } from '@/utils/index.ts';
 import WalletConnectLogo from '@/assets/wallet-connect.svg';
@@ -24,7 +24,7 @@ export enum MetamaskActions {
   SetIsFlask = 'SetIsFlask',
 }
 
-const ConnectModal = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
+const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () => void; darkMode?: boolean }) => {
   const [state, dispatch] = useContext(MetaMaskContext);
   const [selectedMode, setSelectedMode] = useState('none');
   // Private seed handling
@@ -200,7 +200,7 @@ const ConnectModal = ({ open, onClose }: { open: boolean; onClose: () => void })
         >
           <Card className="relative p-8 w-full max-w-md m-auto flex-col flex" onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}>
             <div className="flex justify-between items-center">
-              <img src={QubicConnectLogo} alt="Qubic Connect Logo" className="h-6" />
+              <img src={darkMode ? QubicConnectLogo : QubicConnectLogoDark} alt="Qubic Connect Logo" className="h-6" />
               <img src={CloseIcon} onClick={onClose} alt="Close Modal Icon" className="w-5 h-5 cursor-pointer" />
             </div>
 
@@ -213,9 +213,9 @@ const ConnectModal = ({ open, onClose }: { open: boolean; onClose: () => void })
                 )}
                 {!connected && (
                   <>
-                    <button className="bg-primary-40 p-4 mt-4 rounded-lg flex items-center justify-center gap-3" onClick={() => setSelectedMode('metamask')}>
-                      <MetaMaskLogo />
-                      <MetaMaskTypo color="black" />
+                    <button className="bg-primary-40 p-2 mt-4 rounded-lg text-black flex items-center justify-center gap-3 disabled:bg-gray-40" onClick={() => setSelectedMode('metamask')}>
+                      <img src={MetaMaskLogo} alt="MetaMask Logo" className="w-8 h-8" />
+                      <span className="w-32">MetaMask</span>
                     </button>
                     <button
                       className="bg-primary-40 p-2 rounded-lg text-black flex items-center justify-center gap-3 disabled:bg-gray-40"
@@ -224,18 +224,18 @@ const ConnectModal = ({ open, onClose }: { open: boolean; onClose: () => void })
                         setSelectedMode('walletconnect');
                       }}
                     >
-                      <img src={WalletConnectLogo} alt="Wallet Connect Logo" className="w-10 h-10" />
-                      Wallet Connect
+                      <img src={WalletConnectLogo} alt="Wallet Connect Logo" className="w-8 h-8" />
+                      <span className="w-32">Wallet Connect</span>
                     </button>
                     <div className="flex items-center justify-center w-full my-4">
                       <div className="flex-grow border-t border-gray-300"></div>
                       <span className="px-4 text-red text-">⚠️ BE CAREFUL!</span>
                       <div className="flex-grow border-t border-gray-300"></div>
                     </div>
-                    <button className="bg-primary-40 p-4 rounded-lg text-black" onClick={() => setSelectedMode('private-seed')}>
+                    <button className="bg-primary-40 p-3 rounded-lg text-black" onClick={() => setSelectedMode('private-seed')}>
                       Private Seed
                     </button>
-                    <button className="bg-primary-40 p-4 rounded-lg text-black" onClick={() => setSelectedMode('vault-file')}>
+                    <button className="bg-primary-40 p-3 rounded-lg text-black" onClick={() => setSelectedMode('vault-file')}>
                       Vault File
                     </button>
                   </>

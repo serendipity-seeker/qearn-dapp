@@ -66,7 +66,7 @@ const Header: React.FC<HeaderProps> = () => {
           <motion.button whileTap={{ scale: 0.95 }} onClick={toggleTheme} className="p-2 rounded-lg bg-transparent border-none transition-colors" aria-label="Toggle theme">
             {settings.darkMode ? <MdLightMode size={20} /> : <MdDarkMode size={20} />}
           </motion.button>
-          <ConnectLink />
+          <ConnectLink darkMode={settings.darkMode} />
         </div>
 
         {/* Mobile Navigation */}
@@ -96,7 +96,7 @@ const Header: React.FC<HeaderProps> = () => {
                       { path: '/home', label: 'Locking' },
                       { path: '/dashboard', label: 'Dashboard' },
                       { path: '/faq', label: 'FAQ' },
-                      { path: '/helpers', label: 'Helpers' },
+                      // { path: '/helpers', label: 'Helpers' },
                     ].map(({ path, label }) => (
                       <NavigationMenu.Item key={path}>
                         <NavigationMenu.Link asChild>
@@ -113,9 +113,19 @@ const Header: React.FC<HeaderProps> = () => {
                   </NavigationMenu.List>
                 </NavigationMenu.Root>
                 <motion.button whileTap={{ scale: 0.95 }} onClick={toggleTheme} className="p-2 rounded-lg bg-transparent border-none transition-colors" aria-label="Toggle theme">
-                  {settings.darkMode ? <MdLightMode size={20} /> : <MdDarkMode size={20} />}
+                  {settings.darkMode ? (
+                    <div className="flex items-center gap-2">
+                      <MdLightMode size={20} />
+                      <span>Light</span>
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-2">
+                      <MdDarkMode size={20} />
+                      <span>Dark</span>
+                    </div>
+                  )}
                 </motion.button>
-                <ConnectLink />
+                <ConnectLink darkMode={settings.darkMode} />
               </motion.div>
             </Collapsible.Content>
           </Collapsible.Root>
