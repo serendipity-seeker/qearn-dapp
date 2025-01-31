@@ -5,16 +5,18 @@ import { PieChart } from 'echarts/charts';
 import { LabelLayout } from 'echarts/features';
 import { SVGRenderer } from 'echarts/renderers';
 import { EChartsOption } from 'echarts';
-import { useAtomValue } from 'jotai';
+import { useAtom, useAtomValue } from 'jotai';
 import { latestStatsAtom } from '@/store/latestStats';
 import { useState, useEffect } from 'react';
 import { fetchRichList } from '@/services/rpc.service';
 import { LABELS } from '@/data/labels';
-import { custom } from '@/data/chart-theme';
+import { dark, light } from '@/data/chart-theme';
+import { settingsAtom } from '@/store/settings';
 
 const Richlist: React.FC = () => {
   const [richlist, setRichlist] = useState<{ identity: string; balance: number }[]>([]);
   const latestStats = useAtomValue(latestStatsAtom);
+  const [settings] = useAtom(settingsAtom);
 
   useEffect(() => {
     if (!latestStats) return;
@@ -68,7 +70,7 @@ const Richlist: React.FC = () => {
 
   return (
     <Card className="max-w-lg p-4">
-      <EChart style={{ width: '400px', height: '400px' }} theme={custom} use={chartComponents} {...option} />
+      <EChart style={{ width: '400px', height: '400px' }} key={settings.darkMode ? 'dark' : 'light'} theme={settings.darkMode ? dark : light} use={chartComponents} {...option} />
     </Card>
   );
 };

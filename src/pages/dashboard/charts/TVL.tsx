@@ -7,10 +7,12 @@ import { SVGRenderer } from 'echarts/renderers';
 import { EChartsOption } from 'echarts';
 import { useAtom } from 'jotai';
 import { qearnStatsAtom } from '@/store/qearnStat';
-import { custom } from '@/data/chart-theme';
+import { dark, light } from '@/data/chart-theme';
+import { settingsAtom } from '@/store/settings';
 
 const TVL: React.FC = () => {
   const [qearnStats] = useAtom(qearnStatsAtom);
+  const [settings] = useAtom(settingsAtom);
 
   const data = Object.entries(qearnStats)
     .filter(([epoch]) => Number(epoch))
@@ -54,7 +56,7 @@ const TVL: React.FC = () => {
 
   return (
     <Card className="max-w-lg p-4">
-      <EChart style={{ width: '400px', height: '400px' }} theme={custom} use={chartComponents} {...option} />
+      <EChart style={{ width: '400px', height: '400px' }} key={settings.darkMode ? 'dark' : 'light'} theme={settings.darkMode ? dark : light} use={chartComponents} {...option} />
     </Card>
   );
 };

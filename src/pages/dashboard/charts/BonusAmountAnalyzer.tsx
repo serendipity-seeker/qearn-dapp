@@ -6,17 +6,19 @@ import { LabelLayout } from 'echarts/features';
 import { SVGRenderer } from 'echarts/renderers';
 import { EChartsOption } from 'echarts';
 import { useAtom } from 'jotai';
-import { custom } from '@/data/chart-theme';
+import { dark, light } from '@/data/chart-theme';
 import { getBurnedAndBoostedStats } from '@/services/qearn.service';
 import { tickInfoAtom } from '@/store/tickInfo';
 import { IBurnNBoostedStats } from '@/types';
 import { useState, useMemo, useEffect } from 'react';
+import { settingsAtom } from '@/store/settings';
 
 const BonusAmountAnalyzer: React.FC = () => {
   const [burnNBoostedStats, setBurnNBoostedStats] = useState<IBurnNBoostedStats>({} as IBurnNBoostedStats);
   const [tickInfo] = useAtom(tickInfoAtom);
   const currentEpoch = useMemo(() => tickInfo?.epoch || 142, [tickInfo?.epoch]);
-
+  const [settings] = useAtom(settingsAtom);
+  
   useEffect(() => {
     getBurnedAndBoostedStats().then(setBurnNBoostedStats);
   }, [currentEpoch]);
@@ -59,7 +61,7 @@ const BonusAmountAnalyzer: React.FC = () => {
 
   return (
     <Card className="max-w-lg p-4">
-      <EChart style={{ width: '400px', height: '400px' }} theme={custom} use={chartComponents} {...option} />
+      <EChart style={{ width: '400px', height: '400px' }} key={settings.darkMode ? 'dark' : 'light'} theme={settings.darkMode ? dark : light} use={chartComponents} {...option} />
     </Card>
   );
 };

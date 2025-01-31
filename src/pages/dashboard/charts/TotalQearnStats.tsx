@@ -40,25 +40,25 @@ const TotalQearnStats: React.FC = () => {
       }),
       columnHelper.accessor('lockedAmount', {
         header: 'Locked Amount',
-        cell: (info) => <span className="font-medium text-emerald-400">{info.getValue()?.toLocaleString()}</span>,
+        cell: (info) => <span className="font-medium text-emerald-500 dark:text-emerald-400">{info.getValue()?.toLocaleString()}</span>,
         sortingFn: 'basic',
       }),
       columnHelper.accessor('bonusAmount', {
         header: 'Bonus Amount',
-        cell: (info) => <span className="font-medium text-blue-400">{info.getValue()?.toLocaleString()}</span>,
+        cell: (info) => <span className="font-medium text-blue-500 dark:text-blue-400">{info.getValue()?.toLocaleString()}</span>,
         sortingFn: 'basic',
       }),
       columnHelper.accessor('yieldPercentage', {
         header: 'APY %',
-        cell: (info) => <span className="font-medium text-yellow-400">{(info.getValue() / 100000).toFixed(2)}%</span>,
+        cell: (info) => <span className="font-medium text-yellow-500 dark:text-yellow-400">{(info.getValue() / 100000).toFixed(2)}%</span>,
         sortingFn: 'basic',
       }),
       columnHelper.accessor('burnedAmount', {
         header: 'Burned',
         cell: (info) => (
           <div className="flex flex-col">
-            <span className="font-medium text-red-400">{info.getValue()?.toLocaleString()}</span>
-            <span className="text-xs text-gray-50">({(info.row.original.burnedPercent / 100000).toFixed(2)}%)</span>
+            <span className="font-medium text-red-500 dark:text-red-400">{info.getValue()?.toLocaleString()}</span>
+            <span className="text-xs text-foreground">({(info.row.original.burnedPercent / 100000).toFixed(2)}%)</span>
           </div>
         ),
         sortingFn: 'basic',
@@ -67,8 +67,8 @@ const TotalQearnStats: React.FC = () => {
         header: 'Boosted',
         cell: (info) => (
           <div className="flex flex-col">
-            <span className="font-medium text-purple-400">{info.getValue()?.toLocaleString()}</span>
-            <span className="text-xs text-gray-50">({(info.row.original.boostedPercent / 100000).toFixed(2)}%)</span>
+            <span className="font-medium text-purple-500 dark:text-purple-400">{info.getValue()?.toLocaleString()}</span>
+            <span className="text-xs text-foreground">({(info.row.original.boostedPercent / 100000).toFixed(2)}%)</span>
           </div>
         ),
         sortingFn: 'basic',
@@ -77,8 +77,8 @@ const TotalQearnStats: React.FC = () => {
         header: 'Rewarded',
         cell: (info) => (
           <div className="flex flex-col">
-            <span className="font-medium text-orange-400">{info.getValue()?.toLocaleString()}</span>
-            <span className="text-xs text-gray-50">({(info.row.original.rewardedPercent / 100000).toFixed(2)}%)</span>
+            <span className="font-medium text-orange-500 dark:text-orange-400">{info.getValue()?.toLocaleString()}</span>
+            <span className="text-xs text-foreground">({(info.row.original.rewardedPercent / 100000).toFixed(2)}%)</span>
           </div>
         ),
         sortingFn: 'basic',
@@ -125,18 +125,18 @@ const TotalQearnStats: React.FC = () => {
         <h1 className="text-4xl font-bold text-center bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Qearn Overview</h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="p-4 rounded-lg bg-gray-90 space-y-2">
-            <p className="text-sm text-gray-50">Total Lock Amount</p>
-            <p className="text-2xl font-bold text-purple-400">{(qearnStats.totalLockAmount + qearnStats.totalBonusAmount)?.toLocaleString() || 0}</p>
-          </div>
-          <div className="p-4 rounded-lg bg-gray-90 space-y-2">
-            <p className="text-sm text-gray-50">Total Burned Amount</p>
-            <p className="text-2xl font-bold text-red-400">{burnNBoostedStats.burnedAmount?.toLocaleString() || 0}</p>
-          </div>
-          <div className="p-4 rounded-lg bg-gray-90 space-y-2">
-            <p className="text-sm text-gray-50">Average APY</p>
-            <p className="text-2xl font-bold text-yellow-400">{(qearnStats.averageYieldPercentage / 100000).toFixed(2) || 0}%</p>
-          </div>
+          <Card className="p-4 space-y-2">
+            <p className="text-sm text-foreground">Total Lock Amount</p>
+            <p className="text-2xl font-bold text-emerald-500 dark:text-emerald-400">{(qearnStats.totalLockAmount + qearnStats.totalBonusAmount)?.toLocaleString() || 0}</p>
+          </Card>
+          <Card className="p-4 space-y-2">
+            <p className="text-sm text-foreground">Total Burned Amount</p>
+            <p className="text-2xl font-bold text-red-500 dark:text-red-400">{burnNBoostedStats.burnedAmount?.toLocaleString() || 0}</p>
+          </Card>
+          <Card className="p-4 space-y-2">
+            <p className="text-sm text-foreground">Average APY</p>
+            <p className="text-2xl font-bold text-yellow-500 dark:text-yellow-400">{(qearnStats.averageYieldPercentage / 100000).toFixed(2) || 0}%</p>
+          </Card>
         </div>
 
         <div className="w-full overflow-x-auto rounded-lg border border-gray-90">
@@ -147,7 +147,7 @@ const TotalQearnStats: React.FC = () => {
                   {headerGroup.headers.map((header) => (
                     <th
                       key={header.id}
-                      className="px-3 py-3 text-center text-xs font-semibold text-gray-50 uppercase tracking-wider cursor-pointer group text-nowrap"
+                      className="px-3 py-3 text-center text-xs font-semibold text-gray-200 uppercase tracking-wider cursor-pointer group text-nowrap"
                       onClick={header.column.getToggleSortingHandler()}
                     >
                       <div className="flex items-center gap-2 justify-center">
@@ -171,7 +171,7 @@ const TotalQearnStats: React.FC = () => {
                 </tr>
               ))}
             </thead>
-            <tbody className="divide-y divide-gray-90 bg-gray-90/30">
+            <tbody className="divide-y divide-card-border">
               {table.getRowModel().rows.map((row) => (
                 <tr key={row.id} className="hover:bg-gray-90/30 transition-colors">
                   {row.getVisibleCells().map((cell) => (

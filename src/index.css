@@ -15,15 +15,15 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --background: theme(colors.primary.20);
+  --background: #ffffff;
   --foreground: theme('colors.gray.950');
-  --card: rgba(255, 255, 255, 0.87);
+  --card: #ffffff;
   --card-border: theme('colors.gray.50');
 }
 
 .dark {
   --background: theme('colors.gray.90');
-  --foreground: rgba(255, 255, 255, 0.87);;
+  --foreground: #ffffff;
   --card: theme('colors.gray.80');
   --card-border: theme('colors.gray.70');
 }

@@ -6,17 +6,26 @@ import * as Collapsible from '@radix-ui/react-collapsible';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { IoClose } from 'react-icons/io5';
 import { motion, AnimatePresence } from 'framer-motion';
+import logo from '@/assets/qearn.svg';
+import darkLogo from '@/assets/qearn-dark.svg';
+import { useAtom } from 'jotai';
+import { settingsAtom } from '@/store/settings';
+import { MdLightMode, MdDarkMode } from 'react-icons/md';
 
 interface HeaderProps {
   logo?: string;
 }
 
-const Header: React.FC<HeaderProps> = ({ logo = '/qubic.svg' }) => {
+const Header: React.FC<HeaderProps> = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
-
+  const [settings, setSettings] = useAtom(settingsAtom);
   const isActiveRoute = (path: string) => {
     return location.pathname === path;
+  };
+
+  const toggleTheme = () => {
+    setSettings((prev) => ({ ...prev, darkMode: !prev.darkMode }));
   };
 
   return (
@@ -28,7 +37,7 @@ const Header: React.FC<HeaderProps> = ({ logo = '/qubic.svg' }) => {
     >
       <div className="flex items-center justify-between w-full">
         <Link to="/" className="transition-opacity hover:opacity-80">
-          <motion.img whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }} src={logo} alt="logo" />
+          <motion.img whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }} src={settings.darkMode ? logo : darkLogo} alt="logo" />
         </Link>
 
         {/* Desktop Navigation */}
@@ -53,7 +62,10 @@ const Header: React.FC<HeaderProps> = ({ logo = '/qubic.svg' }) => {
           </NavigationMenu.Root>
         </div>
 
-        <div className="hidden md:flex justify-center md:w-auto mt-4 md:mt-0">
+        <div className="hidden md:flex justify-center items-center gap-4 md:w-auto mt-4 md:mt-0">
+          <motion.button whileTap={{ scale: 0.95 }} onClick={toggleTheme} className="p-2 rounded-lg bg-transparent border-none transition-colors" aria-label="Toggle theme">
+            {settings.darkMode ? <MdLightMode size={20} /> : <MdDarkMode size={20} />}
+          </motion.button>
           <ConnectLink />
         </div>
 
@@ -100,6 +112,9 @@ const Header: React.FC<HeaderProps> = ({ logo = '/qubic.svg' }) => {
                     ))}
                   </NavigationMenu.List>
                 </NavigationMenu.Root>
+                <motion.button whileTap={{ scale: 0.95 }} onClick={toggleTheme} className="p-2 rounded-lg bg-transparent border-none transition-colors" aria-label="Toggle theme">
+                  {settings.darkMode ? <MdLightMode size={20} /> : <MdDarkMode size={20} />}
+                </motion.button>
                 <ConnectLink />
               </motion.div>
             </Collapsible.Content>
