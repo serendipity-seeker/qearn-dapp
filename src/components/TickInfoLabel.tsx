@@ -1,5 +1,5 @@
-import { useAtom } from 'jotai';
-import { tickInfoAtom } from '@/store/tickInfo';
+import { useAtom } from "jotai";
+import { tickInfoAtom } from "@/store/tickInfo";
 
 const TickInfoLabel: React.FC = () => {
   const [tickInfo] = useAtom(tickInfoAtom);

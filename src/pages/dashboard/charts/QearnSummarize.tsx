@@ -1,11 +1,11 @@
-import Card from '@/components/ui/Card';
-import { getBurnedAndBoostedStats } from '@/services/qearn.service';
-import { qearnStatsAtom } from '@/store/qearnStat';
-import { tickInfoAtom } from '@/store/tickInfo';
-import { IBurnNBoostedStats } from '@/types';
-import { formatQubicAmount } from '@/utils';
-import { useAtom } from 'jotai';
-import { useEffect, useMemo, useState } from 'react';
+import Card from "@/components/ui/Card";
+import { getBurnedAndBoostedStats } from "@/services/qearn.service";
+import { qearnStatsAtom } from "@/store/qearnStat";
+import { tickInfoAtom } from "@/store/tickInfo";
+import { IBurnNBoostedStats } from "@/types";
+import { formatQubicAmount } from "@/utils";
+import { useAtom } from "jotai";
+import { useEffect, useMemo, useState } from "react";
 
 const QearnSummarize: React.FC = () => {
   const [burnNBoostedStats, setBurnNBoostedStats] = useState<IBurnNBoostedStats>({} as IBurnNBoostedStats);
@@ -18,9 +18,9 @@ const QearnSummarize: React.FC = () => {
   }, [currentEpoch]);
 
   return (
-    <Card className="max-w-lg min-h-[400px] p-6">
+    <Card className="min-h-[400px] max-w-lg p-6">
       <div className="space-y-4">
-        <h1 className="text-3xl text-center ">Qearn Summarize</h1>
+        <h1 className="text-center text-3xl">Qearn Summarize</h1>
 
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
@@ -55,12 +55,16 @@ const QearnSummarize: React.FC = () => {
 
           <div className="space-y-2">
             <p className="text-sm text-gray-500">Average Burned Percent</p>
-            <p className="text-2xl font-semibold">{(burnNBoostedStats?.averageBurnedPercent / 100000 || 0).toFixed(2)}%</p>
+            <p className="text-2xl font-semibold">
+              {(burnNBoostedStats?.averageBurnedPercent / 100000 || 0).toFixed(2)}%
+            </p>
           </div>
 
           <div className="space-y-2">
             <p className="text-sm text-gray-500">Average Boosted Percent</p>
-            <p className="text-2xl font-semibold">{(burnNBoostedStats?.averageBoostedPercent / 100000 || 0).toFixed(2)}%</p>
+            <p className="text-2xl font-semibold">
+              {(burnNBoostedStats?.averageBoostedPercent / 100000 || 0).toFixed(2)}%
+            </p>
           </div>
         </div>
       </div>

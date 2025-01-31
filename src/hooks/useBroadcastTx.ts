@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 
 export const useBroadCastTx = (tx: Uint8Array) => {
   return useQuery({
-    queryKey: ['broadcastTx'],
+    queryKey: ["broadcastTx"],
     queryFn: () => broadcastTx(tx),
   });
 };

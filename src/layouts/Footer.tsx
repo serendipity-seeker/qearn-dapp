@@ -1,5 +1,5 @@
-import pkg from '../../package.json';
-import logoShort from '@/assets/logo/logo-text-short.svg';
+import pkg from "../../package.json";
+import logoShort from "@/assets/logo/logo-text-short.svg";
 
 interface FooterProps {
   appVersion?: string;
@@ -7,27 +7,45 @@ interface FooterProps {
 
 const Footer: React.FC<FooterProps> = ({ appVersion }): JSX.Element | null => {
   return (
-    <div className="px-5 sm:px-20 md:px-100 py-10 flex flex-col sm:flex-row items-center justify-center gap-10">
+    <div className="md:px-100 flex flex-col items-center justify-center gap-10 px-5 py-10 sm:flex-row sm:px-20">
       <div className="flex gap-10">
         <img src={logoShort} alt="logo-short" />
-        <span className="text-gray-500 text-12 leading-18 font-space">
-          {'\u00A9'} {new Date().getFullYear()} Qubic
+        <span className="leading-18 font-space text-12 text-gray-500">
+          {"\u00A9"} {new Date().getFullYear()} Qubic
         </span>
       </div>
 
       <div className="flex items-center gap-2">
-        <a style={{ textDecoration: 'none' }} className="text-foreground text-12 leading-18 font-space" target="_blank" rel="noreferrer" href="https://qubic.org/Terms-of-service">
+        <a
+          style={{ textDecoration: "none" }}
+          className="leading-18 font-space text-12 text-foreground"
+          target="_blank"
+          rel="noreferrer"
+          href="https://qubic.org/Terms-of-service"
+        >
           Terms of service
         </a>
         <span className="text-gray-500">•</span>
-        <a style={{ textDecoration: 'none' }} className="text-foreground text-12 leading-18 font-space" target="_blank" rel="noreferrer" href="https://qubic.org/Privacy-policy">
+        <a
+          style={{ textDecoration: "none" }}
+          className="leading-18 font-space text-12 text-foreground"
+          target="_blank"
+          rel="noreferrer"
+          href="https://qubic.org/Privacy-policy"
+        >
           Privacy Policy
         </a>
         <span className="text-gray-500">•</span>
-        <a style={{ textDecoration: 'none' }} className="text-foreground text-12 leading-18 font-space" target="_blank" rel="noreferrer" href="https://status.qubic.li/">
+        <a
+          style={{ textDecoration: "none" }}
+          className="leading-18 font-space text-12 text-foreground"
+          target="_blank"
+          rel="noreferrer"
+          href="https://status.qubic.li/"
+        >
           Network Status
         </a>
-        <span className="text-gray-500 text-12">Version {appVersion || pkg.version}</span>
+        <span className="text-12 text-gray-500">Version {appVersion || pkg.version}</span>
       </div>
     </div>
   );

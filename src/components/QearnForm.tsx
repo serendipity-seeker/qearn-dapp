@@ -1,20 +1,20 @@
-import { useAtom } from 'jotai';
-import Card from './ui/Card';
-import Button from './ui/Button';
-import { tickInfoAtom } from '@/store/tickInfo';
-import { settingsAtom } from '@/store/settings';
-import { useEffect, useState } from 'react';
-import { useQubicConnect } from './connect/QubicConnectContext';
-import { lockQubic } from '@/services/qearn.service';
-import { broadcastTx, fetchBalance } from '@/services/rpc.service';
-import { toast } from 'react-hot-toast';
-import InputNumbers from './ui/InputNumbers';
-import { balancesAtom } from '@/store/balances';
-import { pendingTxAtom } from '@/store/pendingTx';
-import AccountSelector from './ui/AccountSelector';
-import { userLockInfoAtom } from '@/store/userLockInfo';
-import { useDisclosure } from '@/hooks/useDisclosure';
-import ConfirmModal from './ui/ConfirmModal';
+import { useAtom } from "jotai";
+import Card from "./ui/Card";
+import Button from "./ui/Button";
+import { tickInfoAtom } from "@/store/tickInfo";
+import { settingsAtom } from "@/store/settings";
+import { useEffect, useState } from "react";
+import { useQubicConnect } from "./connect/QubicConnectContext";
+import { lockQubic } from "@/services/qearn.service";
+import { broadcastTx, fetchBalance } from "@/services/rpc.service";
+import { toast } from "react-hot-toast";
+import InputNumbers from "./ui/InputNumbers";
+import { balancesAtom } from "@/store/balances";
+import { pendingTxAtom } from "@/store/pendingTx";
+import AccountSelector from "./ui/AccountSelector";
+import { userLockInfoAtom } from "@/store/userLockInfo";
+import { useDisclosure } from "@/hooks/useDisclosure";
+import ConfirmModal from "./ui/ConfirmModal";
 
 const QearnForm: React.FC = () => {
   const [tickInfo] = useAtom(tickInfoAtom);
@@ -36,7 +36,7 @@ const QearnForm: React.FC = () => {
 
   const validate = async (): Promise<boolean> => {
     if (!amount || !accounts[selectedAccount].value) {
-      toast.error('All fields must be filled');
+      toast.error("All fields must be filled");
       return false;
     }
 
@@ -44,17 +44,17 @@ const QearnForm: React.FC = () => {
     const walletBalance = (await fetchBalance(accounts[selectedAccount].value)) || 0;
 
     if (amount > walletBalance.balance) {
-      toast.error('Amount exceeds wallet balance');
+      toast.error("Amount exceeds wallet balance");
       return false;
     }
 
     if (amount < 10000000) {
-      toast.error('Amount must be at least 10M');
+      toast.error("Amount must be at least 10M");
       return false;
     }
 
     if (!targetTick) {
-      toast.error('Target tick is not set');
+      toast.error("Target tick is not set");
       return false;
     }
 
@@ -76,11 +76,11 @@ const QearnForm: React.FC = () => {
         amount: amount,
         epoch: tickInfo?.epoch || 0,
         targetTick: tickInfo?.tick + settings.tickOffset,
-        type: 'qearn',
+        type: "qearn",
       });
-      toast.success('Transaction sent, it will take some time to be confirmed and executed');
+      toast.success("Transaction sent, it will take some time to be confirmed and executed");
     } catch (err) {
-      toast.error('Something went wrong');
+      toast.error("Something went wrong");
     }
   };
 
@@ -95,9 +95,15 @@ const QearnForm: React.FC = () => {
 
         <div className="space-y-6">
           <div className="space-y-2">
-            <AccountSelector label="Account" options={accounts} selected={selectedAccount} setSelected={setSelectedAccount} />
-            <p className="text-gray-50 text-sm flex justify-between px-4">
-              <span className="font-bold text-primary">Available:</span> <span className="font-bold text-primary">{balances[selectedAccount]?.balance || 0} QUBIC</span>
+            <AccountSelector
+              label="Account"
+              options={accounts}
+              selected={selectedAccount}
+              setSelected={setSelectedAccount}
+            />
+            <p className="flex justify-between px-4 text-sm text-gray-50">
+              <span className="text-primary font-bold">Available:</span>{" "}
+              <span className="text-primary font-bold">{balances[selectedAccount]?.balance || 0} QUBIC</span>
             </p>
           </div>
           <InputNumbers id="amount" label="Lock Amount" placeholder="Enter amount" onChange={handleAmountChange} />

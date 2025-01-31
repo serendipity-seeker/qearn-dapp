@@ -1,12 +1,12 @@
-import { getUserLockInfo } from '@/services/qearn.service';
-import { fetchBalance } from '@/services/rpc.service';
-import { balancesAtom } from '@/store/balances';
-import { IPendingTx, pendingTxAtom } from '@/store/pendingTx';
-import { tickInfoAtom } from '@/store/tickInfo';
-import { userLockInfoAtom } from '@/store/userLockInfo';
-import { useAtom } from 'jotai';
-import { useEffect, useState } from 'react';
-import { toast } from 'react-hot-toast';
+import { getUserLockInfo } from "@/services/qearn.service";
+import { fetchBalance } from "@/services/rpc.service";
+import { balancesAtom } from "@/store/balances";
+import { IPendingTx, pendingTxAtom } from "@/store/pendingTx";
+import { tickInfoAtom } from "@/store/tickInfo";
+import { userLockInfoAtom } from "@/store/userLockInfo";
+import { useAtom } from "jotai";
+import { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 
 const TxMonitor: React.FC = () => {
   const [tickInfo] = useAtom(tickInfoAtom);
@@ -19,7 +19,7 @@ const TxMonitor: React.FC = () => {
     if (isMonitoring) {
       if (tickInfo?.tick > pendingTx.targetTick) {
         if (tickInfo?.tick > pendingTx.targetTick + 15) {
-          toast.error('Transaction failed');
+          toast.error("Transaction failed");
           setIsMonitoring(false);
           setPendingTx({} as IPendingTx);
           return;
@@ -27,9 +27,9 @@ const TxMonitor: React.FC = () => {
         const lockedAmount = await getUserLockInfo(pendingTx.publicId, pendingTx.epoch);
         if (lockedAmount - pendingTx.initAmount == pendingTx.amount) {
           if (pendingTx.amount > 0) {
-            toast.success('Locked successfully');
+            toast.success("Locked successfully");
           } else {
-            toast.success('Unlocked successfully');
+            toast.success("Unlocked successfully");
           }
         } else {
           return;
@@ -78,7 +78,7 @@ const TxMonitor: React.FC = () => {
 
   useEffect(() => {
     if (isMonitoring) {
-      toast.loading('Monitoring transaction...', { position: 'bottom-right' });
+      toast.loading("Monitoring transaction...", { position: "bottom-right" });
     }
   }, [isMonitoring]);
 

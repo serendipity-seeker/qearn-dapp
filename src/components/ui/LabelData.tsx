@@ -4,9 +4,9 @@ interface LabelDataProps {
 }
 
 const LabelData: React.FC<LabelDataProps> = ({ lbl, value }) => (
-  <div className="flex flex-col justify-center items-center">
-    <span className="text-gray-50 text-12">{lbl}</span>
-    <span className="text-white text-16">{value}</span>
+  <div className="flex flex-col items-center justify-center">
+    <span className="text-12 text-gray-50">{lbl}</span>
+    <span className="text-16 text-white">{value}</span>
   </div>
 );
 

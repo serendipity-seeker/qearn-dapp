@@ -1,5 +1,5 @@
-import { IBurnedAndBoostedStats, ILockInfo } from '@/types';
-import { atom } from 'jotai';
+import { IBurnedAndBoostedStats, ILockInfo } from "@/types";
+import { atom } from "jotai";
 
 export interface IQearnStats {
   [epoch: number]: ILockInfo & IBurnedAndBoostedStats;

@@ -1,4 +1,4 @@
-export const httpEndpoint = 'https://rpc.qubic.org';
+export const httpEndpoint = "https://rpc.qubic.org";
 
 export const DEFAULT_TX_SIZE = 144;
 

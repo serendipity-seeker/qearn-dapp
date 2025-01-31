@@ -1,22 +1,29 @@
-import { useEffect, useState } from 'react';
-import Card from './ui/Card';
-import { useAtom } from 'jotai';
-import { userLockInfoAtom } from '@/store/userLockInfo';
-import AccountSelector from './ui/AccountSelector';
-import { createColumnHelper, flexRender, getCoreRowModel, useReactTable, SortingState, getSortedRowModel } from '@tanstack/react-table';
-import { qearnStatsAtom } from '@/store/qearnStat';
-import { calculateRewards } from '@/utils';
-import { tickInfoAtom } from '@/store/tickInfo';
-import { MdArrowDownward, MdArrowUpward } from 'react-icons/md';
-import Button from './ui/Button';
-import { useDisclosure } from '@/hooks/useDisclosure';
-import { toast } from 'react-hot-toast';
-import { unLockQubic } from '@/services/qearn.service';
-import { broadcastTx } from '@/services/rpc.service';
-import { pendingTxAtom } from '@/store/pendingTx';
-import { settingsAtom } from '@/store/settings';
-import { useQubicConnect } from './connect/QubicConnectContext';
-import UnlockModal from './UnlockModal';
+import { useEffect, useState } from "react";
+import Card from "./ui/Card";
+import { useAtom } from "jotai";
+import { userLockInfoAtom } from "@/store/userLockInfo";
+import AccountSelector from "./ui/AccountSelector";
+import {
+  createColumnHelper,
+  flexRender,
+  getCoreRowModel,
+  useReactTable,
+  SortingState,
+  getSortedRowModel,
+} from "@tanstack/react-table";
+import { qearnStatsAtom } from "@/store/qearnStat";
+import { calculateRewards } from "@/utils";
+import { tickInfoAtom } from "@/store/tickInfo";
+import { MdArrowDownward, MdArrowUpward } from "react-icons/md";
+import Button from "./ui/Button";
+import { useDisclosure } from "@/hooks/useDisclosure";
+import { toast } from "react-hot-toast";
+import { unLockQubic } from "@/services/qearn.service";
+import { broadcastTx } from "@/services/rpc.service";
+import { pendingTxAtom } from "@/store/pendingTx";
+import { settingsAtom } from "@/store/settings";
+import { useQubicConnect } from "./connect/QubicConnectContext";
+import UnlockModal from "./UnlockModal";
 
 interface ITableData {
   lockedEpoch: number;
@@ -44,36 +51,38 @@ const LockHistoryTable: React.FC = () => {
 
   const columnHelper = createColumnHelper<ITableData>();
   const lockedColumns = [
-    columnHelper.accessor('lockedEpoch', {
-      header: 'Epoch',
+    columnHelper.accessor("lockedEpoch", {
+      header: "Epoch",
       cell: (info: any) => info.getValue(),
     }),
-    columnHelper.accessor('lockedAmount', {
-      header: 'Locked Amount',
+    columnHelper.accessor("lockedAmount", {
+      header: "Locked Amount",
       cell: (info: any) => info.getValue().toLocaleString(),
     }),
-    columnHelper.accessor('totalLockedAmountInEpoch', {
-      header: 'Total Locked Amount',
+    columnHelper.accessor("totalLockedAmountInEpoch", {
+      header: "Total Locked Amount",
       cell: (info: any) => info.getValue().toLocaleString(),
     }),
-    columnHelper.accessor('currentBonusAmountInEpoch', {
-      header: 'Current Bonus Amount',
+    columnHelper.accessor("currentBonusAmountInEpoch", {
+      header: "Current Bonus Amount",
       cell: (info: any) => info.getValue().toLocaleString(),
     }),
-    columnHelper.accessor('earlyUnlockReward', {
-      header: 'Current Reward %',
-      cell: (info: any) => `${info.row.original.earlyUnlockReward.reward.toLocaleString()} / ${info.row.original.earlyUnlockReward.ratio.toFixed(2)}%`,
+    columnHelper.accessor("earlyUnlockReward", {
+      header: "Current Reward %",
+      cell: (info: any) =>
+        `${info.row.original.earlyUnlockReward.reward.toLocaleString()} / ${info.row.original.earlyUnlockReward.ratio.toFixed(2)}%`,
     }),
-    columnHelper.accessor('fullUnlockReward', {
-      header: 'Full Reward %',
-      cell: (info: any) => `${info.row.original.fullUnlockReward.reward.toLocaleString()} / ${info.row.original.fullUnlockReward.ratio.toFixed(2)}%`,
+    columnHelper.accessor("fullUnlockReward", {
+      header: "Full Reward %",
+      cell: (info: any) =>
+        `${info.row.original.fullUnlockReward.reward.toLocaleString()} / ${info.row.original.fullUnlockReward.ratio.toFixed(2)}%`,
     }),
     columnHelper.display({
-      id: 'actions',
-      header: 'Actions',
+      id: "actions",
+      header: "Actions",
       cell: (info: any) => (
         <Button
-          className="px-4 py-2 bg-blue-500 transition-colors"
+          className="bg-blue-500 px-4 py-2 transition-colors"
           variant="primary"
           label="Unlock Early"
           onClick={() => {
@@ -112,7 +121,7 @@ const LockHistoryTable: React.FC = () => {
           qearnStats[lockedEpoch].currentBonusAmount,
           qearnStats[lockedEpoch].yieldPercentage,
           tickInfo.epoch,
-          lockedEpoch
+          lockedEpoch,
         );
         return {
           lockedEpoch: lockedEpoch,
@@ -122,13 +131,18 @@ const LockHistoryTable: React.FC = () => {
           earlyUnlockReward: { reward: rewards.earlyUnlockReward, ratio: rewards.earlyUnlockRewardRatio },
           fullUnlockReward: { reward: rewards.fullUnlockReward, ratio: rewards.fullUnlockRewardRatio },
         };
-      }) as any[]
+      }) as any[],
     );
   }, [accounts, qearnStats, userLockInfo]);
 
   const handleUnlockEarly = async () => {
     try {
-      const tx = await unLockQubic(accounts[selectedAccount].value, tableData[selectedIdx || 0].lockedAmount, tableData[selectedIdx || 0].lockedEpoch, tickInfo?.tick + settings.tickOffset);
+      const tx = await unLockQubic(
+        accounts[selectedAccount].value,
+        tableData[selectedIdx || 0].lockedAmount,
+        tableData[selectedIdx || 0].lockedEpoch,
+        tickInfo?.tick + settings.tickOffset,
+      );
       const { tx: signedTx } = await getSignedTx(tx);
       const res = await broadcastTx(signedTx);
       setPendingTx({
@@ -138,47 +152,54 @@ const LockHistoryTable: React.FC = () => {
         amount: -tableData[selectedIdx || 0].lockedAmount || 0,
         epoch: tableData[selectedIdx || 0].lockedEpoch,
         targetTick: tickInfo?.tick + settings.tickOffset,
-        type: 'qearn',
+        type: "qearn",
       });
-      toast.success('Transaction sent, it will take some time to be confirmed and executed');
+      toast.success("Transaction sent, it will take some time to be confirmed and executed");
     } catch (err) {
-      toast.error('Something went wrong');
+      toast.error("Something went wrong");
       console.log(err);
     }
   };
 
   return (
-    <Card className="p-6 space-y-6 overflow-hidden">
+    <Card className="space-y-6 overflow-hidden p-6">
       <div className="space-y-4">
-        <AccountSelector label="Select Account" options={accounts} selected={selectedAccount} setSelected={setSelectedAccount} />
+        <AccountSelector
+          label="Select Account"
+          options={accounts}
+          selected={selectedAccount}
+          setSelected={setSelectedAccount}
+        />
 
         {isLoading ? (
           <div className="flex justify-center p-8">
-            <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-white"></div>
+            <div className="h-8 w-8 animate-spin rounded-full border-t-2 border-white"></div>
           </div>
         ) : (
           <div className="w-full overflow-x-auto">
-            <table className="divide-y divide-gray-700">
-              <thead className="bg-background">
+            <table className="w-full overflow-x-auto rounded-lg border border-gray-90">
+              <thead className="bg-gray-90">
                 {table.getHeaderGroups().map((headerGroup) => (
                   <tr key={headerGroup.id}>
                     {headerGroup.headers.map((header) => (
                       <th
                         key={header.id}
-                        className="px-4 py-3 text-center text-xs font-medium text-foreground uppercase tracking-wider cursor-pointer group text-nowrap"
+                        className="group cursor-pointer text-nowrap px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-gray-200"
                         onClick={header.column.getToggleSortingHandler()}
                       >
                         <div className="flex items-center gap-2">
-                          {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                          {header.isPlaceholder
+                            ? null
+                            : flexRender(header.column.columnDef.header, header.getContext())}
                           {header.column.getCanSort() && (
-                            <div className="opacity-0 group-hover:opacity-100 transition-opacity">
+                            <div className="opacity-0 transition-opacity group-hover:opacity-100">
                               {{
-                                asc: <MdArrowUpward className="w-4 h-4" />,
-                                desc: <MdArrowDownward className="w-4 h-4" />,
+                                asc: <MdArrowUpward className="h-4 w-4" />,
+                                desc: <MdArrowDownward className="h-4 w-4" />,
                               }[header.column.getIsSorted() as string] ?? (
-                                <div className="w-4 h-4 flex flex-col">
-                                  <MdArrowUpward className="w-3 h-3" />
-                                  <MdArrowDownward className="w-3 h-3" />
+                                <div className="flex h-4 w-4 flex-col">
+                                  <MdArrowUpward className="h-3 w-3" />
+                                  <MdArrowDownward className="h-3 w-3" />
                                 </div>
                               )}
                             </div>
@@ -189,10 +210,10 @@ const LockHistoryTable: React.FC = () => {
                   </tr>
                 ))}
               </thead>
-              <tbody className="divide-y divide-gray-700">
+              <tbody className="divide-y divide-card-border">
                 {table.getRowModel().rows.length === 0 ? (
                   <tr>
-                    <td colSpan={8} className="text-center py-8">
+                    <td colSpan={8} className="py-8 text-center">
                       No data available
                     </td>
                   </tr>
@@ -200,7 +221,7 @@ const LockHistoryTable: React.FC = () => {
                   table.getRowModel().rows.map((row) => (
                     <tr key={row.id}>
                       {row.getVisibleCells().map((cell) => (
-                        <td key={cell.id} className="px-4 py-4 text-nowrap text-sm text-center">
+                        <td key={cell.id} className="text-nowrap px-4 py-4 text-center text-sm">
                           {flexRender(cell.column.columnDef.cell, cell.getContext())}
                         </td>
                       ))}
