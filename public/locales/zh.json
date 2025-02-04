@@ -1,0 +1,91 @@
+{
+  "welcome": {
+    "Earn {{percentage}}% Rewards by Staking $QUBIC": "通过质押 $QUBIC 赚取 {{percentage}}% 奖励",
+    "Connect your wallet to start locking": "连接钱包开始锁定",
+    "Start Locking": "开始锁定"
+  },
+  "common": {
+    "Connect": "连接",
+    "Disconnect": "断开连接",
+    "Settings": "设置",
+    "Dark Mode": "深色模式",
+    "Toggle dark mode theme": "切换深色模式主题",
+    "Notifications": "通知",
+    "Manage notification preferences": "管理通知偏好",
+    "Language": "语言",
+    "Tick Offset": "时间偏移",
+    "Current value: {{value}}": "当前值: {{value}}"
+  },
+  "faq": {
+    "Frequently Asked Questions": "常见问题",
+    "faq1": {
+      "What is Qearn?": "什么是 Qearn?",
+      "content": "Qearn 是一个基于智能合约的平台，允许用户锁定资金以获得奖励，同时提供灵活的解锁选项，提前解锁会有相应的惩罚。它旨在鼓励长期参与，同时为用户维持流动性。"
+    },
+    "faq2": {
+      "How does Qearn generate rewards?": "Qearn 如何产生奖励?",
+      "content": "Qearn 的奖励从分配给每个周期的奖金池中分发。这些奖励根据总锁定金额和周期奖金分配计算。"
+    },
+    "faq3": {
+      "What is an epoch in Qearn?": "Qearn 中的周期是什么?",
+      "content": "Qearn 中的周期是平台运行的固定时间段。通常跨越几周，在此期间，用户可以锁定资金以获得奖励。周期很重要，因为它们决定了奖金池和可以获得的奖励。"
+    },
+    "faq4": {
+      "What is the minimum amount required to lock funds?": "锁定资金的最低金额是多少?",
+      "content": "最低锁定金额因周期而异。例如，在第一个周期中，最低锁定金额为 100 Qubic。"
+    },
+    "faq5": {
+      "Is there a maximum amount I can lock?": "我可以锁定的最大金额是多少?",
+      "content": "是的，有最大锁定金额。最大锁定金额因周期而异。例如，在第一个周期中，最大锁定金额为 1000 Qubic。"
+    },
+    "faq6": {
+      "Can I lock funds multiple times in the same epoch?": "我可以在同一周期内多次锁定资金吗?",
+      "content": "是的，你可以在同一周期内多次锁定资金。但是，每个周期只能锁定一次资金。"
+    },
+    "faq7": {
+      "Can I unlock my funds early?": "我可以提前解锁资金吗?",
+      "Yes, early unlocking is allowed but comes with penalties:": "是的，允许提前解锁但会有惩罚:",
+      "Reduced rewards:": "减少奖励:",
+      "Burned amount:": "销毁金额:",
+      "Depending on how early you unlock, a percentage of the rewards will be forfeited.": "根据解锁的时间，将被没收一定比例的奖励。",
+      "Burn rate:": "销毁率:",
+      "A portion of the unlocked amount will be burned, decreasing the circulating supply.": "解锁金额的一部分将被销毁，减少流通供应。"
+    },
+    "faq8": {
+      "What are the penalties for early unlocking?": "提前解锁的惩罚是什么?",
+      "Penalties vary based on how many weeks your funds were locked. For example:": "惩罚根据资金锁定的周数而变化。例如:",
+      "Unlocking after 4-7 weeks incurs a <0>5% reward penalty</0> and a <1>45% burn rate</1>.": "4-7 周后解锁将产生 <0>5% 的奖励惩罚</0> 和 <1>45% 的销毁率</1>。",
+      "Unlocking after 36-39 weeks incurs a <0>40% reward penalty</0> and a <1>30% burn rate</1>.": "36-39 周后解锁将产生 <0>40% 的奖励惩罚</0> 和 <1>30% 的销毁率</1>。"
+    },
+    "faq9": {
+      "What happens if I keep my funds locked for the full period?": "如果我将资金锁定整个期限会怎样?",
+      "content": "如果你将资金锁定整个 52 周，你将获得最大奖励且不会受到任何惩罚。"
+    },
+    "faq10": {
+      "How are rewards calculated?": "奖励是如何计算的?",
+      "content": "奖励根据总锁定金额和周期奖金分配计算。"
+    },
+    "faq11": {
+      "Are bonuses fixed or variable?": "奖金是固定的还是可变的?",
+      "content": "奖金是可变的，取决于每个周期开始时奖金池中可用的资金。未使用的奖金在周期结束时被销毁。"
+    },
+    "faq12": {
+      "How can I connect wallet to this dapp?": "如何将钱包连接到这个 dapp?",
+      "There are 4 ways to connect wallet to this dapp, with varying levels of security:": "有 4 种方式可以将钱包连接到这个 dapp，安全级别各不相同:",
+      "1. MetaMask Snap (Recommended)": "1. MetaMask Snap (推荐)",
+      "The most secure way to connect. MetaMask Snap provides a sandboxed environment that never exposes your private keys. Simply install the MetaMask browser extension and the Qubic Snap to get started.": "最安全的连接方式。MetaMask Snap 提供了一个沙盒环境，永远不会暴露你的私钥。只需安装 MetaMask 浏览器扩展和 Qubic Snap 即可开始。",
+      "2. WalletConnect": "2. WalletConnect",
+      "A secure protocol that connects your mobile wallet to this dapp without exposing sensitive data. Scan the QR code with a WalletConnect-compatible wallet to establish an encrypted connection.": "一个安全的协议，可以将你的移动钱包连接到这个 dapp，而不会暴露敏感数据。使用兼容 WalletConnect 的钱包扫描二维码建立加密连接。",
+      "⚠️ Security Warning": "⚠️ 安全警告",
+      "The following connection methods require storing sensitive key data in the dapp. Only use these methods if you fully understand the risks.": "以下连接方法需要在 dapp 中存储敏感的密钥数据。只有在完全理解风险的情况下才使用这些方法。",
+      "3. Vault File": "3. 保险库文件",
+      "Connect using your encrypted Qubic vault file and password. While the vault is encrypted, the decrypted keys are stored in the dapp's memory. Always keep your vault file and password private.": "使用加密的 Qubic 保险库文件和密码连接。虽然保险库是加密的，但解密的密钥存储在 dapp 的内存中。始终保持你的保险库文件和密码私密。",
+      "4. Private Key": "4. 私钥",
+      "Direct private key entry should only be used as a last resort. Your private key grants complete control over your funds - never share it with anyone and only use this method on a secure, trusted device.": "直接输入私钥应该只作为最后的手段。你的私钥授予完全控制你的资金 - 永远不要与任何人分享它，并且只在安全、可信的设备上使用这种方法。"
+    },
+    "faq13": {
+      "Need more help?": "需要更多帮助?",
+      "content": "如需我们团队和社区成员的直接支持，请加入我们的 Qubic 社区，询问 MrUnhappyX。"
+    }
+  }
+}

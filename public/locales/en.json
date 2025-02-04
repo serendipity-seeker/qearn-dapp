@@ -15,5 +15,77 @@
     "Language": "Language",
     "Tick Offset": "Tick Offset",
     "Current value: {{value}}": "Current value: {{value}}"
+  },
+  "faq": {
+    "Frequently Asked Questions": "Frequently Asked Questions",
+    "faq1": {
+      "What is Qearn?": "What is Qearn?",
+      "content": "Qearn is a smart contract-based platform that allows users to lock funds for rewards while offering flexible unlocking options with associated penalties for early unlocking. It’s designed to incentivize long-term participation while maintaining liquidity for users."
+    },
+    "faq2": {
+      "How does Qearn generate rewards?": "How does Qearn generate rewards?",
+      "content": "Rewards in Qearn are distributed from the bonus pool allocated to each epoch. These rewards are calculated based on the total locked amount and the epoch bonus allocation."
+    },
+    "faq3": {
+      "What is an epoch in Qearn?": "What is an epoch in Qearn?",
+      "content": "An epoch in Qearn is a fixed period of time during which the platform operates. It typically spans a few weeks, and during this time, users can lock their funds for rewards. Epochs are important because they determine the bonus pool and the rewards that can be earned."
+    },
+    "faq4": {
+      "What is the minimum amount required to lock funds?": "What is the minimum amount required to lock funds?",
+      "content": "The minimum lock amount varies depending on the epoch. For example, in the first epoch, the minimum lock amount is 100 Qubic."
+    },
+    "faq5": {
+      "Is there a maximum amount I can lock?": "Is there a maximum amount I can lock?",
+      "content": "Yes, there is a maximum lock amount. The maximum lock amount varies depending on the epoch. For example, in the first epoch, the maximum lock amount is 1000 Qubic."
+    },
+    "faq6": {
+      "Can I lock funds multiple times in the same epoch?": "Can I lock funds multiple times in the same epoch?",
+      "content": "Yes, you can lock funds multiple times in the same epoch. However, you can only lock funds once per epoch."
+    },
+    "faq7": {
+      "Can I unlock my funds early?": "Can I unlock my funds early?",
+      "Yes, early unlocking is allowed but comes with penalties:": "Yes, early unlocking is allowed but comes with penalties:",
+      "Reduced rewards:": "Reduced rewards:",
+      "Burned amount:": "Burned amount:",
+      "Depending on how early you unlock, a percentage of the rewards will be forfeited.": "Depending on how early you unlock, a percentage of the rewards will be forfeited.",
+      "Burn rate:": "Burn rate:",
+      "A portion of the unlocked amount will be burned, decreasing the circulating supply.": "A portion of the unlocked amount will be burned, decreasing the circulating supply."
+    },
+    "faq8": {
+      "What are the penalties for early unlocking?": "What are the penalties for early unlocking?",
+      "Penalties vary based on how many weeks your funds were locked. For example:": "Penalties vary based on how many weeks your funds were locked. For example:",
+      "Unlocking after 4-7 weeks incurs a <0>5% reward penalty</0> and a <1>45% burn rate</1>.": "Unlocking after 4-7 weeks incurs a <0>5% reward penalty</0> and a <1>45% burn rate</1>.",
+      "Unlocking after 36-39 weeks incurs a <0>40% reward penalty</0> and a <1>30% burn rate</1>.": "Unlocking after 36-39 weeks incurs a <0>40% reward penalty</0> and a <1>30% burn rate</1>."
+    },
+    "faq9": {
+      "What happens if I keep my funds locked for the full period?": "What happens if I keep my funds locked for the full period?",
+      "content": "If you lock your funds for the full 52 weeks, you will receive the maximum rewards and incur no penalties."
+    },
+    "faq10": {
+      "How are rewards calculated?": "How are rewards calculated?",
+      "content": "Rewards are calculated based on the total locked amount and the epoch bonus allocation."
+    },
+    "faq11": {
+      "Are bonuses fixed or variable?": "Are bonuses fixed or variable?",
+      "content": "Bonuses are variable and depend on the funds available in the bonus pool at the start of each epoch. Unused bonuses are burned at the end of an epoch."
+    },
+    "faq12": {
+      "How can I connect wallet to this dapp?": "How can I connect wallet to this dapp?",
+      "There are 4 ways to connect wallet to this dapp, with varying levels of security:": "There are 4 ways to connect wallet to this dapp, with varying levels of security:",
+      "1. MetaMask Snap (Recommended)": "1. MetaMask Snap (Recommended)",
+      "The most secure way to connect. MetaMask Snap provides a sandboxed environment that never exposes your private keys. Simply install the MetaMask browser extension and the Qubic Snap to get started.": "The most secure way to connect. MetaMask Snap provides a sandboxed environment that never exposes your private keys. Simply install the MetaMask browser extension and the Qubic Snap to get started.",
+      "2. WalletConnect": "2. WalletConnect",
+      "A secure protocol that connects your mobile wallet to this dapp without exposing sensitive data. Scan the QR code with a WalletConnect-compatible wallet to establish an encrypted connection.": "A secure protocol that connects your mobile wallet to this dapp without exposing sensitive data. Scan the QR code with a WalletConnect-compatible wallet to establish an encrypted connection.",
+      "⚠️ Security Warning": "⚠️ Security Warning",
+      "The following connection methods require storing sensitive key data in the dapp. Only use these methods if you fully understand the risks.": "The following connection methods require storing sensitive key data in the dapp. Only use these methods if you fully understand the risks.",
+      "3. Vault File": "3. Vault File",
+      "Connect using your encrypted Qubic vault file and password. While the vault is encrypted, the decrypted keys are stored in the dapp's memory. Always keep your vault file and password private.": "Connect using your encrypted Qubic vault file and password. While the vault is encrypted, the decrypted keys are stored in the dapp's memory. Always keep your vault file and password private.",
+      "4. Private Key": "4. Private Key",
+      "Direct private key entry should only be used as a last resort. Your private key grants complete control over your funds - never share it with anyone and only use this method on a secure, trusted device.": "Direct private key entry should only be used as a last resort. Your private key grants complete control over your funds - never share it with anyone and only use this method on a secure, trusted device."
+    },
+    "faq13": {
+      "Need more help?": "Need more help?",
+      "content": "For direct support from our team and community members, please join our Qubic community, ask to MrUnhappyX."
+    }
   }
 } 

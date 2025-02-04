@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
+import { Trans, useTranslation } from "react-i18next";
 
 const Faq: React.FC = () => {
+  const { t } = useTranslation();
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -14,134 +16,143 @@ const Faq: React.FC = () => {
         transition={{ delay: 0.2, duration: 0.5 }}
         className="mb-12 text-center text-3xl font-bold"
       >
-        Frequently Asked Questions
+        {t("faq.Frequently Asked Questions")}
       </motion.h1>
 
       <div className="mx-auto max-w-3xl space-y-6">
         {[
           {
-            title: "What is Qearn?",
-            content:
-              "Qearn is a smart contract-based platform that allows users to lock funds for rewards while offering flexible unlocking options with associated penalties for early unlocking. It’s designed to incentivize long-term participation while maintaining liquidity for users.",
+            title: t("faq.faq1.What is Qearn?"),
+            content: t("faq.faq1.content"),
           },
           {
-            title: "How does Qearn generate rewards?",
-            content:
-              "Rewards in Qearn are distributed from the bonus pool allocated to each epoch. These rewards are calculated based on the total locked amount and the epoch bonus allocation.",
+            title: t("faq.faq2.How does Qearn generate rewards?"),
+            content: t("faq.faq2.content"),
           },
+
           {
-            title: "What is an epoch in Qearn?",
-            content:
-              "An epoch is a time period during which locking and unlocking activities are managed. In Qearn, epochs are tracked weekly, with each user’s lock duration and rewards calculated based on these intervals.",
+            title: t("faq.faq3.What is an epoch in Qearn?"),
+            content: t("faq.faq3.content"),
           },
+
           {
-            title: "What is the minimum amount required to lock funds?",
-            content:
-              "The minimum locking amount is 10,000,000 Qubic. Any attempt to lock less will result in a failed transaction.",
+            title: t("faq.faq4.What is the minimum amount required to lock funds?"),
+            content: t("faq.faq4.content"),
           },
+
           {
-            title: "Is there a maximum amount I can lock?",
-            content: "Yes, the maximum lock amount per user in a single epoch is 1,000,000,000,000 Qubic.",
+            title: t("faq.faq5.Is there a maximum amount I can lock?"),
+            content: t("faq.faq5.content"),
           },
+
           {
-            title: "Can I lock funds multiple times in the same epoch?",
-            content:
-              " Yes, you can lock funds multiple times in the same epoch. The amounts will be aggregated, provided the total does not exceed the maximum lock limit.",
+            title: t("faq.faq6.Can I lock funds multiple times in the same epoch?"),
+            content: t("faq.faq6.content"),
           },
+
           {
-            title: "Can I unlock my funds early?",
+            title: t("faq.faq7.Can I unlock my funds early?"),
             content: (
               <>
-                <p>Yes, early unlocking is allowed but comes with penalties:</p>
+                <p>{t("faq.faq7.Yes, early unlocking is allowed but comes with penalties:")}</p>
                 <ul className="text-muted-foreground mt-2 list-inside list-disc">
                   <li>
-                    <span className="font-bold">Reduced rewards:</span> Depending on how early you unlock, a percentage
-                    of the rewards will be forfeited.
+                    <span className="font-bold">{t("faq.faq7.Reduced rewards:")}</span>{" "}
+                    {t("faq.faq7.Depending on how early you unlock, a percentage of the rewards will be forfeited.")}
                   </li>
                   <li>
-                    <span className="font-bold">Burned amount:</span> A portion of the unlocked amount will be burned,
-                    decreasing the circulating supply.
+                    <span className="font-bold">{t("faq.faq7.Burned amount:")}</span>{" "}
+                    {t("faq.faq7.A portion of the unlocked amount will be burned, decreasing the circulating supply.")}
                   </li>
                 </ul>
               </>
             ),
           },
           {
-            title: "What are the penalties for early unlocking?",
+            title: t("faq.faq8.What are the penalties for early unlocking?"),
             content: (
               <>
-                <p>Penalties vary based on how many weeks your funds were locked. For example:</p>
+                <p>{t("faq.faq8.Penalties vary based on how many weeks your funds were locked. For example:")}</p>
+
                 <ul className="text-muted-foreground mt-2 list-inside list-disc">
                   <li>
-                    Unlocking after 4-7 weeks incurs a <span className="font-bold">5% reward penalty</span> and a{" "}
-                    <span className="font-bold">45% burn rate</span>.
+                    <Trans
+                      i18nKey={t(
+                        "faq.faq8.Unlocking after 4-7 weeks incurs a <0>5% reward penalty</0> and a <1>45% burn rate</1>.",
+                      )}
+                      components={[<span className="font-bold" />, <span className="font-bold" />]}
+                    />
                   </li>
                   <li>
-                    Unlocking after 36-39 weeks incurs a <span className="font-bold">40% reward penalty</span> and a{" "}
-                    <span className="font-bold">30% burn rate</span>.
+                    <Trans
+                      i18nKey={t(
+                        "faq.faq8.Unlocking after 36-39 weeks incurs a <0>40% reward penalty</0> and a <1>30% burn rate</1>.",
+                      )}
+                      components={[<span className="font-bold" />, <span className="font-bold" />]}
+                    />
                   </li>
                 </ul>
               </>
             ),
           },
           {
-            title: "What happens if I keep my funds locked for the full period?",
-            content:
-              "If you lock your funds for the full 52 weeks, you will receive the maximum rewards and incur no penalties.",
+            title: t("faq.faq9.What happens if I keep my funds locked for the full period?"),
+            content: t("faq.faq9.content"),
           },
           {
-            title: "How are rewards calculated?",
-            content:
-              "Rewards are calculated based on the epoch&apos;s bonus pool and the total locked amount. The yield is proportional to your share of the locked funds in the epoch.",
+            title: t("faq.faq10.How are rewards calculated?"),
+            content: t("faq.faq10.content"),
           },
           {
-            title: "Are bonuses fixed or variable?",
-            content:
-              " Bonuses are variable and depend on the funds available in the bonus pool at the start of each epoch. Unused bonuses are burned at the end of an epoch.",
+            title: t("faq.faq11.Are bonuses fixed or variable?"),
+            content: t("faq.faq11.content"),
           },
           {
-            title: "How can I connect wallet to this dapp?",
+            title: t("faq.faq12.How can I connect wallet to this dapp?"),
             content: (
               <>
                 <h4 className="mb-4 font-medium">
-                  There are 4 ways to connect wallet to this dapp, with varying levels of security:
+                  {t("faq.faq12.There are 4 ways to connect wallet to this dapp, with varying levels of security:")}
                 </h4>
                 <ul className="space-y-4">
                   <li className="space-y-2">
-                    <h5 className="font-medium text-primary-40">1. MetaMask Snap (Recommended)</h5>
+                    <h5 className="font-medium text-primary-40">{t("faq.faq12.1. MetaMask Snap (Recommended)")}</h5>
                     <p className="text-muted-foreground">
-                      The most secure way to connect. MetaMask Snap provides a sandboxed environment that never exposes
-                      your private keys. Simply install the MetaMask browser extension and the Qubic Snap to get
-                      started.
+                      {t(
+                        "faq.faq12.The most secure way to connect. MetaMask Snap provides a sandboxed environment that never exposes your private keys. Simply install the MetaMask browser extension and the Qubic Snap to get started.",
+                      )}
                     </p>
                   </li>
                   <li className="space-y-2">
-                    <h5 className="font-medium text-primary-40">2. WalletConnect</h5>
+                    <h5 className="font-medium text-primary-40">{t("faq.faq12.2. WalletConnect")}</h5>
                     <p className="text-muted-foreground">
-                      A secure protocol that connects your mobile wallet to this dapp without exposing sensitive data.
-                      Scan the QR code with a WalletConnect-compatible wallet to establish an encrypted connection.
+                      {t(
+                        "faq.faq12.A secure protocol that connects your mobile wallet to this dapp without exposing sensitive data. Scan the QR code with a WalletConnect-compatible wallet to establish an encrypted connection.",
+                      )}
                     </p>
                   </li>
                   <div className="my-4 rounded-lg border border-red-500 bg-red-500/10 p-4">
-                    <p className="font-medium text-red-500">⚠️ Security Warning</p>
+                    <p className="font-medium text-red-500">{t("faq.faq12.⚠️ Security Warning")}</p>
                     <p className="mt-1 text-sm text-red-400">
-                      The following connection methods require storing sensitive key data in the dapp. Only use these
-                      methods if you fully understand the risks.
+                      {t(
+                        "faq.faq12.The following connection methods require storing sensitive key data in the dapp. Only use these methods if you fully understand the risks.",
+                      )}
                     </p>
                   </div>
                   <li className="space-y-2">
-                    <h5 className="font-medium">3. Vault File</h5>
+                    <h5 className="font-medium">{t("faq.faq12.3. Vault File")}</h5>
                     <p className="text-muted-foreground">
-                      Connect using your encrypted Qubic vault file and password. While the vault is encrypted, the
-                      decrypted keys are stored in the dapp's memory. Always keep your vault file and password private.
+                      {t(
+                        "faq.faq12.Connect using your encrypted Qubic vault file and password. While the vault is encrypted, the decrypted keys are stored in the dapp's memory. Always keep your vault file and password private.",
+                      )}
                     </p>
                   </li>
                   <li className="space-y-2">
-                    <h5 className="font-medium">4. Private Key</h5>
+                    <h5 className="font-medium">{t("faq.faq12.4. Private Key")}</h5>
                     <p className="text-muted-foreground">
-                      Direct private key entry should only be used as a last resort. Your private key grants complete
-                      control over your funds - never share it with anyone and only use this method on a secure, trusted
-                      device.
+                      {t(
+                        "faq.faq12.Direct private key entry should only be used as a last resort. Your private key grants complete control over your funds - never share it with anyone and only use this method on a secure, trusted device.",
+                      )}
                     </p>
                   </li>
                 </ul>
@@ -149,9 +160,8 @@ const Faq: React.FC = () => {
             ),
           },
           {
-            title: "Need more help?",
-            content:
-              "For direct support from our team and community members, please join our Qubic community, ask to MrUnhappyX.",
+            title: t("faq.faq13.Need more help?"),
+            content: t("faq.faq13.content"),
           },
         ].map((faq, index) => (
           <motion.div

@@ -15,5 +15,78 @@
     "Language": "Idioma",
     "Tick Offset": "Desplazamiento de Tick",
     "Current value: {{value}}": "Valor actual: {{value}}"
+  },
+  "faq": {
+    "Frequently Asked Questions": "Preguntas Frecuentes",
+    "faq1": {
+      "What is Qearn?": "¿Qué es Qearn?",
+      "content": "Qearn es una plataforma basada en contratos inteligentes que permite a los usuarios bloquear fondos para obtener recompensas mientras ofrece opciones flexibles de desbloqueo con penalizaciones asociadas por desbloqueo anticipado. Está diseñado para incentivar la participación a largo plazo mientras mantiene la liquidez para los usuarios."
+    },
+    "faq2": {
+      "How does Qearn generate rewards?": "¿Cómo genera Qearn las recompensas?",
+      "content": "Las recompensas en Qearn se distribuyen desde el fondo de bonificación asignado a cada época. Estas recompensas se calculan en base al monto total bloqueado y la asignación de bonificación de la época."
+    },
+    "faq3": {
+      "What is an epoch in Qearn?": "¿Qué es una época en Qearn?",
+      "content": "Una época en Qearn es un período de tiempo fijo durante el cual opera la plataforma. Típicamente abarca algunas semanas, y durante este tiempo, los usuarios pueden bloquear sus fondos para obtener recompensas. Las épocas son importantes porque determinan el fondo de bonificación y las recompensas que se pueden ganar."
+    },
+    "faq4": {
+      "What is the minimum amount required to lock funds?": "¿Cuál es el monto mínimo requerido para bloquear fondos?",
+      "content": "El monto mínimo de bloqueo varía según la época. Por ejemplo, en la primera época, el monto mínimo de bloqueo es de 100 Qubic."
+    },
+    "faq5": {
+      "Is there a maximum amount I can lock?": "¿Hay un monto máximo que puedo bloquear?",
+      "content": "Sí, hay un monto máximo de bloqueo. El monto máximo de bloqueo varía según la época. Por ejemplo, en la primera época, el monto máximo de bloqueo es de 1000 Qubic."
+    },
+    "faq6": {
+      "Can I lock funds multiple times in the same epoch?": "¿Puedo bloquear fondos varias veces en la misma época?",
+      "content": "Sí, puedes bloquear fondos varias veces en la misma época. Sin embargo, solo puedes bloquear fondos una vez por época."
+    },
+    "faq7": {
+      "Can I unlock my funds early?": "¿Puedo desbloquear mis fondos anticipadamente?",
+      "Yes, early unlocking is allowed but comes with penalties:": "Sí, se permite el desbloqueo anticipado pero conlleva penalizaciones:",
+      "Reduced rewards:": "Recompensas reducidas:",
+      "Burned amount:": "Cantidad quemada:",
+      "Depending on how early you unlock, a percentage of the rewards will be forfeited.": "Dependiendo de qué tan temprano desbloquees, se perderá un porcentaje de las recompensas.",
+      "Burn rate:": "Tasa de quema:",
+      "A portion of the unlocked amount will be burned, decreasing the circulating supply.": "Una parte del monto desbloqueado será quemado, disminuyendo el suministro circulante."
+    },
+    "faq8": {
+      "What are the penalties for early unlocking?": "¿Cuáles son las penalizaciones por desbloqueo anticipado?",
+      "Penalties vary based on how many weeks your funds were locked. For example:": "Las penalizaciones varían según la cantidad de semanas que tus fondos estuvieron bloqueados. Por ejemplo:",
+      "Unlocking after 4-7 weeks incurs a <0>5% reward penalty</0> and a <1>45% burn rate</1>.": "El desbloqueo después de 4-7 semanas incurre en una <0>penalización de recompensa del 5%</0> y una <1>tasa de quema del 45%</1>.",
+      "Unlocking after 36-39 weeks incurs a <0>40% reward penalty</0> and a <1>30% burn rate</1>.": "El desbloqueo después de 36-39 semanas incurre en una <0>penalización de recompensa del 40%</0> y una <1>tasa de quema del 30%</1>."
+    },
+    "faq9": {
+      "What happens if I keep my funds locked for the full period?": "¿Qué sucede si mantengo mis fondos bloqueados durante todo el período?",
+      "content": "Si bloqueas tus fondos durante las 52 semanas completas, recibirás las máximas recompensas y no incurrirás en penalizaciones."
+    },
+    "faq10": {
+      "How are rewards calculated?": "¿Cómo se calculan las recompensas?",
+      "content": "Las recompensas se calculan en base al monto total bloqueado y la asignación de bonificación de la época."
+    },
+    "faq11": {
+      "Are bonuses fixed or variable?": "¿Las bonificaciones son fijas o variables?",
+      "content": "Las bonificaciones son variables y dependen de los fondos disponibles en el fondo de bonificación al inicio de cada época. Las bonificaciones no utilizadas se queman al final de una época."
+    },
+    "faq12": {
+      "How can I connect wallet to this dapp?": "¿Cómo puedo conectar mi billetera a esta dapp?",
+      "There are 4 ways to connect wallet to this dapp, with varying levels of security:": "Hay 4 formas de conectar la billetera a esta dapp, con diferentes niveles de seguridad:",
+      "1. MetaMask Snap (Recommended)": "1. MetaMask Snap (Recomendado)",
+      "The most secure way to connect. MetaMask Snap provides a sandboxed environment that never exposes your private keys. Simply install the MetaMask browser extension and the Qubic Snap to get started.": "La forma más segura de conectarse. MetaMask Snap proporciona un entorno aislado que nunca expone tus claves privadas. Simplemente instala la extensión del navegador MetaMask y el Snap de Qubic para comenzar.",
+      "2. WalletConnect": "2. WalletConnect",
+      "A secure protocol that connects your mobile wallet to this dapp without exposing sensitive data. Scan the QR code with a WalletConnect-compatible wallet to establish an encrypted connection.": "Un protocolo seguro que conecta tu billetera móvil a esta dapp sin exponer datos sensibles. Escanea el código QR con una billetera compatible con WalletConnect para establecer una conexión encriptada.",
+      "⚠️ Security Warning": "⚠️ Advertencia de Seguridad",
+      "The following connection methods require storing sensitive key data in the dapp. Only use these methods if you fully understand the risks.": "Los siguientes métodos de conexión requieren almacenar datos de claves sensibles en la dapp. Solo usa estos métodos si comprendes completamente los riesgos.",
+      "3. Vault File": "3. Archivo de Bóveda",
+      "Connect using your encrypted Qubic vault file and password. While the vault is encrypted, the decrypted keys are stored in the dapp's memory. Always keep your vault file and password private.": "Conéctate usando tu archivo de bóveda encriptado de Qubic y contraseña. Aunque la bóveda está encriptada, las claves desencriptadas se almacenan en la memoria de la dapp. Mantén siempre privados tu archivo de bóveda y contraseña.",
+      "4. Private Key": "4. Clave Privada",
+      "Direct private key entry should only be used as a last resort. Your private key grants complete control over your funds - never share it with anyone and only use this method on a secure, trusted device.": "La entrada directa de la clave privada solo debe usarse como último recurso. Tu clave privada otorga control completo sobre tus fondos - nunca compartas tu clave con nadie y solo usa este método en un dispositivo seguro y confiable."
+    },
+    "faq13": {
+      "Need more help?": "¿Necesitas más ayuda?",
+
+      "content": "Para soporte directo de nuestro equipo y miembros de la comunidad, únete a nuestra comunidad Qubic, pregunta a MrUnhappyX."
+    }
   }
-} 
+}

@@ -9,10 +9,10 @@ i18n
   .use(initReactI18next)
   .init({
     fallbackLng: "en",
-    supportedLngs: ["en", "es"],
+    supportedLngs: ["en", "es", "zh"],
     defaultNS: "translation",
     fallbackNS: "translation",
-    lng: "en",
+    lng: "zh",
     detection: {
       order: ["localStorage", "navigator"],
       caches: ["localStorage"],
