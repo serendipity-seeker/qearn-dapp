@@ -1,0 +1,213 @@
+{
+  "welcome": {
+    "Earn {{percentage}}% Rewards by Staking $QUBIC": "Verdiene {{percentage}}% Belohnungen durch das Staken von $QUBIC",
+    "Connect your wallet to start locking": "Verbinde deine Wallet, um mit dem Locking zu beginnen",
+    "Start Locking": "Locking starten"
+  },
+  "common": {
+    "Connect": "Verbinden",
+    "Disconnect": "Trennen",
+    "Settings": "Einstellungen",
+    "Dark Mode": "Dunkelmodus",
+    "Toggle dark mode theme": "Dunkelmodus umschalten",
+    "Notifications": "Benachrichtigungen",
+    "Manage notification preferences": "Benachrichtigungseinstellungen verwalten",
+    "Language": "Sprache",
+    "Tick Offset": "Tick-Verschiebung",
+    "Current value: {{value}}": "Aktueller Wert: {{value}}"
+  },
+  "home": {
+    "Locking": "Locking",
+    "Locking History": "Locking-Verlauf"
+  },
+  "faq": {
+    "Frequently Asked Questions": "Häufig gestellte Fragen",
+
+    "faq1": {
+      "What is Qearn?": "Was ist Qearn?",
+      "content": "Qearn ist eine auf Smart Contracts basierende Plattform, die es Benutzern ermöglicht, Gelder für Belohnungen zu sperren und dabei flexible Entsperrungsoptionen mit entsprechenden Strafen für eine vorzeitige Entsperrung bietet. Sie ist darauf ausgelegt, eine langfristige Teilnahme zu fördern und dennoch Liquidität für die Nutzer bereitzustellen."
+    },
+    "faq2": {
+      "How does Qearn generate rewards?": "Wie generiert Qearn Belohnungen?",
+      "content": "Die Belohnungen bei Qearn werden aus dem Bonuspool verteilt, der jeder Epoche zugewiesen ist. Diese Belohnungen werden basierend auf dem gesamten gesperrten Betrag und der Bonuszuweisung der jeweiligen Epoche berechnet."
+    },
+    "faq3": {
+      "What is an epoch in Qearn?": "Was ist eine Epoche (epoch) in Qearn?",
+      "content": "Eine Epoche ist ein Zeitabschnitt, in dem Sperr- und Entsperraktivitäten verwaltet werden. In Qearn werden die Epochen wöchentlich verfolgt, wobei die Sperrdauer und Belohnungen der Nutzer in diesen Intervallen berechnet werden."
+    },
+    "faq4": {
+      "What is the minimum amount required to lock funds?": "Was ist der Mindestbetrag für das Sperren von Geldern?",
+      "content": "Der Mindestbetrag zum Sperren beträgt 10.000.000 Qubic. Jeder Versuch, einen geringeren Betrag zu sperren, führt zu einer fehlgeschlagenen Transaktion."
+    },
+    "faq5": {
+      "Is there a maximum amount I can lock?": "Gibt es einen Höchstbetrag, den ich sperren kann?",
+      "content": "Ja, der maximale Sperrbetrag pro Benutzer in einer Epoche beträgt 1.000.000.000.000 Qubic."
+    },
+    "faq6": {
+      "Can I lock funds multiple times in the same epoch?": "Kann ich in derselben Epoche mehrmals Gelder sperren?",
+      "content": "Ja, du kannst in derselben Epoche mehrmals Gelder sperren. Die Beträge werden zusammengefasst, sofern das Gesamtsperrlimit nicht überschritten wird."
+    },
+    "faq7": {
+      "Can I unlock my funds early?": "Kann ich meine Gelder vorzeitig entsperren?",
+      "Yes, early unlocking is allowed but comes with penalties:": "Ja, eine vorzeitige Entsperrung ist erlaubt, zieht jedoch Strafen nach sich:",
+      "Reduced rewards:": "Reduzierte Belohnungen:",
+      "Burned amount:": "Verbrannter Betrag:",
+      "Depending on how early you unlock, a percentage of the rewards will be forfeited.": "Abhängig davon, wie früh du entsperrst, wird ein Prozentsatz deiner Belohnungen einbehalten.",
+      "A portion of the unlocked amount will be burned, decreasing the circulating supply.": "Ein Teil des entsperrten Betrags wird verbrannt, was das zirkulierende Angebot reduziert."
+    },
+    "faq8": {
+      "What are the penalties for early unlocking?": "Wie hoch sind die Strafen bei vorzeitiger Entsperrung?",
+      "Penalties vary based on how many weeks your funds were locked. For example:": "Die Strafen unterscheiden sich je nachdem, wie viele Wochen deine Gelder gesperrt waren. Zum Beispiel:",
+      "Unlocking after 4-7 weeks incurs a <0>5% reward penalty</0> and a <1>45% burn rate</1>.": "Eine Entsperrung nach 4-7 Wochen führt zu einer <0>5%igen Belohnungsstrafe</0> und einer <1>45%igen Verbrennungsrate</1>.",
+      "Unlocking after 36-39 weeks incurs a <0>40% reward penalty</0> and a <1>30% burn rate</1>.": "Eine Entsperrung nach 36-39 Wochen führt zu einer <0>40%igen Belohnungsstrafe</0> und einer <1>30%igen Verbrennungsrate</1>."
+    },
+    "faq9": {
+      "What happens if I keep my funds locked for the full period?": "Was passiert, wenn ich meine Gelder für die gesamte Dauer gesperrt lasse?",
+      "content": "Wenn du deine Gelder für volle 52 Wochen gesperrt hältst, erhältst du die maximalen Belohnungen und es fallen keine Strafen an."
+    },
+    "faq10": {
+      "How are rewards calculated?": "Wie werden die Belohnungen berechnet?",
+      "content": "Die Belohnungen werden basierend auf dem Gesamtbetrag, der gesperrt ist, und der Bonuszuweisung jeder Epoche berechnet."
+    },
+    "faq11": {
+      "Are bonuses fixed or variable?": "Sind Boni fest oder variabel?",
+      "content": "Die Boni sind variabel und hängen vom Bonuspool zu Beginn jeder Epoche ab. Nicht verwendete Boni werden am Ende einer Epoche verbrannt."
+    },
+    "faq12": {
+      "How can I connect wallet to this dapp?": "Wie kann ich meine Wallet mit dieser dApp verbinden?",
+      "There are 4 ways to connect wallet to this dapp, with varying levels of security:": "Es gibt 4 Möglichkeiten, deine Wallet mit dieser dApp zu verbinden, jeweils mit unterschiedlichem Sicherheitsniveau:",
+      "1. MetaMask Snap (Recommended)": "1. MetaMask Snap (Empfohlen)",
+      "The most secure way to connect. MetaMask Snap provides a sandboxed environment that never exposes your private keys. Simply install the MetaMask browser extension and the Qubic Snap to get started.": "Die sicherste Art der Verbindung. MetaMask Snap stellt eine isolierte Umgebung bereit, in der deine privaten Schlüssel niemals preisgegeben werden. Installiere einfach die MetaMask-Browsererweiterung und den Qubic Snap, um zu beginnen.",
+      "2. WalletConnect": "2. WalletConnect",
+      "A secure protocol that connects your mobile wallet to this dapp without exposing sensitive data. Scan the QR code with a WalletConnect-compatible wallet to establish an encrypted connection.": "Ein sicheres Protokoll, das deine mobile Wallet mit dieser dApp verbindet, ohne sensible Daten preiszugeben. Scanne den QR-Code mit einer WalletConnect-kompatiblen Wallet, um eine verschlüsselte Verbindung herzustellen.",
+      "⚠️ Security Warning": "⚠️ Sicherheitswarnung",
+      "The following connection methods require storing sensitive key data in the dapp. Only use these methods if you fully understand the risks.": "Die folgenden Verbindungsmethoden erfordern das Speichern sensibler Schlüssel in der dApp. Verwende sie nur, wenn du die Risiken vollumfänglich verstehst.",
+      "3. Vault File": "3. Vault-Datei",
+      "Connect using your encrypted Qubic vault file and password. While the vault is encrypted, the decrypted keys are stored in the dapp's memory. Always keep your vault file and password private.": "Verbinde dich mit deiner verschlüsselten Qubic-Vault-Datei und deinem Passwort. Obwohl die Datei verschlüsselt ist, werden die entschlüsselten Schlüssel im Speicher der dApp abgelegt. Halte deine Vault-Datei und dein Passwort stets geheim.",
+      "4. Private Key": "4. Privater Schlüssel",
+      "Direct private key entry should only be used as a last resort. Your private key grants complete control over your funds - never share it with anyone and only use this method on a secure, trusted device.": "Die direkte Eingabe des privaten Schlüssels sollte nur als letzte Option genutzt werden. Dein privater Schlüssel gewährt vollständige Kontrolle über deine Gelder – gib ihn niemals an Dritte weiter und nutze diese Methode nur auf einem sicheren, vertrauenswürdigen Gerät."
+    },
+    "faq13": {
+      "Need more help?": "Brauchst du weitere Hilfe?",
+      "content": "Um direkten Support von unserem Team und der Community zu erhalten, tritt unserer Qubic-Community bei und frage nach MrUnhappyX."
+    }
+  },
+  "error404": {
+    "Page Not Found": "Seite nicht gefunden",
+    "Go back to Home": "Zurück zur Startseite"
+  },
+  "dashboard": {
+    "Total Locked $QUBIC": "Gesamt gesperrtes $QUBIC",
+    "Locked Amounts per Epoch": "Gesperrte Beträge pro Epoche",
+    "Locked Amounts": "Gesperrte Beträge",
+    "Bonus Distribution": "Bonusverteilung",
+    "Boosted Bonus": "Erhöhter Bonus",
+    "Burned Bonus": "Verbrannter Bonus",
+    "Rewarded Bonus": "Ausgezahlter Bonus",
+    "Qearn Summarize": "Qearn Zusammenfassung",
+    "Total Locked Amount": "Gesamt gesperrter Betrag",
+    "Total Bonus Amount": "Gesamtbonusbetrag",
+    "Burned Amount": "Verbrannter Betrag",
+    "Boosted Amount": "Erhöhter Betrag",
+    "Rewarded Amount": "Ausgezahlter Betrag",
+    "Average Yield Percent": "Durchschnittliche Rendite (%)",
+    "Average Burned Percent": "Durchschnittlicher Verbrennungsanteil (%)",
+    "Average Boosted Percent": "Durchschnittlicher Erhöhungsanteil (%)",
+    "Qubic Richlist": "Qubic-Reichenliste",
+    "Distribution": "Verteilung",
+    "Others": "Andere",
+    "Qearn Overview": "Qearn Überblick",
+    "Total Lock Amount": "Gesamter Sperrbetrag",
+    "Total Burned Amount": "Gesamt verbrannter Betrag",
+    "Locked Amount": "Gesperrter Betrag",
+    "Bonus Amount": "Bonusbetrag",
+    "APY %": "APY %",
+    "Average APY": "Durchschnittliche APY",
+    "Burned": "Verbrannt",
+    "Boosted": "Erhöht",
+    "Rewarded": "Ausgezahlt"
+  },
+  "header": {
+    "Locking": "Locking",
+    "Dashboard": "Dashboard",
+    "FAQ": "FAQ",
+    "Light": "Hell",
+    "Dark": "Dunkel"
+  },
+  "footer": {
+    "Terms of service": "Nutzungsbedingungen",
+    "Privacy Policy": "Datenschutzrichtlinie",
+    "Network Status": "Netzwerkstatus",
+    "Version": "Version {{version}}"
+  },
+  "infoBanner": {
+    "Weekly Locking Closes in {{days}} d {{hours}} h {{minutes}} min": "Wöchentliche Sperrung endet in {{days}} T {{hours}} Std {{minutes}} Min",
+    "Current APY": "Aktueller APY"
+  },
+  "qearnForm": {
+    "Lock $QUBIC": "$QUBIC sperren",
+    "Lock Amount": "Sperrbetrag",
+    "Enter amount": "Betrag eingeben",
+    "Lock Funds": "Gelder sperren",
+    "All fields must be filled": "Alle Felder müssen ausgefüllt sein",
+    "Amount exceeds wallet balance": "Betrag übersteigt das Wallet-Guthaben",
+    "Amount must be at least 10M": "Betrag muss mindestens 10 Mio. sein",
+    "Target tick is not set": "Ziel-Tick ist nicht festgelegt",
+    "Something went wrong": "Etwas ist schiefgelaufen",
+    "Transaction sent, it will take some time to be confirmed and executed": "Transaktion gesendet. Es dauert eine Weile, bis sie bestätigt und ausgeführt wird.",
+    "Lock $QUBIC?": "$QUBIC sperren?",
+    "Are you sure you want to lock {{amount}}QUBIC?": "Bist du sicher, dass du {{amount}} QUBIC sperren möchtest?",
+    "You will be able to unlock it anytime.": "Du kannst es jederzeit entsperren.",
+    "Account": "Konto",
+    "Available": "Verfügbar"
+  },
+  "lockHistoryTable": {
+    "Epoch": "Epoche",
+    "Locked Amount": "Gesperrter Betrag",
+    "Total Locked Amount": "Insgesamt gesperrter Betrag",
+    "Current Bonus Amount": "Aktueller Bonusbetrag",
+    "Current Reward %": "Aktuelle Belohnung (%)",
+    "Full Reward %": "Volle Belohnung (%)",
+    "Actions": "Aktionen",
+    "Unlock Early": "Vorzeitig entsperren",
+    "No data available": "Keine Daten verfügbar"
+  },
+  "connect": {
+    "Install MetaMask": "MetaMask installieren",
+    "Connect": "Verbinden",
+    "Reconnect": "Erneut verbinden",
+    "Connected": "Verbunden",
+    "Connect Wallet": "Wallet verbinden",
+    "Disconnect Wallet": "Wallet trennen",
+    "MetaMask": "MetaMask",
+    "Wallet Connect": "WalletConnect",
+    "Private Seed": "Privater Seed",
+    "Vault File": "Vault-Datei",
+    "Enter password": "Passwort eingeben",
+    "Select an account": "Konto auswählen",
+    "Lock Wallet": "Wallet sperren",
+    "Select Account": "Konto auswählen",
+    "Cancel": "Abbrechen",
+    "Open in Qubic Wallet": "In Qubic Wallet öffnen",
+    "Connect your Qubic Wallet. You need to have Qubic Wallet installed and unlocked.": "Verbinde deine Qubic Wallet. Du benötigst eine installierte und entsperrte Qubic Wallet.",
+    "Your 55 character private key (seed):": "Dein 55 Zeichen langer privater Schlüssel (Seed):",
+    "Load your Qubic vault file:": "Lade deine Qubic-Vault-Datei:",
+    "Unlock": "Entsperren",
+    "Seed must be 55 characters long": "Der Seed muss 55 Zeichen lang sein",
+    "Seed must contain only lowercase letters": "Der Seed darf nur Kleinbuchstaben enthalten",
+    "Please select a file and enter a password.": "Bitte wähle eine Datei aus und gib ein Passwort ein.",
+    "Failed to unlock the vault. Please check your password and try again.": "Fehler beim Entsperren des Vaults. Bitte überprüfe dein Passwort und versuche es erneut.",
+    "Failed to read the file. Please try again.": "Fehler beim Lesen der Datei. Bitte versuche es erneut.",
+    "⚠️ BE CAREFUL!": "⚠️ SEI VORSICHTIG!",
+    "Your private key grants complete control over your funds - never share it with anyone and only use this method on a secure, trusted device.": "Dein privater Schlüssel gewährt vollständige Kontrolle über deine Gelder – gib ihn niemals weiter und nutze diese Methode nur auf einem sicheren, vertrauenswürdigen Gerät."
+  },
+  "modal": {
+    "Confirm": "Bestätigen",
+    "Cancel": "Abbrechen",
+    "Earned Rewards": "Verdiente Belohnungen",
+    "Unlock Early": "Vorzeitig entsperren",
+    "Locked Balance": "Gesperrtes Guthaben",
+    "Earning Ratio": "Verdienstverhältnis",
+    "Unlocks In": "Entsperrt in"
+  }
+}

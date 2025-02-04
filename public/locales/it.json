@@ -1,0 +1,213 @@
+{
+  "welcome": {
+    "Earn {{percentage}}% Rewards by Staking $QUBIC": "Guadagna il {{percentage}}% di ricompense facendo staking di $QUBIC",
+    "Connect your wallet to start locking": "Collega il tuo wallet per iniziare a bloccare",
+    "Start Locking": "Inizia a bloccare"
+  },
+  "common": {
+    "Connect": "Connetti",
+    "Disconnect": "Disconnetti",
+    "Settings": "Impostazioni",
+    "Dark Mode": "Modalità scura",
+    "Toggle dark mode theme": "Attiva/disattiva il tema scuro",
+    "Notifications": "Notifiche",
+    "Manage notification preferences": "Gestisci le preferenze di notifica",
+    "Language": "Lingua",
+    "Tick Offset": "Offset del tick",
+    "Current value: {{value}}": "Valore attuale: {{value}}"
+  },
+  "home": {
+    "Locking": "Blocco",
+    "Locking History": "Storico dei blocchi"
+  },
+  "faq": {
+    "Frequently Asked Questions": "Domande Frequenti",
+
+    "faq1": {
+      "What is Qearn?": "Che cos’è Qearn?",
+      "content": "Qearn è una piattaforma basata su smart contract che consente agli utenti di bloccare fondi per ricevere ricompense, offrendo allo stesso tempo opzioni di sblocco flessibili con penalità associate per lo sblocco anticipato. È progettata per incentivare la partecipazione a lungo termine, pur mantenendo la liquidità per gli utenti."
+    },
+    "faq2": {
+      "How does Qearn generate rewards?": "Come genera ricompense Qearn?",
+      "content": "Le ricompense in Qearn sono distribuite dal pool di bonus assegnato a ciascuna epoca. Queste ricompense vengono calcolate in base al totale dei fondi bloccati e all’allocazione dei bonus dell’epoca."
+    },
+    "faq3": {
+      "What is an epoch in Qearn?": "Che cos’è un’epoca (epoch) in Qearn?",
+      "content": "Un’epoca è un periodo di tempo durante il quale vengono gestite le operazioni di blocco e sblocco. In Qearn, le epoche sono settimanali e la durata del blocco e le ricompense di ogni utente vengono calcolate in questi intervalli."
+    },
+    "faq4": {
+      "What is the minimum amount required to lock funds?": "Qual è l’importo minimo richiesto per bloccare i fondi?",
+      "content": "L’importo minimo per il blocco è di 10.000.000 Qubic. Qualsiasi tentativo di bloccare meno di questa cifra risulterà in una transazione non riuscita."
+    },
+    "faq5": {
+      "Is there a maximum amount I can lock?": "Esiste un importo massimo che posso bloccare?",
+      "content": "Sì, l’importo massimo bloccabile per utente in una singola epoca è di 1.000.000.000.000 Qubic."
+    },
+    "faq6": {
+      "Can I lock funds multiple times in the same epoch?": "Posso bloccare i fondi più volte nella stessa epoca?",
+      "content": "Sì, puoi bloccare i fondi più volte nella stessa epoca. Gli importi verranno aggregati, a condizione che il totale non superi il limite massimo di blocco."
+    },
+    "faq7": {
+      "Can I unlock my funds early?": "Posso sbloccare i miei fondi in anticipo?",
+      "Yes, early unlocking is allowed but comes with penalties:": "Sì, lo sblocco anticipato è consentito, ma comporta delle penalità:",
+      "Reduced rewards:": "Ricompense ridotte:",
+      "Burned amount:": "Importo bruciato:",
+      "Depending on how early you unlock, a percentage of the rewards will be forfeited.": "A seconda di quanto presto sblocchi, una percentuale delle ricompense verrà persa.",
+      "A portion of the unlocked amount will be burned, decreasing the circulating supply.": "Una parte dell’importo sbloccato verrà bruciata, riducendo l’offerta in circolazione."
+    },
+    "faq8": {
+      "What are the penalties for early unlocking?": "Quali sono le penalità per lo sblocco anticipato?",
+      "Penalties vary based on how many weeks your funds were locked. For example:": "Le penalità variano in base a quante settimane i tuoi fondi sono stati bloccati. Ad esempio:",
+      "Unlocking after 4-7 weeks incurs a <0>5% reward penalty</0> and a <1>45% burn rate</1>.": "Lo sblocco dopo 4-7 settimane comporta una <0>penalità del 5% sulle ricompense</0> e un <1>tasso di bruciatura del 45%</1>.",
+      "Unlocking after 36-39 weeks incurs a <0>40% reward penalty</0> and a <1>30% burn rate</1>.": "Lo sblocco dopo 36-39 settimane comporta una <0>penalità del 40% sulle ricompense</0> e un <1>tasso di bruciatura del 30%</1>."
+    },
+    "faq9": {
+      "What happens if I keep my funds locked for the full period?": "Cosa succede se mantengo i miei fondi bloccati per l’intero periodo?",
+      "content": "Se mantieni i tuoi fondi bloccati per tutte le 52 settimane, riceverai le ricompense massime e non incorrerai in alcuna penalità."
+    },
+    "faq10": {
+      "How are rewards calculated?": "Come vengono calcolate le ricompense?",
+      "content": "Le ricompense vengono calcolate in base al totale dei fondi bloccati e all’allocazione del bonus per l’epoca."
+    },
+    "faq11": {
+      "Are bonuses fixed or variable?": "I bonus sono fissi o variabili?",
+      "content": "I bonus sono variabili e dipendono dai fondi disponibili nel pool di bonus all’inizio di ogni epoca. I bonus non utilizzati vengono bruciati alla fine dell’epoca."
+    },
+    "faq12": {
+      "How can I connect wallet to this dapp?": "Come posso connettere il wallet a questa dApp?",
+      "There are 4 ways to connect wallet to this dapp, with varying levels of security:": "Ci sono 4 modi per connettere il tuo wallet a questa dApp, con diversi livelli di sicurezza:",
+      "1. MetaMask Snap (Recommended)": "1. MetaMask Snap (Consigliato)",
+      "The most secure way to connect. MetaMask Snap provides a sandboxed environment that never exposes your private keys. Simply install the MetaMask browser extension and the Qubic Snap to get started.": "Il modo più sicuro per connettersi. MetaMask Snap fornisce un ambiente isolato che non espone mai le tue chiavi private. Installa semplicemente l’estensione MetaMask nel browser e Qubic Snap per iniziare.",
+      "2. WalletConnect": "2. WalletConnect",
+      "A secure protocol that connects your mobile wallet to this dapp without exposing sensitive data. Scan the QR code with a WalletConnect-compatible wallet to establish an encrypted connection.": "Un protocollo sicuro che connette il tuo wallet mobile a questa dApp senza esporre dati sensibili. Scansiona il codice QR con un wallet compatibile con WalletConnect per stabilire una connessione crittografata.",
+      "⚠️ Security Warning": "⚠️ Avviso di sicurezza",
+      "The following connection methods require storing sensitive key data in the dapp. Only use these methods if you fully understand the risks.": "I seguenti metodi di connessione richiedono di memorizzare dati di chiavi sensibili nella dApp. Usali solo se comprendi appieno i rischi.",
+      "3. Vault File": "3. File di vault",
+      "Connect using your encrypted Qubic vault file and password. While the vault is encrypted, the decrypted keys are stored in the dapp's memory. Always keep your vault file and password private.": "Connettiti usando il tuo file di vault Qubic crittografato e la tua password. Sebbene il vault sia crittografato, le chiavi decrittografate vengono memorizzate nella memoria della dApp. Mantieni sempre privati il tuo file di vault e la tua password.",
+      "4. Private Key": "4. Chiave privata",
+      "Direct private key entry should only be used as a last resort. Your private key grants complete control over your funds - never share it with anyone and only use this method on a secure, trusted device.": "L’inserimento diretto della chiave privata dovrebbe essere utilizzato solo come ultima risorsa. La tua chiave privata fornisce il controllo totale dei tuoi fondi: non condividerla mai con nessuno e utilizza questo metodo solo su un dispositivo sicuro e fidato."
+    },
+    "faq13": {
+      "Need more help?": "Hai bisogno di ulteriore aiuto?",
+      "content": "Per assistenza diretta dal nostro team e dalla community, unisciti alla community di Qubic e chiedi di MrUnhappyX."
+    }
+  },
+  "error404": {
+    "Page Not Found": "Pagina non trovata",
+    "Go back to Home": "Torna alla Home"
+  },
+  "dashboard": {
+    "Total Locked $QUBIC": "Totale $QUBIC bloccati",
+    "Locked Amounts per Epoch": "Importi bloccati per epoca",
+    "Locked Amounts": "Importi bloccati",
+    "Bonus Distribution": "Distribuzione dei bonus",
+    "Boosted Bonus": "Bonus incrementato",
+    "Burned Bonus": "Bonus bruciato",
+    "Rewarded Bonus": "Bonus assegnato",
+    "Qearn Summarize": "Riepilogo Qearn",
+    "Total Locked Amount": "Importo totale bloccato",
+    "Total Bonus Amount": "Importo totale dei bonus",
+    "Burned Amount": "Importo bruciato",
+    "Boosted Amount": "Importo incrementato",
+    "Rewarded Amount": "Importo delle ricompense",
+    "Average Yield Percent": "Rendimento medio (%)",
+    "Average Burned Percent": "Percentuale media bruciata",
+    "Average Boosted Percent": "Percentuale media di incremento",
+    "Qubic Richlist": "Classifica dei più ricchi in Qubic",
+    "Distribution": "Distribuzione",
+    "Others": "Altri",
+    "Qearn Overview": "Panoramica Qearn",
+    "Total Lock Amount": "Totale importo bloccato",
+    "Total Burned Amount": "Totale importo bruciato",
+    "Locked Amount": "Importo bloccato",
+    "Bonus Amount": "Importo del bonus",
+    "APY %": "APY %",
+    "Average APY": "APY medio",
+    "Burned": "Bruciato",
+    "Boosted": "Incrementato",
+    "Rewarded": "Assegnato"
+  },
+  "header": {
+    "Locking": "Blocco",
+    "Dashboard": "Dashboard",
+    "FAQ": "FAQ",
+    "Light": "Chiaro",
+    "Dark": "Scuro"
+  },
+  "footer": {
+    "Terms of service": "Termini di servizio",
+    "Privacy Policy": "Informativa sulla privacy",
+    "Network Status": "Stato della rete",
+    "Version": "Versione {{version}}"
+  },
+  "infoBanner": {
+    "Weekly Locking Closes in {{days}} d {{hours}} h {{minutes}} min": "Il blocco settimanale termina tra {{days}} g {{hours}} h {{minutes}} min",
+    "Current APY": "APY attuale"
+  },
+  "qearnForm": {
+    "Lock $QUBIC": "Blocca $QUBIC",
+    "Lock Amount": "Importo da bloccare",
+    "Enter amount": "Inserisci importo",
+    "Lock Funds": "Blocca fondi",
+    "All fields must be filled": "Tutti i campi devono essere compilati",
+    "Amount exceeds wallet balance": "L’importo supera il saldo del wallet",
+    "Amount must be at least 10M": "L’importo deve essere di almeno 10M",
+    "Target tick is not set": "Il tick di destinazione non è impostato",
+    "Something went wrong": "Qualcosa è andato storto",
+    "Transaction sent, it will take some time to be confirmed and executed": "Transazione inviata, ci vorrà del tempo per essere confermata ed eseguita",
+    "Lock $QUBIC?": "Bloccare $QUBIC?",
+    "Are you sure you want to lock {{amount}}QUBIC?": "Sei sicuro di voler bloccare {{amount}} QUBIC?",
+    "You will be able to unlock it anytime.": "Potrai sbloccarlo in qualsiasi momento.",
+    "Account": "Account",
+    "Available": "Disponibile"
+  },
+  "lockHistoryTable": {
+    "Epoch": "Epoca",
+    "Locked Amount": "Importo bloccato",
+    "Total Locked Amount": "Importo totale bloccato",
+    "Current Bonus Amount": "Bonus attuale",
+    "Current Reward %": "Percentuale di ricompensa attuale",
+    "Full Reward %": "Percentuale di ricompensa piena",
+    "Actions": "Azioni",
+    "Unlock Early": "Sblocco anticipato",
+    "No data available": "Nessun dato disponibile"
+  },
+  "connect": {
+    "Install MetaMask": "Installa MetaMask",
+    "Connect": "Connetti",
+    "Reconnect": "Riconnetti",
+    "Connected": "Connesso",
+    "Connect Wallet": "Connetti il wallet",
+    "Disconnect Wallet": "Disconnetti il wallet",
+    "MetaMask": "MetaMask",
+    "Wallet Connect": "WalletConnect",
+    "Private Seed": "Seed privato",
+    "Vault File": "File di vault",
+    "Enter password": "Inserisci password",
+    "Select an account": "Seleziona un account",
+    "Lock Wallet": "Blocca wallet",
+    "Select Account": "Seleziona account",
+    "Cancel": "Annulla",
+    "Open in Qubic Wallet": "Apri in Qubic Wallet",
+    "Connect your Qubic Wallet. You need to have Qubic Wallet installed and unlocked.": "Connetti la tua Qubic Wallet. Assicurati di averla installata e sbloccata.",
+    "Your 55 character private key (seed):": "La tua chiave privata (seed) di 55 caratteri:",
+    "Load your Qubic vault file:": "Carica il tuo file di vault di Qubic:",
+    "Unlock": "Sblocca",
+    "Seed must be 55 characters long": "Il seed deve essere lungo 55 caratteri",
+    "Seed must contain only lowercase letters": "Il seed deve contenere solo lettere minuscole",
+    "Please select a file and enter a password.": "Seleziona un file e inserisci una password.",
+    "Failed to unlock the vault. Please check your password and try again.": "Impossibile sbloccare il vault. Controlla la password e riprova.",
+    "Failed to read the file. Please try again.": "Impossibile leggere il file. Riprova.",
+    "⚠️ BE CAREFUL!": "⚠️ FAI ATTENZIONE!",
+    "Your private key grants complete control over your funds - never share it with anyone and only use this method on a secure, trusted device.": "La tua chiave privata ti garantisce il controllo totale sui tuoi fondi: non condividerla mai con nessuno e usa questo metodo solo su un dispositivo sicuro e affidabile."
+  },
+  "modal": {
+    "Confirm": "Conferma",
+    "Cancel": "Annulla",
+    "Earned Rewards": "Ricompense guadagnate",
+    "Unlock Early": "Sblocco anticipato",
+    "Locked Balance": "Saldo bloccato",
+    "Earning Ratio": "Rapporto di guadagno",
+    "Unlocks In": "Si sblocca tra"
+  }
+}

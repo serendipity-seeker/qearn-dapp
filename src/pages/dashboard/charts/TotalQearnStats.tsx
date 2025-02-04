@@ -14,6 +14,7 @@ import { MdArrowDownward, MdArrowUpward } from "react-icons/md";
 import { IBurnNBoostedStats } from "@/types";
 import { getBurnedAndBoostedStats } from "@/services/qearn.service";
 import { useTranslation } from "react-i18next";
+import i18n from "@/i18n";
 
 interface ITableData {
   epoch: number;
@@ -43,7 +44,7 @@ const TotalQearnStats: React.FC = () => {
   const columns = useMemo(
     () => [
       columnHelper.accessor("epoch", {
-        header: t("dashboard.Epoch"),
+        header: t("lockHistoryTable.Epoch"),
         cell: (info) => <span className="font-semibold">EP{info.getValue()}</span>,
         sortingFn: "basic",
       }),
@@ -109,7 +110,7 @@ const TotalQearnStats: React.FC = () => {
         sortingFn: "basic",
       }),
     ],
-    [],
+    [i18n.language],
   );
 
   const tableData = useMemo(

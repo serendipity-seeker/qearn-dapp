@@ -17,9 +17,13 @@ import { FaGlobe, FaChevronDown } from "react-icons/fa";
 
 const LANGUAGES = {
   en: "English",
+  de: "Deutsch",
+  es: "Español",
+  fr: "Français",
+  it: "Italiano",
+  ru: "Русский",
   zh: "中文",
   ja: "日本語",
-  es: "Español",
 };
 
 interface HeaderProps {
@@ -63,7 +67,7 @@ const Header: React.FC<HeaderProps> = () => {
       </Select.Trigger>
 
       <Select.Portal>
-        <Select.Content className="z-10 rounded-lg border border-card-border shadow-lg bg-background">
+        <Select.Content position="popper" className="z-10 rounded-lg border border-card-border bg-background shadow-lg">
           <Select.Viewport>
             {Object.entries(LANGUAGES).map(([code, lang]) => (
               <Select.Item
@@ -71,11 +75,7 @@ const Header: React.FC<HeaderProps> = () => {
                 value={code}
                 className="flex cursor-pointer items-center gap-2 px-4 py-2 outline-none"
               >
-                <Select.ItemText>
-                  <div className="flex items-center gap-2">
-                    <span>{lang}</span>
-                  </div>
-                </Select.ItemText>
+                <Select.ItemText>{lang}</Select.ItemText>
               </Select.Item>
             ))}
           </Select.Viewport>
