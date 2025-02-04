@@ -15,6 +15,7 @@ import AccountSelector from "./ui/AccountSelector";
 import { userLockInfoAtom } from "@/store/userLockInfo";
 import { useDisclosure } from "@/hooks/useDisclosure";
 import ConfirmModal from "./ui/ConfirmModal";
+import { useTranslation } from "react-i18next";
 
 const QearnForm: React.FC = () => {
   const [tickInfo] = useAtom(tickInfoAtom);
@@ -27,16 +28,17 @@ const QearnForm: React.FC = () => {
   const [, setPendingTx] = useAtom(pendingTxAtom);
   const [userLockInfo] = useAtom(userLockInfoAtom);
   const { open, onOpen, onClose } = useDisclosure();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (balances.length > 0) {
-      setAccounts([{ label: `Account 1`, value: balances[0].id }]);
+      setAccounts([{ label: t("qearnForm.Account") + " 1", value: balances[0].id }]);
     }
   }, [balances]);
 
   const validate = async (): Promise<boolean> => {
     if (!amount || !accounts[selectedAccount].value) {
-      toast.error("All fields must be filled");
+      toast.error(t("qearnForm.All fields must be filled"));
       return false;
     }
 
@@ -44,17 +46,17 @@ const QearnForm: React.FC = () => {
     const walletBalance = (await fetchBalance(accounts[selectedAccount].value)) || 0;
 
     if (amount > walletBalance.balance) {
-      toast.error("Amount exceeds wallet balance");
+      toast.error(t("qearnForm.Amount exceeds wallet balance"));
       return false;
     }
 
     if (amount < 10000000) {
-      toast.error("Amount must be at least 10M");
+      toast.error(t("qearnForm.Amount must be at least 10M"));
       return false;
     }
 
     if (!targetTick) {
-      toast.error("Target tick is not set");
+      toast.error(t("qearnForm.Target tick is not set"));
       return false;
     }
 
@@ -78,9 +80,9 @@ const QearnForm: React.FC = () => {
         targetTick: tickInfo?.tick + settings.tickOffset,
         type: "qearn",
       });
-      toast.success("Transaction sent, it will take some time to be confirmed and executed");
+      toast.success(t("qearnForm.Transaction sent, it will take some time to be confirmed and executed"));
     } catch (err) {
-      toast.error("Something went wrong");
+      toast.error(t("qearnForm.Something went wrong"));
     }
   };
 
@@ -91,7 +93,7 @@ const QearnForm: React.FC = () => {
   return (
     <Card className="w-[460px] p-8">
       <div className="space-y-6">
-        <h1 className="text-2xl">Lock $QUBIC</h1>
+        <h1 className="text-2xl">{t("qearnForm.Lock $QUBIC")}</h1>
 
         <div className="space-y-6">
           <div className="space-y-2">
@@ -102,12 +104,12 @@ const QearnForm: React.FC = () => {
               setSelected={setSelectedAccount}
             />
             <p className="flex justify-between px-4 text-sm text-gray-50">
-              <span className="text-primary font-bold">Available:</span>{" "}
+              <span className="text-primary font-bold">{t("qearnForm.Available")}:</span>{" "}
               <span className="text-primary font-bold">{balances[selectedAccount]?.balance || 0} QUBIC</span>
             </p>
           </div>
-          <InputNumbers id="amount" label="Lock Amount" placeholder="Enter amount" onChange={handleAmountChange} />
-          <Button label="Lock Funds" className="w-full py-4 text-lg font-semibold" variant="primary" onClick={onOpen} />
+          <InputNumbers id="amount" label={t("qearnForm.Lock Amount")} placeholder={t("qearnForm.Enter amount")} onChange={handleAmountChange} />
+          <Button label={t("qearnForm.Lock Funds")} className="w-full py-4 text-lg font-semibold" variant="primary" onClick={onOpen} />
         </div>
       </div>
 
@@ -115,13 +117,13 @@ const QearnForm: React.FC = () => {
         open={open}
         onClose={onClose}
         onConfirm={handleSubmit}
-        title="Lock $QUBIC?"
+        title={t("qearnForm.Lock $QUBIC?")}
         description={
           <div>
             <p>
-              Are you sure you want to lock <span className="text-white">{amount}</span>QUBIC?
+              {t("qearnForm.Are you sure you want to lock {{amount}}QUBIC?", { amount })}
             </p>
-            <p>You will be able to unlock it anytime.</p>
+            <p>{t("qearnForm.You will be able to unlock it anytime.")}</p>
           </div>
         }
       />

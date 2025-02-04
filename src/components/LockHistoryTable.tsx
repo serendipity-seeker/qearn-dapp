@@ -24,6 +24,7 @@ import { pendingTxAtom } from "@/store/pendingTx";
 import { settingsAtom } from "@/store/settings";
 import { useQubicConnect } from "./connect/QubicConnectContext";
 import UnlockModal from "./UnlockModal";
+import { useTranslation } from "react-i18next";
 
 interface ITableData {
   lockedEpoch: number;
@@ -48,43 +49,44 @@ const LockHistoryTable: React.FC = () => {
   const [settings] = useAtom(settingsAtom);
   const { getSignedTx } = useQubicConnect();
   const { open, onOpen, onClose } = useDisclosure();
+  const { t } = useTranslation();
 
   const columnHelper = createColumnHelper<ITableData>();
   const lockedColumns = [
     columnHelper.accessor("lockedEpoch", {
-      header: "Epoch",
+      header: t("lockHistoryTable.Epoch"),
       cell: (info: any) => info.getValue(),
     }),
     columnHelper.accessor("lockedAmount", {
-      header: "Locked Amount",
+      header: t("lockHistoryTable.Locked Amount"),
       cell: (info: any) => info.getValue().toLocaleString(),
     }),
     columnHelper.accessor("totalLockedAmountInEpoch", {
-      header: "Total Locked Amount",
+      header: t("lockHistoryTable.Total Locked Amount"),
       cell: (info: any) => info.getValue().toLocaleString(),
     }),
     columnHelper.accessor("currentBonusAmountInEpoch", {
-      header: "Current Bonus Amount",
+      header: t("lockHistoryTable.Current Bonus Amount"),
       cell: (info: any) => info.getValue().toLocaleString(),
     }),
     columnHelper.accessor("earlyUnlockReward", {
-      header: "Current Reward %",
+      header: t("lockHistoryTable.Current Reward %"),
       cell: (info: any) =>
         `${info.row.original.earlyUnlockReward.reward.toLocaleString()} / ${info.row.original.earlyUnlockReward.ratio.toFixed(2)}%`,
     }),
     columnHelper.accessor("fullUnlockReward", {
-      header: "Full Reward %",
+      header: t("lockHistoryTable.Full Reward %"),
       cell: (info: any) =>
         `${info.row.original.fullUnlockReward.reward.toLocaleString()} / ${info.row.original.fullUnlockReward.ratio.toFixed(2)}%`,
     }),
     columnHelper.display({
       id: "actions",
-      header: "Actions",
+      header: t("lockHistoryTable.Actions"),
       cell: (info: any) => (
         <Button
           className="bg-blue-500 px-4 py-2 transition-colors"
           variant="primary"
-          label="Unlock Early"
+          label={t("lockHistoryTable.Unlock Early")}
           onClick={() => {
             setSelectedIdx(info.row.index);
             onOpen();
@@ -214,7 +216,7 @@ const LockHistoryTable: React.FC = () => {
                 {table.getRowModel().rows.length === 0 ? (
                   <tr>
                     <td colSpan={8} className="py-8 text-center">
-                      No data available
+                      {t("lockHistoryTable.No data available")}
                     </td>
                   </tr>
                 ) : (

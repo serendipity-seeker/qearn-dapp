@@ -16,8 +16,13 @@
     "Tick Offset": "Tick Offset",
     "Current value: {{value}}": "Current value: {{value}}"
   },
+  "home": {
+    "Locking": "Locking",
+    "Locking History": "Locking History"
+  },
   "faq": {
     "Frequently Asked Questions": "Frequently Asked Questions",
+
     "faq1": {
       "What is Qearn?": "What is Qearn?",
       "content": "Qearn is a smart contract-based platform that allows users to lock funds for rewards while offering flexible unlocking options with associated penalties for early unlocking. It’s designed to incentivize long-term participation while maintaining liquidity for users."
@@ -87,5 +92,85 @@
       "Need more help?": "Need more help?",
       "content": "For direct support from our team and community members, please join our Qubic community, ask to MrUnhappyX."
     }
+  },
+  "error404": {
+    "Page Not Found": "Page Not Found",
+    "Go back to Home": "Go back to Home"
+  },
+  "dashboard": {
+    "Total Locked $QUBIC": "Total Locked $QUBIC",
+    "Locked Amounts per Epoch": "Locked Amounts per Epoch",
+    "Locked Amounts": "Locked Amounts",
+    "Bonus Distribution": "Bonus Distribution",
+    "Boosted Bonus": "Boosted Bonus",
+    "Burned Bonus": "Burned Bonus",
+    "Rewarded Bonus": "Rewarded Bonus",
+    "Qearn Summarize": "Qearn Summarize",
+    "Total Locked Amount": "Total Locked Amount",
+    "Total Bonus Amount": "Total Bonus Amount",
+    "Burned Amount": "Burned Amount",
+    "Boosted Amount": "Boosted Amount",
+    "Rewarded Amount": "Rewarded Amount",
+    "Average Yield Percent": "Average Yield Percent",
+    "Average Burned Percent": "Average Burned Percent",
+    "Average Boosted Percent": "Average Boosted Percent",
+    "Qubic Richlist": "Qubic Richlist",
+    "Distribution": "Distribution",
+    "Others": "Others",
+    "Qearn Overview": "Qearn Overview",
+    "Total Lock Amount": "Total Lock Amount",
+    "Total Burned Amount": "Total Burned Amount",
+    "Locked Amount": "Locked Amount",
+    "Bonus Amount": "Bonus Amount",
+    "APY %": "APY %",
+    "Average APY": "Average APY",
+    "Burned": "Burned",
+    "Boosted": "Boosted",
+    "Rewarded": "Rewarded"
+  },
+  "header": {
+    "Locking": "Locking",
+    "Dashboard": "Dashboard",
+    "FAQ": "FAQ",
+    "Light": "Light",
+    "Dark": "Dark"
+  },
+  "footer": {
+    "Terms of service": "Terms of service",
+    "Privacy Policy": "Privacy Policy",
+    "Network Status": "Network Status",
+    "Version": "Version {{version}}"
+  },
+  "infoBanner": {
+    "Weekly Locking Closes in {{days}} d {{hours}} h {{minutes}} min": "Weekly Locking Closes in {{days}} d {{hours}} h {{minutes}} min",
+    "Current APY": "Current APY"
+  },
+  "qearnForm": {
+    "Lock $QUBIC": "Lock $QUBIC",
+    "Lock Amount": "Lock Amount",
+    "Enter amount": "Enter amount",
+    "Lock Funds": "Lock Funds",
+    "All fields must be filled": "All fields must be filled",
+    "Amount exceeds wallet balance": "Amount exceeds wallet balance",
+    "Amount must be at least 10M": "Amount must be at least 10M",
+    "Target tick is not set": "Target tick is not set",
+    "Something went wrong": "Something went wrong",
+    "Transaction sent, it will take some time to be confirmed and executed": "Transaction sent, it will take some time to be confirmed and executed",
+    "Lock $QUBIC?": "Lock $QUBIC?",
+    "Are you sure you want to lock {{amount}}QUBIC?": "Are you sure you want to lock {{amount}}QUBIC?",
+    "You will be able to unlock it anytime.": "You will be able to unlock it anytime.",
+    "Account": "Account",
+    "Available": "Available"
+  },
+  "lockHistoryTable": {
+    "Epoch": "Epoch",
+    "Locked Amount": "Locked Amount",
+    "Total Locked Amount": "Total Locked Amount",
+    "Current Bonus Amount": "Current Bonus Amount",
+    "Current Reward %": "Current Reward %",
+    "Full Reward %": "Full Reward %",
+    "Actions": "Actions",
+    "Unlock Early": "Unlock Early",
+    "No data available": "No data available"
   }
-} 
+}

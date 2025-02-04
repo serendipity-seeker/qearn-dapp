@@ -9,10 +9,12 @@ import { useAtom } from "jotai";
 import { qearnStatsAtom } from "@/store/qearnStat";
 import { dark, light } from "@/data/chart-theme";
 import { settingsAtom } from "@/store/settings";
+import { useTranslation } from "react-i18next";
 
 const TVL: React.FC = () => {
   const [qearnStats] = useAtom(qearnStatsAtom);
   const [settings] = useAtom(settingsAtom);
+  const { t } = useTranslation();
 
   const data = Object.entries(qearnStats)
     .filter(([epoch]) => Number(epoch))
@@ -23,8 +25,8 @@ const TVL: React.FC = () => {
 
   const option: EChartsOption = {
     title: {
-      text: "Total Locked $QUBIC",
-      subtext: "Locked Amounts per Epoch",
+      text: t("dashboard.Total Locked $QUBIC"),
+      subtext: t("dashboard.Locked Amounts per Epoch"),
       left: "center",
     },
     tooltip: {
@@ -37,7 +39,7 @@ const TVL: React.FC = () => {
     },
     series: [
       {
-        name: "Locked Amounts",
+        name: t("dashboard.Locked Amounts"),
         type: "pie",
         radius: "50%",
         data,

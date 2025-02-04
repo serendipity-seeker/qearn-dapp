@@ -12,11 +12,13 @@ import { fetchRichList } from "@/services/rpc.service";
 import { LABELS } from "@/data/labels";
 import { dark, light } from "@/data/chart-theme";
 import { settingsAtom } from "@/store/settings";
+import { useTranslation } from "react-i18next";
 
 const Richlist: React.FC = () => {
   const [richlist, setRichlist] = useState<{ identity: string; balance: number }[]>([]);
   const latestStats = useAtomValue(latestStatsAtom);
   const [settings] = useAtom(settingsAtom);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!latestStats) return;
@@ -27,7 +29,7 @@ const Richlist: React.FC = () => {
       }));
       const totalAmount = entries.reduce((acc, curr) => acc + curr.balance, 0);
       entries.push({
-        identity: "Others",
+        identity: t("dashboard.Others"),
         balance: Number(latestStats.circulatingSupply) - totalAmount,
       });
       setRichlist(entries);
@@ -36,7 +38,7 @@ const Richlist: React.FC = () => {
 
   const option: EChartsOption = {
     title: {
-      text: "Qubic Richlist",
+      text: t("dashboard.Qubic Richlist"),
       left: "center",
       textAlign: "center",
     },
@@ -46,7 +48,7 @@ const Richlist: React.FC = () => {
     },
     series: [
       {
-        name: "Distribution",
+        name: t("dashboard.Distribution"),
         type: "pie",
         radius: "60%",
         center: ["40%", "50%"],

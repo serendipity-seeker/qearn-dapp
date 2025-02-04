@@ -11,6 +11,7 @@ import darkLogo from "@/assets/qearn-dark.svg";
 import { useAtom } from "jotai";
 import { settingsAtom } from "@/store/settings";
 import { MdLightMode, MdDarkMode } from "react-icons/md";
+import { useTranslation } from "react-i18next";
 
 interface HeaderProps {
   logo?: string;
@@ -20,6 +21,8 @@ const Header: React.FC<HeaderProps> = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
   const [settings, setSettings] = useAtom(settingsAtom);
+  const { t } = useTranslation();
+
   const isActiveRoute = (path: string) => {
     return location.pathname === path;
   };
@@ -50,9 +53,9 @@ const Header: React.FC<HeaderProps> = () => {
           <NavigationMenu.Root>
             <NavigationMenu.List className="flex items-center gap-8">
               {[
-                { path: "/home", label: "Locking" },
-                { path: "/dashboard", label: "Dashboard" },
-                { path: "/faq", label: "FAQ" },
+                { path: "/home", label: t("header.Locking") },
+                { path: "/dashboard", label: t("header.Dashboard") },
+                { path: "/faq", label: t("header.FAQ") },
                 // { path: '/helpers', label: 'Helpers' },
               ].map(({ path, label }) => (
                 <NavigationMenu.Item key={path}>
@@ -155,12 +158,12 @@ const Header: React.FC<HeaderProps> = () => {
                   {settings.darkMode ? (
                     <div className="flex items-center gap-2">
                       <MdLightMode size={20} />
-                      <span>Light</span>
+                      <span>{t("header.Light")}</span>
                     </div>
                   ) : (
                     <div className="flex items-center gap-2">
                       <MdDarkMode size={20} />
-                      <span>Dark</span>
+                      <span>{t("header.Dark")}</span>
                     </div>
                   )}
                 </motion.button>

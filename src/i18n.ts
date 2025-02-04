@@ -12,7 +12,7 @@ i18n
     supportedLngs: ["en", "es", "zh"],
     defaultNS: "translation",
     fallbackNS: "translation",
-    lng: "zh",
+    lng: "en",
     detection: {
       order: ["localStorage", "navigator"],
       caches: ["localStorage"],

@@ -13,6 +13,7 @@ import { useState, useMemo, useEffect } from "react";
 import { MdArrowDownward, MdArrowUpward } from "react-icons/md";
 import { IBurnNBoostedStats } from "@/types";
 import { getBurnedAndBoostedStats } from "@/services/qearn.service";
+import { useTranslation } from "react-i18next";
 
 interface ITableData {
   epoch: number;
@@ -31,6 +32,7 @@ const TotalQearnStats: React.FC = () => {
   const [qearnStats] = useAtom(qearnStatsAtom);
   const [sorting, setSorting] = useState<SortingState>([{ id: "epoch", desc: true }]);
   const [burnNBoostedStats, setBurnNBoostedStats] = useState<IBurnNBoostedStats>({} as IBurnNBoostedStats);
+  const { t } = useTranslation();
 
   useEffect(() => {
     getBurnedAndBoostedStats().then((stats) => setBurnNBoostedStats(stats));
@@ -41,12 +43,12 @@ const TotalQearnStats: React.FC = () => {
   const columns = useMemo(
     () => [
       columnHelper.accessor("epoch", {
-        header: "Epoch",
+        header: t("dashboard.Epoch"),
         cell: (info) => <span className="font-semibold">EP{info.getValue()}</span>,
         sortingFn: "basic",
       }),
       columnHelper.accessor("lockedAmount", {
-        header: "Locked Amount",
+        header: t("dashboard.Locked Amount"),
         cell: (info) => (
           <span className="font-medium text-emerald-500 dark:text-emerald-400">
             {info.getValue()?.toLocaleString()}
@@ -55,14 +57,14 @@ const TotalQearnStats: React.FC = () => {
         sortingFn: "basic",
       }),
       columnHelper.accessor("bonusAmount", {
-        header: "Bonus Amount",
+        header: t("dashboard.Bonus Amount"),
         cell: (info) => (
           <span className="font-medium text-blue-500 dark:text-blue-400">{info.getValue()?.toLocaleString()}</span>
         ),
         sortingFn: "basic",
       }),
       columnHelper.accessor("yieldPercentage", {
-        header: "APY %",
+        header: t("dashboard.APY %"),
         cell: (info) => (
           <span className="font-medium text-yellow-500 dark:text-yellow-400">
             {(info.getValue() / 100000).toFixed(2)}%
@@ -71,7 +73,7 @@ const TotalQearnStats: React.FC = () => {
         sortingFn: "basic",
       }),
       columnHelper.accessor("burnedAmount", {
-        header: "Burned",
+        header: t("dashboard.Burned"),
         cell: (info) => (
           <div className="flex flex-col">
             <span className="font-medium text-red-500 dark:text-red-400">{info.getValue()?.toLocaleString()}</span>
@@ -81,7 +83,7 @@ const TotalQearnStats: React.FC = () => {
         sortingFn: "basic",
       }),
       columnHelper.accessor("boostedAmount", {
-        header: "Boosted",
+        header: t("dashboard.Boosted"),
         cell: (info) => (
           <div className="flex flex-col">
             <span className="font-medium text-purple-500 dark:text-purple-400">
@@ -93,7 +95,7 @@ const TotalQearnStats: React.FC = () => {
         sortingFn: "basic",
       }),
       columnHelper.accessor("rewardedAmount", {
-        header: "Rewarded",
+        header: t("dashboard.Rewarded"),
         cell: (info) => (
           <div className="flex flex-col">
             <span className="font-medium text-orange-500 dark:text-orange-400">
@@ -146,24 +148,24 @@ const TotalQearnStats: React.FC = () => {
     <Card className="space-y-8 overflow-hidden p-8 backdrop-blur-sm">
       <div className="space-y-6">
         <h1 className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-center text-4xl font-bold text-transparent">
-          Qearn Overview
+          {t("dashboard.Qearn Overview")}
         </h1>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           <Card className="space-y-2 p-4">
-            <p className="text-sm text-foreground">Total Lock Amount</p>
+            <p className="text-sm text-foreground">{t("dashboard.Total Lock Amount")}</p>
             <p className="text-2xl font-bold text-emerald-500 dark:text-emerald-400">
               {(qearnStats.totalLockAmount + qearnStats.totalBonusAmount)?.toLocaleString() || 0}
             </p>
           </Card>
           <Card className="space-y-2 p-4">
-            <p className="text-sm text-foreground">Total Burned Amount</p>
+            <p className="text-sm text-foreground">{t("dashboard.Total Burned Amount")}</p>
             <p className="text-2xl font-bold text-red-500 dark:text-red-400">
               {burnNBoostedStats.burnedAmount?.toLocaleString() || 0}
             </p>
           </Card>
           <Card className="space-y-2 p-4">
-            <p className="text-sm text-foreground">Average APY</p>
+            <p className="text-sm text-foreground">{t("dashboard.Average APY")}</p>
             <p className="text-2xl font-bold text-yellow-500 dark:text-yellow-400">
               {(qearnStats.averageYieldPercentage / 100000).toFixed(2) || 0}%
             </p>
