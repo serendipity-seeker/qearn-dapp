@@ -5,15 +5,15 @@
     "Start Locking": "Start Locking"
   },
   "common": {
-    "connect": "Connect",
-    "disconnect": "Disconnect",
-    "settings": "Settings",
-    "darkMode": "Dark Mode",
-    "darkModeDesc": "Toggle dark mode theme",
-    "notifications": "Notifications",
-    "notificationsDesc": "Manage notification preferences",
-    "language": "Language",
-    "tickOffset": "Tick Offset",
-    "currentValue": "Current value: {{value}}"
+    "Connect": "Connect",
+    "Disconnect": "Disconnect",
+    "Settings": "Settings",
+    "Dark Mode": "Dark Mode",
+    "Toggle dark mode theme": "Toggle dark mode theme",
+    "Notifications": "Notifications",
+    "Manage notification preferences": "Manage notification preferences",
+    "Language": "Language",
+    "Tick Offset": "Tick Offset",
+    "Current value: {{value}}": "Current value: {{value}}"
   }
 } 

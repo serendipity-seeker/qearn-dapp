@@ -21,13 +21,13 @@ const Settings: React.FC = () => {
   return (
     <Card className="max-w-lg p-6">
       <div className="space-y-4">
-        <h1 className="text-center text-3xl">{t("common.settings")}</h1>
+        <h1 className="text-center text-3xl">{t("common.Settings")}</h1>
 
         <div className="space-y-6">
           <div className="flex items-center justify-between">
             <div className="space-y-2">
-              <h3 className="text-lg font-medium">{t("common.tickOffset")}</h3>
-              <p className="text-sm">{t("common.currentValue", { value: tickOffset })}</p>
+              <h3 className="text-lg font-medium">{t("common.Tick Offset")}</h3>
+              <p className="text-sm">{t("common.Current value: {{value}}", { value: tickOffset })}</p>
             </div>
             <input
               type="range"
@@ -46,8 +46,8 @@ const Settings: React.FC = () => {
                 <>
                   <div className="flex items-center justify-between">
                     <div className="space-y-2">
-                      <h3 className="text-lg font-medium">{t("common.darkMode")}</h3>
-                      <p className="text-sm">{t("common.darkModeDesc")}</p>
+                      <h3 className="text-lg font-medium">{t("common.Dark Mode")}</h3>
+                      <p className="text-sm">{t("common.Toggle dark mode theme")}</p>
                     </div>
                     <Switch
                       checked={darkMode}
@@ -69,8 +69,8 @@ const Settings: React.FC = () => {
                 <>
                   <div className="flex items-center justify-between">
                     <div className="space-y-2">
-                      <h3 className="text-lg font-medium">{t("common.notifications")}</h3>
-                      <p className="text-sm">{t("common.notificationsDesc")}</p>
+                      <h3 className="text-lg font-medium">{t("common.Notifications")}</h3>
+                      <p className="text-sm">{t("common.Manage notification preferences")}</p>
                     </div>
                     <Switch
                       checked={notifications}
@@ -89,7 +89,7 @@ const Settings: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-4">
-            <span>{t("common.language")}</span>
+            <span>{t("common.Language")}</span>
             <LanguageSelector />
           </div>
         </div>
