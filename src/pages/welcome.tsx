@@ -5,15 +5,19 @@ import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 const Welcome: React.FC = () => {
   const [qearnStats] = useAtom(qearnStatsAtom);
   const [tickInfo] = useAtom(tickInfoAtom);
   const [currentEpoch, setCurrentEpoch] = useState<number>();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!currentEpoch && tickInfo?.epoch) setCurrentEpoch(tickInfo?.epoch);
   }, [tickInfo]);
+
+  const percentage = (qearnStats[tickInfo?.epoch]?.yieldPercentage / 100000 || 0).toFixed(2);
 
   return (
     <motion.div
@@ -34,11 +38,7 @@ const Welcome: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          Earn{" "}
-          <span className="text-primary-40">
-            {(qearnStats[tickInfo?.epoch]?.yieldPercentage / 100000 || 0).toFixed(2)}%
-          </span>{" "}
-          Rewards by Staking $QUBIC
+          {t("welcome.Earn {{percentage}}% Rewards by Staking $QUBIC", { percentage })}
         </motion.h2>
         <motion.h5
           className="mt-4 max-w-[748px] text-center text-xl text-gray-50 md:text-2xl"
@@ -46,7 +46,7 @@ const Welcome: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.6 }}
         >
-          Connect your wallet to start locking
+          {t("welcome.Connect your wallet to start locking")}
         </motion.h5>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -55,7 +55,7 @@ const Welcome: React.FC = () => {
           className="flex w-full justify-center"
         >
           <Link to="/home">
-            <Button variant="primary" className="min-w-[240px]" label="Start Locking" />
+            <Button variant="primary" className="min-w-[240px]" label={t("welcome.Start Locking")} />
           </Link>
         </motion.div>
       </motion.div>

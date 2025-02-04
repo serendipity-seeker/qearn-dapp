@@ -1,0 +1,19 @@
+{
+  "welcome": {
+    "Earn {{percentage}}% Rewards by Staking $QUBIC": "Gana {{percentage}}% de recompensas haciendo Staking de $QUBIC",
+    "Connect your wallet to start lockin": "Conecta tu billetera para comenzar a bloquear",
+    "Start Locking": "Comenzar a Bloquear"
+  },
+  "common": {
+    "connect": "Conectar",
+    "disconnect": "Desconectar",
+    "settings": "Configuración",
+    "darkMode": "Modo Oscuro",
+    "darkModeDesc": "Cambiar al tema oscuro",
+    "notifications": "Notificaciones",
+    "notificationsDesc": "Administrar preferencias de notificaciones",
+    "language": "Idioma",
+    "tickOffset": "Desplazamiento de Tick",
+    "currentValue": "Valor actual: {{value}}"
+  }
+} 
