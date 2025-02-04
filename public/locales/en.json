@@ -172,5 +172,43 @@
     "Actions": "Actions",
     "Unlock Early": "Unlock Early",
     "No data available": "No data available"
+  },
+  "connect": {
+    "Install MetaMask": "Install MetaMask",
+    "Connect": "Connect",
+    "Reconnect": "Reconnect",
+    "Connected": "Connected",
+    "Connect Wallet": "Connect Wallet",
+    "Disconnect Wallet": "Disconnect Wallet",
+    "MetaMask": "MetaMask",
+    "Wallet Connect": "Wallet Connect",
+    "Private Seed": "Private Seed",
+    "Vault File": "Vault File",
+    "Enter password": "Enter password",
+    "Select an account": "Select an account",
+    "Lock Wallet": "Lock Wallet",
+    "Select Account": "Select Account",
+    "Cancel": "Cancel",
+    "Open in Qubic Wallet": "Open in Qubic Wallet",
+    "Connect your Qubic Wallet. You need to have Qubic Wallet installed and unlocked.": "Connect your Qubic Wallet. You need to have Qubic Wallet installed and unlocked.",
+    "Your 55 character private key (seed):": "Your 55 character private key (seed):",
+    "Load your Qubic vault file:": "Load your Qubic vault file:",
+    "Unlock": "Unlock",
+    "Seed must be 55 characters long": "Seed must be 55 characters long",
+    "Seed must contain only lowercase letters": "Seed must contain only lowercase letters",
+    "Please select a file and enter a password.": "Please select a file and enter a password.",
+    "Failed to unlock the vault. Please check your password and try again.": "Failed to unlock the vault. Please check your password and try again.",
+    "Failed to read the file. Please try again.": "Failed to read the file. Please try again.",
+    "⚠️ BE CAREFUL!": "⚠️ BE CAREFUL!",
+    "Your private key grants complete control over your funds - never share it with anyone and only use this method on a secure, trusted device.": "Your private key grants complete control over your funds - never share it with anyone and only use this method on a secure, trusted device."
+  },
+  "modal": {
+    "Confirm": "Confirm",
+    "Cancel": "Cancel",
+    "Earned Rewards": "Earned Rewards",
+    "Unlock Early": "Unlock Early",
+    "Locked Balance": "Locked Balance",
+    "Earning Ratio": "Earning Ratio",
+    "Unlocks In": "Unlocks In"
   }
 }

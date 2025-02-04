@@ -16,6 +16,7 @@ import MetaMaskLogo from "@/assets/metamask.svg";
 import { useWalletConnect } from "./WalletConnectContext.tsx";
 import { generateQRCode } from "@/utils/index.ts";
 import WalletConnectLogo from "@/assets/wallet-connect.svg";
+import { useTranslation } from "react-i18next";
 
 export enum MetamaskActions {
   SetInstalled = "SetInstalled",
@@ -26,6 +27,8 @@ export enum MetamaskActions {
 
 const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () => void; darkMode?: boolean }) => {
   const [state, dispatch] = useContext(MetaMaskContext);
+  const { t } = useTranslation();
+  
   const [selectedMode, setSelectedMode] = useState("none");
   // Private seed handling
   const [privateSeed, setPrivateSeed] = useState("");
@@ -123,10 +126,10 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
   // check if input is valid seed (55 chars and only lowercase letters)
   const privateKeyValidate = (pk: string) => {
     if (pk.length !== 55) {
-      setErrorMsgPrivateSeed("Seed must be 55 characters long");
+      setErrorMsgPrivateSeed(t("connect.Seed must be 55 characters long"));
     }
     if (pk.match(/[^a-z]/)) {
-      setErrorMsgPrivateSeed("Seed must contain only lowercase letters");
+      setErrorMsgPrivateSeed(t("connect.Seed must contain only lowercase letters"));
     }
     if (pk.length === 55 && !pk.match(/[^a-z]/)) {
       setErrorMsgPrivateSeed("");
@@ -139,7 +142,7 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
    */
   const vaultFileConnect = async () => {
     if (!selectedFile || !password) {
-      alert("Please select a file and enter a password.");
+      alert(t("connect.Please select a file and enter a password."));
       return;
     }
 
@@ -159,7 +162,7 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
         setSelectedMode("account-select");
       } catch (error) {
         console.error("Error unlocking vault:", error);
-        alert("Failed to unlock the vault. Please check your password and try again.");
+        alert(t("connect.Failed to unlock the vault. Please check your password and try again."));
       }
     };
 
@@ -200,7 +203,7 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
           }}
         >
           <Card
-            className="relative m-auto flex w-full max-w-md flex-col p-8"
+            className="relative m-auto flex w-full max-w-md flex-col p-8 bg-background text-foreground"
             onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between">
@@ -212,7 +215,7 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
               <div className="mt-4 flex flex-col gap-4">
                 {connected && (
                   <button className="mt-4 rounded-lg bg-primary-40 p-4 text-black" onClick={() => disconnect()}>
-                    Disconnect Wallet
+                    {t("connect.Disconnect Wallet")}
                   </button>
                 )}
                 {!connected && (
@@ -222,7 +225,7 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
                       onClick={() => setSelectedMode("metamask")}
                     >
                       <img src={MetaMaskLogo} alt="MetaMask Logo" className="h-8 w-8" />
-                      <span className="w-32">MetaMask</span>
+                      <span className="w-32">{t("connect.MetaMask")}</span>
                     </button>
                     <button
                       className="disabled:bg-gray-40 flex items-center justify-center gap-3 rounded-lg bg-primary-40 p-2 text-black"
@@ -232,24 +235,24 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
                       }}
                     >
                       <img src={WalletConnectLogo} alt="Wallet Connect Logo" className="h-8 w-8" />
-                      <span className="w-32">Wallet Connect</span>
+                      <span className="w-32">{t("connect.Wallet Connect")}</span>
                     </button>
                     <div className="my-4 flex w-full items-center justify-center">
                       <div className="flex-grow border-t border-gray-300"></div>
-                      <span className="text-red text- px-4">⚠️ BE CAREFUL!</span>
+                      <span className="text-red px-4">{t("connect.⚠️ BE CAREFUL!")}</span>
                       <div className="flex-grow border-t border-gray-300"></div>
                     </div>
                     <button
                       className="rounded-lg bg-primary-40 p-3 text-black"
                       onClick={() => setSelectedMode("private-seed")}
                     >
-                      Private Seed
+                      {t("connect.Private Seed")}
                     </button>
                     <button
                       className="rounded-lg bg-primary-40 p-3 text-black"
                       onClick={() => setSelectedMode("vault-file")}
                     >
-                      Vault File
+                      {t("connect.Vault File")}
                     </button>
                   </>
                 )}
@@ -257,11 +260,11 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
             )}
 
             {selectedMode === "private-seed" && (
-              <div className="mt-4 text-white">
-                Your 55 character private key (seed):
+              <div className="mt-4">
+                {t("connect.Your 55 character private key (seed):")}
                 <input
                   type="text"
-                  className="mt-4 w-full rounded-lg bg-gray-50 p-4"
+                  className="mt-4 w-full rounded-lg border-2 border-gray-300 bg-background p-4 text-foreground"
                   value={privateSeed}
                   onChange={(e) => privateKeyValidate(e.target.value)}
                 />
@@ -271,23 +274,23 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
                     className="mt-4 rounded-lg bg-primary-40 p-4 text-black"
                     onClick={() => setSelectedMode("none")}
                   >
-                    Cancel
+                    {t("connect.Cancel")}
                   </button>
                   <button className="mt-4 rounded-lg bg-primary-40 p-4 text-black" onClick={() => privateKeyConnect()}>
-                    Unlock
+                    {t("connect.Unlock")}
                   </button>
                 </div>
               </div>
             )}
 
             {selectedMode === "vault-file" && (
-              <div className="mt-4 text-white">
-                Load your Qubic vault file:
-                <input type="file" className="mt-4 w-full rounded-lg bg-gray-50 p-4" onChange={handleFileChange} />
+              <div className="mt-4">
+                {t("connect.Load your Qubic vault file:")}
+                <input type="file" className="mt-4 w-full rounded-lg p-4 border-2 border-gray-300 bg-background text-foreground" onChange={handleFileChange} />
                 <input
                   type="password"
-                  className="mt-4 w-full rounded-lg bg-gray-50 p-4"
-                  placeholder="Enter password"
+                  className="mt-4 w-full rounded-lg p-4 border-2 border-gray-300 bg-background text-foreground"
+                  placeholder={t("connect.Enter password")}
                   onChange={handlePasswordChange}
                 />
                 <div className="mt-4 grid grid-cols-2 gap-4">
@@ -295,10 +298,10 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
                     className="mt-4 rounded-lg bg-primary-40 p-4 text-black"
                     onClick={() => setSelectedMode("none")}
                   >
-                    Cancel
+                    {t("connect.Cancel")}
                   </button>
                   <button className="mt-4 rounded-lg bg-primary-40 p-4 text-black" onClick={() => vaultFileConnect()}>
-                    Unlock
+                    {t("connect.Unlock")}
                   </button>
                 </div>
               </div>
@@ -306,9 +309,9 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
 
             {selectedMode === "account-select" && (
               <div className="mt-4 text-[rgba(128,139,155,1)]">
-                Select an account:
+                {t("connect.Select an account:")}
                 <select
-                  className="mt-4 w-full rounded-lg bg-gray-50 p-4"
+                  className="mt-4 w-full rounded-lg p-4"
                   value={selectedAccount}
                   onChange={(e) => setSelectedAccount(Number(e.target.value))}
                 >
@@ -326,10 +329,10 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
                       setSelectedMode("none");
                     }}
                   >
-                    Lock Wallet
+                    {t("connect.Lock Wallet")}
                   </button>
                   <button className="mt-4 rounded-lg bg-primary-40 p-4 text-black" onClick={() => selectAccount()}>
-                    Select Account
+                    {t("connect.Select Account")}
                   </button>
                 </div>
               </div>
@@ -344,7 +347,7 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
                     className="rounded-lg bg-[rgba(26,222,245,0.1)] p-3 text-primary-40"
                     onClick={() => setSelectedMode("none")}
                   >
-                    Cancel
+                    {t("connect.Cancel")}
                   </button>
                 </div>
               </div>
@@ -352,20 +355,20 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
 
             {selectedMode === "walletconnect" && (
               <div className="mt-4 text-[rgba(128,139,155,1)]">
-                Connect your Qubic Wallet. You need to have Qubic Wallet installed and unlocked.
+                {t("connect.Connect your Qubic Wallet. You need to have Qubic Wallet installed and unlocked.")}
                 <div className="mt-5 flex flex-col gap-2">
                   <img src={qrCode} alt="Wallet Connect QR Code" className="w-54 h-54 mx-auto" />
                   <button
                     onClick={() => window.open(`qubic-wallet://pairwc/${connectionURI}`, "_blank")}
                     className="disabled:bg-gray-40 flex items-center justify-center gap-3 rounded-lg bg-primary-40 p-3 text-black"
                   >
-                    Open in Qubic Wallet
+                    {t("connect.Open in Qubic Wallet")}
                   </button>
                   <button
                     className="rounded-lg bg-[rgba(26,222,245,0.1)] p-3 text-primary-40"
                     onClick={() => setSelectedMode("none")}
                   >
-                    Cancel
+                    {t("connect.Cancel")}
                   </button>
                 </div>
               </div>
