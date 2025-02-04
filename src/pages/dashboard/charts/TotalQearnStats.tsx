@@ -145,7 +145,7 @@ const TotalQearnStats: React.FC = () => {
   });
 
   return (
-    <Card className="space-y-8 overflow-hidden p-8 backdrop-blur-sm">
+    <Card className="space-y-8 overflow-hidden p-8">
       <div className="space-y-6">
         <h1 className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-center text-4xl font-bold text-transparent">
           {t("dashboard.Qearn Overview")}
