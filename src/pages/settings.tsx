@@ -4,12 +4,15 @@ import Card from "@/components/ui/Card";
 import { settingsAtom } from "@/store/settings";
 import { useAtom } from "jotai";
 import { DEFAULT_TICK_OFFSET } from "@/constants";
+import { useTranslation } from "react-i18next";
+import LanguageSelector from "@/components/ui/LanguageSelector";
 
 const Settings: React.FC = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [notifications, setNotifications] = useState(false);
   const [tickOffset, setTickOffset] = useState(DEFAULT_TICK_OFFSET);
   const [, setSettings] = useAtom(settingsAtom);
+  const { t } = useTranslation();
 
   useEffect(() => {
     setSettings((prev) => ({ ...prev, darkMode, notifications, tickOffset }));
@@ -18,13 +21,13 @@ const Settings: React.FC = () => {
   return (
     <Card className="max-w-lg p-6">
       <div className="space-y-4">
-        <h1 className="text-center text-3xl">Settings</h1>
+        <h1 className="text-center text-3xl">{t("common.Settings")}</h1>
 
         <div className="space-y-6">
           <div className="flex items-center justify-between">
             <div className="space-y-2">
-              <h3 className="text-lg font-medium">Tick Offset</h3>
-              <p className="text-sm">Current value: {tickOffset}</p>
+              <h3 className="text-lg font-medium">{t("common.Tick Offset")}</h3>
+              <p className="text-sm">{t("common.Current value: {{value}}", { value: tickOffset })}</p>
             </div>
             <input
               type="range"
@@ -43,8 +46,8 @@ const Settings: React.FC = () => {
                 <>
                   <div className="flex items-center justify-between">
                     <div className="space-y-2">
-                      <h3 className="text-lg font-medium">Dark Mode</h3>
-                      <p className="text-sm">Toggle dark mode theme</p>
+                      <h3 className="text-lg font-medium">{t("common.Dark Mode")}</h3>
+                      <p className="text-sm">{t("common.Toggle dark mode theme")}</p>
                     </div>
                     <Switch
                       checked={darkMode}
@@ -66,8 +69,8 @@ const Settings: React.FC = () => {
                 <>
                   <div className="flex items-center justify-between">
                     <div className="space-y-2">
-                      <h3 className="text-lg font-medium">Notifications</h3>
-                      <p className="text-sm">Manage notification preferences</p>
+                      <h3 className="text-lg font-medium">{t("common.Notifications")}</h3>
+                      <p className="text-sm">{t("common.Manage notification preferences")}</p>
                     </div>
                     <Switch
                       checked={notifications}
@@ -83,6 +86,11 @@ const Settings: React.FC = () => {
                 </>
               )}
             </Disclosure>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <span>{t("common.Language")}</span>
+            <LanguageSelector />
           </div>
         </div>
       </div>

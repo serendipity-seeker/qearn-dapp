@@ -1,0 +1,213 @@
+{
+  "welcome": {
+    "Earn {{percentage}}% Rewards by Staking $QUBIC": "通过质押 $QUBIC 获得 {{percentage}}% 的奖励",
+    "Connect your wallet to start locking": "连接您的钱包以开始锁定",
+    "Start Locking": "开始锁定"
+  },
+  "common": {
+    "Connect": "连接",
+    "Disconnect": "断开连接",
+    "Settings": "设置",
+    "Dark Mode": "深色模式",
+    "Toggle dark mode theme": "切换深色主题",
+    "Notifications": "通知",
+    "Manage notification preferences": "管理通知偏好",
+    "Language": "语言",
+    "Tick Offset": "刻度偏移",
+    "Current value: {{value}}": "当前数值：{{value}}"
+  },
+  "home": {
+    "Locking": "锁定中",
+    "Locking History": "锁定历史"
+  },
+  "faq": {
+    "Frequently Asked Questions": "常见问题",
+
+    "faq1": {
+      "What is Qearn?": "什么是 Qearn？",
+      "content": "Qearn 是一个基于智能合约的平台，允许用户通过锁定资金获得奖励，同时提供灵活的提前解锁选项（会有相应的惩罚）。它旨在鼓励用户的长期参与，同时为用户保持流动性。"
+    },
+    "faq2": {
+      "How does Qearn generate rewards?": "Qearn 如何产生奖励？",
+      "content": "Qearn 的奖励来自每个周期分配的奖金池。奖励根据总锁定金额和该周期的奖金分配来计算。"
+    },
+    "faq3": {
+      "What is an epoch in Qearn?": "Qearn 中的周期（epoch）是什么？",
+      "content": "在 Qearn 中，一个周期指的是管理锁定和解锁操作的时间段。Qearn 中的周期按周计算，每个用户的锁定时长和奖励均在这些间隔内进行计算。"
+    },
+    "faq4": {
+      "What is the minimum amount required to lock funds?": "锁定资金的最低数量是多少？",
+      "content": "锁定金额的最低要求是 10,000,000 Qubic。如果尝试锁定的数量低于此数额，交易将会失败。"
+    },
+    "faq5": {
+      "Is there a maximum amount I can lock?": "是否有最大锁定金额限制？",
+      "content": "有，单个用户在单个周期内的最大锁定金额为 1,000,000,000,000 Qubic。"
+    },
+    "faq6": {
+      "Can I lock funds multiple times in the same epoch?": "我可以在同一个周期内多次锁定资金吗？",
+      "content": "可以，您可以在同一个周期内多次锁定资金。只要总金额不超过最大锁定限制，这些金额会被累加。"
+    },
+    "faq7": {
+      "Can I unlock my funds early?": "我可以提前解锁我的资金吗？",
+      "Yes, early unlocking is allowed but comes with penalties:": "可以，但提前解锁会受到惩罚：",
+      "Reduced rewards:": "减少的奖励：",
+      "Burned amount:": "销毁金额：",
+      "Depending on how early you unlock, a percentage of the rewards will be forfeited.": "根据提前解锁的时间，您将损失一定比例的奖励。",
+      "A portion of the unlocked amount will be burned, decreasing the circulating supply.": "解锁金额的一部分将被销毁，从而减少流通供应量。"
+    },
+    "faq8": {
+      "What are the penalties for early unlocking?": "提前解锁的惩罚是什么？",
+      "Penalties vary based on how many weeks your funds were locked. For example:": "惩罚会根据您的资金锁定了多少周而有所不同。例如：",
+      "Unlocking after 4-7 weeks incurs a <0>5% reward penalty</0> and a <1>45% burn rate</1>.": "在锁定 4-7 周后解锁将导致 <0>5% 的奖励惩罚</0> 和 <1>45% 的销毁率</1>。",
+      "Unlocking after 36-39 weeks incurs a <0>40% reward penalty</0> and a <1>30% burn rate</1>.": "在锁定 36-39 周后解锁将导致 <0>40% 的奖励惩罚</0> 和 <1>30% 的销毁率</1>。"
+    },
+    "faq9": {
+      "What happens if I keep my funds locked for the full period?": "如果我将资金锁定完整的周期，会发生什么？",
+      "content": "如果您将资金锁定满 52 周，则您将获得最大奖励，并且不会受到任何惩罚。"
+    },
+    "faq10": {
+      "How are rewards calculated?": "奖励是如何计算的？",
+      "content": "奖励是根据总锁定金额和周期的奖金分配来计算的。"
+    },
+    "faq11": {
+      "Are bonuses fixed or variable?": "奖金是固定的还是可变的？",
+      "content": "奖金是可变的，取决于每个周期开始时奖金池中的资金数量。未使用的奖金将在周期结束时被销毁。"
+    },
+    "faq12": {
+      "How can I connect wallet to this dapp?": "我如何将钱包连接到此 dapp？",
+      "There are 4 ways to connect wallet to this dapp, with varying levels of security:": "有四种方式可以将钱包连接到此 dapp，安全级别各不相同：",
+      "1. MetaMask Snap (Recommended)": "1. MetaMask Snap（推荐）",
+      "The most secure way to connect. MetaMask Snap provides a sandboxed environment that never exposes your private keys. Simply install the MetaMask browser extension and the Qubic Snap to get started.": "这是最安全的连接方式。MetaMask Snap 提供了一个沙盒环境，不会暴露您的私钥。只需安装 MetaMask 浏览器扩展程序和 Qubic Snap 即可开始使用。",
+      "2. WalletConnect": "2. WalletConnect",
+      "A secure protocol that connects your mobile wallet to this dapp without exposing sensitive data. Scan the QR code with a WalletConnect-compatible wallet to establish an encrypted connection.": "这是一种安全的协议，可在不暴露敏感数据的情况下将您的移动钱包连接到此 dapp。使用兼容 WalletConnect 的钱包扫描二维码即可建立加密连接。",
+      "⚠️ Security Warning": "⚠️ 安全警告",
+      "The following connection methods require storing sensitive key data in the dapp. Only use these methods if you fully understand the risks.": "以下连接方式需要在 dapp 中存储敏感的密钥数据。只有在充分了解风险的情况下才使用这些方法。",
+      "3. Vault File": "3. Vault 文件",
+      "Connect using your encrypted Qubic vault file and password. While the vault is encrypted, the decrypted keys are stored in the dapp's memory. Always keep your vault file and password private.": "使用加密的 Qubic vault 文件和密码进行连接。虽然 vault 文件是加密的，但解密后的密钥将存储在 dapp 的内存中。请始终保管好您的 vault 文件和密码。",
+      "4. Private Key": "4. 私钥",
+      "Direct private key entry should only be used as a last resort. Your private key grants complete control over your funds - never share it with anyone and only use this method on a secure, trusted device.": "直接输入私钥只能作为最后的手段。您的私钥可完全控制您的资金——不要与任何人共享，并仅在安全且可信的设备上使用此方法。"
+    },
+    "faq13": {
+      "Need more help?": "需要更多帮助吗？",
+      "content": "如需团队和社区成员的直接支持，请加入我们的 Qubic 社区，并向 MrUnhappyX 寻求帮助。"
+    }
+  },
+  "error404": {
+    "Page Not Found": "页面未找到",
+    "Go back to Home": "返回首页"
+  },
+  "dashboard": {
+    "Total Locked $QUBIC": "锁定的 $QUBIC 总量",
+    "Locked Amounts per Epoch": "每个周期的锁定金额",
+    "Locked Amounts": "锁定金额",
+    "Bonus Distribution": "奖金分配",
+    "Boosted Bonus": "加成奖金",
+    "Burned Bonus": "销毁的奖金",
+    "Rewarded Bonus": "已发放的奖金",
+    "Qearn Summarize": "Qearn 概要",
+    "Total Locked Amount": "总锁定金额",
+    "Total Bonus Amount": "总奖金金额",
+    "Burned Amount": "销毁金额",
+    "Boosted Amount": "加成金额",
+    "Rewarded Amount": "已发放金额",
+    "Average Yield Percent": "平均收益率",
+    "Average Burned Percent": "平均销毁率",
+    "Average Boosted Percent": "平均加成率",
+    "Qubic Richlist": "Qubic 富豪榜",
+    "Distribution": "分布",
+    "Others": "其他",
+    "Qearn Overview": "Qearn 概览",
+    "Total Lock Amount": "锁定总额",
+    "Total Burned Amount": "总销毁金额",
+    "Locked Amount": "锁定金额",
+    "Bonus Amount": "奖金金额",
+    "APY %": "年化收益率 %",
+    "Average APY": "平均年化收益率",
+    "Burned": "销毁",
+    "Boosted": "加成",
+    "Rewarded": "已发放"
+  },
+  "header": {
+    "Locking": "锁定",
+    "Dashboard": "仪表板",
+    "FAQ": "常见问题",
+    "Light": "浅色",
+    "Dark": "深色"
+  },
+  "footer": {
+    "Terms of service": "服务条款",
+    "Privacy Policy": "隐私政策",
+    "Network Status": "网络状态",
+    "Version": "版本 {{version}}"
+  },
+  "infoBanner": {
+    "Weekly Locking Closes in {{days}} d {{hours}} h {{minutes}} min": "每周锁定将在 {{days}} 天 {{hours}} 小时 {{minutes}} 分钟 后结束",
+    "Current APY": "当前年化收益率"
+  },
+  "qearnForm": {
+    "Lock $QUBIC": "锁定 $QUBIC",
+    "Lock Amount": "锁定金额",
+    "Enter amount": "输入金额",
+    "Lock Funds": "锁定资金",
+    "All fields must be filled": "所有字段都必须填写",
+    "Amount exceeds wallet balance": "金额超过钱包余额",
+    "Amount must be at least 10M": "金额必须至少为 10,000,000",
+    "Target tick is not set": "未设置目标刻度",
+    "Something went wrong": "出现错误",
+    "Transaction sent, it will take some time to be confirmed and executed": "交易已发送，需要一些时间来确认和执行",
+    "Lock $QUBIC?": "锁定 $QUBIC？",
+    "Are you sure you want to lock {{amount}}QUBIC?": "您确定要锁定 {{amount}} QUBIC 吗？",
+    "You will be able to unlock it anytime.": "您可以随时解锁。",
+    "Account": "账户",
+    "Available": "可用"
+  },
+  "lockHistoryTable": {
+    "Epoch": "周期",
+    "Locked Amount": "锁定金额",
+    "Total Locked Amount": "总锁定金额",
+    "Current Bonus Amount": "当前奖金金额",
+    "Current Reward %": "当前奖励 %",
+    "Full Reward %": "完整奖励 %",
+    "Actions": "操作",
+    "Unlock Early": "提前解锁",
+    "No data available": "暂无数据"
+  },
+  "connect": {
+    "Install MetaMask": "安装 MetaMask",
+    "Connect": "连接",
+    "Reconnect": "重新连接",
+    "Connected": "已连接",
+    "Connect Wallet": "连接钱包",
+    "Disconnect Wallet": "断开钱包",
+    "MetaMask": "MetaMask",
+    "Wallet Connect": "WalletConnect",
+    "Private Seed": "私钥种子",
+    "Vault File": "Vault 文件",
+    "Enter password": "输入密码",
+    "Select an account": "选择一个账户",
+    "Lock Wallet": "锁定钱包",
+    "Select Account": "选择账户",
+    "Cancel": "取消",
+    "Open in Qubic Wallet": "在 Qubic Wallet 中打开",
+    "Connect your Qubic Wallet. You need to have Qubic Wallet installed and unlocked.": "连接您的 Qubic Wallet。您需要安装并解锁 Qubic Wallet。",
+    "Your 55 character private key (seed):": "您的 55 个字符的私钥（种子）：",
+    "Load your Qubic vault file:": "加载您的 Qubic vault 文件：",
+    "Unlock": "解锁",
+    "Seed must be 55 characters long": "种子必须是 55 个字符",
+    "Seed must contain only lowercase letters": "种子只能包含小写字母",
+    "Please select a file and enter a password.": "请选择文件并输入密码。",
+    "Failed to unlock the vault. Please check your password and try again.": "解锁 vault 失败。请检查密码并重试。",
+    "Failed to read the file. Please try again.": "读取文件失败。请重试。",
+    "⚠️ BE CAREFUL!": "⚠️ 请谨慎操作！",
+    "Your private key grants complete control over your funds - never share it with anyone and only use this method on a secure, trusted device.": "您的私钥可以完全控制您的资金——切勿与他人分享，并仅在安全且可信的设备上使用此方法。"
+  },
+  "modal": {
+    "Confirm": "确认",
+    "Cancel": "取消",
+    "Earned Rewards": "已赚取的奖励",
+    "Unlock Early": "提前解锁",
+    "Locked Balance": "锁定余额",
+    "Earning Ratio": "收益比例",
+    "Unlocks In": "解锁倒计时"
+  }
+}

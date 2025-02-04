@@ -1,0 +1,213 @@
+{
+  "welcome": {
+    "Earn {{percentage}}% Rewards by Staking $QUBIC": "$QUBIC をステーキングして {{percentage}}% のリワードを獲得",
+    "Connect your wallet to start locking": "ウォレットを接続してロックを開始",
+    "Start Locking": "ロックを開始"
+  },
+  "common": {
+    "Connect": "接続",
+    "Disconnect": "切断",
+    "Settings": "設定",
+    "Dark Mode": "ダークモード",
+    "Toggle dark mode theme": "ダークモードのテーマを切り替える",
+    "Notifications": "通知",
+    "Manage notification preferences": "通知設定を管理",
+    "Language": "言語",
+    "Tick Offset": "ティックオフセット",
+    "Current value: {{value}}": "現在の値: {{value}}"
+  },
+  "home": {
+    "Locking": "ロック中",
+    "Locking History": "ロック履歴"
+  },
+  "faq": {
+    "Frequently Asked Questions": "よくある質問",
+
+    "faq1": {
+      "What is Qearn?": "Qearn とは何ですか？",
+      "content": "Qearn はスマートコントラクトを利用したプラットフォームで、ユーザーが資金をロックしてリワードを得ることができ、早期アンロックにはペナルティが発生する柔軟なアンロックオプションも提供します。長期的な参加を促進しつつも、ユーザーに流動性を維持することを目的としています。"
+    },
+    "faq2": {
+      "How does Qearn generate rewards?": "Qearn はどのようにリワードを生成しますか？",
+      "content": "Qearn のリワードは、各エポック（時期）に割り当てられたボーナスプールから配布されます。これらのリワードは、ロックされている合計金額と各エポックのボーナス割り当てに基づいて計算されます。"
+    },
+    "faq3": {
+      "What is an epoch in Qearn?": "Qearn におけるエポック（epoch）とは何ですか？",
+      "content": "エポックとは、ロックやアンロックの管理が行われる一定の期間を指します。Qearn ではエポックを週ごとに追跡し、各ユーザーのロック期間とリワードはこれらの期間ごとに計算されます。"
+    },
+    "faq4": {
+      "What is the minimum amount required to lock funds?": "ロックするための最低金額はいくらですか？",
+      "content": "ロックするための最低金額は 10,000,000 Qubic です。これより少ない金額でロックを試みると、トランザクションは失敗します。"
+    },
+    "faq5": {
+      "Is there a maximum amount I can lock?": "ロックできる最大金額はありますか？",
+      "content": "はい。1つのエポック内でユーザーがロックできる最大金額は 1,000,000,000,000 Qubic です。"
+    },
+    "faq6": {
+      "Can I lock funds multiple times in the same epoch?": "同じエポック内で複数回ロックすることはできますか？",
+      "content": "はい。同じエポック内で何度もロックすることができます。総合計額が最大ロック限度額を超えない場合、ロック額は合算されます。"
+    },
+    "faq7": {
+      "Can I unlock my funds early?": "資金を早期にアンロックすることはできますか？",
+      "Yes, early unlocking is allowed but comes with penalties:": "はい、早期アンロックは可能ですが、ペナルティが伴います:",
+      "Reduced rewards:": "リワードの減少:",
+      "Burned amount:": "焼却される金額:",
+      "Depending on how early you unlock, a percentage of the rewards will be forfeited.": "どの時点でアンロックするかによって、リワードの一部が失われます。",
+      "A portion of the unlocked amount will be burned, decreasing the circulating supply.": "アンロックした金額の一部が焼却され、流通量が減少します。"
+    },
+    "faq8": {
+      "What are the penalties for early unlocking?": "早期アンロックのペナルティは何ですか？",
+      "Penalties vary based on how many weeks your funds were locked. For example:": "ペナルティは資金をロックしていた週数によって異なります。例:",
+      "Unlocking after 4-7 weeks incurs a <0>5% reward penalty</0> and a <1>45% burn rate</1>.": "ロック開始から4～7週間後にアンロックすると、<0>リワードの5%ペナルティ</0>と<1>45%の焼却率</1>が発生します。",
+      "Unlocking after 36-39 weeks incurs a <0>40% reward penalty</0> and a <1>30% burn rate</1>.": "ロック開始から36～39週間後にアンロックすると、<0>リワードの40%ペナルティ</0>と<1>30%の焼却率</1>が発生します。"
+    },
+    "faq9": {
+      "What happens if I keep my funds locked for the full period?": "資金を52週間フルでロックした場合はどうなりますか？",
+      "content": "資金をフルの52週間ロックすると、最大のリワードを受け取ることができ、ペナルティも発生しません。"
+    },
+    "faq10": {
+      "How are rewards calculated?": "リワードはどのように計算されますか？",
+      "content": "リワードは、ロックされている合計金額とエポックのボーナス割り当てに基づいて計算されます。"
+    },
+    "faq11": {
+      "Are bonuses fixed or variable?": "ボーナスは固定ですか、それとも変動しますか？",
+      "content": "ボーナスは変動型であり、各エポック開始時にボーナスプールにある資金量によって左右されます。使用されなかったボーナスはエポック終了時に焼却されます。"
+    },
+    "faq12": {
+      "How can I connect wallet to this dapp?": "このdAppにウォレットを接続するにはどうすればよいですか？",
+      "There are 4 ways to connect wallet to this dapp, with varying levels of security:": "このdAppにウォレットを接続する方法は4つあり、セキュリティレベルが異なります:",
+      "1. MetaMask Snap (Recommended)": "1. MetaMask Snap（推奨）",
+      "The most secure way to connect. MetaMask Snap provides a sandboxed environment that never exposes your private keys. Simply install the MetaMask browser extension and the Qubic Snap to get started.": "最も安全な接続方法です。MetaMask Snapはサンドボックス環境を提供し、秘密鍵が外部に漏れません。MetaMaskブラウザー拡張機能とQubic Snapをインストールするだけで開始できます。",
+      "2. WalletConnect": "2. WalletConnect",
+      "A secure protocol that connects your mobile wallet to this dapp without exposing sensitive data. Scan the QR code with a WalletConnect-compatible wallet to establish an encrypted connection.": "機密データを漏洩させることなくモバイルウォレットをこのdAppに接続する安全なプロトコルです。WalletConnect対応ウォレットでQRコードをスキャンし、暗号化された接続を確立します。",
+      "⚠️ Security Warning": "⚠️ セキュリティ警告",
+      "The following connection methods require storing sensitive key data in the dapp. Only use these methods if you fully understand the risks.": "以下の接続方法は、dApp内に機密鍵データを保存する必要があります。リスクを十分に理解した上でのみ使用してください。",
+      "3. Vault File": "3. Vaultファイル",
+      "Connect using your encrypted Qubic vault file and password. While the vault is encrypted, the decrypted keys are stored in the dapp's memory. Always keep your vault file and password private.": "暗号化されたQubicのVaultファイルとパスワードを使用して接続します。Vaultは暗号化されていますが、復号化された鍵はdAppのメモリに保存されます。Vaultファイルとパスワードは常に安全に保管してください。",
+      "4. Private Key": "4. 秘密鍵",
+      "Direct private key entry should only be used as a last resort. Your private key grants complete control over your funds - never share it with anyone and only use this method on a secure, trusted device.": "秘密鍵の直接入力は最後の手段としてのみ使用してください。秘密鍵は資金を完全に操作できる情報です。他人と共有せず、安全で信頼できる端末でのみ使用してください。"
+    },
+    "faq13": {
+      "Need more help?": "さらにサポートが必要ですか？",
+      "content": "チームやコミュニティメンバーからの直接サポートを受けたい場合は、Qubicコミュニティに参加してMrUnhappyXにお問い合わせください。"
+    }
+  },
+  "error404": {
+    "Page Not Found": "ページが見つかりません",
+    "Go back to Home": "ホームに戻る"
+  },
+  "dashboard": {
+    "Total Locked $QUBIC": "ロックされている $QUBIC の合計",
+    "Locked Amounts per Epoch": "エポックごとのロック額",
+    "Locked Amounts": "ロック額",
+    "Bonus Distribution": "ボーナスの分配",
+    "Boosted Bonus": "ブーストされたボーナス",
+    "Burned Bonus": "焼却されたボーナス",
+    "Rewarded Bonus": "付与されたボーナス",
+    "Qearn Summarize": "Qearn 概要",
+    "Total Locked Amount": "ロック合計額",
+    "Total Bonus Amount": "ボーナス合計額",
+    "Burned Amount": "焼却額",
+    "Boosted Amount": "ブースト額",
+    "Rewarded Amount": "報酬額",
+    "Average Yield Percent": "平均利回り（％）",
+    "Average Burned Percent": "平均焼却率（％）",
+    "Average Boosted Percent": "平均ブースト率（％）",
+    "Qubic Richlist": "Qubic 富豪リスト",
+    "Distribution": "分布",
+    "Others": "その他",
+    "Qearn Overview": "Qearn の概要",
+    "Total Lock Amount": "ロック合計",
+    "Total Burned Amount": "焼却合計",
+    "Locked Amount": "ロック額",
+    "Bonus Amount": "ボーナス額",
+    "APY %": "APY %",
+    "Average APY": "平均APY",
+    "Burned": "焼却",
+    "Boosted": "ブースト",
+    "Rewarded": "報酬付与"
+  },
+  "header": {
+    "Locking": "ロック",
+    "Dashboard": "ダッシュボード",
+    "FAQ": "FAQ",
+    "Light": "ライト",
+    "Dark": "ダーク"
+  },
+  "footer": {
+    "Terms of service": "利用規約",
+    "Privacy Policy": "プライバシーポリシー",
+    "Network Status": "ネットワークステータス",
+    "Version": "バージョン {{version}}"
+  },
+  "infoBanner": {
+    "Weekly Locking Closes in {{days}} d {{hours}} h {{minutes}} min": "毎週のロック締め切りまであと {{days}}日 {{hours}}時間 {{minutes}}分",
+    "Current APY": "現在のAPY"
+  },
+  "qearnForm": {
+    "Lock $QUBIC": "$QUBIC をロック",
+    "Lock Amount": "ロック金額",
+    "Enter amount": "金額を入力",
+    "Lock Funds": "資金をロック",
+    "All fields must be filled": "すべての項目を入力してください",
+    "Amount exceeds wallet balance": "ウォレット残高を超えています",
+    "Amount must be at least 10M": "金額は1000万以上である必要があります",
+    "Target tick is not set": "ターゲットのティックが設定されていません",
+    "Something went wrong": "問題が発生しました",
+    "Transaction sent, it will take some time to be confirmed and executed": "トランザクションが送信されました。確認および実行にしばらく時間がかかります。",
+    "Lock $QUBIC?": "$QUBIC をロックしますか？",
+    "Are you sure you want to lock {{amount}}QUBIC?": "{{amount}} QUBIC をロックしてよろしいですか？",
+    "You will be able to unlock it anytime.": "いつでもアンロック可能です。",
+    "Account": "アカウント",
+    "Available": "利用可能"
+  },
+  "lockHistoryTable": {
+    "Epoch": "エポック",
+    "Locked Amount": "ロック額",
+    "Total Locked Amount": "合計ロック額",
+    "Current Bonus Amount": "現在のボーナス額",
+    "Current Reward %": "現在のリワード％",
+    "Full Reward %": "フルリワード％",
+    "Actions": "操作",
+    "Unlock Early": "早期アンロック",
+    "No data available": "データがありません"
+  },
+  "connect": {
+    "Install MetaMask": "MetaMask をインストール",
+    "Connect": "接続",
+    "Reconnect": "再接続",
+    "Connected": "接続済み",
+    "Connect Wallet": "ウォレットを接続",
+    "Disconnect Wallet": "ウォレットを切断",
+    "MetaMask": "MetaMask",
+    "Wallet Connect": "WalletConnect",
+    "Private Seed": "プライベートシード",
+    "Vault File": "Vaultファイル",
+    "Enter password": "パスワードを入力",
+    "Select an account": "アカウントを選択",
+    "Lock Wallet": "ウォレットをロック",
+    "Select Account": "アカウントを選択",
+    "Cancel": "キャンセル",
+    "Open in Qubic Wallet": "Qubic Wallet で開く",
+    "Connect your Qubic Wallet. You need to have Qubic Wallet installed and unlocked.": "Qubic Wallet を接続してください。ウォレットをインストールしてアンロックしておく必要があります。",
+    "Your 55 character private key (seed):": "55文字の秘密鍵（シード）:",
+    "Load your Qubic vault file:": "Qubic Vaultファイルを読み込む:",
+    "Unlock": "アンロック",
+    "Seed must be 55 characters long": "シードは55文字である必要があります",
+    "Seed must contain only lowercase letters": "シードは小文字のみを含む必要があります",
+    "Please select a file and enter a password.": "ファイルを選択し、パスワードを入力してください。",
+    "Failed to unlock the vault. Please check your password and try again.": "Vaultのアンロックに失敗しました。パスワードを確認して再試行してください。",
+    "Failed to read the file. Please try again.": "ファイルの読み込みに失敗しました。再試行してください。",
+    "⚠️ BE CAREFUL!": "⚠️ 注意！",
+    "Your private key grants complete control over your funds - never share it with anyone and only use this method on a secure, trusted device.": "秘密鍵があれば資金を完全に操作できます。他人とは絶対に共有せず、安全で信頼できるデバイスでのみ利用してください。"
+  },
+  "modal": {
+    "Confirm": "確認",
+    "Cancel": "キャンセル",
+    "Earned Rewards": "獲得したリワード",
+    "Unlock Early": "早期アンロック",
+    "Locked Balance": "ロック残高",
+    "Earning Ratio": "獲得率",
+    "Unlocks In": "アンロックまでの時間"
+  }
+}

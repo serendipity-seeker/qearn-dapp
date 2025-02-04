@@ -1,6 +1,7 @@
 import Button from "./Button";
 import { IoClose } from "react-icons/io5";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 interface ConfirmModalProps {
   open: boolean;
@@ -12,6 +13,8 @@ interface ConfirmModalProps {
 }
 
 const ConfirmModal: React.FC<ConfirmModalProps> = ({ open, onClose, onConfirm, title, description, onCancel }) => {
+  const { t } = useTranslation();
+
   return (
     <AnimatePresence>
       {open && (
@@ -45,7 +48,7 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({ open, onClose, onConfirm, t
                   onCancel?.();
                   onClose?.();
                 }}
-                label="Cancel"
+                label={t("modal.Cancel")}
               />
               <Button
                 className="w-1/2"
@@ -54,7 +57,7 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({ open, onClose, onConfirm, t
                   onConfirm?.();
                   onClose?.();
                 }}
-                label="Confirm"
+                label={t("modal.Confirm")}
               />
             </div>
           </motion.div>

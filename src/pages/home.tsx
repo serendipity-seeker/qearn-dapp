@@ -2,12 +2,14 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import LockHistoryTable from "@/components/LockHistoryTable";
 import QearnForm from "@/components/QearnForm";
+import { useTranslation } from "react-i18next";
 
 const Home: React.FC = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [tabUnderlineWidth, setTabUnderlineWidth] = useState(0);
   const [tabUnderlineLeft, setTabUnderlineLeft] = useState(0);
   const tabRefs = [useRef<HTMLDivElement>(null), useRef<HTMLDivElement>(null)];
+  const { t } = useTranslation();
 
   useEffect(() => {
     const activeTabElement = tabRefs[activeTab].current;
@@ -26,14 +28,14 @@ const Home: React.FC = () => {
             onClick={() => setActiveTab(0)}
             className={`cursor-pointer px-2 py-1 font-medium text-foreground hover:text-primary-30 ${activeTab === 0 ? "text-foreground" : ""}`}
           >
-            Locking
+            {t("home.Locking")}
           </div>
           <div
             ref={tabRefs[1]}
             onClick={() => setActiveTab(1)}
             className={`cursor-pointer px-2 py-1 font-medium text-foreground hover:text-primary-30 ${activeTab === 1 ? "text-foreground" : ""}`}
           >
-            Locking History
+            {t("home.Locking History")}
           </div>
           <motion.div
             className="absolute bottom-0 h-0.5 bg-foreground"

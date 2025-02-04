@@ -1,0 +1,213 @@
+{
+  "welcome": {
+    "Earn {{percentage}}% Rewards by Staking $QUBIC": "Gagnez {{percentage}}% de récompenses en faisant du staking de $QUBIC",
+    "Connect your wallet to start locking": "Connectez votre portefeuille pour commencer le verrouillage",
+    "Start Locking": "Commencer le verrouillage"
+  },
+  "common": {
+    "Connect": "Se connecter",
+    "Disconnect": "Se déconnecter",
+    "Settings": "Paramètres",
+    "Dark Mode": "Mode sombre",
+    "Toggle dark mode theme": "Activer/désactiver le thème sombre",
+    "Notifications": "Notifications",
+    "Manage notification preferences": "Gérer les préférences de notification",
+    "Language": "Langue",
+    "Tick Offset": "Décalage du tick",
+    "Current value: {{value}}": "Valeur actuelle : {{value}}"
+  },
+  "home": {
+    "Locking": "Verrouillage",
+    "Locking History": "Historique de verrouillage"
+  },
+  "faq": {
+    "Frequently Asked Questions": "Questions fréquentes",
+
+    "faq1": {
+      "What is Qearn?": "Qu'est-ce que Qearn ?",
+      "content": "Qearn est une plateforme basée sur des contrats intelligents qui permet aux utilisateurs de verrouiller des fonds pour obtenir des récompenses, tout en offrant des options de déverrouillage flexibles assorties de pénalités en cas de déverrouillage anticipé. Elle est conçue pour encourager une participation à long terme tout en maintenant la liquidité pour les utilisateurs."
+    },
+    "faq2": {
+      "How does Qearn generate rewards?": "Comment Qearn génère-t-il des récompenses ?",
+      "content": "Les récompenses de Qearn sont distribuées à partir du fonds de bonus alloué à chaque époque. Elles sont calculées en fonction du montant total verrouillé et de l’allocation de bonus de cette époque."
+    },
+    "faq3": {
+      "What is an epoch in Qearn?": "Qu'est-ce qu'une époque (epoch) dans Qearn ?",
+      "content": "Une époque est une période pendant laquelle les activités de verrouillage et de déverrouillage sont gérées. Dans Qearn, les époques sont hebdomadaires et la durée de verrouillage ainsi que les récompenses de chaque utilisateur sont calculées sur ces intervalles."
+    },
+    "faq4": {
+      "What is the minimum amount required to lock funds?": "Quel est le montant minimum requis pour verrouiller des fonds ?",
+      "content": "Le montant minimum pour le verrouillage est de 10 000 000 Qubic. Toute tentative de verrouiller moins que ce montant entraînera l'échec de la transaction."
+    },
+    "faq5": {
+      "Is there a maximum amount I can lock?": "Y a-t-il un montant maximum que je peux verrouiller ?",
+      "content": "Oui, le montant maximum verrouillable par utilisateur au cours d'une seule époque est de 1 000 000 000 000 Qubic."
+    },
+    "faq6": {
+      "Can I lock funds multiple times in the same epoch?": "Puis-je verrouiller des fonds plusieurs fois au cours de la même époque ?",
+      "content": "Oui, vous pouvez verrouiller des fonds plusieurs fois au cours de la même époque. Les montants seront cumulés tant que le total ne dépasse pas la limite de verrouillage maximale."
+    },
+    "faq7": {
+      "Can I unlock my funds early?": "Puis-je déverrouiller mes fonds plus tôt ?",
+      "Yes, early unlocking is allowed but comes with penalties:": "Oui, le déverrouillage anticipé est autorisé, mais il entraîne des pénalités :",
+      "Reduced rewards:": "Récompenses réduites :",
+      "Burned amount:": "Montant brûlé :",
+      "Depending on how early you unlock, a percentage of the rewards will be forfeited.": "Selon la précocité du déverrouillage, un pourcentage des récompenses sera perdu.",
+      "A portion of the unlocked amount will be burned, decreasing the circulating supply.": "Une partie du montant déverrouillé sera brûlée, ce qui diminue l'offre en circulation."
+    },
+    "faq8": {
+      "What are the penalties for early unlocking?": "Quelles sont les pénalités pour un déverrouillage anticipé ?",
+      "Penalties vary based on how many weeks your funds were locked. For example:": "Les pénalités varient selon le nombre de semaines pendant lesquelles vos fonds sont restés verrouillés. Par exemple :",
+      "Unlocking after 4-7 weeks incurs a <0>5% reward penalty</0> and a <1>45% burn rate</1>.": "Un déverrouillage après 4 à 7 semaines entraîne une <0>pénalité de 5 % sur les récompenses</0> et un <1>taux de brûlage de 45 %</1>.",
+      "Unlocking after 36-39 weeks incurs a <0>40% reward penalty</0> and a <1>30% burn rate</1>.": "Un déverrouillage après 36 à 39 semaines entraîne une <0>pénalité de 40 % sur les récompenses</0> et un <1>taux de brûlage de 30 %</1>."
+    },
+    "faq9": {
+      "What happens if I keep my funds locked for the full period?": "Que se passe-t-il si je garde mes fonds verrouillés pendant toute la période ?",
+      "content": "Si vous conservez vos fonds verrouillés pendant les 52 semaines complètes, vous recevrez la récompense maximale et ne subirez aucune pénalité."
+    },
+    "faq10": {
+      "How are rewards calculated?": "Comment les récompenses sont-elles calculées ?",
+      "content": "Les récompenses sont calculées en fonction du montant total verrouillé et de l'allocation de bonus de l'époque."
+    },
+    "faq11": {
+      "Are bonuses fixed or variable?": "Les bonus sont-ils fixes ou variables ?",
+      "content": "Les bonus sont variables et dépendent des fonds disponibles dans le fonds de bonus au début de chaque époque. Les bonus non utilisés sont brûlés à la fin d'une époque."
+    },
+    "faq12": {
+      "How can I connect wallet to this dapp?": "Comment puis-je connecter mon portefeuille à cette dApp ?",
+      "There are 4 ways to connect wallet to this dapp, with varying levels of security:": "Il existe 4 façons de connecter votre portefeuille à cette dApp, avec différents niveaux de sécurité :",
+      "1. MetaMask Snap (Recommended)": "1. MetaMask Snap (Recommandé)",
+      "The most secure way to connect. MetaMask Snap provides a sandboxed environment that never exposes your private keys. Simply install the MetaMask browser extension and the Qubic Snap to get started.": "La méthode la plus sécurisée pour se connecter. MetaMask Snap fournit un environnement isolé qui n'expose jamais vos clés privées. Il vous suffit d’installer l’extension de navigateur MetaMask et Qubic Snap pour commencer.",
+      "2. WalletConnect": "2. WalletConnect",
+      "A secure protocol that connects your mobile wallet to this dapp without exposing sensitive data. Scan the QR code with a WalletConnect-compatible wallet to establish an encrypted connection.": "Un protocole sécurisé qui connecte votre portefeuille mobile à cette dApp sans exposer de données sensibles. Scannez le code QR avec un portefeuille compatible WalletConnect pour établir une connexion chiffrée.",
+      "⚠️ Security Warning": "⚠️ Avertissement de sécurité",
+      "The following connection methods require storing sensitive key data in the dapp. Only use these methods if you fully understand the risks.": "Les méthodes de connexion suivantes nécessitent de stocker des données de clés sensibles dans la dApp. Utilisez-les uniquement si vous comprenez parfaitement les risques.",
+      "3. Vault File": "3. Fichier de coffre (Vault File)",
+      "Connect using your encrypted Qubic vault file and password. While the vault is encrypted, the decrypted keys are stored in the dapp's memory. Always keep your vault file and password private.": "Connectez-vous en utilisant votre fichier de coffre (vault) Qubic chiffré et votre mot de passe. Bien que le coffre soit chiffré, les clés déchiffrées sont stockées dans la mémoire de la dApp. Conservez toujours votre fichier de coffre et votre mot de passe en lieu sûr.",
+      "4. Private Key": "4. Clé privée",
+      "Direct private key entry should only be used as a last resort. Your private key grants complete control over your funds - never share it with anyone and only use this method on a secure, trusted device.": "L’entrée directe de votre clé privée ne doit être utilisée qu’en dernier recours. Votre clé privée vous donne un contrôle total sur vos fonds : ne la partagez jamais avec qui que ce soit et utilisez cette méthode uniquement sur un appareil sûr et fiable."
+    },
+    "faq13": {
+      "Need more help?": "Besoin d'aide supplémentaire ?",
+      "content": "Pour obtenir de l'assistance directe de notre équipe et de la communauté, rejoignez la communauté Qubic et demandez MrUnhappyX."
+    }
+  },
+  "error404": {
+    "Page Not Found": "Page non trouvée",
+    "Go back to Home": "Retour à l'accueil"
+  },
+  "dashboard": {
+    "Total Locked $QUBIC": "Total de $QUBIC verrouillés",
+    "Locked Amounts per Epoch": "Montants verrouillés par époque",
+    "Locked Amounts": "Montants verrouillés",
+    "Bonus Distribution": "Répartition des bonus",
+    "Boosted Bonus": "Bonus augmenté",
+    "Burned Bonus": "Bonus brûlé",
+    "Rewarded Bonus": "Bonus distribué",
+    "Qearn Summarize": "Synthèse Qearn",
+    "Total Locked Amount": "Montant total verrouillé",
+    "Total Bonus Amount": "Montant total des bonus",
+    "Burned Amount": "Montant brûlé",
+    "Boosted Amount": "Montant augmenté",
+    "Rewarded Amount": "Montant récompensé",
+    "Average Yield Percent": "Pourcentage de rendement moyen",
+    "Average Burned Percent": "Pourcentage moyen brûlé",
+    "Average Boosted Percent": "Pourcentage moyen augmenté",
+    "Qubic Richlist": "Liste des plus riches en Qubic",
+    "Distribution": "Répartition",
+    "Others": "Autres",
+    "Qearn Overview": "Aperçu Qearn",
+    "Total Lock Amount": "Montant total verrouillé",
+    "Total Burned Amount": "Montant total brûlé",
+    "Locked Amount": "Montant verrouillé",
+    "Bonus Amount": "Montant du bonus",
+    "APY %": "APY %",
+    "Average APY": "APY moyen",
+    "Burned": "Brûlé",
+    "Boosted": "Augmenté",
+    "Rewarded": "Distribué"
+  },
+  "header": {
+    "Locking": "Verrouillage",
+    "Dashboard": "Tableau de bord",
+    "FAQ": "FAQ",
+    "Light": "Clair",
+    "Dark": "Sombre"
+  },
+  "footer": {
+    "Terms of service": "Conditions d'utilisation",
+    "Privacy Policy": "Politique de confidentialité",
+    "Network Status": "État du réseau",
+    "Version": "Version {{version}}"
+  },
+  "infoBanner": {
+    "Weekly Locking Closes in {{days}} d {{hours}} h {{minutes}} min": "Le verrouillage hebdomadaire se termine dans {{days}} j {{hours}} h {{minutes}} min",
+    "Current APY": "APY actuel"
+  },
+  "qearnForm": {
+    "Lock $QUBIC": "Verrouiller $QUBIC",
+    "Lock Amount": "Montant à verrouiller",
+    "Enter amount": "Saisir le montant",
+    "Lock Funds": "Verrouiller les fonds",
+    "All fields must be filled": "Tous les champs doivent être remplis",
+    "Amount exceeds wallet balance": "Le montant dépasse le solde du portefeuille",
+    "Amount must be at least 10M": "Le montant doit être au moins de 10 M",
+    "Target tick is not set": "Le tick cible n'est pas défini",
+    "Something went wrong": "Une erreur s'est produite",
+    "Transaction sent, it will take some time to be confirmed and executed": "Transaction envoyée, cela prendra un certain temps pour être confirmée et exécutée",
+    "Lock $QUBIC?": "Verrouiller $QUBIC ?",
+    "Are you sure you want to lock {{amount}}QUBIC?": "Êtes-vous sûr de vouloir verrouiller {{amount}} QUBIC ?",
+    "You will be able to unlock it anytime.": "Vous pourrez le déverrouiller à tout moment.",
+    "Account": "Compte",
+    "Available": "Disponible"
+  },
+  "lockHistoryTable": {
+    "Epoch": "Époque",
+    "Locked Amount": "Montant verrouillé",
+    "Total Locked Amount": "Montant total verrouillé",
+    "Current Bonus Amount": "Montant de bonus actuel",
+    "Current Reward %": "Pourcentage de récompense actuel",
+    "Full Reward %": "Pourcentage de récompense intégrale",
+    "Actions": "Actions",
+    "Unlock Early": "Déverrouiller anticipé",
+    "No data available": "Aucune donnée disponible"
+  },
+  "connect": {
+    "Install MetaMask": "Installer MetaMask",
+    "Connect": "Se connecter",
+    "Reconnect": "Se reconnecter",
+    "Connected": "Connecté",
+    "Connect Wallet": "Connecter le portefeuille",
+    "Disconnect Wallet": "Déconnecter le portefeuille",
+    "MetaMask": "MetaMask",
+    "Wallet Connect": "WalletConnect",
+    "Private Seed": "Graine privée",
+    "Vault File": "Fichier de coffre",
+    "Enter password": "Saisir le mot de passe",
+    "Select an account": "Sélectionner un compte",
+    "Lock Wallet": "Verrouiller le portefeuille",
+    "Select Account": "Sélectionner le compte",
+    "Cancel": "Annuler",
+    "Open in Qubic Wallet": "Ouvrir dans Qubic Wallet",
+    "Connect your Qubic Wallet. You need to have Qubic Wallet installed and unlocked.": "Connectez votre Qubic Wallet. Vous devez avoir Qubic Wallet installé et déverrouillé.",
+    "Your 55 character private key (seed):": "Votre clé privée (graine) de 55 caractères :",
+    "Load your Qubic vault file:": "Charger votre fichier de coffre Qubic :",
+    "Unlock": "Déverrouiller",
+    "Seed must be 55 characters long": "La graine doit comporter 55 caractères",
+    "Seed must contain only lowercase letters": "La graine ne doit contenir que des lettres minuscules",
+    "Please select a file and enter a password.": "Veuillez sélectionner un fichier et saisir un mot de passe.",
+    "Failed to unlock the vault. Please check your password and try again.": "Impossible de déverrouiller le coffre. Veuillez vérifier votre mot de passe et réessayer.",
+    "Failed to read the file. Please try again.": "Lecture du fichier impossible. Veuillez réessayer.",
+    "⚠️ BE CAREFUL!": "⚠️ SOYEZ PRUDENT !",
+    "Your private key grants complete control over your funds - never share it with anyone and only use this method on a secure, trusted device.": "Votre clé privée vous donne un contrôle total sur vos fonds – ne la partagez jamais et n’utilisez cette méthode que sur un appareil sûr et de confiance."
+  },
+  "modal": {
+    "Confirm": "Confirmer",
+    "Cancel": "Annuler",
+    "Earned Rewards": "Récompenses gagnées",
+    "Unlock Early": "Déverrouillage anticipé",
+    "Locked Balance": "Solde verrouillé",
+    "Earning Ratio": "Taux de gain",
+    "Unlocks In": "Déverrouillage dans"
+  }
+}

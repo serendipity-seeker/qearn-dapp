@@ -9,6 +9,6 @@ export type Settings = {
 
 export const settingsAtom = atom<Settings>({
   tickOffset: DEFAULT_TICK_OFFSET,
-  darkMode: false,
+  darkMode: true,
   notifications: false,
 });

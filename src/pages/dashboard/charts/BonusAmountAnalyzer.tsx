@@ -12,12 +12,14 @@ import { tickInfoAtom } from "@/store/tickInfo";
 import { IBurnNBoostedStats } from "@/types";
 import { useState, useMemo, useEffect } from "react";
 import { settingsAtom } from "@/store/settings";
+import { useTranslation } from "react-i18next";
 
 const BonusAmountAnalyzer: React.FC = () => {
   const [burnNBoostedStats, setBurnNBoostedStats] = useState<IBurnNBoostedStats>({} as IBurnNBoostedStats);
   const [tickInfo] = useAtom(tickInfoAtom);
   const currentEpoch = useMemo(() => tickInfo?.epoch || 142, [tickInfo?.epoch]);
   const [settings] = useAtom(settingsAtom);
+  const { t } = useTranslation();
 
   useEffect(() => {
     getBurnedAndBoostedStats().then(setBurnNBoostedStats);
@@ -25,7 +27,7 @@ const BonusAmountAnalyzer: React.FC = () => {
 
   const option: EChartsOption = {
     title: {
-      text: "Bonus Distribution",
+      text: t("dashboard.Bonus Distribution"),
       left: "center",
     },
     tooltip: {
@@ -38,13 +40,13 @@ const BonusAmountAnalyzer: React.FC = () => {
     },
     series: [
       {
-        name: "Bonus Distribution",
+        name: t("dashboard.Bonus Distribution"),
         type: "pie",
         radius: "50%",
         data: [
-          { value: burnNBoostedStats?.boostedAmount || 0, name: "Boosted Bonus" },
-          { value: burnNBoostedStats?.burnedAmount || 0, name: "Burned Bonus" },
-          { value: burnNBoostedStats?.rewardedAmount || 0, name: "Rewarded Bonus" },
+          { value: burnNBoostedStats?.boostedAmount || 0, name: t("dashboard.Boosted Bonus") },
+          { value: burnNBoostedStats?.burnedAmount || 0, name: t("dashboard.Burned Bonus") },
+          { value: burnNBoostedStats?.rewardedAmount || 0, name: t("dashboard.Rewarded Bonus") },
         ],
         emphasis: {
           itemStyle: {

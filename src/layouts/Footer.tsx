@@ -1,11 +1,14 @@
 import pkg from "../../package.json";
 import logoShort from "@/assets/logo/logo-text-short.svg";
+import { useTranslation } from "react-i18next";
 
 interface FooterProps {
   appVersion?: string;
 }
 
 const Footer: React.FC<FooterProps> = ({ appVersion }): JSX.Element | null => {
+  const { t } = useTranslation();
+
   return (
     <div className="md:px-100 flex flex-col items-center justify-center gap-10 px-5 py-10 sm:flex-row sm:px-20">
       <div className="flex gap-10">
@@ -23,7 +26,7 @@ const Footer: React.FC<FooterProps> = ({ appVersion }): JSX.Element | null => {
           rel="noreferrer"
           href="https://qubic.org/Terms-of-service"
         >
-          Terms of service
+          {t("footer.Terms of service")}
         </a>
         <span className="text-gray-500">•</span>
         <a
@@ -33,7 +36,7 @@ const Footer: React.FC<FooterProps> = ({ appVersion }): JSX.Element | null => {
           rel="noreferrer"
           href="https://qubic.org/Privacy-policy"
         >
-          Privacy Policy
+          {t("footer.Privacy Policy")}
         </a>
         <span className="text-gray-500">•</span>
         <a
@@ -43,9 +46,9 @@ const Footer: React.FC<FooterProps> = ({ appVersion }): JSX.Element | null => {
           rel="noreferrer"
           href="https://status.qubic.li/"
         >
-          Network Status
+          {t("footer.Network Status")}
         </a>
-        <span className="text-12 text-gray-500">Version {appVersion || pkg.version}</span>
+        <span className="text-12 text-gray-500">{t("footer.Version", { version: appVersion || pkg.version })}</span>
       </div>
     </div>
   );

@@ -1,0 +1,213 @@
+{
+  "welcome": {
+    "Earn {{percentage}}% Rewards by Staking $QUBIC": "Зарабатывайте {{percentage}}% вознаграждения, стейкая $QUBIC",
+    "Connect your wallet to start locking": "Подключите свой кошелёк, чтобы начать блокировку",
+    "Start Locking": "Начать блокировку"
+  },
+  "common": {
+    "Connect": "Подключиться",
+    "Disconnect": "Отключиться",
+    "Settings": "Настройки",
+    "Dark Mode": "Тёмный режим",
+    "Toggle dark mode theme": "Переключить тему на тёмный режим",
+    "Notifications": "Уведомления",
+    "Manage notification preferences": "Настроить предпочтения уведомлений",
+    "Language": "Язык",
+    "Tick Offset": "Смещение тика",
+    "Current value: {{value}}": "Текущее значение: {{value}}"
+  },
+  "home": {
+    "Locking": "Блокировка",
+    "Locking History": "История блокировок"
+  },
+  "faq": {
+    "Frequently Asked Questions": "Часто задаваемые вопросы",
+
+    "faq1": {
+      "What is Qearn?": "Что такое Qearn?",
+      "content": "Qearn — это платформа на базе смарт-контрактов, которая позволяет пользователям блокировать средства для получения вознаграждений, обеспечивая при этом гибкие варианты досрочной разблокировки с соответствующими штрафами. Она предназначена для стимулирования долгосрочного участия, сохраняя при этом ликвидность для пользователей."
+    },
+    "faq2": {
+      "How does Qearn generate rewards?": "Как Qearn генерирует вознаграждения?",
+      "content": "Вознаграждения в Qearn распределяются из бонусного пула, выделенного для каждой эпохи. Эти вознаграждения рассчитываются на основе общей заблокированной суммы и распределения бонусов в данной эпохе."
+    },
+    "faq3": {
+      "What is an epoch in Qearn?": "Что такое эпоха (epoch) в Qearn?",
+      "content": "Эпоха — это период времени, в течение которого управляются операции по блокировке и разблокировке. В Qearn эпохи считаются еженедельно, и в этих промежутках рассчитывается длительность блокировки и вознаграждения каждого пользователя."
+    },
+    "faq4": {
+      "What is the minimum amount required to lock funds?": "Какова минимальная сумма для блокировки средств?",
+      "content": "Минимальная сумма для блокировки составляет 10 000 000 Qubic. Попытка заблокировать сумму меньше этой приведёт к неудачной транзакции."
+    },
+    "faq5": {
+      "Is there a maximum amount I can lock?": "Существует ли максимальная сумма, которую я могу заблокировать?",
+      "content": "Да, максимальная сумма блокировки на одного пользователя за одну эпоху составляет 1 000 000 000 000 Qubic."
+    },
+    "faq6": {
+      "Can I lock funds multiple times in the same epoch?": "Могу ли я блокировать средства несколько раз в одной эпохе?",
+      "content": "Да, вы можете блокировать средства несколько раз в одной эпохе. Суммы будут суммироваться, при условии что не превышен максимальный лимит блокировки."
+    },
+    "faq7": {
+      "Can I unlock my funds early?": "Могу ли я досрочно разблокировать свои средства?",
+      "Yes, early unlocking is allowed but comes with penalties:": "Да, досрочная разблокировка разрешена, но сопровождается штрафами:",
+      "Reduced rewards:": "Уменьшенные вознаграждения:",
+      "Burned amount:": "Сожжённая сумма:",
+      "Depending on how early you unlock, a percentage of the rewards will be forfeited.": "В зависимости от того, насколько рано вы разблокируете средства, часть вознаграждений будет утрачена.",
+      "A portion of the unlocked amount will be burned, decreasing the circulating supply.": "Часть разблокированной суммы будет сожжена, уменьшая объём находящихся в обращении токенов."
+    },
+    "faq8": {
+      "What are the penalties for early unlocking?": "Каковы штрафы за досрочную разблокировку?",
+      "Penalties vary based on how many weeks your funds were locked. For example:": "Штрафы зависят от того, сколько недель ваши средства были заблокированы. Например:",
+      "Unlocking after 4-7 weeks incurs a <0>5% reward penalty</0> and a <1>45% burn rate</1>.": "Разблокировка после 4-7 недель влечёт за собой <0>5% штраф к вознаграждению</0> и <1>45% сжигание</1>.",
+      "Unlocking after 36-39 weeks incurs a <0>40% reward penalty</0> and a <1>30% burn rate</1>.": "Разблокировка после 36-39 недель влечёт за собой <0>40% штраф к вознаграждению</0> и <1>30% сжигание</1>."
+    },
+    "faq9": {
+      "What happens if I keep my funds locked for the full period?": "Что произойдёт, если я оставлю средства заблокированными на весь период?",
+      "content": "Если вы держите свои средства заблокированными все 52 недели, вы получаете максимальное вознаграждение и не платите никаких штрафов."
+    },
+    "faq10": {
+      "How are rewards calculated?": "Как рассчитываются вознаграждения?",
+      "content": "Вознаграждения рассчитываются на основе общего объёма заблокированных средств и распределения бонусов в каждой эпохе."
+    },
+    "faq11": {
+      "Are bonuses fixed or variable?": "Фиксированные или переменные бонусы?",
+      "content": "Бонусы являются переменными и зависят от объёма средств в бонусном пуле в начале каждой эпохи. Неиспользованные бонусы сжигаются в конце эпохи."
+    },
+    "faq12": {
+      "How can I connect wallet to this dapp?": "Как подключить кошелёк к этому dApp?",
+      "There are 4 ways to connect wallet to this dapp, with varying levels of security:": "Существует 4 способа подключить кошелёк к этому dApp, с разным уровнем безопасности:",
+      "1. MetaMask Snap (Recommended)": "1. MetaMask Snap (рекомендуется)",
+      "The most secure way to connect. MetaMask Snap provides a sandboxed environment that never exposes your private keys. Simply install the MetaMask browser extension and the Qubic Snap to get started.": "Самый безопасный способ подключения. MetaMask Snap предоставляет изолированную среду, которая никогда не раскрывает ваши приватные ключи. Просто установите расширение MetaMask в браузере и Qubic Snap, чтобы начать.",
+      "2. WalletConnect": "2. WalletConnect",
+      "A secure protocol that connects your mobile wallet to this dapp without exposing sensitive data. Scan the QR code with a WalletConnect-compatible wallet to establish an encrypted connection.": "Безопасный протокол, который подключает ваш мобильный кошелёк к dApp, не раскрывая конфиденциальных данных. Отсканируйте QR-код совместимым с WalletConnect кошельком, чтобы установить зашифрованное соединение.",
+      "⚠️ Security Warning": "⚠️ Предупреждение о безопасности",
+      "The following connection methods require storing sensitive key data in the dapp. Only use these methods if you fully understand the risks.": "Следующие методы подключения требуют хранения конфиденциальных данных ключей в самом dApp. Используйте их только в том случае, если вы полностью понимаете связанные риски.",
+      "3. Vault File": "3. Файл хранилища (Vault File)",
+      "Connect using your encrypted Qubic vault file and password. While the vault is encrypted, the decrypted keys are stored in the dapp's memory. Always keep your vault file and password private.": "Подключитесь, используя зашифрованный файл хранилища (vault) Qubic и пароль. Хотя файл зашифрован, расшифрованные ключи хранятся в памяти dApp. Всегда держите ваш файл хранилища и пароль в секрете.",
+      "4. Private Key": "4. Приватный ключ",
+      "Direct private key entry should only be used as a last resort. Your private key grants complete control over your funds - never share it with anyone and only use this method on a secure, trusted device.": "Прямой ввод приватного ключа должен использоваться только в крайнем случае. Ваш приватный ключ даёт полный контроль над вашими средствами — никогда не делитесь им ни с кем и используйте этот метод только на безопасном, доверенном устройстве."
+    },
+    "faq13": {
+      "Need more help?": "Нужна дополнительная помощь?",
+      "content": "Чтобы получить прямую поддержку от нашей команды и участников сообщества, присоединяйтесь к сообществу Qubic и спросите MrUnhappyX."
+    }
+  },
+  "error404": {
+    "Page Not Found": "Страница не найдена",
+    "Go back to Home": "Вернуться на главную"
+  },
+  "dashboard": {
+    "Total Locked $QUBIC": "Всего заблокировано $QUBIC",
+    "Locked Amounts per Epoch": "Суммы блокировок по эпохам",
+    "Locked Amounts": "Заблокированные суммы",
+    "Bonus Distribution": "Распределение бонусов",
+    "Boosted Bonus": "Повышенный бонус",
+    "Burned Bonus": "Сожжённый бонус",
+    "Rewarded Bonus": "Начисленный бонус",
+    "Qearn Summarize": "Обзор Qearn",
+    "Total Locked Amount": "Общая сумма блокировок",
+    "Total Bonus Amount": "Общая сумма бонусов",
+    "Burned Amount": "Сожжённая сумма",
+    "Boosted Amount": "Повышенная сумма",
+    "Rewarded Amount": "Выплаченная сумма",
+    "Average Yield Percent": "Средний процент доходности",
+    "Average Burned Percent": "Средний процент сжигания",
+    "Average Boosted Percent": "Средний процент повышения",
+    "Qubic Richlist": "Список богатейших по Qubic",
+    "Distribution": "Распределение",
+    "Others": "Другие",
+    "Qearn Overview": "Общая информация о Qearn",
+    "Total Lock Amount": "Общая сумма блокировки",
+    "Total Burned Amount": "Общая сожжённая сумма",
+    "Locked Amount": "Заблокированная сумма",
+    "Bonus Amount": "Сумма бонуса",
+    "APY %": "Годовых %",
+    "Average APY": "Средний APY",
+    "Burned": "Сожжено",
+    "Boosted": "Повышено",
+    "Rewarded": "Выплачено"
+  },
+  "header": {
+    "Locking": "Блокировка",
+    "Dashboard": "Панель",
+    "FAQ": "FAQ",
+    "Light": "Светлая",
+    "Dark": "Тёмная"
+  },
+  "footer": {
+    "Terms of service": "Условия обслуживания",
+    "Privacy Policy": "Политика конфиденциальности",
+    "Network Status": "Состояние сети",
+    "Version": "Версия {{version}}"
+  },
+  "infoBanner": {
+    "Weekly Locking Closes in {{days}} d {{hours}} h {{minutes}} min": "Еженедельная блокировка завершается через {{days}} дн {{hours}} ч {{minutes}} мин",
+    "Current APY": "Текущий APY"
+  },
+  "qearnForm": {
+    "Lock $QUBIC": "Заблокировать $QUBIC",
+    "Lock Amount": "Сумма для блокировки",
+    "Enter amount": "Введите сумму",
+    "Lock Funds": "Заблокировать средства",
+    "All fields must be filled": "Все поля должны быть заполнены",
+    "Amount exceeds wallet balance": "Сумма превышает баланс кошелька",
+    "Amount must be at least 10M": "Сумма должна быть не менее 10 млн",
+    "Target tick is not set": "Целевой тик не установлен",
+    "Something went wrong": "Произошла ошибка",
+    "Transaction sent, it will take some time to be confirmed and executed": "Транзакция отправлена, потребуется время для подтверждения и выполнения",
+    "Lock $QUBIC?": "Заблокировать $QUBIC?",
+    "Are you sure you want to lock {{amount}}QUBIC?": "Вы уверены, что хотите заблокировать {{amount}} QUBIC?",
+    "You will be able to unlock it anytime.": "Вы сможете разблокировать их в любой момент.",
+    "Account": "Аккаунт",
+    "Available": "Доступно"
+  },
+  "lockHistoryTable": {
+    "Epoch": "Эпоха",
+    "Locked Amount": "Заблокированная сумма",
+    "Total Locked Amount": "Общая заблокированная сумма",
+    "Current Bonus Amount": "Текущая сумма бонуса",
+    "Current Reward %": "Текущий % вознаграждения",
+    "Full Reward %": "Полный % вознаграждения",
+    "Actions": "Действия",
+    "Unlock Early": "Досрочно разблокировать",
+    "No data available": "Нет доступных данных"
+  },
+  "connect": {
+    "Install MetaMask": "Установить MetaMask",
+    "Connect": "Подключиться",
+    "Reconnect": "Подключиться заново",
+    "Connected": "Подключено",
+    "Connect Wallet": "Подключить кошелёк",
+    "Disconnect Wallet": "Отключить кошелёк",
+    "MetaMask": "MetaMask",
+    "Wallet Connect": "WalletConnect",
+    "Private Seed": "Приватная seed-фраза",
+    "Vault File": "Файл хранилища",
+    "Enter password": "Введите пароль",
+    "Select an account": "Выберите аккаунт",
+    "Lock Wallet": "Заблокировать кошелёк",
+    "Select Account": "Выбрать аккаунт",
+    "Cancel": "Отмена",
+    "Open in Qubic Wallet": "Открыть в Qubic Wallet",
+    "Connect your Qubic Wallet. You need to have Qubic Wallet installed and unlocked.": "Подключите свой Qubic Wallet. Необходимо установить и разблокировать Qubic Wallet.",
+    "Your 55 character private key (seed):": "Ваш приватный ключ (seed) из 55 символов:",
+    "Load your Qubic vault file:": "Загрузите свой файл хранилища (vault) Qubic:",
+    "Unlock": "Разблокировать",
+    "Seed must be 55 characters long": "Seed-фраза должна содержать 55 символов",
+    "Seed must contain only lowercase letters": "Seed-фраза должна содержать только строчные буквы",
+    "Please select a file and enter a password.": "Пожалуйста, выберите файл и введите пароль.",
+    "Failed to unlock the vault. Please check your password and try again.": "Не удалось разблокировать хранилище. Проверьте пароль и повторите попытку.",
+    "Failed to read the file. Please try again.": "Не удалось прочитать файл. Пожалуйста, попробуйте ещё раз.",
+    "⚠️ BE CAREFUL!": "⚠️ БУДЬТЕ ОСТОРОЖНЫ!",
+    "Your private key grants complete control over your funds - never share it with anyone and only use this method on a secure, trusted device.": "Ваш приватный ключ даёт полный контроль над вашими средствами. Никогда не делитесь им ни с кем и используйте этот метод только на безопасном и надёжном устройстве."
+  },
+  "modal": {
+    "Confirm": "Подтвердить",
+    "Cancel": "Отмена",
+    "Earned Rewards": "Заработанные вознаграждения",
+    "Unlock Early": "Досрочная разблокировка",
+    "Locked Balance": "Заблокированный баланс",
+    "Earning Ratio": "Коэффициент доходности",
+    "Unlocks In": "Разблокируется через"
+  }
+}
