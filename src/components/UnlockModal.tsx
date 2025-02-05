@@ -38,7 +38,7 @@ const UnlockModal: React.FC<UnlockModalProps> = ({ open, onClose, onConfirm, dat
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.95, opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="flex min-w-[440px] flex-col gap-3 divide-y divide-gray-700 rounded-lg bg-card p-8 shadow-lg"
+            className="flex flex-col gap-3 divide-y divide-gray-700 rounded-lg bg-card p-8 shadow-lg"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex gap-2">
@@ -60,18 +60,18 @@ const UnlockModal: React.FC<UnlockModalProps> = ({ open, onClose, onConfirm, dat
               </div>
             </div>
 
-            <div className="flex gap-4 py-2">
+            <div className="flex flex-col md:flex-row gap-4 py-2">
               <div className="flex flex-1 flex-col">
-                <div className="text-gray-500">{t("modal.Locked Balance")}</div>
-                <div className="text-xl">{formatQubicAmount(data?.lockedAmount || 0)}</div>
+                <div className="text-gray-500 text-nowrap">{t("modal.Locked Balance")}</div>
+                <div className="text-xl text-center">{formatQubicAmount(data?.lockedAmount || 0)}</div>
               </div>
               <div className="flex flex-1 flex-col">
-                <div className="text-gray-500">{t("modal.Earning Ratio")}</div>
-                <div className="text-xl">{data?.apy || 0}% APY</div>
+                <div className="text-gray-500 text-nowrap">{t("modal.Earning Ratio")}</div>
+                <div className="text-xl text-center">{data?.apy || 0}% APY</div>
               </div>
               <div className="flex flex-1 flex-col">
-                <div className="text-gray-500">{t("modal.Unlocks In")}</div>
-                <div className="text-xl">{52 - tickInfo?.epoch + (data?.epoch || 0)} Weeks</div>
+                <div className="text-gray-500 text-nowrap">{t("modal.Unlocks In")}</div>
+                <div className="text-xl text-center">{52 - tickInfo?.epoch + (data?.epoch || 0)} Weeks</div>
               </div>
             </div>
           </motion.div>

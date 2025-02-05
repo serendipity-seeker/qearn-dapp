@@ -20,6 +20,7 @@ const BonusAmountAnalyzer: React.FC = () => {
   const currentEpoch = useMemo(() => tickInfo?.epoch || 142, [tickInfo?.epoch]);
   const [settings] = useAtom(settingsAtom);
   const { t } = useTranslation();
+  const [isMobile] = useState(window.innerWidth < 520);
 
   useEffect(() => {
     getBurnedAndBoostedStats().then(setBurnNBoostedStats);
@@ -64,7 +65,7 @@ const BonusAmountAnalyzer: React.FC = () => {
   return (
     <Card className="max-w-lg p-4">
       <EChart
-        style={{ width: "400px", height: "400px" }}
+        style={{ width: isMobile ? "280px" : "400px", height: isMobile ? "320px" : "400px" }}
         key={settings.darkMode ? "dark" : "light"}
         theme={settings.darkMode ? dark : light}
         use={chartComponents}

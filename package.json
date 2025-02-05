@@ -2,7 +2,7 @@
   "name": "qearn-dapp",
   "description": "Standalone Qearn app which can interact with wallet connect",
   "private": true,
-  "version": "0.5.0",
+  "version": "0.6.0",
   "type": "module",
   "scripts": {
     "dev": "vite",

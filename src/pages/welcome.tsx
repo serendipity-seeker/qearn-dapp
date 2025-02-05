@@ -21,7 +21,7 @@ const Welcome: React.FC = () => {
 
   return (
     <motion.div
-      className="flex h-full flex-col items-center justify-between gap-4 md:gap-8"
+      className="flex flex-1 flex-col items-center justify-between gap-4 md:gap-8"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}

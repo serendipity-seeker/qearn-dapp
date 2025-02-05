@@ -8,17 +8,19 @@ import InfoBanner from "@/components/InfoBanner";
 
 const Layout: React.FC = () => {
   return (
-    <div className="relative flex min-h-screen flex-col bg-background text-foreground">
+    <div className="relative flex min-h-screen flex-col justify-between bg-background text-foreground">
       <Header logo={logo} />
-      <div className="flex flex-1 pt-[80px]">
-        <div className="flex-1 p-4">
+      <div className="flex flex-1 flex-col pt-[80px]">
+        <div className="flex flex-1 flex-col p-4">
           <Outlet />
         </div>
         <Fetcher />
         <TxMonitor />
       </div>
-      <InfoBanner />
-      <Footer />
+      <div>
+        <InfoBanner />
+        <Footer />
+      </div>
     </div>
   );
 };
