@@ -10,8 +10,8 @@ const Layout: React.FC = () => {
   return (
     <div className="relative flex min-h-screen flex-col justify-between bg-background text-foreground">
       <Header logo={logo} />
-      <div className="pt-[80px]">
-        <div className="p-4">
+      <div className="flex flex-1 flex-col pt-[80px]">
+        <div className="flex flex-1 flex-col p-4">
           <Outlet />
         </div>
         <Fetcher />

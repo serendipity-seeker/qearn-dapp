@@ -18,7 +18,7 @@ const Footer: React.FC<FooterProps> = ({ appVersion }): JSX.Element | null => {
         </span>
       </div>
 
-      <div className="flex items-center gap-2">
+      <div className="flex flex-col items-center gap-2 md:flex-row">
         <a
           style={{ textDecoration: "none" }}
           className="leading-18 font-space text-12 text-foreground"
@@ -28,7 +28,7 @@ const Footer: React.FC<FooterProps> = ({ appVersion }): JSX.Element | null => {
         >
           {t("footer.Terms of service")}
         </a>
-        <span className="text-gray-500">•</span>
+        <span className="hidden text-gray-500 md:block">•</span>
         <a
           style={{ textDecoration: "none" }}
           className="leading-18 font-space text-12 text-foreground"
@@ -38,7 +38,7 @@ const Footer: React.FC<FooterProps> = ({ appVersion }): JSX.Element | null => {
         >
           {t("footer.Privacy Policy")}
         </a>
-        <span className="text-gray-500">•</span>
+        <span className="hidden text-gray-500 md:block">•</span>
         <a
           style={{ textDecoration: "none" }}
           className="leading-18 font-space text-12 text-foreground"

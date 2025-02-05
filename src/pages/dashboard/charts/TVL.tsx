@@ -10,11 +10,14 @@ import { qearnStatsAtom } from "@/store/qearnStat";
 import { dark, light } from "@/data/chart-theme";
 import { settingsAtom } from "@/store/settings";
 import { useTranslation } from "react-i18next";
+import { useState } from "react";
 
 const TVL: React.FC = () => {
   const [qearnStats] = useAtom(qearnStatsAtom);
   const [settings] = useAtom(settingsAtom);
   const { t } = useTranslation();
+
+  const [isMobile] = useState(window.innerWidth < 520);
 
   const data = Object.entries(qearnStats)
     .filter(([epoch]) => Number(epoch))
@@ -59,7 +62,7 @@ const TVL: React.FC = () => {
   return (
     <Card className="max-w-lg p-4">
       <EChart
-        style={{ width: "400px", height: "400px" }}
+        style={{ width: isMobile ? "280px" : "400px", height: isMobile ? "360px" : "400px" }}
         key={settings.darkMode ? "dark" : "light"}
         theme={settings.darkMode ? dark : light}
         use={chartComponents}

@@ -30,7 +30,7 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({ open, onClose, onConfirm, t
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.95, opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="flex min-w-[440px] flex-col gap-4 rounded-lg bg-background p-6 shadow-lg"
+            className="flex flex-col gap-4 rounded-lg bg-background p-6 shadow-lg"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex flex-col gap-2">

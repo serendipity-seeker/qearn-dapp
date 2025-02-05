@@ -16,7 +16,7 @@ const Dashboard: React.FC = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4, duration: 0.5 }}
-        className="flex justify-center gap-4"
+        className="flex flex-wrap justify-center gap-4"
       >
         <TVL />
         <BonusAmountAnalyzer />

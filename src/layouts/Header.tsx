@@ -102,7 +102,7 @@ const Header: React.FC<HeaderProps> = () => {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 md:flex">
+        <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 lg:flex">
           <NavigationMenu.Root>
             <NavigationMenu.List className="flex items-center gap-8">
               {[
@@ -126,7 +126,7 @@ const Header: React.FC<HeaderProps> = () => {
           </NavigationMenu.Root>
         </div>
 
-        <div className="mt-4 hidden items-center justify-center gap-4 md:mt-0 md:flex md:w-auto">
+        <div className="mt-4 hidden items-center justify-center gap-4 lg:mt-0 lg:flex lg:w-auto">
           {renderLanguageSelector()}
           <motion.button
             whileTap={{ scale: 0.95 }}
@@ -140,7 +140,7 @@ const Header: React.FC<HeaderProps> = () => {
         </div>
 
         {/* Mobile Navigation */}
-        <div className="md:hidden">
+        <div className="lg:hidden">
           <Collapsible.Root open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <Collapsible.Trigger asChild>
               <motion.button
