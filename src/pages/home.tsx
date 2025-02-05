@@ -20,7 +20,7 @@ const Home: React.FC = () => {
   }, [activeTab]);
 
   return (
-    <div className="mx-auto">
+    <div className={`mx-auto ${activeTab === 1 ? "w-full md:max-w-6xl" : ""}`}>
       <div className="relative mx-auto mb-4">
         <div className="pb-1">
           <span
