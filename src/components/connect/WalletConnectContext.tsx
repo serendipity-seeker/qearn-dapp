@@ -150,7 +150,11 @@ export function WalletConnectProvider({ children }: WalletConnectProviderProps) 
         request: {
           method: "qubic_signTransaction",
           params: {
-            ...params,
+            from: params.from,
+            to: params.to,
+            amount: params.amount,
+            inputType: params.inputType,
+            payload: params.payload,
             nonce: Date.now().toString(),
           },
         },
