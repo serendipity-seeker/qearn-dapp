@@ -20,45 +20,45 @@ const Home: React.FC = () => {
   }, [activeTab]);
 
   return (
-    <div className="mx-auto flex w-full max-w-6xl justify-center px-4">
-      <div>
-        <div className="relative mb-4 flex gap-3">
-          <div
+    <div className="mx-auto w-full">
+      <div className="relative mx-auto mb-4">
+        <div className="pb-1">
+          <span
             ref={tabRefs[0]}
             onClick={() => setActiveTab(0)}
-            className={`cursor-pointer px-2 py-1 font-medium text-foreground hover:text-primary-30 ${activeTab === 0 ? "text-foreground" : ""}`}
+            className={`cursor-pointer px-2 py-1 font-medium text-foreground hover:text-primary-40 ${activeTab === 0 ? "text-foreground" : ""}`}
           >
             {t("home.Locking")}
-          </div>
-          <div
+          </span>
+          <span
             ref={tabRefs[1]}
             onClick={() => setActiveTab(1)}
-            className={`cursor-pointer px-2 py-1 font-medium text-foreground hover:text-primary-30 ${activeTab === 1 ? "text-foreground" : ""}`}
+            className={`cursor-pointer px-2 py-1 font-medium text-foreground hover:text-primary-40 ${activeTab === 1 ? "text-foreground" : ""}`}
           >
             {t("home.Locking History")}
-          </div>
-          <motion.div
-            className="absolute bottom-0 h-0.5 bg-foreground"
-            animate={{
-              left: tabUnderlineLeft,
-              width: tabUnderlineWidth,
-            }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          />
+          </span>
         </div>
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeTab}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-          >
-            {activeTab === 0 && <QearnForm />}
-            {activeTab === 1 && <LockHistoryTable />}
-          </motion.div>
-        </AnimatePresence>
+        <motion.div
+          className="absolute bottom-0 h-0.5 bg-foreground"
+          animate={{
+            left: tabUnderlineLeft,
+            width: tabUnderlineWidth,
+          }}
+          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        />
       </div>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activeTab}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.2 }}
+        >
+          {activeTab === 0 && <QearnForm />}
+          {activeTab === 1 && <LockHistoryTable />}
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 };

@@ -108,7 +108,7 @@ const LockHistoryTable: React.FC = () => {
 
   useEffect(() => {
     if (Object.keys(userLockInfo).length > 0) {
-      setAccounts([{ label: `Account 1`, value: Object.keys(userLockInfo)[0] }]);
+      setAccounts([{ label: `${t("qearnForm.Account")} 1`, value: Object.keys(userLockInfo)[0] }]);
     }
   }, [userLockInfo]);
 
@@ -119,17 +119,17 @@ const LockHistoryTable: React.FC = () => {
         const lockedEpoch = parseInt(epochStr);
         const rewards = calculateRewards(
           amount,
-          qearnStats[lockedEpoch].currentLockedAmount,
-          qearnStats[lockedEpoch].currentBonusAmount,
-          qearnStats[lockedEpoch].yieldPercentage,
+          qearnStats[lockedEpoch]?.currentLockedAmount || 0,
+          qearnStats[lockedEpoch]?.currentBonusAmount || 0,
+          qearnStats[lockedEpoch]?.yieldPercentage || 0,
           tickInfo.epoch,
           lockedEpoch,
         );
         return {
           lockedEpoch: lockedEpoch,
           lockedAmount: amount,
-          totalLockedAmountInEpoch: qearnStats[lockedEpoch].currentLockedAmount,
-          currentBonusAmountInEpoch: qearnStats[lockedEpoch].currentBonusAmount,
+          totalLockedAmountInEpoch: qearnStats[lockedEpoch]?.currentLockedAmount || 0,
+          currentBonusAmountInEpoch: qearnStats[lockedEpoch]?.currentBonusAmount || 0,
           earlyUnlockReward: { reward: rewards.earlyUnlockReward, ratio: rewards.earlyUnlockRewardRatio },
           fullUnlockReward: { reward: rewards.fullUnlockReward, ratio: rewards.fullUnlockRewardRatio },
         };
@@ -164,10 +164,10 @@ const LockHistoryTable: React.FC = () => {
   };
 
   return (
-    <Card className="space-y-6 overflow-hidden p-6">
-      <div className="space-y-4">
+    <Card className="space-y-6 w-full overflow-hidden p-3 md:p-6">
+      <div className="space-y-4 w-full">
         <AccountSelector
-          label="Select Account"
+          label={t("connect.Select Account")}
           options={accounts}
           selected={selectedAccount}
           setSelected={setSelectedAccount}
@@ -179,7 +179,7 @@ const LockHistoryTable: React.FC = () => {
           </div>
         ) : (
           <div className="w-full overflow-x-auto">
-            <table className="w-full overflow-x-auto rounded-lg border border-gray-90">
+            <table className="overflow-x-auto rounded-lg border border-card-border">
               <thead className="bg-gray-90">
                 {table.getHeaderGroups().map((headerGroup) => (
                   <tr key={headerGroup.id}>
