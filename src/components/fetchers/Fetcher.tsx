@@ -99,7 +99,7 @@ const Fetcher: React.FC = () => {
             acc.totalBonusAmount += epochLockInfo.currentBonusAmount;
             if (index !== 0)
               acc.averageYieldPercentage =
-                ((acc.averageYieldPercentage || 0) * index + epochLockInfo.yieldPercentage) / (index + 1);
+                ((acc.averageYieldPercentage || 0) * (index - 1) + epochLockInfo.yieldPercentage) / index;
           }
           return acc;
         },
