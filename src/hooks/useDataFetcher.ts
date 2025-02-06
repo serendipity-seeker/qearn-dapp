@@ -1,37 +1,40 @@
+import { useEffect, useRef } from "react";
+import { useAtom } from "jotai";
+import { tickInfoAtom } from "@/store/tickInfo";
+import { qearnStatsAtom } from "@/store/qearnStat";
+import { latestStatsAtom } from "@/store/latestStats";
+import { balancesAtom } from "@/store/balances";
+import { closeTimeAtom } from "@/store/closeTime";
+import { userLockInfoAtom } from "@/store/userLockInfo";
+import { useQubicConnect } from "@/components/connect/QubicConnectContext";
 import { useFetchTickInfo } from "@/hooks/useFetchTickInfo";
+import {
+  fetchBalance,
+  fetchLatestStats,
+} from "@/services/rpc.service";
 import {
   getBurnedAndBoostedStatsPerEpoch,
   getLockInfoPerEpoch,
   getUserLockInfo,
   getUserLockStatus,
 } from "@/services/qearn.service";
-import { tickInfoAtom } from "@/store/tickInfo";
-import { qearnStatsAtom } from "@/store/qearnStat";
-import { useAtom } from "jotai";
-import { useEffect, useRef } from "react";
-import { QEARN_START_EPOCH } from "@/data/contants";
-import { useQubicConnect } from "@/components/connect/QubicConnectContext";
-import { fetchBalance, fetchLatestStats } from "@/services/rpc.service";
-import { balancesAtom } from "@/store/balances";
-import { closeTimeAtom } from "@/store/closeTime";
 import { getTimeToNewEpoch } from "@/utils";
-import { userLockInfoAtom } from "@/store/userLockInfo";
-import { latestStatsAtom } from "@/store/latestStats";
+import { QEARN_START_EPOCH } from "@/data/contants";
 
-const Fetcher: React.FC = () => {
+const useDataFetcher = () => {
   const { refetch: refetchTickInfo } = useFetchTickInfo();
   const intervalRef = useRef<NodeJS.Timeout>();
   const [tickInfo, setTickInfo] = useAtom(tickInfoAtom);
-
   const epoch = useRef<number>(tickInfo?.epoch);
   const [, setQearnStats] = useAtom(qearnStatsAtom);
+  const [, setLatestStats] = useAtom(latestStatsAtom);
+  const [, setCloseTime] = useAtom(closeTimeAtom);
+  const [, setUserLockInfo] = useAtom(userLockInfoAtom);
+  const [balances, setBalance] = useAtom(balancesAtom);
+  const { wallet } = useQubicConnect();
 
-  // Fetch tick info every 2 second
+  // Fetch tick info every 2 seconds
   useEffect(() => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-    }
-
     intervalRef.current = setInterval(async () => {
       const { data } = await refetchTickInfo();
       if (data && data?.tick) {
@@ -40,27 +43,20 @@ const Fetcher: React.FC = () => {
       }
     }, 2000);
 
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    };
+    return () => clearInterval(intervalRef.current!);
   }, [refetchTickInfo, setTickInfo]);
 
-  // Fetch latest stats
-  const [, setLatestStats] = useAtom(latestStatsAtom);
+  // Fetch latest stats once on mount
   useEffect(() => {
     fetchLatestStats().then(setLatestStats);
-  }, []);
+  }, [setLatestStats]);
 
-  // Update close time
-  const [, setCloseTime] = useAtom(closeTimeAtom);
+  // Update close time every second
   useEffect(() => {
     setTimeout(() => {
-      const timeToNewEpoch = getTimeToNewEpoch();
-      setCloseTime(timeToNewEpoch);
+      setCloseTime(getTimeToNewEpoch());
     }, 1000);
-  }, []);
+  }, [setCloseTime]);
 
   // Fetch epoch lock data
   useEffect(() => {
@@ -81,6 +77,7 @@ const Fetcher: React.FC = () => {
 
       const burnedAndBoostedStatsResults = await Promise.all(burnedAndBoostedStatsPromises);
       console.log("burnedAndBoostedStatsResults", burnedAndBoostedStatsResults);
+
       const newStats = lockInfoResults.reduce<
         Record<number, any> & {
           totalInitialLockAmount: number;
@@ -111,6 +108,7 @@ const Fetcher: React.FC = () => {
           averageYieldPercentage: 0,
         },
       );
+
       setQearnStats((prev) => ({
         ...prev,
         ...newStats,
@@ -118,12 +116,9 @@ const Fetcher: React.FC = () => {
     };
 
     fetchEpochData();
-  }, [epoch.current]);
+  }, [epoch.current, setQearnStats]);
 
-  // Wallet Setter
-  const { wallet } = useQubicConnect();
-  const [balances, setBalance] = useAtom(balancesAtom);
-
+  // Fetch wallet balance when wallet changes
   useEffect(() => {
     const setUserAccount = async () => {
       if (wallet) {
@@ -132,30 +127,26 @@ const Fetcher: React.FC = () => {
       }
     };
     setUserAccount();
-  }, [wallet]);
+  }, [wallet, setBalance]);
 
   // Fetch user lock data
-  const [userLockInfo, setUserLockInfo] = useAtom(userLockInfoAtom);
-
   useEffect(() => {
     if (!balances.length || !epoch.current) return;
     const fetchUserLockData = async () => {
       const lockEpochs = await getUserLockStatus(balances[0].id, epoch.current);
       lockEpochs.forEach(async (epoch) => {
         const lockedAmount = await getUserLockInfo(balances[0].id, epoch);
-        setUserLockInfo({
-          ...userLockInfo,
+        setUserLockInfo((prev) => ({
+          ...prev,
           [balances[0].id]: {
-            ...userLockInfo[balances[0].id],
+            ...prev[balances[0].id],
             [epoch]: lockedAmount,
           },
-        });
+        }));
       });
     };
     fetchUserLockData();
-  }, [balances, epoch.current]);
-
-  return null;
+  }, [balances, epoch.current, setUserLockInfo]);
 };
 
-export default Fetcher;
+export default useDataFetcher;
