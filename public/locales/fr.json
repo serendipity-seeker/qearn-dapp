@@ -208,6 +208,14 @@
     "Unlock Early": "Déverrouillage anticipé",
     "Locked Balance": "Solde verrouillé",
     "Earning Ratio": "Taux de gain",
-    "Unlocks In": "Déverrouillage dans"
+    "Unlocks In": "Déverrouillage dans",
+    "Set Unlock Amount": "Définir le montant de déverrouillage",
+    "Amount": "Montant",
+    "Enter amount to unlock": "Saisir le montant à déverrouiller",
+    "Invalid amount": "Montant invalide",
+    "Unlock amount is less than the minimum amount": "Le montant de déverrouillage est inférieur au montant minimum",
+    "Unlock amount is greater than the locked amount": "Le montant de déverrouillage est supérieur au montant verrouillé",
+    "Account Balance is 0": "Le solde du compte est 0",
+    "To Unlock Qubic, you need to hold at least 1 $QUBIC in your account": "Pour déverrouiller Qubic, vous devez détenir au moins 1 $QUBIC dans votre compte"
   }
 }

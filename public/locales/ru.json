@@ -208,6 +208,14 @@
     "Unlock Early": "Досрочная разблокировка",
     "Locked Balance": "Заблокированный баланс",
     "Earning Ratio": "Коэффициент доходности",
-    "Unlocks In": "Разблокируется через"
+    "Unlocks In": "Разблокируется через",
+    "Set Unlock Amount": "Установить сумму разблокировки",
+    "Amount": "Сумма",
+    "Enter amount to unlock": "Введите сумму для разблокировки",
+    "Invalid amount": "Неверная сумма",
+    "Unlock amount is less than the minimum amount": "Сумма разблокировки меньше минимальной суммы",
+    "Unlock amount is greater than the locked amount": "Сумма разблокировки больше заблокированной суммы",
+    "Account Balance is 0": "Баланс аккаунта равен 0",
+    "To Unlock Qubic, you need to hold at least 1 $QUBIC in your account": "Чтобы разблокировать Qubic, вы должны иметь не менее 1 $QUBIC в своём аккаунте"
   }
 }

@@ -208,6 +208,14 @@
     "Unlock Early": "Desbloqueo anticipado",
     "Locked Balance": "Saldo bloqueado",
     "Earning Ratio": "Proporción de ganancias",
-    "Unlocks In": "Se desbloquea en"
+    "Unlocks In": "Se desbloquea en",
+    "Set Unlock Amount": "Establecer monto de desbloqueo",
+    "Amount": "Monto",
+    "Enter amount to unlock": "Ingresar monto para desbloquear",
+    "Invalid amount": "Monto inválido",
+    "Unlock amount is less than the minimum amount": "El monto de desbloqueo es menor que el mínimo",
+    "Unlock amount is greater than the locked amount": "El monto de desbloqueo es mayor que el saldo bloqueado",
+    "Account Balance is 0": "El saldo de la cuenta es 0",
+    "To Unlock Qubic, you need to hold at least 1 $QUBIC in your account": "Para desbloquear Qubic, necesitas tener al menos 1 $QUBIC en tu cuenta"
   }
 }

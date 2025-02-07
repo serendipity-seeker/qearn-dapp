@@ -25,6 +25,9 @@ import { settingsAtom } from "@/store/settings";
 import { useQubicConnect } from "./connect/QubicConnectContext";
 import UnlockModal from "./UnlockModal";
 import { useTranslation } from "react-i18next";
+import UnlockAmountSettingModal from "./UnlockAmountSettingModal";
+import ConfirmModal from "./ui/ConfirmModal";
+import { balancesAtom } from "@/store/balances";
 
 interface ITableData {
   lockedEpoch: number;
@@ -47,10 +50,18 @@ const LockHistoryTable: React.FC = () => {
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
   const [, setPendingTx] = useAtom(pendingTxAtom);
   const [settings] = useAtom(settingsAtom);
+  const [balances] = useAtom(balancesAtom);
   const { getSignedTx } = useQubicConnect();
   const { open, onOpen, onClose } = useDisclosure();
+  const {
+    open: unlockAmountSettingOpen,
+    onOpen: onUnlockAmountSettingOpen,
+    onClose: onUnlockAmountSettingClose,
+  } = useDisclosure();
+  const { open: reminderOpen, onOpen: onReminderOpen, onClose: onReminderClose } = useDisclosure();
   const { t } = useTranslation();
 
+  const [unlockAmount, setUnlockAmount] = useState<number>(0);
   const columnHelper = createColumnHelper<ITableData>();
   const lockedColumns = [
     columnHelper.accessor("lockedEpoch", {
@@ -89,7 +100,7 @@ const LockHistoryTable: React.FC = () => {
           label={t("lockHistoryTable.Unlock Early")}
           onClick={() => {
             setSelectedIdx(info.row.index);
-            onOpen();
+            onUnlockAmountSettingOpen();
           }}
         />
       ),
@@ -139,9 +150,14 @@ const LockHistoryTable: React.FC = () => {
 
   const handleUnlockEarly = async () => {
     try {
+      const balance = balances.find((balance) => balance.id === accounts[selectedAccount].value);
+      if (!balance || balance.balance === 0) {
+        onReminderOpen();
+        return;
+      }
       const tx = await unLockQubic(
         accounts[selectedAccount].value,
-        tableData[selectedIdx || 0].lockedAmount,
+        unlockAmount,
         tableData[selectedIdx || 0].lockedEpoch,
         tickInfo?.tick + settings.tickOffset,
       );
@@ -164,8 +180,8 @@ const LockHistoryTable: React.FC = () => {
   };
 
   return (
-    <Card className="space-y-6 w-full overflow-hidden p-3 md:p-6">
-      <div className="space-y-4 w-full">
+    <Card className="w-full space-y-6 overflow-hidden p-3 md:p-6">
+      <div className="w-full space-y-4">
         <AccountSelector
           label={t("connect.Select Account")}
           options={accounts}
@@ -244,7 +260,24 @@ const LockHistoryTable: React.FC = () => {
           lockedAmount: tableData[selectedIdx || 0]?.lockedAmount || 0,
           apy: tableData[selectedIdx || 0]?.earlyUnlockReward?.ratio || 0,
           epoch: tableData[selectedIdx || 0]?.lockedEpoch || 0,
+          unlockAmount,
         }}
+      />
+      <UnlockAmountSettingModal
+        open={unlockAmountSettingOpen}
+        onClose={onUnlockAmountSettingClose}
+        onConfirm={(amount) => {
+          setUnlockAmount(amount);
+          onOpen();
+        }}
+        maxAmount={tableData[selectedIdx || 0]?.lockedAmount || 0}
+      />
+      <ConfirmModal
+        open={reminderOpen}
+        onClose={onReminderClose}
+        onConfirm={onReminderClose}
+        title={t("modal.Account Balance is 0")}
+        description={t("modal.To Unlock Qubic, you need to hold at least 1 $QUBIC in your account")}
       />
     </Card>
   );

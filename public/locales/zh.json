@@ -208,6 +208,14 @@
     "Unlock Early": "提前解锁",
     "Locked Balance": "锁定余额",
     "Earning Ratio": "收益比例",
-    "Unlocks In": "解锁倒计时"
+    "Unlocks In": "解锁倒计时",
+    "Set Unlock Amount": "设置解锁金额",
+    "Amount": "金额",
+    "Enter amount to unlock": "输入解锁金额",
+    "Invalid amount": "无效金额",
+    "Unlock amount is less than the minimum amount": "解锁金额小于最小金额",
+    "Unlock amount is greater than the locked amount": "解锁金额大于锁定金额",
+    "Account Balance is 0": "账户余额为0",
+    "To Unlock Qubic, you need to hold at least 1 $QUBIC in your account": "要解锁 Qubic，您需要至少持有 1 $QUBIC"
   }
 }

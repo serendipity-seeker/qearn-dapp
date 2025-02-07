@@ -208,6 +208,14 @@
     "Unlock Early": "Vorzeitig entsperren",
     "Locked Balance": "Gesperrtes Guthaben",
     "Earning Ratio": "Verdienstverhältnis",
-    "Unlocks In": "Entsperrt in"
+    "Unlocks In": "Entsperrt in",
+    "Set Unlock Amount": "Entsperrungsbetrag festlegen",
+    "Amount": "Betrag",
+    "Enter amount to unlock": "Betrag zum Entsperren eingeben",
+    "Invalid amount": "Ungültiger Betrag",
+    "Unlock amount is less than the minimum amount": "Entsperrungsbetrag ist kleiner als der Mindestbetrag",
+    "Unlock amount is greater than the locked amount": "Entsperrungsbetrag ist größer als das gesperrte Guthaben",
+    "Account Balance is 0": "Kontoguthaben ist 0",
+    "To Unlock Qubic, you need to hold at least 1 $QUBIC in your account": "Um $QUBIC zu entsperren, musst du mindestens 1 $QUBIC in deinem Konto halten"
   }
 }

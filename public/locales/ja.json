@@ -208,6 +208,14 @@
     "Unlock Early": "早期アンロック",
     "Locked Balance": "ロック残高",
     "Earning Ratio": "獲得率",
-    "Unlocks In": "アンロックまでの時間"
+    "Unlocks In": "アンロックまでの時間",
+    "Set Unlock Amount": "アンロック金額を設定",
+    "Amount": "金額",
+    "Enter amount to unlock": "アンロック金額を入力",
+    "Invalid amount": "無効な金額",
+    "Unlock amount is less than the minimum amount": "アンロック金額が最小金額より少ない",
+    "Unlock amount is greater than the locked amount": "アンロック金額がロック残高より多い",
+    "Account Balance is 0": "アカウント残高が0",
+    "To Unlock Qubic, you need to hold at least 1 $QUBIC in your account": "Qubicをアンロックするには、少なくとも1 $QUBICを保有する必要があります"
   }
 }

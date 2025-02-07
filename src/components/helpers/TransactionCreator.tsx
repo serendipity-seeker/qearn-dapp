@@ -76,7 +76,10 @@ export const TransactionCreator = () => {
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-semibold">Transaction Creator</h2>
-          <Button onClick={() => setTxForm(initialTxForm)} className="px-3" label="Clean" />
+          <Button onClick={() => {
+            setTxForm(initialTxForm);
+            setTx(null);
+          }} className="px-3" label="Clean" />
         </div>
 
         <div className="space-y-4">
@@ -127,7 +130,7 @@ export const TransactionCreator = () => {
           <Button onClick={handleCreateTx} className="mt-2 w-full" variant="primary" label="Create Transaction" />
           <Button onClick={signTx} className="mt-2 w-full" variant="primary" label="Sign Transaction" disabled={!tx} />
 
-          {renderOutput("Transaction", uint8ArrayToBase64(tx ?? new Uint8Array()))}
+          {tx && renderOutput("Transaction", uint8ArrayToBase64(tx))}
         </div>
       </div>
     </Card>

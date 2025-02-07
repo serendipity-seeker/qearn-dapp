@@ -208,6 +208,14 @@
     "Unlock Early": "Sblocco anticipato",
     "Locked Balance": "Saldo bloccato",
     "Earning Ratio": "Rapporto di guadagno",
-    "Unlocks In": "Si sblocca tra"
+    "Unlocks In": "Si sblocca tra",
+    "Set Unlock Amount": "Imposta importo di sblocco",
+    "Amount": "Importo",
+    "Enter amount to unlock": "Inserisci importo da sbloccare",
+    "Invalid amount": "Importo non valido",
+    "Unlock amount is less than the minimum amount": "L'importo di sblocco è minore dell'importo minimo",
+    "Unlock amount is greater than the locked amount": "L'importo di sblocco è maggiore del saldo bloccato",
+    "Account Balance is 0": "Il saldo del conto è 0",
+    "To Unlock Qubic, you need to hold at least 1 $QUBIC in your account": "Per sbloccare Qubic, devi detenere almeno 1 $QUBIC nel tuo conto"
   }
 }

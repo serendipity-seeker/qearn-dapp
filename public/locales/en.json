@@ -208,6 +208,14 @@
     "Unlock Early": "Unlock Early",
     "Locked Balance": "Locked Balance",
     "Earning Ratio": "Earning Ratio",
-    "Unlocks In": "Unlocks In"
+    "Unlocks In": "Unlocks In",
+    "Set Unlock Amount": "Set Unlock Amount",
+    "Amount": "Amount",
+    "Enter amount to unlock": "Enter amount to unlock",
+    "Invalid amount": "Invalid amount",
+    "Unlock amount is less than the minimum amount": "Unlock amount is less than the minimum amount",
+    "Unlock amount is greater than the locked amount": "Unlock amount is greater than the locked amount",
+    "Account Balance is 0": "Account Balance is 0",
+    "To Unlock Qubic, you need to hold at least 1 $QUBIC in your account": "To Unlock Qubic, you need to hold at least 1 $QUBIC in your account"
   }
 }

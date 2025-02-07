@@ -13,6 +13,7 @@ interface UnlockModalProps {
     lockedAmount: number;
     apy: number;
     epoch: number;
+    unlockAmount: number;
   };
   onClose: () => void;
   onConfirm?: () => void;
@@ -63,7 +64,7 @@ const UnlockModal: React.FC<UnlockModalProps> = ({ open, onClose, onConfirm, dat
             <div className="flex flex-col md:flex-row gap-4 py-2">
               <div className="flex flex-1 flex-col">
                 <div className="text-gray-500 text-nowrap">{t("modal.Locked Balance")}</div>
-                <div className="text-xl text-center">{formatQubicAmount(data?.lockedAmount || 0)}</div>
+                <div className="text-xl text-center">{formatQubicAmount(data?.unlockAmount || 0)}</div>
               </div>
               <div className="flex flex-1 flex-col">
                 <div className="text-gray-500 text-nowrap">{t("modal.Earning Ratio")}</div>
