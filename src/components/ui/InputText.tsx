@@ -1,6 +1,5 @@
 import React, { useState, forwardRef, useImperativeHandle, ChangeEvent } from "react";
 import LabelWithPopover from "./LabelWithPopover";
-import { formatQubicAmount } from "@/utils";
 
 interface InputNumbersProps {
   id: string;
