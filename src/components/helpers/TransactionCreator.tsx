@@ -2,14 +2,13 @@ import { useState } from "react";
 import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
 import { toast } from "react-hot-toast";
-import { base64ToUint8Array } from "@/utils";
+import { base64ToUint8Array, uint8ArrayToBase64 } from "@/utils";
 import { createTx } from "@/services/tx.service";
 import { useAtomValue } from "jotai";
 import { tickInfoAtom } from "@/store/tickInfo";
 import { useQubicConnect } from "@/components/connect/QubicConnectContext";
-import { broadcastTx } from "@/services/rpc.service";
 import { DynamicPayload } from "@qubic-lib/qubic-ts-library/dist/qubic-types/DynamicPayload";
-import { renderInput } from "./common";
+import { renderInput, renderOutput } from "./common";
 
 const initialTxForm = {
   sourceId: "",
@@ -23,38 +22,53 @@ const initialTxForm = {
 
 export const TransactionCreator = () => {
   const [txForm, setTxForm] = useState(initialTxForm);
+  const [tx, setTx] = useState<Uint8Array | null>(null);
   const tickInfo = useAtomValue(tickInfoAtom);
   const { getSignedTx } = useQubicConnect();
 
   const handleCreateTx = async () => {
     try {
-      if (!txForm.sourceId || !txForm.destinationId || !txForm.amount || !txForm.tick) {
+      if (!txForm.sourceId || !txForm.destinationId || !txForm.amount) {
         return toast.error("Please fill in required fields");
       }
+      if (txForm.sourceId.length !== 60 || !/^[A-Z]{60}$/.test(txForm.sourceId)) {
+        return toast.error("Invalid source ID - must be 60 uppercase English characters");
+      }
+      if (txForm.destinationId.length !== 60 || !/^[A-Z]{60}$/.test(txForm.destinationId)) {
+        return toast.error("Invalid destination ID - must be 60 uppercase English characters"); 
+      }
+      const tick = txForm.tick !== "" ? Number(txForm.tick) : tickInfo.tick + 5;
+      const amount = txForm.amount !== "" ? Number(txForm.amount) : 0;
 
-      const tx = createTx(txForm.sourceId, txForm.destinationId, Number(txForm.amount), Number(txForm.tick));
+      const tx = createTx(txForm.sourceId, txForm.destinationId, amount, tick);
 
-      if (txForm.inputType) {
+      if (txForm.inputType !== "") {
         tx.setInputType(Number(txForm.inputType));
       }
-      if (txForm.inputSize) {
+      if (txForm.inputSize !== "") {
         tx.setInputSize(Number(txForm.inputSize));
       }
       if (txForm.payload) {
         const payloadBytes = base64ToUint8Array(txForm.payload);
         const dynamicPayload = new DynamicPayload(payloadBytes.length);
         dynamicPayload.setPayload(payloadBytes);
+        if (payloadBytes.length != Number(txForm.inputSize)) {
+          return toast.error("Payload size does not match input size");
+        }
         tx.setPayload(dynamicPayload);
       }
-
-      const { tx: signedTx } = await getSignedTx(tx);
-      const res = await broadcastTx(signedTx);
-
-      toast.success("Transaction sent successfully! ID: " + res.transactionId);
+      const processedTx = await tx.build("0".repeat(55));
+      setTx(processedTx);
     } catch (error) {
       console.error(error);
       toast.error("Error creating transaction");
     }
+  };
+
+  const signTx = async () => {
+    if (!tx) return toast.error("Please create a transaction first");
+    const { tx: signedTx } = await getSignedTx(tx);
+    setTx(signedTx);
   };
 
   return (
@@ -110,12 +124,10 @@ export const TransactionCreator = () => {
             3,
           )}
 
-          <Button
-            onClick={handleCreateTx}
-            className="mt-2 w-full"
-            variant="primary"
-            label="Create & Sign Transaction"
-          />
+          <Button onClick={handleCreateTx} className="mt-2 w-full" variant="primary" label="Create Transaction" />
+          <Button onClick={signTx} className="mt-2 w-full" variant="primary" label="Sign Transaction" disabled={!tx} />
+
+          {renderOutput("Transaction", uint8ArrayToBase64(tx ?? new Uint8Array()))}
         </div>
       </div>
     </Card>
