@@ -20,13 +20,16 @@ const InputNumbers = forwardRef<InputNumbersRef, InputNumbersProps>(
     const [error, setError] = useState<string>("");
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-      const newValue = e.target.value.replace(/,/g, "");
-      setValue(formatQubicAmount(Number(newValue)));
+      const newValue = e.target.value.replace(/[^0-9,]/g, "").replace(/,/g, "");
       if (newValue === "") {
+        setValue("");
         setError("This field is required");
-      } else {
-        setError("");
+        onChange("");
+        return;
       }
+      const formattedValue = formatQubicAmount(Number(newValue));
+      setValue(formattedValue);
+      setError("");
       onChange(newValue);
     };
 
