@@ -18,7 +18,8 @@
   },
   "home": {
     "Locking": "锁定中",
-    "Locking History": "锁定历史"
+    "Locking History": "锁定历史",
+    "Transfer": "转账"
   },
   "faq": {
     "Frequently Asked Questions": "常见问题",
@@ -228,6 +229,18 @@
     "Monitoring transaction...": "监控交易...",
     "Transaction failed, please try again": "交易失败，请重试",
     "Transaction sent, it will take some time to be confirmed and executed": "交易已发送，需要一些时间来确认和执行",
-    "Something went wrong": "出现问题"
+    "Something went wrong": "出现问题",
+    "Transferred successfully": "转账成功"
+  },
+  "transferForm": {
+    "Transfer $QUBIC": "转账 $QUBIC",
+    "Recipient Address": "收款地址",
+    "Enter recipient address": "输入收款地址",
+    "Amount": "金额",
+    "Enter amount": "输入金额",
+    "Send": "发送",
+    "Confirm Transfer": "确认转账",
+    "Are you sure you want to send {{amount}} QUBIC?": "您确定要发送 {{amount}} QUBIC 吗？",
+    "Transaction submitted": "交易已提交"
   }
 }

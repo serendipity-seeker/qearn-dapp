@@ -18,7 +18,8 @@
   },
   "home": {
     "Locking": "ロック中",
-    "Locking History": "ロック履歴"
+    "Locking History": "ロック履歴",
+    "Transfer": "転送"
   },
   "faq": {
     "Frequently Asked Questions": "よくある質問",
@@ -228,6 +229,18 @@
     "Monitoring transaction...": "トランザクションを監視しています...",
     "Transaction failed, please try again": "トランザクションに失敗しました。再試行してください。",
     "Transaction sent, it will take some time to be confirmed and executed": "トランザクションが送信されました。確認および実行にしばらく時間がかかります。",
-    "Something went wrong": "何かがおかしいです"
+    "Something went wrong": "何かがおかしいです",
+    "Transferred successfully": "転送が成功しました"
+  },
+  "transferForm": {
+    "Transfer $QUBIC": "QUBIC を転送",
+    "Recipient Address": "受取人のアドレス",
+    "Enter recipient address": "受取人のアドレスを入力",
+    "Amount": "金額",
+    "Enter amount": "金額を入力",
+    "Send": "送信",
+    "Confirm Transfer": "転送を確認",
+    "Are you sure you want to send {{amount}} QUBIC?": "{{amount}} QUBIC を転送してよろしいですか？",
+    "Transaction submitted": "トランザクションが送信されました"
   }
 }

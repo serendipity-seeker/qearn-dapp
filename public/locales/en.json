@@ -18,14 +18,15 @@
   },
   "home": {
     "Locking": "Locking",
-    "Locking History": "Locking History"
+    "Locking History": "Locking History",
+    "Transfer": "Transfer"
   },
   "faq": {
     "Frequently Asked Questions": "Frequently Asked Questions",
 
     "faq1": {
       "What is Qearn?": "What is Qearn?",
-      "content": "Qearn is a smart contract-based platform that allows users to lock funds for rewards while offering flexible unlocking options with associated penalties for early unlocking. It’s designed to incentivize long-term participation while maintaining liquidity for users."
+      "content": "Qearn is a smart contract-based platform that allows users to lock funds for rewards while offering flexible unlocking options with associated penalties for early unlocking. It's designed to incentivize long-term participation while maintaining liquidity for users."
     },
     "faq2": {
       "How does Qearn generate rewards?": "How does Qearn generate rewards?",
@@ -33,7 +34,7 @@
     },
     "faq3": {
       "What is an epoch in Qearn?": "What is an epoch in Qearn?",
-      "content": "An epoch is a time period during which locking and unlocking activities are managed. In Qearn, epochs are tracked weekly, with each user’s lock duration and rewards calculated based on these intervals."
+      "content": "An epoch is a time period during which locking and unlocking activities are managed. In Qearn, epochs are tracked weekly, with each user's lock duration and rewards calculated based on these intervals."
     },
     "faq4": {
       "What is the minimum amount required to lock funds?": "What is the minimum amount required to lock funds?",
@@ -167,6 +168,7 @@
     "Total Locked Amount": "Total Locked Amount",
     "Current Bonus Amount": "Current Bonus Amount",
     "Current Reward %": "Current Reward %",
+
     "Full Reward %": "Full Reward %",
     "Actions": "Actions",
     "Unlock Early": "Unlock Early",
@@ -228,6 +230,18 @@
     "Monitoring transaction...": "Monitoring transaction...",
     "Transaction failed, please try again": "Transaction failed, please try again",
     "Transaction sent, it will take some time to be confirmed and executed": "Transaction sent, it will take some time to be confirmed and executed",
-    "Something went wrong": "Something went wrong"
+    "Something went wrong": "Something went wrong",
+    "Transferred successfully": "Transferred successfully"
+  },
+  "transferForm": {
+    "Transfer $QUBIC": "Transfer $QUBIC",
+    "Recipient Address": "Recipient Address",
+    "Enter recipient address": "Enter recipient address",
+    "Amount": "Amount",
+    "Enter amount": "Enter amount",
+    "Send": "Send",
+    "Confirm Transfer": "Confirm Transfer",
+    "Are you sure you want to send {{amount}} QUBIC?": "Are you sure you want to send {{amount}} QUBIC?",
+    "Transaction submitted": "Transaction submitted"
   }
 }

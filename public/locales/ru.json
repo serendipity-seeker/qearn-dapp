@@ -18,7 +18,8 @@
   },
   "home": {
     "Locking": "Блокировка",
-    "Locking History": "История блокировок"
+    "Locking History": "История блокировок",
+    "Transfer": "Перевод"
   },
   "faq": {
     "Frequently Asked Questions": "Часто задаваемые вопросы",
@@ -228,6 +229,18 @@
     "Monitoring transaction...": "Слежение за транзакцией...",
     "Transaction failed, please try again": "Транзакция не удалась, пожалуйста, попробуйте ещё раз",
     "Transaction sent, it will take some time to be confirmed and executed": "Транзакция отправлена, потребуется время для подтверждения и выполнения",
-    "Something went wrong": "Что-то пошло не так"
+    "Something went wrong": "Что-то пошло не так",
+    "Transferred successfully": "Перевод успешно выполнен"
+  },
+  "transferForm": {
+    "Transfer $QUBIC": "Перевести $QUBIC",
+    "Recipient Address": "Адрес получателя",
+    "Enter recipient address": "Введите адрес получателя",
+    "Amount": "Сумма",
+    "Enter amount": "Введите сумму",
+    "Send": "Отправить",
+    "Confirm Transfer": "Подтвердить перевод",
+    "Are you sure you want to send {{amount}} QUBIC?": "Вы уверены, что хотите отправить {{amount}} QUBIC?",
+    "Transaction submitted": "Транзакция отправлена"
   }
 }

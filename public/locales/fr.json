@@ -18,7 +18,8 @@
   },
   "home": {
     "Locking": "Verrouillage",
-    "Locking History": "Historique de verrouillage"
+    "Locking History": "Historique de verrouillage",
+    "Transfer": "Transfert"
   },
   "faq": {
     "Frequently Asked Questions": "Questions fréquentes",
@@ -228,6 +229,18 @@
     "Monitoring transaction...": "Surveillance de la transaction...",
     "Transaction failed, please try again": "Transaction échouée, veuillez réessayer",
     "Transaction sent, it will take some time to be confirmed and executed": "Transaction envoyée, cela prendra un certain temps pour être confirmée et exécutée",
-    "Something went wrong": "Une erreur s'est produite"
+    "Something went wrong": "Une erreur s'est produite",
+    "Transferred successfully": "Transfert réussi"
+  },
+  "transferForm": {
+    "Transfer $QUBIC": "Transférer $QUBIC",
+    "Recipient Address": "Adresse du destinataire",
+    "Enter recipient address": "Saisir l'adresse du destinataire",
+    "Amount": "Montant",
+    "Enter amount": "Saisir le montant",
+    "Send": "Envoyer",
+    "Confirm Transfer": "Confirmer le transfert",
+    "Are you sure you want to send {{amount}} QUBIC?": "Êtes-vous sûr de vouloir envoyer {{amount}} QUBIC ?",
+    "Transaction submitted": "Transaction envoyée"
   }
 }
