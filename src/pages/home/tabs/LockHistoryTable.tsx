@@ -151,7 +151,7 @@ const LockHistoryTable: React.FC = () => {
   const handleUnlockEarly = async () => {
     try {
       const balance = balances.find((balance) => balance.id === accounts[selectedAccount].value);
-      if (!balance || balance.balance === 0) {
+      if (!balance || balance.balance === "0") {
         onReminderOpen();
         return;
       }

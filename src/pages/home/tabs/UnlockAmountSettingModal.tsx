@@ -1,9 +1,9 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { renderInput } from "../../../components/helpers/common";
 import Button from "../../../components/ui/Button";
 import { useTranslation } from "react-i18next";
 import toast from "react-hot-toast";
+import InputNumbers from "../../../components/ui/InputNumbers";
 
 interface UnlockAmountSettingModalProps {
   open: boolean;
@@ -54,7 +54,13 @@ const UnlockAmountSettingModal: React.FC<UnlockAmountSettingModalProps> = ({ ope
           >
             <h2 className="text-xl font-semibold">{t("modal.Set Unlock Amount")}</h2>
 
-            {renderInput(t("modal.Amount"), amount, (value) => setAmount(value), t("modal.Enter amount to unlock"))}
+            <InputNumbers
+              id="unlock-amount"
+              label={t("modal.Amount")}
+              onChange={(value) => setAmount(value)}
+              placeholder={t("modal.Enter amount to unlock")}
+              maxAmount={maxAmount}
+            />
 
             <div className="flex justify-end gap-2">
               <Button onClick={onClose} label={t("modal.Cancel")} />

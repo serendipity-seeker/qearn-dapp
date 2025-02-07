@@ -7,6 +7,7 @@ interface InputNumbersProps {
   label: string;
   placeholder?: string;
   description?: React.ReactNode;
+  maxAmount?: number;
   onChange: (value: string) => void;
 }
 
@@ -15,7 +16,7 @@ interface InputNumbersRef {
 }
 
 const InputNumbers = forwardRef<InputNumbersRef, InputNumbersProps>(
-  ({ id, label, placeholder, description, onChange }, ref) => {
+  ({ id, label, placeholder, description, maxAmount, onChange }, ref) => {
     const [value, setValue] = useState<string>("");
     const [error, setError] = useState<string>("");
 
@@ -46,12 +47,18 @@ const InputNumbers = forwardRef<InputNumbersRef, InputNumbersProps>(
 
     return (
       <div>
-        {description && <LabelWithPopover htmlFor={id} label={label} description={description} />}
-        {!description && (
-          <label htmlFor={id} className="mb-2 block">
-            {label}
-          </label>
-        )}
+        <div className="flex items-center justify-between mb-2">
+          {description ? (
+            <LabelWithPopover htmlFor={id} label={label} description={description} />
+          ) : (
+            <label htmlFor={id}>{label}</label>
+          )}
+          {maxAmount !== undefined && (
+            <span className="text-sm text-gray-500">
+              Max: {formatQubicAmount(maxAmount)}
+            </span>
+          )}
+        </div>
         <input
           id={id}
           type="text"

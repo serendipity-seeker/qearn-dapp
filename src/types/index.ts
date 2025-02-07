@@ -7,7 +7,7 @@ export type TickInfo = {
 
 export type Balance = {
   id: string;
-  balance: number;
+  balance: string;
   validForTick: number;
   latestIncomingTransferTick: number;
   latestOutgoingTransferTick: number;
