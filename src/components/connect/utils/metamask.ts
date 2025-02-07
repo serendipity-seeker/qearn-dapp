@@ -24,8 +24,6 @@ export const detectSnaps = async () => {
     }
   }
 
-  console.log("window.ethereum", window.ethereum);
-
   if (window.ethereum?.providers) {
     for (const provider of window.ethereum.providers) {
       try {
@@ -63,7 +61,6 @@ export const isFlask = async () => {
       method: "web3_clientVersion",
     });
 
-    console.log("clientVersion", clientVersion);
     const isFlaskDetected = (clientVersion as string[])?.includes("flask");
 
     return Boolean(provider && isFlaskDetected);

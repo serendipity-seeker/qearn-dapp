@@ -55,12 +55,9 @@ export function WalletConnectProvider({ children }: WalletConnectProviderProps) 
         },
       });
 
-      console.log("Generated URL:", uri);
-
       const approve = async () => {
         try {
           const session = await approval();
-          console.log("Connection approved", session);
           setSessionTopic(session.topic);
           setIsConnected(true);
           localStorage.setItem("sessionTopic", session.topic);
@@ -109,7 +106,6 @@ export function WalletConnectProvider({ children }: WalletConnectProviderProps) 
           },
         },
       });
-      console.log("Requested accounts:", result);
       return result as WalletConnectAccount[];
     } catch (error) {
       console.error("Failed to request accounts:", error);

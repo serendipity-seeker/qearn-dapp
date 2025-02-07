@@ -75,7 +75,6 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
         publicKey,
       };
       connect(wallet);
-      console.log("mmSnapConnect: ", wallet);
       dispatch({
         type: MetamaskActions.SetInstalled,
         payload: installedSnap,

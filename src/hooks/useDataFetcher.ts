@@ -76,7 +76,6 @@ const useDataFetcher = () => {
       }
 
       const burnedAndBoostedStatsResults = await Promise.all(burnedAndBoostedStatsPromises);
-      console.log("burnedAndBoostedStatsResults", burnedAndBoostedStatsResults);
 
       const newStats = lockInfoResults.reduce<
         Record<number, any> & {

@@ -175,7 +175,6 @@ const LockHistoryTable: React.FC = () => {
       toast.success("Transaction sent, it will take some time to be confirmed and executed");
     } catch (err) {
       toast.error("Something went wrong");
-      console.log(err);
     }
   };
 
