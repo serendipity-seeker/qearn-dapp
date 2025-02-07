@@ -1,6 +1,6 @@
 {
   "welcome": {
-    "Earn {{percentage}}% Rewards by Staking $QUBIC": "Guadagna il {{percentage}}% di ricompense facendo staking di $QUBIC",
+    "Earn <0>{{percentage}}%</0> Rewards by Staking $QUBIC": "Guadagna il <0>{{percentage}}%</0> di ricompense facendo staking di $QUBIC",
     "Connect your wallet to start locking": "Collega il tuo wallet per iniziare a bloccare",
     "Start Locking": "Inizia a bloccare"
   },

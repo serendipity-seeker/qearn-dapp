@@ -5,7 +5,7 @@ import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 
 const Welcome: React.FC = () => {
   const [qearnStats] = useAtom(qearnStatsAtom);
@@ -38,7 +38,11 @@ const Welcome: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          {t("welcome.Earn {{percentage}}% Rewards by Staking $QUBIC", { percentage })}
+          <Trans
+            i18nKey="welcome.Earn <0>{{percentage}}%</0> Rewards by Staking $QUBIC"
+            values={{ percentage }}
+            components={[<span className="text-primary-40" />]}
+          />
         </motion.h2>
         <motion.h5
           className="mt-4 max-w-[748px] text-center text-xl text-gray-50 md:text-2xl"

@@ -1,6 +1,6 @@
 {
   "welcome": {
-    "Earn {{percentage}}% Rewards by Staking $QUBIC": "通过质押 $QUBIC 获得 {{percentage}}% 的奖励",
+    "Earn <0>{{percentage}}%</0> Rewards by Staking $QUBIC": "通过质押 $QUBIC 获得 <0>{{percentage}}%</0> 的奖励",
     "Connect your wallet to start locking": "连接您的钱包以开始锁定",
     "Start Locking": "开始锁定"
   },

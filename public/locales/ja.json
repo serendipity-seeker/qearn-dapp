@@ -1,6 +1,6 @@
 {
   "welcome": {
-    "Earn {{percentage}}% Rewards by Staking $QUBIC": "$QUBIC をステーキングして {{percentage}}% のリワードを獲得",
+    "Earn <0>{{percentage}}%</0> Rewards by Staking $QUBIC": "$QUBIC をステーキングして <0>{{percentage}}%</0> のリワードを獲得",
     "Connect your wallet to start locking": "ウォレットを接続してロックを開始",
     "Start Locking": "ロックを開始"
   },
