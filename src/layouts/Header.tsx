@@ -131,7 +131,7 @@ const Header: React.FC<HeaderProps> = () => {
           <motion.button
             whileTap={{ scale: 0.95 }}
             onClick={toggleTheme}
-            className="rounded-lg border-none bg-transparent p-2 transition-colors"
+            className="rounded-lg border-none bg-transparent p-2 transition-colors hover:text-primary-40"
             aria-label="Toggle theme"
           >
             {settings.darkMode ? <MdLightMode size={20} /> : <MdDarkMode size={20} />}
@@ -145,7 +145,7 @@ const Header: React.FC<HeaderProps> = () => {
             <Collapsible.Trigger asChild>
               <motion.button
                 whileTap={{ scale: 0.95 }}
-                className="rounded-lg bg-transparent p-2 transition-colors"
+                className="rounded-lg bg-transparent p-2 transition-colors hover:text-primary-40"
                 aria-label="Toggle menu"
               >
                 <AnimatePresence mode="wait">
@@ -207,7 +207,7 @@ const Header: React.FC<HeaderProps> = () => {
                 <motion.button
                   whileTap={{ scale: 0.95 }}
                   onClick={toggleTheme}
-                  className="rounded-lg border-none bg-transparent p-2 transition-colors"
+                  className="rounded-lg border-none bg-transparent p-2 transition-colors hover:text-primary-40"
                   aria-label="Toggle theme"
                 >
                   {settings.darkMode ? (
