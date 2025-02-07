@@ -217,5 +217,17 @@
     "Unlock amount is greater than the locked amount": "Сумма разблокировки больше заблокированной суммы",
     "Account Balance is 0": "Баланс аккаунта равен 0",
     "To Unlock Qubic, you need to hold at least 1 $QUBIC in your account": "Чтобы разблокировать Qubic, вы должны иметь не менее 1 $QUBIC в своём аккаунте"
+  },
+  "toast": {
+    "Transaction failed": "Транзакция не удалась",
+    "Transaction successful": "Транзакция успешно выполнена",
+    "Transaction pending": "Транзакция в ожидании",
+    "Transaction confirmed": "Транзакция подтверждена",
+    "Locked successfully": "Успешно заблокировано",
+    "Unlocked successfully": "Успешно разблокировано",
+    "Monitoring transaction...": "Слежение за транзакцией...",
+    "Transaction failed, please try again": "Транзакция не удалась, пожалуйста, попробуйте ещё раз",
+    "Transaction sent, it will take some time to be confirmed and executed": "Транзакция отправлена, потребуется время для подтверждения и выполнения",
+    "Something went wrong": "Что-то пошло не так"
   }
 }

@@ -217,5 +217,17 @@
     "Unlock amount is greater than the locked amount": "L'importo di sblocco è maggiore del saldo bloccato",
     "Account Balance is 0": "Il saldo del conto è 0",
     "To Unlock Qubic, you need to hold at least 1 $QUBIC in your account": "Per sbloccare Qubic, devi detenere almeno 1 $QUBIC nel tuo conto"
+  },
+  "toast": {
+    "Transaction failed": "Transazione fallita",
+    "Transaction successful": "Transazione riuscita",
+    "Transaction pending": "Transazione in attesa",
+    "Transaction confirmed": "Transazione confermata",
+    "Locked successfully": "Bloccato con successo",
+    "Unlocked successfully": "Sbloccato con successo",
+    "Monitoring transaction...": "Monitoraggio della transazione...",
+    "Transaction failed, please try again": "Transazione fallita, per favore riprova",
+    "Transaction sent, it will take some time to be confirmed and executed": "Transazione inviata, ci vorrà del tempo per essere confermata ed eseguita",
+    "Something went wrong": "Qualcosa è andato storto"
   }
 }

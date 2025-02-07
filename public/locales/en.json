@@ -217,5 +217,17 @@
     "Unlock amount is greater than the locked amount": "Unlock amount is greater than the locked amount",
     "Account Balance is 0": "Account Balance is 0",
     "To Unlock Qubic, you need to hold at least 1 $QUBIC in your account": "To Unlock Qubic, you need to hold at least 1 $QUBIC in your account"
+  },
+  "toast": {
+    "Transaction failed": "Transaction failed",
+    "Transaction successful": "Transaction successful",
+    "Transaction pending": "Transaction pending",
+    "Transaction confirmed": "Transaction confirmed",
+    "Locked successfully": "Locked successfully",
+    "Unlocked successfully": "Unlocked successfully",
+    "Monitoring transaction...": "Monitoring transaction...",
+    "Transaction failed, please try again": "Transaction failed, please try again",
+    "Transaction sent, it will take some time to be confirmed and executed": "Transaction sent, it will take some time to be confirmed and executed",
+    "Something went wrong": "Something went wrong"
   }
 }

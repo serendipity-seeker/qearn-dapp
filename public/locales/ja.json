@@ -217,5 +217,17 @@
     "Unlock amount is greater than the locked amount": "アンロック金額がロック残高より多い",
     "Account Balance is 0": "アカウント残高が0",
     "To Unlock Qubic, you need to hold at least 1 $QUBIC in your account": "Qubicをアンロックするには、少なくとも1 $QUBICを保有する必要があります"
+  },
+  "toast": {
+    "Transaction failed": "トランザクションに失敗しました",
+    "Transaction successful": "トランザクションが成功しました",
+    "Transaction pending": "トランザクションが保留中です",
+    "Transaction confirmed": "トランザクションが確認されました",
+    "Locked successfully": "ロックされました",
+    "Unlocked successfully": "アンロックされました",
+    "Monitoring transaction...": "トランザクションを監視しています...",
+    "Transaction failed, please try again": "トランザクションに失敗しました。再試行してください。",
+    "Transaction sent, it will take some time to be confirmed and executed": "トランザクションが送信されました。確認および実行にしばらく時間がかかります。",
+    "Something went wrong": "何かがおかしいです"
   }
 }

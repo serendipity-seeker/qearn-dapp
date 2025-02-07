@@ -7,6 +7,7 @@ import { balancesAtom } from "@/store/balances";
 import { IPendingTx, pendingTxAtom } from "@/store/pendingTx";
 import { tickInfoAtom } from "@/store/tickInfo";
 import { userLockInfoAtom } from "@/store/userLockInfo";
+import { useTranslation } from "react-i18next";
 
 const useTxMonitor = () => {
   const [tickInfo] = useAtom(tickInfoAtom);
@@ -14,13 +15,14 @@ const useTxMonitor = () => {
   const [, setBalance] = useAtom(balancesAtom);
   const [, setUserLockInfo] = useAtom(userLockInfoAtom);
   const [isMonitoring, setIsMonitoring] = useState(false);
+  const { t } = useTranslation();
 
   const checkTxResult = async () => {
     if (!isMonitoring || !tickInfo?.tick || !pendingTx?.targetTick) return;
 
     if (tickInfo.tick > pendingTx.targetTick) {
       if (tickInfo.tick > pendingTx.targetTick + 15) {
-        toast.error("Transaction failed");
+        toast.error(t("toast.Transaction failed"));
         setIsMonitoring(false);
         setPendingTx({} as IPendingTx);
         return;
@@ -28,7 +30,7 @@ const useTxMonitor = () => {
 
       const lockedAmount = await getUserLockInfo(pendingTx.publicId, pendingTx.epoch);
       if (lockedAmount - pendingTx.initAmount === pendingTx.amount) {
-        toast.success(pendingTx.amount > 0 ? "Locked successfully" : "Unlocked successfully");
+        toast.success(pendingTx.amount > 0 ? t("toast.Locked successfully") : t("toast.Unlocked successfully"));
       } else {
         return;
       }
@@ -69,7 +71,7 @@ const useTxMonitor = () => {
   useEffect(() => {
     let toastId: string;
     if (isMonitoring) {
-      toastId = toast.loading("Monitoring transaction...", { position: "bottom-right" });
+      toastId = toast.loading(t("toast.Monitoring transaction..."), { position: "bottom-right" });
     }
     return () => {
       if (toastId) {

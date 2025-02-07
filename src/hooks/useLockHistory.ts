@@ -96,10 +96,10 @@ export const useLockHistory = () => {
         type: "qearn",
       });
 
-      toast.success("Transaction sent, it will take some time to be confirmed and executed");
+      toast.success(t("toast.Transaction sent, it will take some time to be confirmed and executed"));
       return { success: true };
     } catch (err) {
-      toast.error("Something went wrong");
+      toast.error(t("toast.Something went wrong"));
       return { success: false };
     }
   };

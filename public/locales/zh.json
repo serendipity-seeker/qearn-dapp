@@ -217,5 +217,17 @@
     "Unlock amount is greater than the locked amount": "解锁金额大于锁定金额",
     "Account Balance is 0": "账户余额为0",
     "To Unlock Qubic, you need to hold at least 1 $QUBIC in your account": "要解锁 Qubic，您需要至少持有 1 $QUBIC"
+  },
+  "toast": {
+    "Transaction failed": "交易失败",
+    "Transaction successful": "交易成功",
+    "Transaction pending": "交易待处理",
+    "Transaction confirmed": "交易确认",
+    "Locked successfully": "锁定成功",
+    "Unlocked successfully": "解锁成功",
+    "Monitoring transaction...": "监控交易...",
+    "Transaction failed, please try again": "交易失败，请重试",
+    "Transaction sent, it will take some time to be confirmed and executed": "交易已发送，需要一些时间来确认和执行",
+    "Something went wrong": "出现问题"
   }
 }

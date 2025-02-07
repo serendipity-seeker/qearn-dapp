@@ -217,5 +217,17 @@
     "Unlock amount is greater than the locked amount": "Le montant de déverrouillage est supérieur au montant verrouillé",
     "Account Balance is 0": "Le solde du compte est 0",
     "To Unlock Qubic, you need to hold at least 1 $QUBIC in your account": "Pour déverrouiller Qubic, vous devez détenir au moins 1 $QUBIC dans votre compte"
+  },
+  "toast": {
+    "Transaction failed": "Transaction échouée",
+    "Transaction successful": "Transaction réussie",
+    "Transaction pending": "Transaction en attente",
+    "Transaction confirmed": "Transaction confirmée",
+    "Locked successfully": "Verrouillé avec succès",
+    "Unlocked successfully": "Déverrouillé avec succès",
+    "Monitoring transaction...": "Surveillance de la transaction...",
+    "Transaction failed, please try again": "Transaction échouée, veuillez réessayer",
+    "Transaction sent, it will take some time to be confirmed and executed": "Transaction envoyée, cela prendra un certain temps pour être confirmée et exécutée",
+    "Something went wrong": "Une erreur s'est produite"
   }
 }
