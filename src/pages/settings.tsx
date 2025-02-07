@@ -5,6 +5,7 @@ import { settingsAtom } from "@/store/settings";
 import { useAtom } from "jotai";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "@/components/ui/LanguageSelector";
+import { MdDarkMode, MdCode, MdSwapHoriz, MdLanguage, MdTimer } from "react-icons/md";
 
 const Settings: React.FC = () => {
   const [settings, setSettings] = useAtom(settingsAtom);
@@ -15,16 +16,21 @@ const Settings: React.FC = () => {
     onChange,
     label,
     description,
+    icon,
   }: {
     checked: boolean;
     onChange: (checked: boolean) => void;
     label: string;
     description: string;
+    icon: React.ReactNode;
   }) => (
-    <div className="flex items-center justify-between">
-      <div className="space-y-2">
-        <h3 className="text-xl font-semibold">{label}</h3>
-        <p className="text-sm text-gray-400">{description}</p>
+    <div className="flex items-center justify-between gap-4">
+      <div className="flex items-center gap-4">
+        <div className="mt-1 text-primary-40">{icon}</div>
+        <div className="space-y-1">
+          <h3 className="text-xl font-semibold tracking-tight">{label}</h3>
+          <p className="text-sm text-muted-foreground">{description}</p>
+        </div>
       </div>
       <Switch.Root
         checked={checked}
@@ -39,17 +45,22 @@ const Settings: React.FC = () => {
   return (
     <div className="container mx-auto max-w-4xl px-4 py-8">
       <Card className="rounded-xl bg-card p-8 shadow-lg">
-        <h1 className="mb-8 text-center text-3xl font-bold tracking-tight">{t("common.Settings")}</h1>
+        <h1 className="mb-8 text-center text-3xl font-bold tracking-tight text-primary-40">{t("common.Settings")}</h1>
 
-        <div className="space-y-8">
+        <div className="space-y-6">
           {/* Tick Offset Section */}
-          <section className="rounded-lg bg-white/5 p-6">
+          <section className="rounded-lg bg-card/50 p-6 shadow-sm ring-1 ring-gray-200/20">
             <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-              <div className="space-y-2">
-                <h3 className="text-xl font-semibold">{t("common.Tick Offset")}</h3>
-                <p className="text-sm text-gray-400">
-                  {t("common.Current value: {{value}}", { value: settings.tickOffset })}
-                </p>
+              <div className="flex items-center gap-4">
+                <div className="mt-1 text-primary-40">
+                  <MdTimer size={32} />
+                </div>
+                <div className="space-y-1">
+                  <h3 className="text-xl font-semibold tracking-tight">{t("common.Tick Offset")}</h3>
+                  <p className="text-sm text-muted-foreground">
+                    {t("common.Current value: {{value}}", { value: settings.tickOffset })}
+                  </p>
+                </div>
               </div>
               <Slider.Root
                 className="relative flex w-full touch-none select-none items-center sm:w-48"
@@ -63,7 +74,7 @@ const Settings: React.FC = () => {
                   <Slider.Range className="absolute h-full rounded-full bg-primary-40" />
                 </Slider.Track>
                 <Slider.Thumb
-                  className="block size-5 rounded-full bg-primary-40 shadow-lg hover:bg-primary-50 focus:outline-none focus:ring focus:ring-primary-40/50"
+                  className="block size-5 rounded-full bg-primary-40 shadow-lg ring-offset-2 transition-colors hover:bg-primary-50 focus:outline-none focus:ring-2 focus:ring-primary-40/50"
                   aria-label="Tick offset"
                 />
               </Slider.Root>
@@ -71,39 +82,47 @@ const Settings: React.FC = () => {
           </section>
 
           {/* Dark Mode Section */}
-          <section className="rounded-lg bg-white/5 p-6">
+          <section className="rounded-lg bg-card/50 p-6 shadow-sm ring-1 ring-gray-200/20">
             <SwitchComponent
               checked={settings.darkMode}
               onChange={(checked) => setSettings((prev) => ({ ...prev, darkMode: checked }))}
               label={t("common.Dark Mode")}
               description={t("common.Toggle dark mode theme")}
+              icon={<MdDarkMode size={32} />}
             />
           </section>
 
           {/* Developer Page Section */}
-          <section className="rounded-lg bg-white/5 p-6">
+          <section className="rounded-lg bg-card/50 p-6 shadow-sm ring-1 ring-gray-200/20">
             <SwitchComponent
               checked={settings.showDeveloperPage}
               onChange={(checked) => setSettings((prev) => ({ ...prev, showDeveloperPage: checked }))}
               label={t("common.Developer Page")}
               description={t("common.Show developer page")}
+              icon={<MdCode size={32} />}
             />
           </section>
 
           {/* Transfer Form Section */}
-          <section className="rounded-lg bg-white/5 p-6">
+          <section className="rounded-lg bg-card/50 p-6 shadow-sm ring-1 ring-gray-200/20">
             <SwitchComponent
               checked={settings.showTransferForm}
               onChange={(checked) => setSettings((prev) => ({ ...prev, showTransferForm: checked }))}
               label={t("common.Transfer Form")}
               description={t("common.Show transfer form")}
+              icon={<MdSwapHoriz size={32} />}
             />
           </section>
 
           {/* Language Section */}
-          <section className="rounded-lg bg-white/5 p-6">
+          <section className="rounded-lg bg-card/50 p-6 shadow-sm ring-1 ring-gray-200/20">
             <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
-              <h3 className="text-xl font-semibold">{t("common.Language")}</h3>
+              <div className="flex items-center gap-4">
+                <div className="text-primary-40">
+                  <MdLanguage size={32} />
+                </div>
+                <h3 className="text-xl font-semibold tracking-tight">{t("common.Language")}</h3>
+              </div>
               <LanguageSelector />
             </div>
           </section>
