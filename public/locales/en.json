@@ -14,7 +14,11 @@
     "Manage notification preferences": "Manage notification preferences",
     "Language": "Language",
     "Tick Offset": "Tick Offset",
-    "Current value: {{value}}": "Current value: {{value}}"
+    "Current value: {{value}}": "Current value: {{value}}",
+    "Developer Page": "Developer Page",
+    "Show developer page": "Show developer page",
+    "Transfer Form": "Transfer Form",
+    "Show transfer form": "Show transfer form"
   },
   "home": {
     "Locking": "Locking",
@@ -133,7 +137,8 @@
     "Dashboard": "Dashboard",
     "FAQ": "FAQ",
     "Light": "Light",
-    "Dark": "Dark"
+    "Dark": "Dark",
+    "DevTools": "DevTools"
   },
   "footer": {
     "Terms of service": "Terms of service",

@@ -14,7 +14,11 @@
     "Manage notification preferences": "Benachrichtigungseinstellungen verwalten",
     "Language": "Sprache",
     "Tick Offset": "Tick-Verschiebung",
-    "Current value: {{value}}": "Aktueller Wert: {{value}}"
+    "Current value: {{value}}": "Aktueller Wert: {{value}}",
+    "Developer Page": "Entwicklerseite",
+    "Show developer page": "Entwicklerseite anzeigen",
+    "Transfer Form": "Übertragungsformular",
+    "Show transfer form": "Übertragungsformular anzeigen"
   },
   "home": {
     "Locking": "Locking",
@@ -133,10 +137,12 @@
     "Dashboard": "Dashboard",
     "FAQ": "FAQ",
     "Light": "Hell",
-    "Dark": "Dunkel"
+    "Dark": "Dunkel",
+    "DevTools": "Entwicklertools"
   },
   "footer": {
     "Terms of service": "Nutzungsbedingungen",
+
     "Privacy Policy": "Datenschutzrichtlinie",
     "Network Status": "Netzwerkstatus",
     "Version": "Version {{version}}"

@@ -36,7 +36,7 @@ const Header: React.FC<HeaderProps> = () => {
     { path: "/home", label: t("header.Locking") },
     { path: "/dashboard", label: t("header.Dashboard") },
     { path: "/faq", label: t("header.FAQ") },
-    settings.showDeveloperPage && { path: "/helpers", label: t("header.Helpers") },
+    settings.showDeveloperPage && { path: "/helpers", label: "DevTools" },
   ].filter((link) => link !== false);
 
   return (

@@ -14,7 +14,11 @@
     "Manage notification preferences": "通知設定を管理",
     "Language": "言語",
     "Tick Offset": "ティックオフセット",
-    "Current value: {{value}}": "現在の値: {{value}}"
+    "Current value: {{value}}": "現在の値: {{value}}",
+    "Developer Page": "開発者ページ",
+    "Show developer page": "開発者ページを表示",
+    "Transfer Form": "転送フォーム",
+    "Show transfer form": "転送フォームを表示"
   },
   "home": {
     "Locking": "ロック中",
@@ -133,7 +137,8 @@
     "Dashboard": "ダッシュボード",
     "FAQ": "FAQ",
     "Light": "ライト",
-    "Dark": "ダーク"
+    "Dark": "ダーク",
+    "DevTools": "開発者ツール"
   },
   "footer": {
     "Terms of service": "利用規約",

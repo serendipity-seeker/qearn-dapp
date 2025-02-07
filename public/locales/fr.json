@@ -14,7 +14,11 @@
     "Manage notification preferences": "Gérer les préférences de notification",
     "Language": "Langue",
     "Tick Offset": "Décalage du tick",
-    "Current value: {{value}}": "Valeur actuelle : {{value}}"
+    "Current value: {{value}}": "Valeur actuelle : {{value}}",
+    "Developer Page": "Page de développeur",
+    "Show developer page": "Afficher la page de développeur",
+    "Transfer Form": "Formulaire de transfert",
+    "Show transfer form": "Afficher le formulaire de transfert"
   },
   "home": {
     "Locking": "Verrouillage",
@@ -133,7 +137,8 @@
     "Dashboard": "Tableau de bord",
     "FAQ": "FAQ",
     "Light": "Clair",
-    "Dark": "Sombre"
+    "Dark": "Sombre",
+    "DevTools": "Outils de développement"
   },
   "footer": {
     "Terms of service": "Conditions d'utilisation",

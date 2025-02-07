@@ -14,7 +14,11 @@
     "Manage notification preferences": "Настроить предпочтения уведомлений",
     "Language": "Язык",
     "Tick Offset": "Смещение тика",
-    "Current value: {{value}}": "Текущее значение: {{value}}"
+    "Current value: {{value}}": "Текущее значение: {{value}}",
+    "Developer Page": "Страница разработчика",
+    "Show developer page": "Показать страницу разработчика",
+    "Transfer Form": "Форма перевода",
+    "Show transfer form": "Показать форму перевода"
   },
   "home": {
     "Locking": "Блокировка",
@@ -133,7 +137,8 @@
     "Dashboard": "Панель",
     "FAQ": "FAQ",
     "Light": "Светлая",
-    "Dark": "Тёмная"
+    "Dark": "Тёмная",
+    "DevTools": "Инструменты разработчика"
   },
   "footer": {
     "Terms of service": "Условия обслуживания",

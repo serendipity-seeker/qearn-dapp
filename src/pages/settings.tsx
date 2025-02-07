@@ -1,100 +1,106 @@
-import { Switch, Disclosure } from "@headlessui/react";
+import * as Switch from "@radix-ui/react-switch";
 import { useEffect, useState } from "react";
 import Card from "@/components/ui/Card";
 import { settingsAtom } from "@/store/settings";
 import { useAtom } from "jotai";
-import { DEFAULT_TICK_OFFSET } from "@/constants";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "@/components/ui/LanguageSelector";
 
 const Settings: React.FC = () => {
-  const [darkMode, setDarkMode] = useState(false);
-  const [notifications, setNotifications] = useState(false);
-  const [tickOffset, setTickOffset] = useState(DEFAULT_TICK_OFFSET);
-  const [, setSettings] = useAtom(settingsAtom);
+  const [settings, setSettings] = useAtom(settingsAtom);
   const { t } = useTranslation();
 
-  useEffect(() => {
-    setSettings((prev) => ({ ...prev, darkMode, notifications, tickOffset }));
-  }, [darkMode, notifications, tickOffset]);
+  const SwitchComponent = ({
+    checked,
+    onChange,
+    label,
+    description,
+  }: {
+    checked: boolean;
+    onChange: (checked: boolean) => void;
+    label: string;
+    description: string;
+  }) => (
+    <div className="flex items-center justify-between">
+      <div className="space-y-2">
+        <h3 className="text-xl font-semibold">{label}</h3>
+        <p className="text-sm text-gray-400">{description}</p>
+      </div>
+      <Switch.Root
+        checked={checked}
+        onCheckedChange={onChange}
+        className="relative h-[28px] w-[42px] cursor-default rounded-full border-2 border-gray-50 p-0 outline-none focus:ring data-[state=checked]:bg-black"
+      >
+        <Switch.Thumb className="absolute left-0.5 block size-[20px] -translate-y-1/2 rounded-full bg-white transition-all duration-500 will-change-transform data-[state=checked]:left-auto data-[state=checked]:right-0.5" />
+      </Switch.Root>
+    </div>
+  );
 
   return (
-    <Card className="max-w-lg p-6">
-      <div className="space-y-4">
-        <h1 className="text-center text-3xl">{t("common.Settings")}</h1>
+    <div className="container mx-auto max-w-4xl px-4 py-8">
+      <Card className="rounded-xl bg-card p-8 shadow-lg">
+        <h1 className="mb-8 text-center text-3xl font-bold tracking-tight">{t("common.Settings")}</h1>
 
-        <div className="space-y-6">
-          <div className="flex items-center justify-between">
-            <div className="space-y-2">
-              <h3 className="text-lg font-medium">{t("common.Tick Offset")}</h3>
-              <p className="text-sm">{t("common.Current value: {{value}}", { value: tickOffset })}</p>
+        <div className="space-y-8">
+          {/* Tick Offset Section */}
+          <section className="rounded-lg bg-white/5 p-6">
+            <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+              <div className="space-y-2">
+                <h3 className="text-xl font-semibold">{t("common.Tick Offset")}</h3>
+                <p className="text-sm text-gray-400">{t("common.Current value: {{value}}", { value: settings.tickOffset })}</p>
+              </div>
+              <input
+                type="range"
+                min="3"
+                max="15"
+                value={settings.tickOffset}
+                onChange={(e) => setSettings((prev) => ({ ...prev, tickOffset: parseInt(e.target.value) }))}
+                className="w-full sm:w-48"
+                step="1"
+              />
             </div>
-            <input
-              type="range"
-              min="3"
-              max="15"
-              value={tickOffset}
-              onChange={(e) => setTickOffset(parseInt(e.target.value))}
-              className="w-32"
-              step="1"
+          </section>
+
+          {/* Dark Mode Section */}
+          <section className="rounded-lg bg-white/5 p-6">
+            <SwitchComponent
+              checked={settings.darkMode}
+              onChange={(checked) => setSettings((prev) => ({ ...prev, darkMode: checked }))}
+              label={t("common.Dark Mode")}
+              description={t("common.Toggle dark mode theme")}
             />
-          </div>
+          </section>
 
-          <div className="space-y-4">
-            <Disclosure>
-              {({}) => (
-                <>
-                  <div className="flex items-center justify-between">
-                    <div className="space-y-2">
-                      <h3 className="text-lg font-medium">{t("common.Dark Mode")}</h3>
-                      <p className="text-sm">{t("common.Toggle dark mode theme")}</p>
-                    </div>
-                    <Switch
-                      checked={darkMode}
-                      onChange={setDarkMode}
-                      className="group relative flex h-7 w-14 cursor-pointer rounded-full bg-white/10 p-1 transition-colors duration-200 ease-in-out focus:outline-none data-[checked]:bg-white/10 data-[focus]:outline-1 data-[focus]:outline-white"
-                    >
-                      <span
-                        aria-hidden="true"
-                        className="pointer-events-none inline-block size-5 translate-x-0 rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out group-data-[checked]:translate-x-7"
-                      />
-                    </Switch>
-                  </div>
-                </>
-              )}
-            </Disclosure>
+          {/* Developer Page Section */}
+          <section className="rounded-lg bg-white/5 p-6">
+            <SwitchComponent
+              checked={settings.showDeveloperPage}
+              onChange={(checked) => setSettings((prev) => ({ ...prev, showDeveloperPage: checked }))}
+              label={t("common.Developer Page")}
+              description={t("common.Show developer page")}
+            />
+          </section>
 
-            <Disclosure>
-              {({}) => (
-                <>
-                  <div className="flex items-center justify-between">
-                    <div className="space-y-2">
-                      <h3 className="text-lg font-medium">{t("common.Notifications")}</h3>
-                      <p className="text-sm">{t("common.Manage notification preferences")}</p>
-                    </div>
-                    <Switch
-                      checked={notifications}
-                      onChange={setNotifications}
-                      className="group relative flex h-7 w-14 cursor-pointer rounded-full bg-white/10 p-1 transition-colors duration-200 ease-in-out focus:outline-none data-[checked]:bg-white/10 data-[focus]:outline-1 data-[focus]:outline-white"
-                    >
-                      <span
-                        aria-hidden="true"
-                        className="pointer-events-none inline-block size-5 translate-x-0 rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out group-data-[checked]:translate-x-7"
-                      />
-                    </Switch>
-                  </div>
-                </>
-              )}
-            </Disclosure>
-          </div>
+          {/* Transfer Form Section */}
+          <section className="rounded-lg bg-white/5 p-6">
+            <SwitchComponent
+              checked={settings.showTransferForm}
+              onChange={(checked) => setSettings((prev) => ({ ...prev, showTransferForm: checked }))}
+              label={t("common.Transfer Form")}
+              description={t("common.Show transfer form")}
+            />
+          </section>
 
-          <div className="flex items-center gap-4">
-            <span>{t("common.Language")}</span>
-            <LanguageSelector />
-          </div>
+          {/* Language Section */}
+          <section className="rounded-lg bg-white/5 p-6">
+            <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+              <h3 className="text-xl font-semibold">{t("common.Language")}</h3>
+              <LanguageSelector />
+            </div>
+          </section>
         </div>
-      </div>
-    </Card>
+      </Card>
+    </div>
   );
 };
 

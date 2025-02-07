@@ -14,7 +14,11 @@
     "Manage notification preferences": "管理通知偏好",
     "Language": "语言",
     "Tick Offset": "刻度偏移",
-    "Current value: {{value}}": "当前数值：{{value}}"
+    "Current value: {{value}}": "当前数值：{{value}}",
+    "Developer Page": "开发者页面",
+    "Show developer page": "显示开发者页面",
+    "Transfer Form": "转账表单",
+    "Show transfer form": "显示转账表单"
   },
   "home": {
     "Locking": "锁定中",
@@ -133,7 +137,8 @@
     "Dashboard": "仪表板",
     "FAQ": "常见问题",
     "Light": "浅色",
-    "Dark": "深色"
+    "Dark": "深色",
+    "DevTools": "开发者工具"
   },
   "footer": {
     "Terms of service": "服务条款",
