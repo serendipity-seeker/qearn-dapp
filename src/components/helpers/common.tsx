@@ -9,7 +9,7 @@ export const renderInput = (
     <label className="mb-2 block text-sm font-medium">{label}</label>
     {rows > 1 ? (
       <textarea
-        className="focus:ring-primary w-full rounded-lg border border-gray-600 bg-gray-700 p-3 focus:ring-2"
+        className="focus:ring-primary w-full rounded-lg border p-3 focus:ring-2 text-foreground bg-background"
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
@@ -18,7 +18,7 @@ export const renderInput = (
     ) : (
       <input
         type="text"
-        className="focus:ring-primary w-full rounded-lg border border-gray-600 bg-gray-700 p-3 focus:ring-2"
+        className="focus:ring-primary w-full rounded-lg border p-3 focus:ring-2 text-foreground bg-background"
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
@@ -28,9 +28,9 @@ export const renderInput = (
 );
 
 export const renderOutput = (label: string, value: string) => (
-  <div className="mt-2 break-all rounded-lg bg-gray-800 p-3">
-    <p className="text-sm text-gray-400">{label}:</p>
-    <p className="font-mono">{value}</p>
+  <div className="mt-2 break-all rounded-lg bg-background p-3">
+    <p className="text-sm text-muted-foreground">{label}:</p>
+    <p className="font-mono text-foreground">{value}</p>
   </div>
 );
 
@@ -38,7 +38,7 @@ export const renderSelect = (label: string, value: string, onChange: (value: str
   <div>
     <label className="mb-2 block text-sm font-medium">{label}</label>
     <select
-      className="focus:ring-primary w-full rounded-lg border border-gray-600 bg-gray-700 p-3 focus:ring-2"
+      className="focus:ring-primary w-full rounded-lg border p-3 focus:ring-2 text-foreground bg-background"
       value={value}
       onChange={(e) => onChange(e.target.value)}
     >
