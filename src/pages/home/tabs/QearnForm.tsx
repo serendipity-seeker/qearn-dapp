@@ -46,7 +46,7 @@ const QearnForm: React.FC = () => {
     const targetTick = tickInfo?.tick + settings.tickOffset;
     const walletBalance = (await fetchBalance(accounts[selectedAccount].value)) || 0;
 
-    if (numAmount > walletBalance.balance) {
+    if (numAmount > Number(walletBalance.balance)) {
       toast.error(t("qearnForm.Amount exceeds wallet balance"));
       return false;
     }
