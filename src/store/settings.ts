@@ -4,11 +4,13 @@ import { atom } from "jotai";
 export type Settings = {
   tickOffset: number;
   darkMode: boolean;
-  notifications: boolean;
+  showDeveloperPage: boolean;
+  showTransferForm: boolean;
 };
 
 export const settingsAtom = atom<Settings>({
   tickOffset: DEFAULT_TICK_OFFSET,
   darkMode: true,
-  notifications: false,
+  showDeveloperPage: false,
+  showTransferForm: false,
 });

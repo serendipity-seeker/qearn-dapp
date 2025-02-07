@@ -1,6 +1,6 @@
 {
   "welcome": {
-    "Earn {{percentage}}% Rewards by Staking $QUBIC": "Guadagna il {{percentage}}% di ricompense facendo staking di $QUBIC",
+    "Earn <0>{{percentage}}%</0> Rewards by Staking $QUBIC": "Guadagna il <0>{{percentage}}%</0> di ricompense facendo staking di $QUBIC",
     "Connect your wallet to start locking": "Collega il tuo wallet per iniziare a bloccare",
     "Start Locking": "Inizia a bloccare"
   },
@@ -14,11 +14,16 @@
     "Manage notification preferences": "Gestisci le preferenze di notifica",
     "Language": "Lingua",
     "Tick Offset": "Offset del tick",
-    "Current value: {{value}}": "Valore attuale: {{value}}"
+    "Current value: {{value}}": "Valore attuale: {{value}}",
+    "Developer Page": "Pagina di sviluppatore",
+    "Show developer page": "Mostra pagina di sviluppatore",
+    "Transfer Form": "Formulario di trasferimento",
+    "Show transfer form": "Mostra il formulario di trasferimento"
   },
   "home": {
     "Locking": "Blocco",
-    "Locking History": "Storico dei blocchi"
+    "Locking History": "Storico dei blocchi",
+    "Transfer": "Trasferimento"
   },
   "faq": {
     "Frequently Asked Questions": "Domande Frequenti",
@@ -132,7 +137,8 @@
     "Dashboard": "Dashboard",
     "FAQ": "FAQ",
     "Light": "Chiaro",
-    "Dark": "Scuro"
+    "Dark": "Scuro",
+    "DevTools": "Strumenti di sviluppo"
   },
   "footer": {
     "Terms of service": "Termini di servizio",
@@ -208,6 +214,38 @@
     "Unlock Early": "Sblocco anticipato",
     "Locked Balance": "Saldo bloccato",
     "Earning Ratio": "Rapporto di guadagno",
-    "Unlocks In": "Si sblocca tra"
+    "Unlocks In": "Si sblocca tra",
+    "Set Unlock Amount": "Imposta importo di sblocco",
+    "Amount": "Importo",
+    "Enter amount to unlock": "Inserisci importo da sbloccare",
+    "Invalid amount": "Importo non valido",
+    "Unlock amount is less than the minimum amount": "L'importo di sblocco è minore dell'importo minimo",
+    "Unlock amount is greater than the locked amount": "L'importo di sblocco è maggiore del saldo bloccato",
+    "Account Balance is 0": "Il saldo del conto è 0",
+    "To Unlock Qubic, you need to hold at least 1 $QUBIC in your account": "Per sbloccare Qubic, devi detenere almeno 1 $QUBIC nel tuo conto"
+  },
+  "toast": {
+    "Transaction failed": "Transazione fallita",
+    "Transaction successful": "Transazione riuscita",
+    "Transaction pending": "Transazione in attesa",
+    "Transaction confirmed": "Transazione confermata",
+    "Locked successfully": "Bloccato con successo",
+    "Unlocked successfully": "Sbloccato con successo",
+    "Monitoring transaction...": "Monitoraggio della transazione...",
+    "Transaction failed, please try again": "Transazione fallita, per favore riprova",
+    "Transaction sent, it will take some time to be confirmed and executed": "Transazione inviata, ci vorrà del tempo per essere confermata ed eseguita",
+    "Something went wrong": "Qualcosa è andato storto",
+    "Transferred successfully": "Trasferimento riuscito"
+  },
+  "transferForm": {
+    "Transfer $QUBIC": "Trasferisci $QUBIC",
+    "Recipient Address": "Indirizzo destinatario",
+    "Enter recipient address": "Inserisci indirizzo destinatario",
+    "Amount": "Importo",
+    "Enter amount": "Inserisci importo",
+    "Send": "Invia",
+    "Confirm Transfer": "Conferma trasferimento",
+    "Are you sure you want to send {{amount}} QUBIC?": "Sei sicuro di voler inviare {{amount}} QUBIC?",
+    "Transaction submitted": "Transazione inviata"
   }
 }

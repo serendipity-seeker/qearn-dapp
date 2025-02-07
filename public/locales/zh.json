@@ -1,6 +1,6 @@
 {
   "welcome": {
-    "Earn {{percentage}}% Rewards by Staking $QUBIC": "通过质押 $QUBIC 获得 {{percentage}}% 的奖励",
+    "Earn <0>{{percentage}}%</0> Rewards by Staking $QUBIC": "通过质押 $QUBIC 获得 <0>{{percentage}}%</0> 的奖励",
     "Connect your wallet to start locking": "连接您的钱包以开始锁定",
     "Start Locking": "开始锁定"
   },
@@ -14,11 +14,16 @@
     "Manage notification preferences": "管理通知偏好",
     "Language": "语言",
     "Tick Offset": "刻度偏移",
-    "Current value: {{value}}": "当前数值：{{value}}"
+    "Current value: {{value}}": "当前数值：{{value}}",
+    "Developer Page": "开发者页面",
+    "Show developer page": "显示开发者页面",
+    "Transfer Form": "转账表单",
+    "Show transfer form": "显示转账表单"
   },
   "home": {
     "Locking": "锁定中",
-    "Locking History": "锁定历史"
+    "Locking History": "锁定历史",
+    "Transfer": "转账"
   },
   "faq": {
     "Frequently Asked Questions": "常见问题",
@@ -132,7 +137,8 @@
     "Dashboard": "仪表板",
     "FAQ": "常见问题",
     "Light": "浅色",
-    "Dark": "深色"
+    "Dark": "深色",
+    "DevTools": "开发者工具"
   },
   "footer": {
     "Terms of service": "服务条款",
@@ -208,6 +214,38 @@
     "Unlock Early": "提前解锁",
     "Locked Balance": "锁定余额",
     "Earning Ratio": "收益比例",
-    "Unlocks In": "解锁倒计时"
+    "Unlocks In": "解锁倒计时",
+    "Set Unlock Amount": "设置解锁金额",
+    "Amount": "金额",
+    "Enter amount to unlock": "输入解锁金额",
+    "Invalid amount": "无效金额",
+    "Unlock amount is less than the minimum amount": "解锁金额小于最小金额",
+    "Unlock amount is greater than the locked amount": "解锁金额大于锁定金额",
+    "Account Balance is 0": "账户余额为0",
+    "To Unlock Qubic, you need to hold at least 1 $QUBIC in your account": "要解锁 Qubic，您需要至少持有 1 $QUBIC"
+  },
+  "toast": {
+    "Transaction failed": "交易失败",
+    "Transaction successful": "交易成功",
+    "Transaction pending": "交易待处理",
+    "Transaction confirmed": "交易确认",
+    "Locked successfully": "锁定成功",
+    "Unlocked successfully": "解锁成功",
+    "Monitoring transaction...": "监控交易...",
+    "Transaction failed, please try again": "交易失败，请重试",
+    "Transaction sent, it will take some time to be confirmed and executed": "交易已发送，需要一些时间来确认和执行",
+    "Something went wrong": "出现问题",
+    "Transferred successfully": "转账成功"
+  },
+  "transferForm": {
+    "Transfer $QUBIC": "转账 $QUBIC",
+    "Recipient Address": "收款地址",
+    "Enter recipient address": "输入收款地址",
+    "Amount": "金额",
+    "Enter amount": "输入金额",
+    "Send": "发送",
+    "Confirm Transfer": "确认转账",
+    "Are you sure you want to send {{amount}} QUBIC?": "您确定要发送 {{amount}} QUBIC 吗？",
+    "Transaction submitted": "交易已提交"
   }
 }

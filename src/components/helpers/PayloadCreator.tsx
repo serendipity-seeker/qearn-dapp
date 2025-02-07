@@ -73,7 +73,7 @@ export const PayloadCreator = () => {
 
         <div className="space-y-4">
           {payloadForm.fields.map((field, index) => (
-            <div key={index} className="rounded-lg bg-gray-800 p-4">
+            <div key={index} className="rounded-lg border border-card-border bg-card p-4">
               <div className="mb-4 flex items-center justify-between">
                 <h3 className="text-lg font-semibold">Field {index + 1}</h3>
                 {index > 0 && <Button onClick={() => removePayloadField(index)} className="px-3" label="Remove" />}

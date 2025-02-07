@@ -1,13 +1,11 @@
 import React, { useState, forwardRef, useImperativeHandle, ChangeEvent } from "react";
 import LabelWithPopover from "./LabelWithPopover";
-import { formatQubicAmount } from "@/utils";
 
 interface InputNumbersProps {
   id: string;
   label: string;
   placeholder?: string;
   description?: React.ReactNode;
-  maxAmount?: number;
   onChange: (value: string) => void;
 }
 
@@ -16,22 +14,14 @@ interface InputNumbersRef {
 }
 
 const InputNumbers = forwardRef<InputNumbersRef, InputNumbersProps>(
-  ({ id, label, placeholder, description, maxAmount, onChange }, ref) => {
+  ({ id, label, placeholder, description, onChange }, ref) => {
     const [value, setValue] = useState<string>("");
     const [error, setError] = useState<string>("");
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-      const newValue = e.target.value.replace(/[^0-9,]/g, "").replace(/,/g, "");
-      if (newValue === "") {
-        setValue("");
-        setError("This field is required");
-        onChange("");
-        return;
-      }
-      const formattedValue = formatQubicAmount(Number(newValue));
-      setValue(formattedValue);
+      setValue(e.target.value);
       setError("");
-      onChange(newValue);
+      onChange(e.target.value);
     };
 
     useImperativeHandle(ref, () => ({
@@ -47,16 +37,11 @@ const InputNumbers = forwardRef<InputNumbersRef, InputNumbersProps>(
 
     return (
       <div>
-        <div className="flex items-center justify-between mb-2">
+        <div className="mb-2 flex items-center justify-between">
           {description ? (
             <LabelWithPopover htmlFor={id} label={label} description={description} />
           ) : (
             <label htmlFor={id}>{label}</label>
-          )}
-          {maxAmount !== undefined && (
-            <span className="text-sm text-gray-500">
-              Max: {formatQubicAmount(maxAmount)}
-            </span>
           )}
         </div>
         <input

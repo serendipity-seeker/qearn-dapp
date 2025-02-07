@@ -1,4 +1,5 @@
 import { DynamicPayload } from "@qubic-lib/qubic-ts-library/dist/qubic-types/DynamicPayload";
+import { Long } from "@qubic-lib/qubic-ts-library/dist/qubic-types/Long";
 import { QubicTransaction } from "@qubic-lib/qubic-ts-library/dist/qubic-types/QubicTransaction";
 import { QubicDefinitions } from "@qubic-lib/qubic-ts-library/dist/QubicDefinitions";
 import { QubicHelper } from "@qubic-lib/qubic-ts-library/dist/qubicHelper";
@@ -9,7 +10,7 @@ export const createTx = (sender: string, receiver: string, amount: number, tick:
   const tx = new QubicTransaction()
     .setSourcePublicKey(sender)
     .setDestinationPublicKey(receiver)
-    .setAmount(amount)
+    .setAmount(new Long(amount))
     .setTick(tick);
   return tx;
 };

@@ -1,14 +1,20 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import LockHistoryTable from "@/components/LockHistoryTable";
-import QearnForm from "@/components/QearnForm";
+import LockHistoryTable from "@/pages/home/tabs/LockHistoryTable";
+import QearnForm from "@/pages/home/tabs/QearnForm";
 import { useTranslation } from "react-i18next";
+import TransferForm from "./tabs/TransferForm";
+import { useAtom } from "jotai";
+import { settingsAtom } from "@/store/settings";
 
 const Home: React.FC = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [tabUnderlineWidth, setTabUnderlineWidth] = useState(0);
   const [tabUnderlineLeft, setTabUnderlineLeft] = useState(0);
-  const tabRefs = [useRef<HTMLDivElement>(null), useRef<HTMLDivElement>(null)];
+  const [settings] = useAtom(settingsAtom);
+  const tabRefs = Array(settings.showTransferForm ? 3 : 2)
+    .fill(null)
+    .map(() => useRef<HTMLDivElement>(null));
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -37,6 +43,15 @@ const Home: React.FC = () => {
           >
             {t("home.Locking History")}
           </span>
+          {settings.showTransferForm && (
+            <span
+              ref={tabRefs[2]}
+              onClick={() => setActiveTab(2)}
+              className={`cursor-pointer px-2 py-1 font-medium text-foreground hover:text-primary-40 ${activeTab === 2 ? "text-foreground" : ""}`}
+            >
+              {t("home.Transfer")}
+            </span>
+          )}
         </div>
         <motion.div
           className="absolute bottom-0 h-0.5 bg-foreground"
@@ -57,6 +72,7 @@ const Home: React.FC = () => {
         >
           {activeTab === 0 && <QearnForm />}
           {activeTab === 1 && <LockHistoryTable />}
+          {activeTab === 2 && <TransferForm />}
         </motion.div>
       </AnimatePresence>
     </div>

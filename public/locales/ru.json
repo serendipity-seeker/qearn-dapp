@@ -1,6 +1,6 @@
 {
   "welcome": {
-    "Earn {{percentage}}% Rewards by Staking $QUBIC": "Зарабатывайте {{percentage}}% вознаграждения, стейкая $QUBIC",
+    "Earn <0>{{percentage}}%</0> Rewards by Staking $QUBIC": "Зарабатывайте <0>{{percentage}}%</0> вознаграждения, стейкая $QUBIC",
     "Connect your wallet to start locking": "Подключите свой кошелёк, чтобы начать блокировку",
     "Start Locking": "Начать блокировку"
   },
@@ -14,11 +14,16 @@
     "Manage notification preferences": "Настроить предпочтения уведомлений",
     "Language": "Язык",
     "Tick Offset": "Смещение тика",
-    "Current value: {{value}}": "Текущее значение: {{value}}"
+    "Current value: {{value}}": "Текущее значение: {{value}}",
+    "Developer Page": "Страница разработчика",
+    "Show developer page": "Показать страницу разработчика",
+    "Transfer Form": "Форма перевода",
+    "Show transfer form": "Показать форму перевода"
   },
   "home": {
     "Locking": "Блокировка",
-    "Locking History": "История блокировок"
+    "Locking History": "История блокировок",
+    "Transfer": "Перевод"
   },
   "faq": {
     "Frequently Asked Questions": "Часто задаваемые вопросы",
@@ -132,7 +137,8 @@
     "Dashboard": "Панель",
     "FAQ": "FAQ",
     "Light": "Светлая",
-    "Dark": "Тёмная"
+    "Dark": "Тёмная",
+    "DevTools": "Инструменты разработчика"
   },
   "footer": {
     "Terms of service": "Условия обслуживания",
@@ -208,6 +214,38 @@
     "Unlock Early": "Досрочная разблокировка",
     "Locked Balance": "Заблокированный баланс",
     "Earning Ratio": "Коэффициент доходности",
-    "Unlocks In": "Разблокируется через"
+    "Unlocks In": "Разблокируется через",
+    "Set Unlock Amount": "Установить сумму разблокировки",
+    "Amount": "Сумма",
+    "Enter amount to unlock": "Введите сумму для разблокировки",
+    "Invalid amount": "Неверная сумма",
+    "Unlock amount is less than the minimum amount": "Сумма разблокировки меньше минимальной суммы",
+    "Unlock amount is greater than the locked amount": "Сумма разблокировки больше заблокированной суммы",
+    "Account Balance is 0": "Баланс аккаунта равен 0",
+    "To Unlock Qubic, you need to hold at least 1 $QUBIC in your account": "Чтобы разблокировать Qubic, вы должны иметь не менее 1 $QUBIC в своём аккаунте"
+  },
+  "toast": {
+    "Transaction failed": "Транзакция не удалась",
+    "Transaction successful": "Транзакция успешно выполнена",
+    "Transaction pending": "Транзакция в ожидании",
+    "Transaction confirmed": "Транзакция подтверждена",
+    "Locked successfully": "Успешно заблокировано",
+    "Unlocked successfully": "Успешно разблокировано",
+    "Monitoring transaction...": "Слежение за транзакцией...",
+    "Transaction failed, please try again": "Транзакция не удалась, пожалуйста, попробуйте ещё раз",
+    "Transaction sent, it will take some time to be confirmed and executed": "Транзакция отправлена, потребуется время для подтверждения и выполнения",
+    "Something went wrong": "Что-то пошло не так",
+    "Transferred successfully": "Перевод успешно выполнен"
+  },
+  "transferForm": {
+    "Transfer $QUBIC": "Перевести $QUBIC",
+    "Recipient Address": "Адрес получателя",
+    "Enter recipient address": "Введите адрес получателя",
+    "Amount": "Сумма",
+    "Enter amount": "Введите сумму",
+    "Send": "Отправить",
+    "Confirm Transfer": "Подтвердить перевод",
+    "Are you sure you want to send {{amount}} QUBIC?": "Вы уверены, что хотите отправить {{amount}} QUBIC?",
+    "Transaction submitted": "Транзакция отправлена"
   }
 }

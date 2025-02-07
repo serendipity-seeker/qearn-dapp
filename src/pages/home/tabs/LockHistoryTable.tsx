@@ -1,30 +1,21 @@
 import { useEffect, useState } from "react";
-import Card from "./ui/Card";
-import { useAtom } from "jotai";
-import { userLockInfoAtom } from "@/store/userLockInfo";
-import AccountSelector from "./ui/AccountSelector";
+import Card from "../../../components/ui/Card";
+import AccountSelector from "../../../components/ui/AccountSelector";
 import {
   createColumnHelper,
   flexRender,
   getCoreRowModel,
   useReactTable,
-  SortingState,
   getSortedRowModel,
 } from "@tanstack/react-table";
-import { qearnStatsAtom } from "@/store/qearnStat";
-import { calculateRewards } from "@/utils";
-import { tickInfoAtom } from "@/store/tickInfo";
 import { MdArrowDownward, MdArrowUpward } from "react-icons/md";
-import Button from "./ui/Button";
+import Button from "../../../components/ui/Button";
 import { useDisclosure } from "@/hooks/useDisclosure";
-import { toast } from "react-hot-toast";
-import { unLockQubic } from "@/services/qearn.service";
-import { broadcastTx } from "@/services/rpc.service";
-import { pendingTxAtom } from "@/store/pendingTx";
-import { settingsAtom } from "@/store/settings";
-import { useQubicConnect } from "./connect/QubicConnectContext";
 import UnlockModal from "./UnlockModal";
 import { useTranslation } from "react-i18next";
+import UnlockAmountSettingModal from "./UnlockAmountSettingModal";
+import ConfirmModal from "../../../components/ui/ConfirmModal";
+import { useLockHistory } from "@/hooks/useLockHistory";
 
 interface ITableData {
   lockedEpoch: number;
@@ -36,20 +27,35 @@ interface ITableData {
 }
 
 const LockHistoryTable: React.FC = () => {
-  const [selectedAccount, setSelectedAccount] = useState<number>(0);
-  const [isLoading] = useState(false);
-  const [accounts, setAccounts] = useState<{ label: string; value: string }[]>([]);
-  const [userLockInfo] = useAtom(userLockInfoAtom);
-  const [qearnStats] = useAtom(qearnStatsAtom);
-  const [tableData, setTableData] = useState<ITableData[]>([]);
-  const [tickInfo] = useAtom(tickInfoAtom);
-  const [sorting, setSorting] = useState<SortingState>([]);
-  const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
-  const [, setPendingTx] = useAtom(pendingTxAtom);
-  const [settings] = useAtom(settingsAtom);
-  const { getSignedTx } = useQubicConnect();
   const { open, onOpen, onClose } = useDisclosure();
+  const {
+    open: unlockAmountSettingOpen,
+    onOpen: onUnlockAmountSettingOpen,
+    onClose: onUnlockAmountSettingClose,
+  } = useDisclosure();
+  const { open: reminderOpen, onOpen: onReminderOpen, onClose: onReminderClose } = useDisclosure();
+  const [unlockAmount, setUnlockAmount] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState(false);
   const { t } = useTranslation();
+
+  const {
+    selectedAccount,
+    accounts,
+    tableData,
+    sorting,
+    selectedIdx,
+    setSelectedAccount,
+    setSorting,
+    setSelectedIdx,
+    handleUnlockEarly,
+  } = useLockHistory();
+
+  useEffect(() => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, []);
 
   const columnHelper = createColumnHelper<ITableData>();
   const lockedColumns = [
@@ -89,7 +95,7 @@ const LockHistoryTable: React.FC = () => {
           label={t("lockHistoryTable.Unlock Early")}
           onClick={() => {
             setSelectedIdx(info.row.index);
-            onOpen();
+            onUnlockAmountSettingOpen();
           }}
         />
       ),
@@ -106,66 +112,19 @@ const LockHistoryTable: React.FC = () => {
     getSortedRowModel: getSortedRowModel(),
   });
 
-  useEffect(() => {
-    if (Object.keys(userLockInfo).length > 0) {
-      setAccounts([{ label: `${t("qearnForm.Account")} 1`, value: Object.keys(userLockInfo)[0] }]);
+  const handleUnlock = async () => {
+    const result = await handleUnlockEarly(unlockAmount);
+    if (result.shouldShowReminder) {
+      onReminderOpen();
     }
-  }, [userLockInfo]);
-
-  useEffect(() => {
-    if (accounts.length < 0 || !qearnStats || !userLockInfo) return;
-    setTableData(
-      Object.entries(userLockInfo[accounts[selectedAccount]?.value] || {}).map(([epochStr, amount]) => {
-        const lockedEpoch = parseInt(epochStr);
-        const rewards = calculateRewards(
-          amount,
-          qearnStats[lockedEpoch]?.currentLockedAmount || 0,
-          qearnStats[lockedEpoch]?.currentBonusAmount || 0,
-          qearnStats[lockedEpoch]?.yieldPercentage || 0,
-          tickInfo.epoch,
-          lockedEpoch,
-        );
-        return {
-          lockedEpoch: lockedEpoch,
-          lockedAmount: amount,
-          totalLockedAmountInEpoch: qearnStats[lockedEpoch]?.currentLockedAmount || 0,
-          currentBonusAmountInEpoch: qearnStats[lockedEpoch]?.currentBonusAmount || 0,
-          earlyUnlockReward: { reward: rewards.earlyUnlockReward, ratio: rewards.earlyUnlockRewardRatio },
-          fullUnlockReward: { reward: rewards.fullUnlockReward, ratio: rewards.fullUnlockRewardRatio },
-        };
-      }) as any[],
-    );
-  }, [accounts, qearnStats, userLockInfo]);
-
-  const handleUnlockEarly = async () => {
-    try {
-      const tx = await unLockQubic(
-        accounts[selectedAccount].value,
-        tableData[selectedIdx || 0].lockedAmount,
-        tableData[selectedIdx || 0].lockedEpoch,
-        tickInfo?.tick + settings.tickOffset,
-      );
-      const { tx: signedTx } = await getSignedTx(tx);
-      const res = await broadcastTx(signedTx);
-      setPendingTx({
-        txId: res.transactionId,
-        publicId: accounts[selectedAccount].value,
-        initAmount: userLockInfo[accounts[selectedAccount].value]?.[tableData[selectedIdx || 0].lockedEpoch] || 0,
-        amount: -tableData[selectedIdx || 0].lockedAmount || 0,
-        epoch: tableData[selectedIdx || 0].lockedEpoch,
-        targetTick: tickInfo?.tick + settings.tickOffset,
-        type: "qearn",
-      });
-      toast.success("Transaction sent, it will take some time to be confirmed and executed");
-    } catch (err) {
-      toast.error("Something went wrong");
-      console.log(err);
+    if (result.success) {
+      onClose();
     }
   };
 
   return (
-    <Card className="space-y-6 w-full overflow-hidden p-3 md:p-6">
-      <div className="space-y-4 w-full">
+    <Card className="w-full space-y-6 overflow-hidden p-3 md:p-6">
+      <div className="w-full space-y-4">
         <AccountSelector
           label={t("connect.Select Account")}
           options={accounts}
@@ -238,13 +197,30 @@ const LockHistoryTable: React.FC = () => {
       <UnlockModal
         open={open}
         onClose={onClose}
-        onConfirm={handleUnlockEarly}
+        onConfirm={handleUnlock}
         data={{
           currentReward: tableData[selectedIdx || 0]?.earlyUnlockReward?.reward || 0,
           lockedAmount: tableData[selectedIdx || 0]?.lockedAmount || 0,
           apy: tableData[selectedIdx || 0]?.earlyUnlockReward?.ratio || 0,
           epoch: tableData[selectedIdx || 0]?.lockedEpoch || 0,
+          unlockAmount,
         }}
+      />
+      <UnlockAmountSettingModal
+        open={unlockAmountSettingOpen}
+        onClose={onUnlockAmountSettingClose}
+        onConfirm={(amount) => {
+          setUnlockAmount(amount);
+          onOpen();
+        }}
+        maxAmount={tableData[selectedIdx || 0]?.lockedAmount || 0}
+      />
+      <ConfirmModal
+        open={reminderOpen}
+        onClose={onReminderClose}
+        onConfirm={onReminderClose}
+        title={t("modal.Account Balance is 0")}
+        description={t("modal.To Unlock Qubic, you need to hold at least 1 $QUBIC in your account")}
       />
     </Card>
   );

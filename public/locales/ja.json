@@ -1,6 +1,6 @@
 {
   "welcome": {
-    "Earn {{percentage}}% Rewards by Staking $QUBIC": "$QUBIC をステーキングして {{percentage}}% のリワードを獲得",
+    "Earn <0>{{percentage}}%</0> Rewards by Staking $QUBIC": "$QUBIC をステーキングして <0>{{percentage}}%</0> のリワードを獲得",
     "Connect your wallet to start locking": "ウォレットを接続してロックを開始",
     "Start Locking": "ロックを開始"
   },
@@ -14,11 +14,16 @@
     "Manage notification preferences": "通知設定を管理",
     "Language": "言語",
     "Tick Offset": "ティックオフセット",
-    "Current value: {{value}}": "現在の値: {{value}}"
+    "Current value: {{value}}": "現在の値: {{value}}",
+    "Developer Page": "開発者ページ",
+    "Show developer page": "開発者ページを表示",
+    "Transfer Form": "転送フォーム",
+    "Show transfer form": "転送フォームを表示"
   },
   "home": {
     "Locking": "ロック中",
-    "Locking History": "ロック履歴"
+    "Locking History": "ロック履歴",
+    "Transfer": "転送"
   },
   "faq": {
     "Frequently Asked Questions": "よくある質問",
@@ -132,7 +137,8 @@
     "Dashboard": "ダッシュボード",
     "FAQ": "FAQ",
     "Light": "ライト",
-    "Dark": "ダーク"
+    "Dark": "ダーク",
+    "DevTools": "開発者ツール"
   },
   "footer": {
     "Terms of service": "利用規約",
@@ -208,6 +214,38 @@
     "Unlock Early": "早期アンロック",
     "Locked Balance": "ロック残高",
     "Earning Ratio": "獲得率",
-    "Unlocks In": "アンロックまでの時間"
+    "Unlocks In": "アンロックまでの時間",
+    "Set Unlock Amount": "アンロック金額を設定",
+    "Amount": "金額",
+    "Enter amount to unlock": "アンロック金額を入力",
+    "Invalid amount": "無効な金額",
+    "Unlock amount is less than the minimum amount": "アンロック金額が最小金額より少ない",
+    "Unlock amount is greater than the locked amount": "アンロック金額がロック残高より多い",
+    "Account Balance is 0": "アカウント残高が0",
+    "To Unlock Qubic, you need to hold at least 1 $QUBIC in your account": "Qubicをアンロックするには、少なくとも1 $QUBICを保有する必要があります"
+  },
+  "toast": {
+    "Transaction failed": "トランザクションに失敗しました",
+    "Transaction successful": "トランザクションが成功しました",
+    "Transaction pending": "トランザクションが保留中です",
+    "Transaction confirmed": "トランザクションが確認されました",
+    "Locked successfully": "ロックされました",
+    "Unlocked successfully": "アンロックされました",
+    "Monitoring transaction...": "トランザクションを監視しています...",
+    "Transaction failed, please try again": "トランザクションに失敗しました。再試行してください。",
+    "Transaction sent, it will take some time to be confirmed and executed": "トランザクションが送信されました。確認および実行にしばらく時間がかかります。",
+    "Something went wrong": "何かがおかしいです",
+    "Transferred successfully": "転送が成功しました"
+  },
+  "transferForm": {
+    "Transfer $QUBIC": "QUBIC を転送",
+    "Recipient Address": "受取人のアドレス",
+    "Enter recipient address": "受取人のアドレスを入力",
+    "Amount": "金額",
+    "Enter amount": "金額を入力",
+    "Send": "送信",
+    "Confirm Transfer": "転送を確認",
+    "Are you sure you want to send {{amount}} QUBIC?": "{{amount}} QUBIC を転送してよろしいですか？",
+    "Transaction submitted": "トランザクションが送信されました"
   }
 }

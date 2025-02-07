@@ -172,7 +172,7 @@ const Faq: React.FC = () => {
             className="text-ellipsis rounded-lg border border-card-border bg-card p-6"
           >
             <h2 className="mb-3 text-xl font-semibold">{faq.title}</h2>
-            <div className="text-muted-foreground text-justify">{faq.content}</div>
+            <div className="text-muted-foreground">{faq.content}</div>
           </motion.div>
         ))}
       </div>

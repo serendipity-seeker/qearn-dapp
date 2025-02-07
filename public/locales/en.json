@@ -1,6 +1,6 @@
 {
   "welcome": {
-    "Earn {{percentage}}% Rewards by Staking $QUBIC": "Earn {{percentage}}% Rewards by Staking $QUBIC",
+    "Earn <0>{{percentage}}%</0> Rewards by Staking $QUBIC": "Earn <0>{{percentage}}%</0> Rewards by Staking $QUBIC",
     "Connect your wallet to start locking": "Connect your wallet to start locking",
     "Start Locking": "Start Locking"
   },
@@ -14,18 +14,23 @@
     "Manage notification preferences": "Manage notification preferences",
     "Language": "Language",
     "Tick Offset": "Tick Offset",
-    "Current value: {{value}}": "Current value: {{value}}"
+    "Current value: {{value}}": "Current value: {{value}}",
+    "Developer Page": "Developer Page",
+    "Show developer page": "Show developer page",
+    "Transfer Form": "Transfer Form",
+    "Show transfer form": "Show transfer form"
   },
   "home": {
     "Locking": "Locking",
-    "Locking History": "Locking History"
+    "Locking History": "Locking History",
+    "Transfer": "Transfer"
   },
   "faq": {
     "Frequently Asked Questions": "Frequently Asked Questions",
 
     "faq1": {
       "What is Qearn?": "What is Qearn?",
-      "content": "Qearn is a smart contract-based platform that allows users to lock funds for rewards while offering flexible unlocking options with associated penalties for early unlocking. It’s designed to incentivize long-term participation while maintaining liquidity for users."
+      "content": "Qearn is a smart contract-based platform that allows users to lock funds for rewards while offering flexible unlocking options with associated penalties for early unlocking. It's designed to incentivize long-term participation while maintaining liquidity for users."
     },
     "faq2": {
       "How does Qearn generate rewards?": "How does Qearn generate rewards?",
@@ -33,7 +38,7 @@
     },
     "faq3": {
       "What is an epoch in Qearn?": "What is an epoch in Qearn?",
-      "content": "An epoch is a time period during which locking and unlocking activities are managed. In Qearn, epochs are tracked weekly, with each user’s lock duration and rewards calculated based on these intervals."
+      "content": "An epoch is a time period during which locking and unlocking activities are managed. In Qearn, epochs are tracked weekly, with each user's lock duration and rewards calculated based on these intervals."
     },
     "faq4": {
       "What is the minimum amount required to lock funds?": "What is the minimum amount required to lock funds?",
@@ -132,7 +137,8 @@
     "Dashboard": "Dashboard",
     "FAQ": "FAQ",
     "Light": "Light",
-    "Dark": "Dark"
+    "Dark": "Dark",
+    "DevTools": "DevTools"
   },
   "footer": {
     "Terms of service": "Terms of service",
@@ -167,6 +173,7 @@
     "Total Locked Amount": "Total Locked Amount",
     "Current Bonus Amount": "Current Bonus Amount",
     "Current Reward %": "Current Reward %",
+
     "Full Reward %": "Full Reward %",
     "Actions": "Actions",
     "Unlock Early": "Unlock Early",
@@ -208,6 +215,38 @@
     "Unlock Early": "Unlock Early",
     "Locked Balance": "Locked Balance",
     "Earning Ratio": "Earning Ratio",
-    "Unlocks In": "Unlocks In"
+    "Unlocks In": "Unlocks In",
+    "Set Unlock Amount": "Set Unlock Amount",
+    "Amount": "Amount",
+    "Enter amount to unlock": "Enter amount to unlock",
+    "Invalid amount": "Invalid amount",
+    "Unlock amount is less than the minimum amount": "Unlock amount is less than the minimum amount",
+    "Unlock amount is greater than the locked amount": "Unlock amount is greater than the locked amount",
+    "Account Balance is 0": "Account Balance is 0",
+    "To Unlock Qubic, you need to hold at least 1 $QUBIC in your account": "To Unlock Qubic, you need to hold at least 1 $QUBIC in your account"
+  },
+  "toast": {
+    "Transaction failed": "Transaction failed",
+    "Transaction successful": "Transaction successful",
+    "Transaction pending": "Transaction pending",
+    "Transaction confirmed": "Transaction confirmed",
+    "Locked successfully": "Locked successfully",
+    "Unlocked successfully": "Unlocked successfully",
+    "Monitoring transaction...": "Monitoring transaction...",
+    "Transaction failed, please try again": "Transaction failed, please try again",
+    "Transaction sent, it will take some time to be confirmed and executed": "Transaction sent, it will take some time to be confirmed and executed",
+    "Something went wrong": "Something went wrong",
+    "Transferred successfully": "Transferred successfully"
+  },
+  "transferForm": {
+    "Transfer $QUBIC": "Transfer $QUBIC",
+    "Recipient Address": "Recipient Address",
+    "Enter recipient address": "Enter recipient address",
+    "Amount": "Amount",
+    "Enter amount": "Enter amount",
+    "Send": "Send",
+    "Confirm Transfer": "Confirm Transfer",
+    "Are you sure you want to send {{amount}} QUBIC?": "Are you sure you want to send {{amount}} QUBIC?",
+    "Transaction submitted": "Transaction submitted"
   }
 }
