@@ -22,7 +22,7 @@ const QearnForm: React.FC = () => {
   const [settings] = useAtom(settingsAtom);
   const [selectedAccount, setSelectedAccount] = useState(0);
   const [accounts, setAccounts] = useState<{ label: string; value: string }[]>([]);
-  const [amount, setAmount] = useState<number>(0);
+  const [amount, setAmount] = useState<string>("");
   const { getSignedTx } = useQubicConnect();
   const [balances] = useAtom(balancesAtom);
   const [, setPendingTx] = useAtom(pendingTxAtom);
@@ -37,7 +37,8 @@ const QearnForm: React.FC = () => {
   }, [balances]);
 
   const validate = async (): Promise<boolean> => {
-    if (!amount || !accounts[selectedAccount].value) {
+    const numAmount = Number(amount);
+    if (!numAmount || !accounts[selectedAccount].value) {
       toast.error(t("qearnForm.All fields must be filled"));
       return false;
     }
@@ -45,12 +46,12 @@ const QearnForm: React.FC = () => {
     const targetTick = tickInfo?.tick + settings.tickOffset;
     const walletBalance = (await fetchBalance(accounts[selectedAccount].value)) || 0;
 
-    if (amount > walletBalance.balance) {
+    if (numAmount > walletBalance.balance) {
       toast.error(t("qearnForm.Amount exceeds wallet balance"));
       return false;
     }
 
-    if (amount < 10000000) {
+    if (numAmount < 10000000) {
       toast.error(t("qearnForm.Amount must be at least 10M"));
       return false;
     }
@@ -67,15 +68,15 @@ const QearnForm: React.FC = () => {
     if (!(await validate())) return;
 
     try {
-      // const tx = await unLockQubic(accounts[selectedAccount].value, amount, tickInfo?.epoch || 0, tickInfo?.tick + settings.tickOffset);
-      const tx = await lockQubic(accounts[selectedAccount].value, amount, tickInfo?.tick + settings.tickOffset);
+      const numAmount = Number(amount);
+      const tx = await lockQubic(accounts[selectedAccount].value, numAmount, tickInfo?.tick + settings.tickOffset);
       const { tx: signedTx } = await getSignedTx(tx);
       const res = await broadcastTx(signedTx);
       setPendingTx({
         txId: res.transactionId,
         publicId: accounts[selectedAccount].value,
         initAmount: userLockInfo[accounts[selectedAccount].value]?.[tickInfo?.epoch || 0] || 0,
-        amount: amount,
+        amount: numAmount,
         epoch: tickInfo?.epoch || 0,
         targetTick: tickInfo?.tick + settings.tickOffset,
         type: "qearn",
@@ -87,7 +88,7 @@ const QearnForm: React.FC = () => {
   };
 
   const handleAmountChange = (value: string) => {
-    setAmount(Number(value));
+    setAmount(value);
   };
 
   return (
