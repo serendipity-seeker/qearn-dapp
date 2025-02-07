@@ -1,5 +1,5 @@
 import * as Switch from "@radix-ui/react-switch";
-import { useEffect, useState } from "react";
+import * as Slider from "@radix-ui/react-slider";
 import Card from "@/components/ui/Card";
 import { settingsAtom } from "@/store/settings";
 import { useAtom } from "jotai";
@@ -47,17 +47,26 @@ const Settings: React.FC = () => {
             <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
               <div className="space-y-2">
                 <h3 className="text-xl font-semibold">{t("common.Tick Offset")}</h3>
-                <p className="text-sm text-gray-400">{t("common.Current value: {{value}}", { value: settings.tickOffset })}</p>
+                <p className="text-sm text-gray-400">
+                  {t("common.Current value: {{value}}", { value: settings.tickOffset })}
+                </p>
               </div>
-              <input
-                type="range"
-                min="3"
-                max="15"
-                value={settings.tickOffset}
-                onChange={(e) => setSettings((prev) => ({ ...prev, tickOffset: parseInt(e.target.value) }))}
-                className="w-full sm:w-48"
-                step="1"
-              />
+              <Slider.Root
+                className="relative flex w-full touch-none select-none items-center sm:w-48"
+                value={[settings.tickOffset]}
+                onValueChange={(value) => setSettings((prev) => ({ ...prev, tickOffset: value[0] }))}
+                max={15}
+                min={3}
+                step={1}
+              >
+                <Slider.Track className="relative h-2 grow rounded-full bg-gray-200">
+                  <Slider.Range className="absolute h-full rounded-full bg-primary-40" />
+                </Slider.Track>
+                <Slider.Thumb
+                  className="block size-5 rounded-full bg-primary-40 shadow-lg hover:bg-primary-50 focus:outline-none focus:ring focus:ring-primary-40/50"
+                  aria-label="Tick offset"
+                />
+              </Slider.Root>
             </div>
           </section>
 
