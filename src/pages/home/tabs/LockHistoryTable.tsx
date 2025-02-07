@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import Card from "./ui/Card";
+import Card from "../../../components/ui/Card";
 import { useAtom } from "jotai";
 import { userLockInfoAtom } from "@/store/userLockInfo";
-import AccountSelector from "./ui/AccountSelector";
+import AccountSelector from "../../../components/ui/AccountSelector";
 import {
   createColumnHelper,
   flexRender,
@@ -15,18 +15,18 @@ import { qearnStatsAtom } from "@/store/qearnStat";
 import { calculateRewards } from "@/utils";
 import { tickInfoAtom } from "@/store/tickInfo";
 import { MdArrowDownward, MdArrowUpward } from "react-icons/md";
-import Button from "./ui/Button";
+import Button from "../../../components/ui/Button";
 import { useDisclosure } from "@/hooks/useDisclosure";
 import { toast } from "react-hot-toast";
 import { unLockQubic } from "@/services/qearn.service";
 import { broadcastTx } from "@/services/rpc.service";
 import { pendingTxAtom } from "@/store/pendingTx";
 import { settingsAtom } from "@/store/settings";
-import { useQubicConnect } from "./connect/QubicConnectContext";
+import { useQubicConnect } from "../../../components/connect/QubicConnectContext";
 import UnlockModal from "./UnlockModal";
 import { useTranslation } from "react-i18next";
 import UnlockAmountSettingModal from "./UnlockAmountSettingModal";
-import ConfirmModal from "./ui/ConfirmModal";
+import ConfirmModal from "../../../components/ui/ConfirmModal";
 import { balancesAtom } from "@/store/balances";
 
 interface ITableData {

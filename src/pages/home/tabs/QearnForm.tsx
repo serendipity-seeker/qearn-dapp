@@ -1,20 +1,20 @@
 import { useAtom } from "jotai";
-import Card from "./ui/Card";
-import Button from "./ui/Button";
+import Card from "../../../components/ui/Card";
+import Button from "../../../components/ui/Button";
 import { tickInfoAtom } from "@/store/tickInfo";
 import { settingsAtom } from "@/store/settings";
 import { useEffect, useState } from "react";
-import { useQubicConnect } from "./connect/QubicConnectContext";
+import { useQubicConnect } from "../../../components/connect/QubicConnectContext";
 import { lockQubic } from "@/services/qearn.service";
 import { broadcastTx, fetchBalance } from "@/services/rpc.service";
 import { toast } from "react-hot-toast";
-import InputNumbers from "./ui/InputNumbers";
+import InputNumbers from "../../../components/ui/InputNumbers";
 import { balancesAtom } from "@/store/balances";
 import { pendingTxAtom } from "@/store/pendingTx";
-import AccountSelector from "./ui/AccountSelector";
+import AccountSelector from "../../../components/ui/AccountSelector";
 import { userLockInfoAtom } from "@/store/userLockInfo";
 import { useDisclosure } from "@/hooks/useDisclosure";
-import ConfirmModal from "./ui/ConfirmModal";
+import ConfirmModal from "../../../components/ui/ConfirmModal";
 import { useTranslation } from "react-i18next";
 
 const QearnForm: React.FC = () => {

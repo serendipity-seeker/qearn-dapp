@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { renderInput } from "./helpers/common";
-import Button from "./ui/Button";
+import { renderInput } from "../../../components/helpers/common";
+import Button from "../../../components/ui/Button";
 import { useTranslation } from "react-i18next";
 import toast from "react-hot-toast";
 
