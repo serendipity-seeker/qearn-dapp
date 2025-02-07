@@ -34,13 +34,23 @@ const useTxMonitor = () => {
       }
 
       const updatedLockAmount = await getUserLockInfo(pendingTx.publicId, pendingTx.epoch);
-      setUserLockInfo((prev) => ({
-        ...prev,
-        [pendingTx.publicId]: {
-          ...prev[pendingTx.publicId],
-          [pendingTx.epoch]: updatedLockAmount,
-        },
-      }));
+      if (updatedLockAmount == 0) {
+        setUserLockInfo((prev) => {
+          const newState = { ...prev };
+          const publicIdState = { ...newState[pendingTx.publicId] };
+          delete publicIdState[pendingTx.epoch];
+          newState[pendingTx.publicId] = publicIdState;
+          return newState;
+        });
+      } else {
+        setUserLockInfo((prev) => ({
+          ...prev,
+          [pendingTx.publicId]: {
+            ...prev[pendingTx.publicId],
+            [pendingTx.epoch]: updatedLockAmount,
+          },
+        }));
+      }
 
       const updatedBalance = await fetchBalance(pendingTx.publicId);
       setBalance([updatedBalance]);
@@ -57,9 +67,15 @@ const useTxMonitor = () => {
   }, [tickInfo, pendingTx]);
 
   useEffect(() => {
+    let toastId: string;
     if (isMonitoring) {
-      toast.loading("Monitoring transaction...", { position: "bottom-right" });
+      toastId = toast.loading("Monitoring transaction...", { position: "bottom-right" });
     }
+    return () => {
+      if (toastId) {
+        toast.dismiss(toastId);
+      }
+    };
   }, [isMonitoring]);
 };
 
