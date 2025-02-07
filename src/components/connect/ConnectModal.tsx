@@ -17,6 +17,7 @@ import { useWalletConnect } from "./WalletConnectContext.tsx";
 import { generateQRCode } from "@/utils/index.ts";
 import WalletConnectLogo from "@/assets/wallet-connect.svg";
 import { useTranslation } from "react-i18next";
+import { QubicHelper } from "@qubic-lib/qubic-ts-library/dist/qubicHelper";
 
 export enum MetamaskActions {
   SetInstalled = "SetInstalled",
@@ -28,7 +29,7 @@ export enum MetamaskActions {
 const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () => void; darkMode?: boolean }) => {
   const [state, dispatch] = useContext(MetaMaskContext);
   const { t } = useTranslation();
-  
+
   const [selectedMode, setSelectedMode] = useState("none");
   // Private seed handling
   const [privateSeed, setPrivateSeed] = useState("");
@@ -49,11 +50,12 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
   /**
    * Connect with private seed
    */
-  const privateKeyConnect = () => {
+  const privateKeyConnect = async () => {
+    const idPackage = await new QubicHelper().createIdPackage(privateSeed);
     connect({
       connectType: "privateKey",
       privateKey: privateSeed,
-      publicKey: privateSeed,
+      publicKey: idPackage.publicId
     });
     // reset and close
     setSelectedMode("none");
@@ -202,7 +204,7 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
           }}
         >
           <Card
-            className="relative m-auto flex w-full max-w-md flex-col p-8 bg-background text-foreground"
+            className="relative m-auto flex w-full max-w-md flex-col bg-background p-8 text-foreground"
             onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between">
@@ -285,10 +287,14 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
             {selectedMode === "vault-file" && (
               <div className="mt-4">
                 {t("connect.Load your Qubic vault file:")}
-                <input type="file" className="mt-4 w-full rounded-lg p-4 border-2 border-gray-300 bg-background text-foreground" onChange={handleFileChange} />
+                <input
+                  type="file"
+                  className="mt-4 w-full rounded-lg border-2 border-gray-300 bg-background p-4 text-foreground"
+                  onChange={handleFileChange}
+                />
                 <input
                   type="password"
-                  className="mt-4 w-full rounded-lg p-4 border-2 border-gray-300 bg-background text-foreground"
+                  className="mt-4 w-full rounded-lg border-2 border-gray-300 bg-background p-4 text-foreground"
                   placeholder={t("connect.Enter password")}
                   onChange={handlePasswordChange}
                 />
@@ -356,10 +362,17 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
               <div className="mt-4 text-[rgba(128,139,155,1)]">
                 {t("connect.Connect your Qubic Wallet. You need to have Qubic Wallet installed and unlocked.")}
                 <div className="mt-5 flex flex-col gap-2">
-                  <img src={qrCode} alt="Wallet Connect QR Code" className="w-54 h-54 mx-auto" />
+                  <div className="min-w-54 min-h-54">
+                    {qrCode ? (
+                      <img src={qrCode} alt="Wallet Connect QR Code" className="w-54 h-54 mx-auto" />
+                    ) : (
+                      <div className="mx-auto h-8 w-8 animate-spin rounded-full border-t-2 border-foreground"></div>
+                    )}
+                  </div>
                   <button
                     onClick={() => window.open(`qubic-wallet://pairwc/${connectionURI}`, "_blank")}
                     className="disabled:bg-gray-40 flex items-center justify-center gap-3 rounded-lg bg-primary-40 p-3 text-black"
+                    disabled={!connectionURI}
                   >
                     {t("connect.Open in Qubic Wallet")}
                   </button>

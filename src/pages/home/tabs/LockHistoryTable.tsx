@@ -134,7 +134,7 @@ const LockHistoryTable: React.FC = () => {
 
         {isLoading ? (
           <div className="flex justify-center p-8">
-            <div className="h-8 w-8 animate-spin rounded-full border-t-2 border-white"></div>
+            <div className="h-8 w-8 animate-spin rounded-full border-t-2 border-foreground"></div>
           </div>
         ) : (
           <div className="w-full overflow-x-auto">
