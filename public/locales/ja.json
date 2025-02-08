@@ -235,7 +235,8 @@
     "Transaction failed, please try again": "トランザクションに失敗しました。再試行してください。",
     "Transaction sent, it will take some time to be confirmed and executed": "トランザクションが送信されました。確認および実行にしばらく時間がかかります。",
     "Something went wrong": "何かがおかしいです",
-    "Transferred successfully": "転送が成功しました"
+    "Transferred successfully": "転送が成功しました",
+    "Sign the transaction in your wallet": "トランザクションをウォレットで確認してください"
   },
   "transferForm": {
     "Transfer $QUBIC": "QUBIC を転送",

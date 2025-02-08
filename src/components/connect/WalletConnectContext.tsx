@@ -50,7 +50,7 @@ export function WalletConnectProvider({ children }: WalletConnectProviderProps) 
               "qubic_signTransaction",
               "qubic_sign",
             ],
-            events: ["amountChanged", "tokenAmountChanged", "accountsChanged"],
+            events: ["amountChanged", "assetAmountChanged", "accountsChanged"],
           },
         },
       });

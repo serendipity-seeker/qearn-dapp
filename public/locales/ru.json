@@ -235,7 +235,8 @@
     "Transaction failed, please try again": "Транзакция не удалась, пожалуйста, попробуйте ещё раз",
     "Transaction sent, it will take some time to be confirmed and executed": "Транзакция отправлена, потребуется время для подтверждения и выполнения",
     "Something went wrong": "Что-то пошло не так",
-    "Transferred successfully": "Перевод успешно выполнен"
+    "Transferred successfully": "Перевод успешно выполнен",
+    "Sign the transaction in your wallet": "Подтвердите транзакцию в вашем кошельке"
   },
   "transferForm": {
     "Transfer $QUBIC": "Перевести $QUBIC",
