@@ -7,6 +7,8 @@ import { useWalletConnect } from "./WalletConnectContext";
 import { QubicTransaction } from "@qubic-lib/qubic-ts-library/dist/qubic-types/QubicTransaction";
 import { base64ToUint8Array, decodeUint8ArrayTx, uint8ArrayToBase64 } from "@/utils";
 import { DEFAULT_TX_SIZE } from "@/constants";
+import { toast } from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
 interface Wallet {
   connectType: string;
@@ -36,6 +38,7 @@ export function QubicConnectProvider({ children }: QubicConnectProviderProps) {
   const [wallet, setWallet] = useState<Wallet | null>(null);
   const [showConnectModal, setShowConnectModal] = useState<boolean>(false);
   const { signTransaction } = useWalletConnect();
+  const { t } = useTranslation();
 
   const qHelper = new QubicHelper();
 
@@ -123,7 +126,11 @@ export function QubicConnectProvider({ children }: QubicConnectProviderProps) {
           qHelper.getIdentity(decodedTx.destinationPublicKey.getIdentity()),
         ]);
         const payloadBase64 = uint8ArrayToBase64(decodedTx.payload.getPackageData());
-
+        if(wallet?.connectType == "walletconnect") {
+          toast(t("toast.Sign the transaction in your wallet"), {
+            icon: "🔑",
+          });
+        }
         const wcResult = await signTransaction({
           from,
           to,

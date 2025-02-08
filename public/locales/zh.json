@@ -235,7 +235,8 @@
     "Transaction failed, please try again": "交易失败，请重试",
     "Transaction sent, it will take some time to be confirmed and executed": "交易已发送，需要一些时间来确认和执行",
     "Something went wrong": "出现问题",
-    "Transferred successfully": "转账成功"
+    "Transferred successfully": "转账成功",
+    "Sign the transaction in your wallet": "在您的钱包中确认交易"
   },
   "transferForm": {
     "Transfer $QUBIC": "转账 $QUBIC",

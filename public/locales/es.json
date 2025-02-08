@@ -235,7 +235,8 @@
     "Transaction failed, please try again": "Transacción fallida, por favor intenta nuevamente",
     "Transaction sent, it will take some time to be confirmed and executed": "Transacción enviada, tardará un tiempo en confirmarse y ejecutarse",
     "Something went wrong": "Algo salió mal",
-    "Transferred successfully": "Transferencia exitosa"
+    "Transferred successfully": "Transferencia exitosa",
+    "Sign the transaction in your wallet": "Firma la transacción en tu cartera"
   },
   "transferForm": {
     "Transfer $QUBIC": "Transferir $QUBIC",
