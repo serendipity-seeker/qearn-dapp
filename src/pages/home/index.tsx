@@ -6,13 +6,25 @@ import { useTranslation } from "react-i18next";
 import TransferForm from "./tabs/TransferForm";
 import { useAtom } from "jotai";
 import { settingsAtom } from "@/store/settings";
+import { useSearchParams } from "react-router-dom";
 
 const Home: React.FC = () => {
-  const [activeTab, setActiveTab] = useState(0);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const tabParam = searchParams.get("tab");
+  const initialTab = tabParam ? Math.min(Math.max(parseInt(tabParam), 0), 2) : 0;
+  const [activeTab, setActiveTab] = useState(initialTab);
+
+  useEffect(() => {
+    const param = searchParams.get("tab");
+    const newTab = param ? Math.min(Math.max(parseInt(param), 0), 2) : 0;
+    setActiveTab(newTab);
+  }, [searchParams]);
+
   const [tabUnderlineWidth, setTabUnderlineWidth] = useState(0);
   const [tabUnderlineLeft, setTabUnderlineLeft] = useState(0);
   const [settings] = useAtom(settingsAtom);
-  const tabRefs = Array(settings.showTransferForm ? 3 : 2)
+  const tabRefs = Array(3)
+
     .fill(null)
     .map(() => useRef<HTMLDivElement>(null));
   const { t } = useTranslation();
@@ -25,20 +37,25 @@ const Home: React.FC = () => {
     }
   }, [activeTab]);
 
+  const handleTabChange = (index: number) => {
+    setActiveTab(index);
+    setSearchParams({ tab: index.toString() });
+  };
+
   return (
     <div className={`mx-auto ${activeTab === 1 ? "w-full md:max-w-6xl" : ""}`}>
       <div className="relative mx-auto mb-4">
         <div className="pb-1">
           <span
             ref={tabRefs[0]}
-            onClick={() => setActiveTab(0)}
+            onClick={() => handleTabChange(0)}
             className={`cursor-pointer px-2 py-1 font-medium text-foreground hover:text-primary-40 ${activeTab === 0 ? "text-foreground" : ""}`}
           >
             {t("home.Locking")}
           </span>
           <span
             ref={tabRefs[1]}
-            onClick={() => setActiveTab(1)}
+            onClick={() => handleTabChange(1)}
             className={`cursor-pointer px-2 py-1 font-medium text-foreground hover:text-primary-40 ${activeTab === 1 ? "text-foreground" : ""}`}
           >
             {t("home.Locking History")}
@@ -46,7 +63,7 @@ const Home: React.FC = () => {
           {settings.showTransferForm && (
             <span
               ref={tabRefs[2]}
-              onClick={() => setActiveTab(2)}
+              onClick={() => handleTabChange(2)}
               className={`cursor-pointer px-2 py-1 font-medium text-foreground hover:text-primary-40 ${activeTab === 2 ? "text-foreground" : ""}`}
             >
               {t("home.Transfer")}

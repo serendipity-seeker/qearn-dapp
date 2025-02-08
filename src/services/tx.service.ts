@@ -33,7 +33,7 @@ export const createSCTx = async (
       .setSourcePublicKey(sourceID)
       .setDestinationPublicKey(await qHelper.getIdentity(destinationPublicKey))
       .setAmount(amount)
-      .setTick(tick + 5)
+      .setTick(tick)
       .setInputType(inputType)
       .setInputSize(inputSize);
     if (payload) {

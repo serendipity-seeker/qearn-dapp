@@ -8,6 +8,7 @@ import { IPendingTx, pendingTxAtom } from "@/store/pendingTx";
 import { tickInfoAtom } from "@/store/tickInfo";
 import { userLockInfoAtom } from "@/store/userLockInfo";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 const useTxMonitor = () => {
   const [tickInfo] = useAtom(tickInfoAtom);
@@ -16,6 +17,7 @@ const useTxMonitor = () => {
   const [, setUserLockInfo] = useAtom(userLockInfoAtom);
   const [isMonitoring, setIsMonitoring] = useState(false);
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const checkTxResult = async () => {
     if (!isMonitoring || !tickInfo?.tick || !pendingTx?.targetTick) return;
@@ -37,6 +39,7 @@ const useTxMonitor = () => {
         }
         const updatedLockAmount = await getUserLockInfo(pendingTx.publicId, pendingTx.epoch);
         if (updatedLockAmount == 0) {
+          // if updatedLockAmount is 0, delete the epoch from the userLockInfo
           setUserLockInfo((prev) => {
             const newState = { ...prev };
             const publicIdState = { ...newState[pendingTx.publicId] };
@@ -53,9 +56,17 @@ const useTxMonitor = () => {
             },
           }));
         }
+        if (pendingTx.amount > 0) {
+          // if lock, navigate to the lock history tab
+          navigate("/home?tab=1");
+        } else {
+          // if unlock, navigate to the home tab
+          navigate("/home?tab=0");
+        }
       } else if (pendingTx.type === "transfer") {
         const txStatus = await fetchTxStatus(pendingTx.txId);
         if (txStatus?.moneyFlew) {
+
           toast.success(t("toast.Transferred successfully"));
         } else {
           return;
