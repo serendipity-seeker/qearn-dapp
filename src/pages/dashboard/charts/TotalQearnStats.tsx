@@ -154,7 +154,7 @@ const TotalQearnStats: React.FC = () => {
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           <Card className="space-y-2 p-4">
-            <p className="text-sm text-foreground">{t("dashboard.Total Lock Amount")}</p>
+            <p className="text-sm text-foreground">{t("dashboard.Total Locked Amount")}</p>
             <p className="text-2xl font-bold text-emerald-500 dark:text-emerald-400">
               {(qearnStats.totalLockAmount + qearnStats.totalBonusAmount)?.toLocaleString() || 0}
             </p>

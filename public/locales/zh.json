@@ -122,7 +122,7 @@
     "Distribution": "分布",
     "Others": "其他",
     "Qearn Overview": "Qearn 概览",
-    "Total Lock Amount": "锁定总额",
+    "Total Locked Amount": "锁定总额",
     "Total Burned Amount": "总销毁金额",
     "Locked Amount": "锁定金额",
     "Bonus Amount": "奖金金额",
@@ -163,7 +163,7 @@
     "Transaction sent, it will take some time to be confirmed and executed": "交易已发送，需要一些时间来确认和执行",
     "Lock $QUBIC?": "锁定 $QUBIC？",
     "Are you sure you want to lock {{amount}}QUBIC?": "您确定要锁定 {{amount}} QUBIC 吗？",
-    "You will be able to unlock it anytime.": "您可以随时解锁。",
+    "You will be able to unlock at anytime.": "您可以随时解锁。",
     "Account": "账户",
     "Available": "可用"
   },

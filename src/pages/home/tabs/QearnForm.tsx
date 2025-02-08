@@ -6,6 +6,7 @@ import InputNumbers from "../../../components/ui/InputNumbers";
 import AccountSelector from "../../../components/ui/AccountSelector";
 import { useQearnForm } from "@/hooks/useQearnForm";
 import { useTranslation } from "react-i18next";
+import { formatQubicAmount } from "@/utils";
 
 const QearnForm: React.FC = () => {
   const { open, onOpen, onClose } = useDisclosure();
@@ -35,7 +36,7 @@ const QearnForm: React.FC = () => {
             />
             <p className="flex justify-between px-4 text-sm text-gray-50">
               <span className="text-primary font-bold">{t("qearnForm.Available")}:</span>{" "}
-              <span className="text-primary font-bold">{balances[selectedAccount]?.balance || 0} QUBIC</span>
+              <span className="text-primary font-bold">{formatQubicAmount(Number(balances[selectedAccount]?.balance || 0))} QUBIC</span>
             </p>
           </div>
           <InputNumbers 
@@ -61,9 +62,9 @@ const QearnForm: React.FC = () => {
         description={
           <div>
             <p>
-              {t("qearnForm.Are you sure you want to lock {{amount}}QUBIC?", { amount })}
+              {t("qearnForm.Are you sure you want to lock {{amount}}QUBIC?", { amount: formatQubicAmount(Number(amount)) })}
             </p>
-            <p>{t("qearnForm.You will be able to unlock it anytime.")}</p>
+            <p>{t("qearnForm.You will be able to unlock at anytime.")}</p>
           </div>
         }
       />

@@ -122,7 +122,7 @@
     "Distribution": "Distribuzione",
     "Others": "Altri",
     "Qearn Overview": "Panoramica Qearn",
-    "Total Lock Amount": "Totale importo bloccato",
+    "Total Locked Amount": "Totale importo bloccato",
     "Total Burned Amount": "Totale importo bruciato",
     "Locked Amount": "Importo bloccato",
     "Bonus Amount": "Importo del bonus",
@@ -163,7 +163,7 @@
     "Transaction sent, it will take some time to be confirmed and executed": "Transazione inviata, ci vorrà del tempo per essere confermata ed eseguita",
     "Lock $QUBIC?": "Bloccare $QUBIC?",
     "Are you sure you want to lock {{amount}}QUBIC?": "Sei sicuro di voler bloccare {{amount}} QUBIC?",
-    "You will be able to unlock it anytime.": "Potrai sbloccarlo in qualsiasi momento.",
+    "You will be able to unlock at anytime.": "Potrai sbloccarlo in qualsiasi momento.",
     "Account": "Account",
     "Available": "Disponibile"
   },
