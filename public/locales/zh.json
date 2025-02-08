@@ -122,12 +122,13 @@
     "Distribution": "分布",
     "Others": "其他",
     "Qearn Overview": "Qearn 概览",
-    "Total Locked Amount": "锁定总额",
+    "Percent Locked of Total Supply": "总供应量中锁定百分比",
     "Total Burned Amount": "总销毁金额",
     "Locked Amount": "锁定金额",
     "Bonus Amount": "奖金金额",
     "APY %": "年化收益率 %",
     "Average APY": "平均年化收益率",
+
     "Burned": "销毁",
     "Boosted": "加成",
     "Rewarded": "已发放"

@@ -13,9 +13,11 @@ import { LABELS } from "@/data/labels";
 import { dark, light } from "@/data/chart-theme";
 import { settingsAtom } from "@/store/settings";
 import { useTranslation } from "react-i18next";
+import { qearnStatsAtom } from "@/store/qearnStat";
 
 const Richlist: React.FC = () => {
   const [richlist, setRichlist] = useState<{ identity: string; balance: number }[]>([]);
+  const [qearnStats] = useAtom(qearnStatsAtom);
   const latestStats = useAtomValue(latestStatsAtom);
   const [settings] = useAtom(settingsAtom);
   const { t } = useTranslation();
@@ -28,6 +30,9 @@ const Richlist: React.FC = () => {
         identity: LABELS[entity.identity as keyof typeof LABELS] || `User ${entity.identity.slice(0, 4)}`,
         balance: Number(entity.balance),
       }));
+      const qearnAddress = entries.find(item=> item.identity == "QEarn")!;
+      qearnAddress.balance = qearnStats.totalLockAmount;
+      
       const totalAmount = entries.reduce((acc, curr) => acc + curr.balance, 0);
       entries.push({
         identity: t("dashboard.Others"),
