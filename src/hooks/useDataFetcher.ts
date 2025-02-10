@@ -19,7 +19,7 @@ import {
   getUserLockStatus,
 } from "@/services/qearn.service";
 import { getTimeToNewEpoch } from "@/utils";
-import { QEARN_START_EPOCH } from "@/data/contants";
+import { QEARN_SC_ADDRESS, QEARN_START_EPOCH } from "@/data/contants";
 
 const useDataFetcher = () => {
   const { refetch: refetchTickInfo } = useFetchTickInfo();
@@ -61,6 +61,7 @@ const useDataFetcher = () => {
   // Fetch epoch lock data
   useEffect(() => {
     const fetchEpochData = async () => {
+      const {balance: totalLockAmount} = await fetchBalance(QEARN_SC_ADDRESS);
       const lockInfoPromises = [];
       for (let i = epoch.current; i >= epoch.current - 52; i--) {
         if (i < QEARN_START_EPOCH) continue;
@@ -91,7 +92,7 @@ const useDataFetcher = () => {
             acc[epoch.current - index] = { ...epochLockInfo, ...burnedAndBoostedStatsResults[index] };
             acc.totalInitialLockAmount += epochLockInfo.lockAmount;
             acc.totalInitialBonusAmount += epochLockInfo.bonusAmount;
-            acc.totalLockAmount += epochLockInfo.currentLockedAmount;
+            // acc.totalLockAmount += epochLockInfo.currentLockedAmount;
             acc.totalBonusAmount += epochLockInfo.currentBonusAmount;
             if (index !== 0)
               acc.averageYieldPercentage =
@@ -107,7 +108,7 @@ const useDataFetcher = () => {
           averageYieldPercentage: 0,
         },
       );
-
+      newStats.totalLockAmount = Number(totalLockAmount);
       setQearnStats((prev) => ({
         ...prev,
         ...newStats,

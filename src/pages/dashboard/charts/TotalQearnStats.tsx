@@ -15,6 +15,7 @@ import { IBurnNBoostedStats } from "@/types";
 import { getBurnedAndBoostedStats } from "@/services/qearn.service";
 import { useTranslation } from "react-i18next";
 import i18n from "@/i18n";
+import { latestStatsAtom } from "@/store/latestStats";
 
 interface ITableData {
   epoch: number;
@@ -31,6 +32,7 @@ interface ITableData {
 
 const TotalQearnStats: React.FC = () => {
   const [qearnStats] = useAtom(qearnStatsAtom);
+  const [latestStats] = useAtom(latestStatsAtom);
   const [sorting, setSorting] = useState<SortingState>([{ id: "epoch", desc: true }]);
   const [burnNBoostedStats, setBurnNBoostedStats] = useState<IBurnNBoostedStats>({} as IBurnNBoostedStats);
   const { t } = useTranslation();
@@ -152,11 +154,17 @@ const TotalQearnStats: React.FC = () => {
           {t("dashboard.Qearn Overview")}
         </h1>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-4">
           <Card className="space-y-2 p-4">
-            <p className="text-sm text-foreground">{t("dashboard.Total Lock Amount")}</p>
+            <p className="text-sm text-foreground">{t("dashboard.Total Locked Amount")}</p>
             <p className="text-2xl font-bold text-emerald-500 dark:text-emerald-400">
-              {(qearnStats.totalLockAmount + qearnStats.totalBonusAmount)?.toLocaleString() || 0}
+              {qearnStats.totalLockAmount?.toLocaleString() || 0}
+            </p>
+          </Card>
+          <Card className="space-y-2 p-4">
+            <p className="text-sm text-foreground">{t("dashboard.Percent Locked of Total Supply")}</p>
+            <p className="text-2xl font-bold text-emerald-500 dark:text-emerald-400">
+              {((qearnStats.totalLockAmount * 100) / Number(latestStats.circulatingSupply))?.toLocaleString() || 0} %
             </p>
           </Card>
           <Card className="space-y-2 p-4">

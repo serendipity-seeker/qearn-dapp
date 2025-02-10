@@ -38,14 +38,14 @@ export const useTransferForm = () => {
   const validate = async (): Promise<boolean> => {
     const numAmount = Number(amount);
     if (!numAmount || !accounts[selectedAccount]?.value || !recipient) {
-      toast.error(t("transferForm.All fields must be filled"));
+      toast.error(t("qearnForm.All fields must be filled"));
       return false;
     }
 
     const walletBalance = (await fetchBalance(accounts[selectedAccount].value)) || 0;
 
     if (numAmount > Number(walletBalance.balance)) {
-      toast.error(t("transferForm.Amount exceeds wallet balance"));
+      toast.error(t("qearnForm.Amount exceeds wallet balance"));
       return false;
     }
 
@@ -73,11 +73,11 @@ export const useTransferForm = () => {
         targetTick: tickInfo?.tick,
         type: "transfer",
       });
-      toast.success(t("transferForm.Transaction submitted"));
+      toast.success(t("qearnForm.Transaction submitted"));
       setRecipient("");
       setAmount("");
     } catch (error) {
-      toast.error(t("transferForm.Something went wrong"));
+      toast.error(t("qearnForm.Something went wrong"));
     }
   };
 

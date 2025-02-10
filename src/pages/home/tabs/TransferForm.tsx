@@ -7,6 +7,7 @@ import ConfirmModal from "@/components/ui/ConfirmModal";
 import { useTransferForm } from "@/hooks/useTransferForm";
 import AccountSelector from "@/components/ui/AccountSelector";
 import InputText from "@/components/ui/InputText";
+import { formatQubicAmount } from "@/utils";
 
 const TransferForm: React.FC = () => {
   const { t } = useTranslation();
@@ -68,7 +69,7 @@ const TransferForm: React.FC = () => {
         onClose={onClose}
         onConfirm={handleSubmit}
         title={t("transferForm.Confirm Transfer")}
-        description={t("transferForm.Are you sure you want to send {{amount}} QUBIC?", { amount: amount || 0 })}
+        description={t("transferForm.Are you sure you want to send {{amount}} QUBIC?", { amount: formatQubicAmount(Number(amount)) })}
       />
     </Card>
   );

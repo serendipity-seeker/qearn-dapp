@@ -64,7 +64,7 @@ const AccountSelector: React.FC<AccountSelectorProps> = ({
               className={`h-5 w-5 text-gray-50 transition-transform duration-200 ${isDropdownOpen ? "rotate-180 transform" : ""}`}
             />
           </div>
-          {options[selected] && (
+          {options[selected] && options[selected].value && (
             <div className="mt-2 flex items-center">
               <span className="break-all">{options[selected].value}</span>
               <div

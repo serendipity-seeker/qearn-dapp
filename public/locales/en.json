@@ -122,7 +122,7 @@
     "Distribution": "Distribution",
     "Others": "Others",
     "Qearn Overview": "Qearn Overview",
-    "Total Lock Amount": "Total Lock Amount",
+    "Percent Locked of Total Supply": "Percent Locked of Total Supply",
     "Total Burned Amount": "Total Burned Amount",
     "Locked Amount": "Locked Amount",
     "Bonus Amount": "Bonus Amount",
@@ -163,7 +163,7 @@
     "Transaction sent, it will take some time to be confirmed and executed": "Transaction sent, it will take some time to be confirmed and executed",
     "Lock $QUBIC?": "Lock $QUBIC?",
     "Are you sure you want to lock {{amount}}QUBIC?": "Are you sure you want to lock {{amount}}QUBIC?",
-    "You will be able to unlock it anytime.": "You will be able to unlock it anytime.",
+    "You will be able to unlock at anytime.": "You will be able to unlock at anytime.",
     "Account": "Account",
     "Available": "Available"
   },

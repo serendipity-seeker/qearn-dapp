@@ -122,7 +122,7 @@
     "Distribution": "分布",
     "Others": "その他",
     "Qearn Overview": "Qearn の概要",
-    "Total Lock Amount": "ロック合計",
+    "Percent Locked of Total Supply": "総供給に対するロック割合",
     "Total Burned Amount": "焼却合計",
     "Locked Amount": "ロック額",
     "Bonus Amount": "ボーナス額",
@@ -163,7 +163,7 @@
     "Transaction sent, it will take some time to be confirmed and executed": "トランザクションが送信されました。確認および実行にしばらく時間がかかります。",
     "Lock $QUBIC?": "$QUBIC をロックしますか？",
     "Are you sure you want to lock {{amount}}QUBIC?": "{{amount}} QUBIC をロックしてよろしいですか？",
-    "You will be able to unlock it anytime.": "いつでもアンロック可能です。",
+    "You will be able to unlock at anytime.": "いつでもアンロック可能です。",
     "Account": "アカウント",
     "Available": "利用可能"
   },
