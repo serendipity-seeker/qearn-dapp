@@ -150,7 +150,7 @@ export function QubicConnectProvider({ children }: QubicConnectProviderProps) {
         const toSign = processedTx.slice(0, processedTx.length - SIGNATURE_LENGTH);
 
         qCrypto.K12(toSign, digest, SIGNATURE_LENGTH);
-        const signedTx = qCrypto.schnorrq.sign(idPackage.privateKey, idPackage.publicKey, digest);
+        const signedTx = tx instanceof QubicTransaction ? await tx.build(wallet.privateKey) : qCrypto.schnorrq.sign(idPackage.privateKey, idPackage.publicKey, digest);
         return { tx: signedTx || new Uint8Array(DEFAULT_TX_SIZE) };
       }
     }
