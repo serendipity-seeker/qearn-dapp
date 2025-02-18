@@ -29,9 +29,10 @@ const Header: React.FC<HeaderProps> = () => {
   };
 
   const toggleTheme = () => {
-    setSettings((prev) => ({ ...prev, darkMode: !prev.darkMode }));
+    setSettings({ darkMode: !settings.darkMode });
   };
 
+  console.log(settings);
   const links = [
     { path: "/home", label: t("header.Locking") },
     { path: "/dashboard", label: t("header.Dashboard") },

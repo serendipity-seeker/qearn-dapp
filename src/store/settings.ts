@@ -8,9 +8,21 @@ export type Settings = {
   showTransferForm: boolean;
 };
 
-export const settingsAtom = atom<Settings>({
-  tickOffset: DEFAULT_TICK_OFFSET,
-  darkMode: true,
-  showDeveloperPage: false,
-  showTransferForm: false,
-});
+const localStorageSettings = JSON.parse(
+  localStorage.getItem("settings") ||
+    `{"tickOffset": ${DEFAULT_TICK_OFFSET},"darkMode": true,"showDeveloperPage": false,"showTransferForm": false}`,
+) as Settings;
+
+export const settingsAtom = atom(
+  localStorageSettings || {
+    tickOffset: DEFAULT_TICK_OFFSET,
+    darkMode: true,
+    showDeveloperPage: false,
+    showTransferForm: false,
+  },
+  (get, set, update: Partial<Settings>) => {
+    const newSettings = { ...get(settingsAtom), ...update };
+    set(settingsAtom, newSettings);
+    localStorage.setItem("settings", JSON.stringify(newSettings));
+  },
+);
