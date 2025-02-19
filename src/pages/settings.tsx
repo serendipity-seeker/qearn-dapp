@@ -67,7 +67,7 @@ const Settings: React.FC = () => {
               <Slider.Root
                 className="relative flex w-full max-w-md touch-none select-none items-center"
                 value={[settings.tickOffset]}
-                onValueChange={(value) => setSettings((prev) => ({ ...prev, tickOffset: value[0] }))}
+                onValueChange={(value) => setSettings({ tickOffset: value[0] })}
                 max={15}
                 min={3}
                 step={1}
@@ -87,7 +87,7 @@ const Settings: React.FC = () => {
           <section className="bg-card/50 rounded-lg p-4 shadow-sm ring-1 ring-gray-200/20 sm:p-6">
             <SwitchComponent
               checked={settings.darkMode}
-              onChange={(checked) => setSettings((prev) => ({ ...prev, darkMode: checked }))}
+              onChange={(checked) => setSettings({ darkMode: checked })}
               label={t("common.Dark Mode")}
               description={t("common.Toggle dark mode theme")}
               icon={<MdDarkMode className="size-6 sm:size-8" />}
@@ -98,7 +98,7 @@ const Settings: React.FC = () => {
           <section className="bg-card/50 rounded-lg p-4 shadow-sm ring-1 ring-gray-200/20 sm:p-6">
             <SwitchComponent
               checked={settings.showDeveloperPage}
-              onChange={(checked) => setSettings((prev) => ({ ...prev, showDeveloperPage: checked }))}
+              onChange={(checked) => setSettings({ showDeveloperPage: checked })}
               label={t("common.Developer Page")}
               description={t("common.Show developer page")}
               icon={<MdCode className="size-6 sm:size-8" />}
@@ -109,7 +109,7 @@ const Settings: React.FC = () => {
           <section className="bg-card/50 rounded-lg p-4 shadow-sm ring-1 ring-gray-200/20 sm:p-6">
             <SwitchComponent
               checked={settings.showTransferForm}
-              onChange={(checked) => setSettings((prev) => ({ ...prev, showTransferForm: checked }))}
+              onChange={(checked) => setSettings({ showTransferForm: checked })}
               label={t("common.Transfer Form")}
               description={t("common.Show transfer form")}
               icon={<MdSwapHoriz className="size-6 sm:size-8" />}

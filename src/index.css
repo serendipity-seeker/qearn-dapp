@@ -27,6 +27,12 @@
   --card: theme("colors.gray.80");
   --card-border: theme("colors.gray.70");
 }
+
+@layer base {
+  body {
+    @apply text-foreground bg-background;
+  }
+}
 a {
   font-weight: 500;
   color: #646cff;
