@@ -131,7 +131,7 @@ const Faq: React.FC = () => {
                       )}
                     </p>
                   </li>
-                  <div className="my-4 rounded-lg border border-red-500 bg-red-500/10 p-4">
+                  {/* <div className="my-4 rounded-lg border border-red-500 bg-red-500/10 p-4">
                     <p className="font-medium text-red-500">{t("faq.faq12.⚠️ Security Warning")}</p>
                     <p className="mt-1 text-sm text-red-400">
                       {t(
@@ -154,7 +154,7 @@ const Faq: React.FC = () => {
                         "faq.faq12.Direct private key entry should only be used as a last resort. Your private key grants complete control over your funds - never share it with anyone and only use this method on a secure, trusted device.",
                       )}
                     </p>
-                  </li>
+                  </li> */}
                 </ul>
               </>
             ),

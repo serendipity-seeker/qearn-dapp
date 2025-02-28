@@ -278,7 +278,7 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
                           <img src={WalletConnectLogo} alt="Wallet Connect Logo" className="h-8 w-8" />
                           <span className="w-32">{t("connect.Wallet Connect")}</span>
                         </button>
-                        <div className="my-4 flex w-full items-center justify-center">
+                        {/* <div className="my-4 flex w-full items-center justify-center">
                           <div className="flex-grow border-t border-gray-300"></div>
                           <span className="text-red px-4">{t("connect.⚠️ BE CAREFUL!")}</span>
                           <div className="flex-grow border-t border-gray-300"></div>
@@ -294,7 +294,7 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
                           onClick={() => setSelectedMode("vault-file")}
                         >
                           {t("connect.Vault File")}
-                        </button>
+                        </button> */}
                       </>
                     )}
                   </motion.div>

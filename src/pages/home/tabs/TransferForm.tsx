@@ -25,7 +25,7 @@ const TransferForm: React.FC = () => {
   } = useTransferForm();
 
   return (
-    <Card className="mx-auto w-full max-w-[460px] p-8">
+    <Card className="mx-auto w-full max-w-[460px] sm:w-[460px] p-8">
       <div className="space-y-6">
         <h1 className="text-2xl">{t("transferForm.Transfer $QUBIC")}</h1>
         <div className="space-y-6">

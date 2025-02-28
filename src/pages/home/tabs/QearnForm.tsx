@@ -22,7 +22,7 @@ const QearnForm: React.FC = () => {
   } = useQearnForm();
 
   return (
-    <Card className="w-full max-w-[460px] mx-auto p-8">
+    <Card className="w-full max-w-[460px] sm:w-[460px] mx-auto p-8">
       <div className="space-y-6">
         <h1 className="text-2xl">{t("qearnForm.Lock $QUBIC")}</h1>
 
