@@ -42,7 +42,7 @@ export function WalletConnectProvider({ children }: WalletConnectProviderProps) 
       const { uri, approval } = await signClient.connect({
         requiredNamespaces: {
           qubic: {
-            chains: ["qubic:main"],
+            chains: ["qubic:mainnet"],
             methods: [
               "qubic_requestAccounts",
               "qubic_sendQubic",
@@ -178,9 +178,9 @@ export function WalletConnectProvider({ children }: WalletConnectProviderProps) 
     SignClient.init({
       projectId: "b2ace378845f0e4806ef23d2732f77a4",
       metadata: {
-        name: "QEARN DAPP",
-        description: "QEARN DAPP",
-        url: "https://qearn.qubic.org",
+        name: "QEARN",
+        description: "QEARN",
+        url: "https://qearn.org",
         icons: ["https://walletconnect.com/walletconnect-logo.png"],
       },
     }).then((client) => {
