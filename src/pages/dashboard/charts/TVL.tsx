@@ -36,10 +36,10 @@ const TVL: React.FC = () => {
       trigger: "item",
       formatter: "{b}: {c} ({d}%)",
     },
-    legend: {
-      orient: "horizontal",
-      bottom: "5%",
-    },
+    // legend: {
+    //   orient: "horizontal",
+    //   bottom: "5%",
+    // },
     series: [
       {
         name: t("dashboard.Locked Amounts"),

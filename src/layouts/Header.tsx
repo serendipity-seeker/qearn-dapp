@@ -32,13 +32,12 @@ const Header: React.FC<HeaderProps> = () => {
     setSettings({ darkMode: !settings.darkMode });
   };
 
-  console.log(settings);
   const links = [
     { path: "/home", label: t("header.Locking") },
     { path: "/dashboard", label: t("header.Dashboard") },
     { path: "/faq", label: t("header.FAQ") },
-    settings.showDeveloperPage && { path: "/helpers", label: "DevTools" },
-  ].filter((link) => link !== false);
+    ...(settings.showDeveloperPage ? [{ path: "/helpers", label: "DevTools" }] : []),
+  ];
 
   return (
     <motion.header
