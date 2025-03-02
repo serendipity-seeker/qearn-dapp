@@ -144,3 +144,22 @@ export interface IBurnNBoostedStats {
   rewardedAmount: number;
   averageRewardedPercent: number;
 }
+
+export interface TickEvents {
+  tick: number;
+  txEvents: {
+    txId: string;
+    events: {
+      header: {
+        epoch: number;
+        tick: number;
+        tmp: number;
+        eventId: string;
+        eventDigest: string;
+      };
+      eventType: number;
+      eventSize: number;
+      eventData: string;
+    }[];
+  }[];
+}
