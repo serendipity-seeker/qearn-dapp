@@ -42,7 +42,7 @@ export function WalletConnectProvider({ children }: WalletConnectProviderProps) 
       const { uri, approval } = await signClient.connect({
         requiredNamespaces: {
           qubic: {
-            chains: ["qubic:mainnet"],
+            chains: ["qubic:main"],
             methods: [
               "qubic_requestAccounts",
               "qubic_sendQubic",
