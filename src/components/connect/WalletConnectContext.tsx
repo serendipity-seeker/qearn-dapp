@@ -180,7 +180,7 @@ export function WalletConnectProvider({ children }: WalletConnectProviderProps) 
       metadata: {
         name: "QEARN",
         description: "QEARN",
-        url: "https://qearn.org",
+        url: "https://www.qearn.org",
         icons: ["https://walletconnect.com/walletconnect-logo.png"],
       },
     }).then((client) => {
