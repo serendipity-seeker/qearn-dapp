@@ -176,11 +176,11 @@ export function WalletConnectProvider({ children }: WalletConnectProviderProps) 
 
   useEffect(() => {
     SignClient.init({
-      projectId: "b2ace378845f0e4806ef23d2732f77a4",
+      projectId: "2697d842a392d20a355416a260f58276",
       metadata: {
         name: "QEARN",
         description: "QEARN",
-        url: "https://qearn.org",
+        url: "https://www.qearn.org",
         icons: ["https://walletconnect.com/walletconnect-logo.png"],
       },
     }).then((client) => {
