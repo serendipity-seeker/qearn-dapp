@@ -176,7 +176,7 @@ export function WalletConnectProvider({ children }: WalletConnectProviderProps) 
 
   useEffect(() => {
     SignClient.init({
-      projectId: "b2ace378845f0e4806ef23d2732f77a4",
+      projectId: "2697d842a392d20a355416a260f58276",
       metadata: {
         name: "QEARN",
         description: "QEARN",
