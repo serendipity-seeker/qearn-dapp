@@ -6,7 +6,6 @@ import {
   IQuerySCResponse,
   LatestStats,
   RichList,
-  TickEvents,
   TickInfo,
   TxHistory,
   TxStatus,
