@@ -28,7 +28,7 @@ const useTxMonitor = () => {
 
     console.log("current tick", tickInfo.tick, "target tick", pendingTx.targetTick);
 
-    if (tickInfo.tick > pendingTx.targetTick) {
+    if (tickInfo.tick > pendingTx.targetTick + 2) {
       if (tickInfo.tick > pendingTx.targetTick + 15) {
         toast.error(t("toast.Transaction failed"));
         setIsMonitoring(false);
@@ -40,16 +40,23 @@ const useTxMonitor = () => {
         const lockedAmount = await getUserLockInfo(pendingTx.publicId, pendingTx.epoch);
         if (lockedAmount - pendingTx.initAmount === pendingTx.amount) {
           toast.success(pendingTx.amount > 0 ? t("toast.Locked successfully") : t("toast.Unlocked successfully"));
+          try {
+            const tickEvents = await fetchTickEvents(pendingTx.targetTick);
+            if (tickEvents.txEvents?.length) {
+              const qearnLog = await formatQearnLog(tickEvents);
+              openModal(qearnLog);
+            }
+          } catch (err) {
+            console.error(err);
+          }
+        } else {
           const tickEvents = await fetchTickEvents(pendingTx.targetTick);
-          const qearnLog = await formatQearnLog(tickEvents);
-
-          if (qearnLog.length > 0) {
+          if (tickEvents.txEvents?.length) {
+            const qearnLog = await formatQearnLog(tickEvents);
             openModal(qearnLog);
           } else {
             return;
           }
-        } else {
-          return;
         }
         const updatedLockAmount = await getUserLockInfo(pendingTx.publicId, pendingTx.epoch);
         if (updatedLockAmount == 0) {

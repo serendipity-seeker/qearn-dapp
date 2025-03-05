@@ -41,7 +41,7 @@ const useDataFetcher = () => {
         setTickInfo(data);
         epoch.current = data.epoch;
       }
-    }, 2000);
+    }, 4000);
 
     return () => clearInterval(intervalRef.current!);
   }, [refetchTickInfo, setTickInfo]);

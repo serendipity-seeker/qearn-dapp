@@ -6,13 +6,17 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FaRegClock, FaTags, FaArrowRight, FaArrowLeft, FaDollarSign, FaInfoCircle } from "react-icons/fa";
 import useLogModal from "@/hooks/useLogModal";
 import Button from "@/components/ui/Button";
+import { truncateMiddle } from "@/utils";
 
 const LogModal: React.FC = () => {
   const [logData] = useAtom(logAtom);
   const { t } = useTranslation();
   const { closeModal } = useLogModal();
 
-  if (!logData.length) return null;
+  console.log("logData", logData);
+
+  if (logData.length === 0 || !logData) return null;
+
 
   return (
     <AnimatePresence>
@@ -28,7 +32,7 @@ const LogModal: React.FC = () => {
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.95, opacity: 0 }}
           transition={{ duration: 0.2 }}
-          className="flex flex-col gap-4 rounded-lg bg-background p-6 shadow-lg min-w-[400px]"
+          className="flex flex-col gap-4 rounded-lg bg-background p-6 shadow-lg w-[400px]"
           onClick={(e) => e.stopPropagation()}
         >
           <div className="flex items-center justify-between">
@@ -73,9 +77,9 @@ const LogModal: React.FC = () => {
                         href={`https://explorer.qubic.org/network/address/${log.sourceId}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="block truncate text-primary-40 hover:underline"
+                        className="block text-primary-40 hover:underline"
                       >
-                        {log.sourceId}
+                        {truncateMiddle(log.sourceId, 36)}
                       </a>
                     </div>
 
@@ -86,9 +90,9 @@ const LogModal: React.FC = () => {
                         href={`https://explorer.qubic.org/network/address/${log.destinationId}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="block truncate text-primary-40 hover:underline"
+                        className="block text-primary-40 hover:underline"
                       >
-                        {log.destinationId}
+                        {truncateMiddle(log.destinationId, 36)}
                       </a>
                     </div>
 
