@@ -1,4 +1,4 @@
-import { TickEvents } from "@/types";
+import { IEvent, TickEvents } from "@/types";
 import { base64ToUint8Array } from "@/utils";
 import { QubicHelper } from "@qubic-lib/qubic-ts-library/dist/qubicHelper";
 
@@ -20,13 +20,13 @@ enum EventType {
 }
 
 enum QearnLogInfo {
-  QearnSuccessLocking = 0,
-  QearnFailedTransfer = 1,
-  QearnLimitLocking = 2,
-  QearnOverflowUser = 3,
-  QearnInvalidInput = 4,
-  QearnSuccessEarlyUnlocking = 5,
-  QearnSuccessFullyUnlocking = 6,
+  SUCCESS_LOCKING = 0,
+  FAILED_TRANSFER = 1,
+  LIMIT_LOCKING = 2,
+  OVERFLOW_USER = 3,
+  INVALID_INPUT = 4,
+  SUCCESS_EARLY_UNLOCKING = 5,
+  SUCCESS_FULLY_UNLOCKING = 6,
 }
 
 interface IQearnEvent {
@@ -35,7 +35,7 @@ interface IQearnEvent {
   sourceId: string;
   destinationId: string;
   amount: number;
-  type: QearnLogInfo;
+  type: string;
 }
 
 const qHelper = new QubicHelper();
@@ -43,14 +43,15 @@ const qHelper = new QubicHelper();
 export const useLog = () => {
   const formatQearnLog = async (log: TickEvents) => {
     const qearnEvents: IQearnEvent[] = [];
-    const scLog = checkSCLog(log);
-    if (!scLog) return [];
 
-    log.txEvents.forEach((tx) => {
-      tx.events.forEach(async (event) => {
+    for (const tx of log.txEvents) {
+      for (const event of tx.events) {
+        const isSCLog = checkSCLog(event);
+        if (!isSCLog) continue;
+
         const isQearnLog = checkQearnLog(event.eventData, 9);
-        if (!isQearnLog) return;
-        // Parse the event data
+        if (!isQearnLog) continue;
+
         const eventData = await parseQearnLog(event.eventData);
         if (eventData) {
           qearnEvents.push({
@@ -59,25 +60,21 @@ export const useLog = () => {
             ...eventData,
           });
         }
-      });
-    });
+      }
+    }
     return qearnEvents;
   };
 
-  const checkSCLog = (log: TickEvents) => {
+  const checkSCLog = (event: IEvent) => {
     let result = false;
-    log.txEvents.forEach((tx) => {
-      tx.events.forEach((event) => {
-        if (
-          event.eventType === EventType.CONTRACT_ERROR_MESSAGE ||
-          event.eventType === EventType.CONTRACT_WARNING_MESSAGE ||
-          event.eventType === EventType.CONTRACT_INFORMATION_MESSAGE ||
-          event.eventType === EventType.CONTRACT_DEBUG_MESSAGE
-        ) {
-          result = true;
-        }
-      });
-    });
+    if (
+      event.eventType === EventType.CONTRACT_ERROR_MESSAGE ||
+      event.eventType === EventType.CONTRACT_WARNING_MESSAGE ||
+      event.eventType === EventType.CONTRACT_INFORMATION_MESSAGE ||
+      event.eventType === EventType.CONTRACT_DEBUG_MESSAGE
+    ) {
+      result = true;
+    }
     return result;
   };
 
@@ -95,10 +92,10 @@ export const useLog = () => {
     const eventDataArray = base64ToUint8Array(eventData);
     const dataView = new DataView(eventDataArray.buffer);
 
-    const sourcePublickey = eventDataArray.slice(4, 36);
-    const destinationPublickey = eventDataArray.slice(36, 68);
-    const amount = dataView.getBigUint64(68, true);
-    const type = dataView.getUint32(76, true);
+    const sourcePublickey = eventDataArray.slice(8, 40);
+    const destinationPublickey = eventDataArray.slice(40, 72);
+    const amount = dataView.getBigUint64(72, true);
+    const type = dataView.getUint32(80, true);
 
     const sourceId = await qHelper.getIdentity(sourcePublickey);
     const destinationId = await qHelper.getIdentity(destinationPublickey);
@@ -107,7 +104,7 @@ export const useLog = () => {
       sourceId: sourceId,
       destinationId: destinationId,
       amount: Number(amount),
-      type: type as QearnLogInfo,
+      type: QearnLogInfo[type],
     };
   };
 
