@@ -28,35 +28,44 @@ const useTxMonitor = () => {
 
     console.log("current tick", tickInfo.tick, "target tick", pendingTx.targetTick);
 
-    if (tickInfo.tick > pendingTx.targetTick + 2) {
-      if (tickInfo.tick > pendingTx.targetTick + 15) {
-        toast.error(t("toast.Transaction failed"));
-        setIsMonitoring(false);
-        setPendingTx({} as IPendingTx);
-        return;
-      }
+    if (tickInfo.tick > pendingTx.targetTick) {
+      setPendingTx({} as IPendingTx);
+      setIsMonitoring(false);
 
       if (pendingTx.type === "qearn") {
-        const lockedAmount = await getUserLockInfo(pendingTx.publicId, pendingTx.epoch);
-        if (lockedAmount - pendingTx.initAmount === pendingTx.amount) {
-          toast.success(pendingTx.amount > 0 ? t("toast.Locked successfully") : t("toast.Unlocked successfully"));
+        let tickEvents;
+        while (!tickEvents) {
           try {
-            const tickEvents = await fetchTickEvents(pendingTx.targetTick);
-            if (tickEvents.txEvents?.length) {
-              const qearnLog = await formatQearnLog(tickEvents);
+            tickEvents = await fetchTickEvents(pendingTx.targetTick);
+          } catch (error) {
+            console.error("Failed to fetch tick events, retrying...", error);
+          }
+        }
+        console.log("tickEvents", tickEvents);
+        const qearnLog = await formatQearnLog(tickEvents);
+        if (tickEvents.txEvents?.length && qearnLog.length) {
+          try {
+            if (
+              qearnLog[0].type == "SUCCESS_LOCKING" ||
+              qearnLog[0].type == "SUCCESS_FULLY_UNLOCKING" ||
+              qearnLog[0].type == "SUCCESS_EARLY_UNLOCKING"
+            ) {
+              toast.success(pendingTx.amount > 0 ? t("toast.Locked successfully") : t("toast.Unlocked successfully"));
+              openModal(qearnLog);
+            } else if (
+              qearnLog[0].type == "FAILED_TRANSFER" ||
+              qearnLog[0].type == "LIMIT_LOCKING" ||
+              qearnLog[0].type == "OVERFLOW_USER" ||
+              qearnLog[0].type == "INVALID_INPUT"
+            ) {
+              toast.error(t("toast.Transaction failed"));
               openModal(qearnLog);
             }
           } catch (err) {
             console.error(err);
           }
         } else {
-          const tickEvents = await fetchTickEvents(pendingTx.targetTick);
-          if (tickEvents.txEvents?.length) {
-            const qearnLog = await formatQearnLog(tickEvents);
-            openModal(qearnLog);
-          } else {
-            return;
-          }
+          toast.error(t("toast.Transaction failed"));
         }
         const updatedLockAmount = await getUserLockInfo(pendingTx.publicId, pendingTx.epoch);
         if (updatedLockAmount == 0) {
@@ -94,8 +103,6 @@ const useTxMonitor = () => {
       }
       const updatedBalance = await fetchBalance(pendingTx.publicId);
       setBalance([updatedBalance]);
-      setPendingTx({} as IPendingTx);
-      setIsMonitoring(false);
     }
   };
 
