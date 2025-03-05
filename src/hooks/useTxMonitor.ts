@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import { useAtom } from "jotai";
 import { toast } from "react-hot-toast";
 import { getUserLockInfo } from "@/services/qearn.service";
-import { fetchBalance, fetchTxStatus } from "@/services/rpc.service";
+import { fetchBalance, fetchTickEvents, fetchTxStatus } from "@/services/rpc.service";
 import { balancesAtom } from "@/store/balances";
 import { IPendingTx, pendingTxAtom } from "@/store/pendingTx";
 import { tickInfoAtom } from "@/store/tickInfo";
 import { userLockInfoAtom } from "@/store/userLockInfo";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { useLog } from "./useLog";
+import useLogModal from "./useLogModal";
 
 const useTxMonitor = () => {
   const [tickInfo] = useAtom(tickInfoAtom);
@@ -18,9 +20,13 @@ const useTxMonitor = () => {
   const [isMonitoring, setIsMonitoring] = useState(false);
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { formatQearnLog } = useLog();
+  const { openModal } = useLogModal();
 
   const checkTxResult = async () => {
     if (!isMonitoring || !tickInfo?.tick || !pendingTx?.targetTick) return;
+
+    console.log("current tick", tickInfo.tick, "target tick", pendingTx.targetTick);
 
     if (tickInfo.tick > pendingTx.targetTick) {
       if (tickInfo.tick > pendingTx.targetTick + 15) {
@@ -34,6 +40,14 @@ const useTxMonitor = () => {
         const lockedAmount = await getUserLockInfo(pendingTx.publicId, pendingTx.epoch);
         if (lockedAmount - pendingTx.initAmount === pendingTx.amount) {
           toast.success(pendingTx.amount > 0 ? t("toast.Locked successfully") : t("toast.Unlocked successfully"));
+          const tickEvents = await fetchTickEvents(pendingTx.targetTick);
+          const qearnLog = await formatQearnLog(tickEvents);
+
+          if (qearnLog.length > 0) {
+            openModal(qearnLog);
+          } else {
+            return;
+          }
         } else {
           return;
         }
@@ -66,7 +80,6 @@ const useTxMonitor = () => {
       } else if (pendingTx.type === "transfer") {
         const txStatus = await fetchTxStatus(pendingTx.txId);
         if (txStatus?.moneyFlew) {
-
           toast.success(t("toast.Transferred successfully"));
         } else {
           return;

@@ -222,7 +222,13 @@
     "Unlock amount is less than the minimum amount": "アンロック金額が最小金額より少ない",
     "Unlock amount is greater than the locked amount": "アンロック金額がロック残高より多い",
     "Account Balance is 0": "アカウント残高が0",
-    "To Unlock Qubic, you need to hold at least 1 $QUBIC in your account": "Qubicをアンロックするには、少なくとも1 $QUBICを保有する必要があります"
+    "To Unlock Qubic, you need to hold at least 1 $QUBIC in your account": "Qubicをアンロックするには、少なくとも1 $QUBICを保有する必要があります",
+    "Transaction Log": "トランザクションログ",
+    "Tick": "ティック",
+    "Type": "タイプ",
+    "Source": "ソース",
+    "Destination": "デスティネーション",
+    "NoLogs": "ログがありません"
   },
   "toast": {
     "Transaction failed": "トランザクションに失敗しました",

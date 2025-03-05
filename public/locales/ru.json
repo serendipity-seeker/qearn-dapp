@@ -222,7 +222,13 @@
     "Unlock amount is less than the minimum amount": "Сумма разблокировки меньше минимальной суммы",
     "Unlock amount is greater than the locked amount": "Сумма разблокировки больше заблокированной суммы",
     "Account Balance is 0": "Баланс аккаунта равен 0",
-    "To Unlock Qubic, you need to hold at least 1 $QUBIC in your account": "Чтобы разблокировать Qubic, вы должны иметь не менее 1 $QUBIC в своём аккаунте"
+    "To Unlock Qubic, you need to hold at least 1 $QUBIC in your account": "Чтобы разблокировать Qubic, вы должны иметь не менее 1 $QUBIC в своём аккаунте",
+    "Transaction Log": "Журнал транзакций",
+    "Tick": "Тик",
+    "Type": "Тип",
+    "Source": "Источник",
+    "Destination": "Цель",
+    "NoLogs": "Нет журналов"
   },
   "toast": {
     "Transaction failed": "Транзакция не удалась",

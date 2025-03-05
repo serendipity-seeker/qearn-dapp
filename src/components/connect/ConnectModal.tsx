@@ -264,7 +264,7 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
                         <button
                           className="disabled:bg-gray-40 mt-4 flex items-center justify-center gap-3 rounded-lg bg-primary-40 !bg-gray-50 p-2 text-black"
                           onClick={() => setSelectedMode("metamask")}
-                          disabled={true}
+                          // disabled={true}
                         >
                           <img src={MetaMaskLogo} alt="MetaMask Logo" className="h-8 w-8" />
                           <span className="w-32">{t("connect.MetaMask")}</span>

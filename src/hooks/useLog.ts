@@ -29,7 +29,7 @@ enum QearnLogInfo {
   SUCCESS_FULLY_UNLOCKING = 6,
 }
 
-interface IQearnEvent {
+export interface IQearnEvent {
   tick: number;
   eventId: number;
   sourceId: string;

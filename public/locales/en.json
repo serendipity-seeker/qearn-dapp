@@ -223,7 +223,13 @@
     "Unlock amount is less than the minimum amount": "Unlock amount is less than the minimum amount",
     "Unlock amount is greater than the locked amount": "Unlock amount is greater than the locked amount",
     "Account Balance is 0": "Account Balance is 0",
-    "To Unlock Qubic, you need to hold at least 1 $QUBIC in your account": "To Unlock Qubic, you need to hold at least 1 $QUBIC in your account"
+    "To Unlock Qubic, you need to hold at least 1 $QUBIC in your account": "To Unlock Qubic, you need to hold at least 1 $QUBIC in your account",
+    "Transaction Log": "Transaction Log",
+    "Tick": "Tick",
+    "Type": "Type",
+    "Source": "Source",
+    "Destination": "Destination",
+    "NoLogs": "NoLogs"
   },
   "toast": {
     "Transaction failed": "Transaction failed",

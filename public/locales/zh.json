@@ -223,7 +223,13 @@
     "Unlock amount is less than the minimum amount": "解锁金额小于最小金额",
     "Unlock amount is greater than the locked amount": "解锁金额大于锁定金额",
     "Account Balance is 0": "账户余额为0",
-    "To Unlock Qubic, you need to hold at least 1 $QUBIC in your account": "要解锁 Qubic，您需要至少持有 1 $QUBIC"
+    "To Unlock Qubic, you need to hold at least 1 $QUBIC in your account": "要解锁 Qubic，您需要至少持有 1 $QUBIC",
+    "Transaction Log": "交易日志",
+    "Tick": "刻度",
+    "Type": "类型",
+    "Source": "来源",
+    "Destination": "目标",
+    "NoLogs": "没有日志"
   },
   "toast": {
     "Transaction failed": "交易失败",

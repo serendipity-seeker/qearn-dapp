@@ -223,7 +223,13 @@
     "Unlock amount is less than the minimum amount": "Entsperrungsbetrag ist kleiner als der Mindestbetrag",
     "Unlock amount is greater than the locked amount": "Entsperrungsbetrag ist größer als das gesperrte Guthaben",
     "Account Balance is 0": "Kontoguthaben ist 0",
-    "To Unlock Qubic, you need to hold at least 1 $QUBIC in your account": "Um $QUBIC zu entsperren, musst du mindestens 1 $QUBIC in deinem Konto halten"
+    "To Unlock Qubic, you need to hold at least 1 $QUBIC in your account": "Um $QUBIC zu entsperren, musst du mindestens 1 $QUBIC in deinem Konto halten",
+    "Transaction Log": "Transaktionslog",
+    "Tick": "Tick",
+    "Type": "Typ",
+    "Source": "Quelle",
+    "Destination": "Ziel",
+    "NoLogs": "Keine Logs"
   },
   "toast": {
     "Transaction failed": "Transaktion fehlgeschlagen",

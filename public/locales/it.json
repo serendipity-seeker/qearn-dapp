@@ -222,7 +222,13 @@
     "Unlock amount is less than the minimum amount": "L'importo di sblocco è minore dell'importo minimo",
     "Unlock amount is greater than the locked amount": "L'importo di sblocco è maggiore del saldo bloccato",
     "Account Balance is 0": "Il saldo del conto è 0",
-    "To Unlock Qubic, you need to hold at least 1 $QUBIC in your account": "Per sbloccare Qubic, devi detenere almeno 1 $QUBIC nel tuo conto"
+    "To Unlock Qubic, you need to hold at least 1 $QUBIC in your account": "Per sbloccare Qubic, devi detenere almeno 1 $QUBIC nel tuo conto",
+    "Transaction Log": "Log delle transazioni",
+    "Tick": "Tick",
+    "Type": "Tipo",
+    "Source": "Origine",
+    "Destination": "Destinazione",
+    "NoLogs": "Nessun log"
   },
   "toast": {
     "Transaction failed": "Transazione fallita",

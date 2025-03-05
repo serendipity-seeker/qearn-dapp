@@ -7,6 +7,7 @@ import { WalletConnectProvider } from "./components/connect/WalletConnectContext
 import { useEffect } from "react";
 import { useAtom } from "jotai";
 import { settingsAtom } from "./store/settings";
+import LogModal from "./components/LogModal";
 
 const queryClient = new QueryClient();
 
@@ -35,6 +36,7 @@ function App() {
                 },
               }}
             />
+            <LogModal />
           </QubicConnectProvider>
         </WalletConnectProvider>
       </QueryClientProvider>
