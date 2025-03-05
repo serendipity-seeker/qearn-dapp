@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FaRegClock, FaTags, FaArrowRight, FaArrowLeft, FaDollarSign, FaInfoCircle } from "react-icons/fa";
 import useLogModal from "@/hooks/useLogModal";
 import Button from "@/components/ui/Button";
-import { truncateMiddle } from "@/utils";
+import { formatQubicAmount, truncateMiddle } from "@/utils";
 
 const LogModal: React.FC = () => {
   const [logData] = useAtom(logAtom);
@@ -70,7 +70,7 @@ const LogModal: React.FC = () => {
                       <p className="ml-2 inline text-foreground">{log.type}</p>
                     </div>
 
-                    <FaArrowRight className="text-primary mt-1 text-lg" />
+                    <FaArrowLeft className="text-primary mt-1 text-lg" />
                     <div>
                       <span className="text-sm font-medium text-gray-400">{t("modal.Source")}</span>
                       <a
@@ -83,7 +83,7 @@ const LogModal: React.FC = () => {
                       </a>
                     </div>
 
-                    <FaArrowLeft className="text-primary mt-1 text-lg" />
+                    <FaArrowRight className="text-primary mt-1 text-lg" />
                     <div>
                       <span className="text-sm font-medium text-gray-400">{t("modal.Destination")}</span>
                       <a
@@ -99,7 +99,7 @@ const LogModal: React.FC = () => {
                     <FaDollarSign className="text-primary mt-1 text-lg" />
                     <div>
                       <span className="text-sm font-medium text-gray-400">{t("modal.Amount")}</span>
-                      <p className="ml-2 inline font-semibold text-foreground">{log.amount}</p>
+                      <p className="ml-2 inline font-semibold text-foreground">{formatQubicAmount(log.amount)} QUBIC</p>
                     </div>
                   </div>
                 </motion.div>

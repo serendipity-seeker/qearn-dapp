@@ -100,7 +100,7 @@ export const fetchEpochTicks = async (epoch: number, page: number, pageSize: num
   return epochTicks.data;
 };
 
-export const fetchTickEvents = async (tick: number): Promise<TickEvents> => {
+export const fetchTickEvents = async (tick: number) => {
   try {
     const tickEventsResult = await fetch(`${API_ENDPOINT}/v1/events/getTickEvents`, {
       method: "POST",
@@ -108,6 +108,6 @@ export const fetchTickEvents = async (tick: number): Promise<TickEvents> => {
     });
     return tickEventsResult.json();
   } catch (error) {
-    return {} as TickEvents;
+    return null;
   }
 };
