@@ -26,8 +26,6 @@ const useTxMonitor = () => {
   const checkTxResult = async () => {
     if (!isMonitoring || !tickInfo?.tick || !pendingTx?.targetTick) return;
 
-    console.log("current tick", tickInfo.tick, "target tick", pendingTx.targetTick);
-
     if (tickInfo.tick > pendingTx.targetTick) {
       setPendingTx({} as IPendingTx);
       setIsMonitoring(false);
@@ -41,7 +39,7 @@ const useTxMonitor = () => {
             console.error("Failed to fetch tick events, retrying...", error);
           }
         }
-        console.log("tickEvents", tickEvents);
+
         const qearnLog = await formatQearnLog(tickEvents);
         if (tickEvents.txEvents?.length && qearnLog.length) {
           try {

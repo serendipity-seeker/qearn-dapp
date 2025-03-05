@@ -13,8 +13,6 @@ const LogModal: React.FC = () => {
   const { t } = useTranslation();
   const { closeModal } = useLogModal();
 
-  console.log("logData", logData);
-
   if (logData.length === 0 || !logData) return null;
 
 
