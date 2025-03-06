@@ -27,13 +27,12 @@ const useTxMonitor = () => {
     if (!isMonitoring || !tickInfo?.tick || !pendingTx?.targetTick) return;
 
     if (tickInfo.tick > pendingTx.targetTick) {
-      console.log(tickInfo.tick, pendingTx.targetTick);
       setPendingTx({} as IPendingTx);
       setIsMonitoring(false);
 
       if (pendingTx.type === "qearn") {
         let tickEvents;
-        while (!tickEvents) {
+        while (!tickEvents?.tick) {
           try {
             tickEvents = await fetchTickEvents(pendingTx.targetTick);
           } catch (error) {
