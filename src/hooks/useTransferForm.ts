@@ -70,10 +70,10 @@ export const useTransferForm = () => {
         initAmount: Number(balances[selectedAccount].balance),
         amount: numAmount,
         epoch: tickInfo?.epoch || 0,
-        targetTick: tickInfo?.tick,
+        targetTick: tickInfo?.tick + settings.tickOffset,
         type: "transfer",
       });
-      toast.success(t("qearnForm.Transaction submitted"));
+      toast.success(t("transferForm.Transaction submitted"));
       setRecipient("");
       setAmount("");
     } catch (error) {

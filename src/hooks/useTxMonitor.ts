@@ -27,6 +27,7 @@ const useTxMonitor = () => {
     if (!isMonitoring || !tickInfo?.tick || !pendingTx?.targetTick) return;
 
     if (tickInfo.tick > pendingTx.targetTick) {
+      console.log(tickInfo.tick, pendingTx.targetTick);
       setPendingTx({} as IPendingTx);
       setIsMonitoring(false);
 
@@ -92,7 +93,14 @@ const useTxMonitor = () => {
           navigate("/home?tab=0");
         }
       } else if (pendingTx.type === "transfer") {
-        const txStatus = await fetchTxStatus(pendingTx.txId);
+        let txStatus;
+        while (!txStatus) {
+          try {
+            txStatus = await fetchTxStatus(pendingTx.txId);
+          } catch (error) {
+            console.error("Failed to fetch tx status, retrying...", error);
+          }
+        }
         if (txStatus?.moneyFlew) {
           toast.success(t("toast.Transferred successfully"));
         } else {
