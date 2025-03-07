@@ -8,7 +8,6 @@ import {
   RichList,
   TickInfo,
   TxHistory,
-  TxStatus,
 } from "@/types";
 import { uint8ArrayToBase64 } from "@/utils";
 
