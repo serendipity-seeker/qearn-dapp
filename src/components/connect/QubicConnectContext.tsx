@@ -13,6 +13,8 @@ import { getSnap } from "./utils/snap";
 import { connectSnap } from "./utils/snap";
 // @ts-ignore
 import { QubicVault } from "@qubic-lib/qubic-ts-vault-library";
+import { useAtom } from "jotai";
+import { balancesAtom } from "@/store/balances";
 
 interface Wallet {
   connectType: string;
@@ -48,15 +50,9 @@ export function QubicConnectProvider({ children }: QubicConnectProviderProps) {
   const { signTransaction, requestAccounts } = useWalletConnect();
   const { t } = useTranslation();
   const [state, dispatch] = useContext(MetaMaskContext);
+  const [, setBalances] = useAtom(balancesAtom);
 
   const qHelper = new QubicHelper();
-
-  useEffect(() => {
-    const storedWallet = localStorage.getItem("wallet");
-    if (storedWallet) {
-      setWallet(JSON.parse(storedWallet));
-    }
-  }, []);
 
   const connect = (wallet: Wallet): void => {
     localStorage.setItem("wallet", JSON.stringify(wallet));
@@ -68,6 +64,7 @@ export function QubicConnectProvider({ children }: QubicConnectProviderProps) {
     localStorage.removeItem("wallet");
     setWallet(null);
     setConnected(false);
+    setBalances([]);
   };
 
   const toggleConnectModal = (): void => {

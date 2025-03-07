@@ -11,12 +11,15 @@ import { useQubicConnect } from "@/components/connect/QubicConnectContext";
 
 const Layout: React.FC = () => {
   const [state] = useContext(MetaMaskContext);
-  const { mmSnapConnect } = useQubicConnect();
+  const { mmSnapConnect, connect } = useQubicConnect();
   useDataFetcher();
   useTxMonitor();
 
   useEffect(() => {
-    if (state.installedSnap) {
+    const storedWallet = localStorage.getItem("wallet");
+    if (storedWallet) {
+      connect(JSON.parse(storedWallet));
+    } else if (state.installedSnap) {
       mmSnapConnect();
     }
   }, [state]);

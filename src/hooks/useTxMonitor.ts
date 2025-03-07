@@ -28,7 +28,6 @@ const useTxMonitor = () => {
 
     if (tickInfo.tick > pendingTx.targetTick) {
       setPendingTx({} as IPendingTx);
-      setIsMonitoring(false);
 
       if (pendingTx.type === "qearn") {
         let tickEvents;
@@ -108,6 +107,7 @@ const useTxMonitor = () => {
       }
       const updatedBalance = await fetchBalance(pendingTx.publicId);
       setBalance([updatedBalance]);
+      setIsMonitoring(false);
     }
   };
 
