@@ -10,14 +10,12 @@ import QubicConnectLogoDark from "../../assets/qubic-connect-dark.svg";
 import CloseIcon from "../../assets/close.svg";
 import { HeaderButtons } from "./Buttons";
 import { MetaMaskContext } from "./MetamaskContext.tsx";
-import { connectSnap, getSnap } from "./utils";
 import { Account } from "./types";
 import MetaMaskLogo from "@/assets/metamask.svg";
 import { useWalletConnect } from "./WalletConnectContext.tsx";
 import { generateQRCode } from "@/utils/index.ts";
 import WalletConnectLogo from "@/assets/wallet-connect.svg";
 import { useTranslation } from "react-i18next";
-import { QubicHelper } from "@qubic-lib/qubic-ts-library/dist/qubicHelper";
 import { motion, AnimatePresence } from "framer-motion";
 
 export enum MetamaskActions {
@@ -28,7 +26,7 @@ export enum MetamaskActions {
 }
 
 const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () => void; darkMode?: boolean }) => {
-  const [state, dispatch] = useContext(MetaMaskContext);
+  const [state] = useContext(MetaMaskContext);
   const { t } = useTranslation();
 
   const [selectedMode, setSelectedMode] = useState("none");
@@ -40,14 +38,15 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [password, setPassword] = useState("");
   // Context connect handling
-  const { connect, disconnect, connected, getMetaMaskPublicId } = useQubicConnect();
+  const { connect, disconnect, connected, wcConnect, mmSnapConnect, privateKeyConnect, vaultFileConnect } =
+    useQubicConnect();
   // account selection
   const [accounts, setAccounts] = useState<Account[]>([]);
   const [selectedAccount, setSelectedAccount] = useState(0);
   // WC
   const [qrCode, setQrCode] = useState<string>("");
   const [connectionURI, setConnectionURI] = useState<string>("");
-  const { connect: walletConnectConnect, isConnected, requestAccounts } = useWalletConnect();
+  const { connect: walletConnectConnect, isConnected } = useWalletConnect();
 
   const modalVariants = {
     hidden: { opacity: 0, scale: 0.9 },
@@ -67,54 +66,6 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
     exit: { opacity: 0, y: -20 },
   };
 
-  /**
-   * Connect with private seed
-   */
-  const privateKeyConnect = async () => {
-    const idPackage = await new QubicHelper().createIdPackage(privateSeed);
-    connect({
-      connectType: "privateKey",
-      privateKey: privateSeed,
-      publicKey: idPackage.publicId,
-    });
-    // reset and close
-    setSelectedMode("none");
-    setPrivateSeed("");
-    onClose();
-  };
-
-  /**
-   * Connect with MetaMask
-   */
-  const mmSnapConnect = async () => {
-    try {
-      await connectSnap(!state.isFlask ? "npm:@qubic-lib/qubic-mm-snap" : undefined);
-      const installedSnap = await getSnap();
-      // get publicId from snap
-      const publicKey = await getMetaMaskPublicId(0);
-      const wallet = {
-        connectType: "mmSnap",
-        publicKey,
-      };
-      connect(wallet);
-      dispatch({
-        type: MetamaskActions.SetInstalled,
-        payload: installedSnap,
-      });
-      onClose();
-    } catch (error) {
-      console.error(error);
-      dispatch({
-        type: MetamaskActions.SetError,
-        payload: error,
-      });
-    }
-  };
-
-  /**
-   *
-   * Connect with WalletConnect
-   */
   const generateURI = async () => {
     const { uri, approve } = await walletConnectConnect();
     setConnectionURI(uri);
@@ -123,24 +74,11 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
     await approve();
   };
 
-  const wcConnect = async () => {
-    try {
-      const accounts = await requestAccounts();
-      const wallet = {
-        connectType: "walletconnect",
-        publicKey: accounts[0].address,
-      };
-      connect(wallet);
-      setSelectedMode("none");
-      onClose();
-    } catch (error) {
-      console.error("Failed to connect with WalletConnect:", error);
-    }
-  };
-
   useEffect(() => {
     if (isConnected) {
       wcConnect();
+      setSelectedMode("none");
+      onClose();
     }
   }, [isConnected]);
 
@@ -156,43 +94,6 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
       setErrorMsgPrivateSeed("");
     }
     setPrivateSeed(pk);
-  };
-
-  /**
-   * Connect with vault file
-   */
-  const vaultFileConnect = async () => {
-    if (!selectedFile || !password) {
-      alert(t("connect.Please select a file and enter a password."));
-      return;
-    }
-
-    const fileReader = new FileReader();
-
-    fileReader.onload = async () => {
-      try {
-        await vault.importAndUnlock(
-          true, // selectedFileIsVaultFile: boolean,
-          password,
-          null, // selectedConfigFile: File | null = null,
-          selectedFile, // File | null = null,
-          true, // unlock: boolean = false
-        );
-        // now we switch view to select one of the seeds
-        setAccounts(vault.getSeeds());
-        setSelectedMode("account-select");
-      } catch (error) {
-        console.error("Error unlocking vault:", error);
-        alert(t("connect.Failed to unlock the vault. Please check your password and try again."));
-      }
-    };
-
-    fileReader.onerror = (error) => {
-      console.error("Error reading file:", error);
-      alert("Failed to read the file. Please try again.");
-    };
-
-    fileReader.readAsArrayBuffer(selectedFile);
   };
 
   const selectAccount = () => {
@@ -325,7 +226,13 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
                       </button>
                       <button
                         className="mt-4 rounded-lg bg-primary-40 p-4 text-black"
-                        onClick={() => privateKeyConnect()}
+                        onClick={() => {
+                          privateKeyConnect(privateSeed);
+                          // reset and close
+                          setSelectedMode("none");
+                          setPrivateSeed("");
+                          onClose();
+                        }}
                       >
                         {t("connect.Unlock")}
                       </button>
@@ -362,7 +269,15 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
                       </button>
                       <button
                         className="mt-4 rounded-lg bg-primary-40 p-4 text-black"
-                        onClick={() => vaultFileConnect()}
+                        onClick={async () => {
+                          if (!selectedFile) {
+                            alert(t("connect.Please select a file."));
+                            return;
+                          }
+                          const vault = await vaultFileConnect(selectedFile, password);
+                          setAccounts(vault.getSeeds());
+                          setSelectedMode("account-select");
+                        }}
                       >
                         {t("connect.Unlock")}
                       </button>
@@ -417,7 +332,14 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
                   >
                     Connect your MetaMask wallet. You need to have MetaMask installed and unlocked.
                     <div className="mt-5 flex flex-col gap-2">
-                      <HeaderButtons state={state} onConnectClick={() => mmSnapConnect()} />
+                      <HeaderButtons
+                        state={state}
+                        onConnectClick={() => {
+                          mmSnapConnect();
+                          setSelectedMode("none");
+                          onClose();
+                        }}
+                      />
                       <button
                         className="rounded-lg bg-[rgba(26,222,245,0.1)] p-3 text-primary-40"
                         onClick={() => setSelectedMode("none")}

@@ -24,6 +24,8 @@ export const useTransferForm = () => {
   useEffect(() => {
     if (balances.length > 0) {
       setAccounts([{ label: t("qearnForm.Account") + " 1", value: balances[0].id }]);
+    } else {
+      setAccounts([]);
     }
   }, [balances]);
 
