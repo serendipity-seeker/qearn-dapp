@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { QubicHelper } from "@qubic-lib/qubic-ts-library/dist/qubicHelper";
 import Crypto, { SIGNATURE_LENGTH } from "@qubic-lib/qubic-ts-library/dist/crypto";
-import { MetaMaskProvider } from "./MetamaskContext";
+import { MetamaskActions, MetaMaskContext, MetaMaskProvider } from "./MetamaskContext";
 import { connectTypes, defaultSnapOrigin } from "./config";
 import { useWalletConnect } from "./WalletConnectContext";
 import { QubicTransaction } from "@qubic-lib/qubic-ts-library/dist/qubic-types/QubicTransaction";
@@ -9,6 +9,10 @@ import { base64ToUint8Array, decodeUint8ArrayTx, uint8ArrayToBase64 } from "@/ut
 import { DEFAULT_TX_SIZE } from "@/constants";
 import { toast } from "react-hot-toast";
 import { useTranslation } from "react-i18next";
+import { getSnap } from "./utils/snap";
+import { connectSnap } from "./utils/snap";
+// @ts-ignore
+import { QubicVault } from "@qubic-lib/qubic-ts-vault-library";
 
 interface Wallet {
   connectType: string;
@@ -25,6 +29,10 @@ interface QubicConnectContextType {
   toggleConnectModal: () => void;
   getMetaMaskPublicId: (accountIdx?: number, confirm?: boolean) => Promise<string>;
   getSignedTx: (tx: Uint8Array | QubicTransaction) => Promise<{ tx: Uint8Array }>;
+  wcConnect: () => Promise<void>;
+  mmSnapConnect: () => Promise<void>;
+  privateKeyConnect: (privateSeed: string) => Promise<void>;
+  vaultFileConnect: (selectedFile: File, password: string) => Promise<QubicVault>;
 }
 
 const QubicConnectContext = createContext<QubicConnectContextType | undefined>(undefined);
@@ -37,8 +45,9 @@ export function QubicConnectProvider({ children }: QubicConnectProviderProps) {
   const [connected, setConnected] = useState<boolean>(false);
   const [wallet, setWallet] = useState<Wallet | null>(null);
   const [showConnectModal, setShowConnectModal] = useState<boolean>(false);
-  const { signTransaction } = useWalletConnect();
+  const { signTransaction, requestAccounts } = useWalletConnect();
   const { t } = useTranslation();
+  const [state, dispatch] = useContext(MetaMaskContext);
 
   const qHelper = new QubicHelper();
 
@@ -46,7 +55,6 @@ export function QubicConnectProvider({ children }: QubicConnectProviderProps) {
     const storedWallet = localStorage.getItem("wallet");
     if (storedWallet) {
       setWallet(JSON.parse(storedWallet));
-      setConnected(true);
     }
   }, []);
 
@@ -100,6 +108,7 @@ export function QubicConnectProvider({ children }: QubicConnectProviderProps) {
       },
     });
   };
+
   const getSignedTx = async (tx: Uint8Array | QubicTransaction): Promise<{ tx: Uint8Array }> => {
     if (!wallet || !connectTypes.includes(wallet.connectType)) {
       throw new Error(`Unsupported connectType: ${wallet?.connectType}`);
@@ -126,7 +135,7 @@ export function QubicConnectProvider({ children }: QubicConnectProviderProps) {
           qHelper.getIdentity(decodedTx.destinationPublicKey.getIdentity()),
         ]);
         const payloadBase64 = uint8ArrayToBase64(decodedTx.payload.getPackageData());
-        if(wallet?.connectType == "walletconnect") {
+        if (wallet?.connectType == "walletconnect") {
           toast(t("toast.Sign the transaction in your wallet"), {
             icon: "🔑",
           });
@@ -150,10 +159,93 @@ export function QubicConnectProvider({ children }: QubicConnectProviderProps) {
         const toSign = processedTx.slice(0, processedTx.length - SIGNATURE_LENGTH);
 
         qCrypto.K12(toSign, digest, SIGNATURE_LENGTH);
-        const signedTx = tx instanceof QubicTransaction ? await tx.build(wallet.privateKey) : qCrypto.schnorrq.sign(idPackage.privateKey, idPackage.publicKey, digest);
+        const signedTx =
+          tx instanceof QubicTransaction
+            ? await tx.build(wallet.privateKey)
+            : qCrypto.schnorrq.sign(idPackage.privateKey, idPackage.publicKey, digest);
         return { tx: signedTx || new Uint8Array(DEFAULT_TX_SIZE) };
       }
     }
+  };
+
+  const mmSnapConnect = async () => {
+    try {
+      await connectSnap(!state.isFlask ? "npm:@qubic-lib/qubic-mm-snap" : undefined);
+      const installedSnap = await getSnap();
+      // get publicId from snap
+      const publicKey = await getMetaMaskPublicId(0);
+      const wallet = {
+        connectType: "mmSnap",
+        publicKey,
+      };
+      connect(wallet);
+      dispatch({
+        type: MetamaskActions.SetInstalled,
+        payload: installedSnap,
+      });
+    } catch (error) {
+      console.error(error);
+      dispatch({
+        type: MetamaskActions.SetError,
+        payload: error,
+      });
+    }
+  };
+
+  const wcConnect = async () => {
+    try {
+      const accounts = await requestAccounts();
+      const wallet = {
+        connectType: "walletconnect",
+        publicKey: accounts[0].address,
+      };
+      connect(wallet);
+    } catch (error) {
+      console.error("Failed to connect with WalletConnect:", error);
+    }
+  };
+
+  const privateKeyConnect = async (privateSeed: string) => {
+    const idPackage = await new QubicHelper().createIdPackage(privateSeed);
+    connect({
+      connectType: "privateKey",
+      privateKey: privateSeed,
+      publicKey: idPackage.publicId,
+    });
+  };
+
+  const vaultFileConnect = async (selectedFile: File, password: string): Promise<QubicVault> => {
+    if (!selectedFile || !password) {
+      alert(t("connect.Please select a file and enter a password."));
+      return;
+    }
+    const vault = new QubicVault();
+
+    const fileReader = new FileReader();
+
+    fileReader.onload = async () => {
+      try {
+        await vault.importAndUnlock(
+          true, // selectedFileIsVaultFile: boolean,
+          password,
+          null, // selectedConfigFile: File | null = null,
+          selectedFile, // File | null = null,
+          true, // unlock: boolean = false
+        );
+        // now we switch view to select one of the seeds
+        return vault;
+      } catch (error) {
+        console.error("Error unlocking vault:", error);
+        alert(t("connect.Failed to unlock the vault. Please check your password and try again."));
+      }
+    };
+
+    fileReader.onerror = (error) => {
+      console.error("Error reading file:", error);
+      alert("Failed to read the file. Please try again.");
+    };
+
+    fileReader.readAsArrayBuffer(selectedFile);
   };
 
   const contextValue: QubicConnectContextType = {
@@ -165,6 +257,10 @@ export function QubicConnectProvider({ children }: QubicConnectProviderProps) {
     toggleConnectModal,
     getMetaMaskPublicId,
     getSignedTx,
+    wcConnect,
+    mmSnapConnect,
+    privateKeyConnect,
+    vaultFileConnect,
   };
 
   return (
