@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { QubicHelper } from "@qubic-lib/qubic-ts-library/dist/qubicHelper";
 import Crypto, { SIGNATURE_LENGTH } from "@qubic-lib/qubic-ts-library/dist/crypto";
 import { MetamaskActions, MetaMaskContext, MetaMaskProvider } from "./MetamaskContext";
