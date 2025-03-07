@@ -32,7 +32,7 @@ const useTxMonitor = () => {
 
       if (pendingTx.type === "qearn") {
         let tickEvents;
-        while (!tickEvents) {
+        while (!tickEvents?.tick) {
           try {
             tickEvents = await fetchTickEvents(pendingTx.targetTick);
           } catch (error) {
@@ -92,7 +92,14 @@ const useTxMonitor = () => {
           navigate("/home?tab=0");
         }
       } else if (pendingTx.type === "transfer") {
-        const txStatus = await fetchTxStatus(pendingTx.txId);
+        let txStatus;
+        while (!txStatus) {
+          try {
+            txStatus = await fetchTxStatus(pendingTx.txId);
+          } catch (error) {
+            console.error("Failed to fetch tx status, retrying...", error);
+          }
+        }
         if (txStatus?.moneyFlew) {
           toast.success(t("toast.Transferred successfully"));
         } else {

@@ -8,7 +8,6 @@ import {
   RichList,
   TickInfo,
   TxHistory,
-  TxStatus,
 } from "@/types";
 import { uint8ArrayToBase64 } from "@/utils";
 
@@ -56,9 +55,9 @@ export const fetchQuerySC = async (query: IQuerySC): Promise<IQuerySCResponse> =
   return result;
 };
 
-export const fetchTxStatus = async (txId: string): Promise<TxStatus> => {
+export const fetchTxStatus = async (txId: string) => {
   const txStatusResult = await fetch(`${RPC_ENDPOINT}/v1/tx-status/${txId}`);
-  let txStatus = {} as { transactionStatus: TxStatus };
+  let txStatus = undefined;
   if (txStatusResult.status == 200) {
     txStatus = await txStatusResult.json();
   }
