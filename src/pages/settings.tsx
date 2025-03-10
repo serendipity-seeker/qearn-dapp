@@ -69,7 +69,7 @@ const Settings: React.FC = () => {
                 value={[settings.tickOffset]}
                 onValueChange={(value) => setSettings({ tickOffset: value[0] })}
                 max={15}
-                min={3}
+                min={8}
                 step={1}
               >
                 <Slider.Track className="relative h-1.5 grow rounded-full bg-gray-200 sm:h-2">

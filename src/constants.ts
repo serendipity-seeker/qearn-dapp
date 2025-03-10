@@ -4,7 +4,7 @@ export const API_ENDPOINT = "https://api.qubic.org";
 
 export const DEFAULT_TX_SIZE = 144;
 
-export const DEFAULT_TICK_OFFSET = 6;
+export const DEFAULT_TICK_OFFSET = 10;
 
 export const LANGUAGES = {
   en: "English",
