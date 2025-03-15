@@ -17,6 +17,7 @@ import { generateQRCode } from "@/utils/index.ts";
 import WalletConnectLogo from "@/assets/wallet-connect.svg";
 import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence } from "framer-motion";
+import { isMobile } from "react-device-detect";
 
 export enum MetamaskActions {
   SetInstalled = "SetInstalled",
@@ -163,8 +164,9 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
                     {!connected && (
                       <>
                         <button
-                          className="disabled:bg-gray-40 mt-4 flex items-center justify-center gap-3 rounded-lg bg-primary-40 p-2 text-black"
+                          className="disabled:bg-gray-400 mt-4 flex items-center justify-center gap-3 rounded-lg bg-primary-40 p-2 text-black"
                           onClick={() => setSelectedMode("metamask")}
+                          disabled={isMobile}
                         >
                           <img src={MetaMaskLogo} alt="MetaMask Logo" className="h-8 w-8" />
                           <span className="w-32">{t("connect.MetaMask")}</span>
@@ -369,8 +371,8 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
                       </div>
                       <button
                         onClick={() => window.open(`qubic-wallet://pairwc/${connectionURI}`, "_blank")}
-                        className="disabled:bg-gray-40 flex items-center justify-center gap-3 rounded-lg bg-primary-40 p-3 text-black"
-                        disabled={!connectionURI}
+                        className="disabled:bg-gray-400 flex items-center justify-center gap-3 rounded-lg bg-primary-40 p-3 text-black"
+                        disabled={!connectionURI || !isMobile}
                       >
                         {t("connect.Open in Qubic Wallet")}
                       </button>
