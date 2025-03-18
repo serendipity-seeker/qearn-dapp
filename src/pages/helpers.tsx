@@ -5,6 +5,7 @@ import { TransactionParser } from "@/components/helpers/TransactionParser";
 import { PayloadCreator } from "@/components/helpers/PayloadCreator";
 import { RandomSeedGenerator } from "@/components/helpers/RandomSeedGenerator";
 import { motion } from "framer-motion";
+import { Uint8ArrayParser } from "@/components/helpers/Uint8ArrayParser";
 
 const Helpers: React.FC = () => {
   return (
@@ -34,6 +35,7 @@ const Helpers: React.FC = () => {
         <TransactionCreator />
         <TransactionParser />
         <PayloadCreator />
+        <Uint8ArrayParser />
         <RandomSeedGenerator />
       </motion.div>
     </motion.div>
