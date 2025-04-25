@@ -6,7 +6,7 @@ import { tickInfoAtom } from "@/store/tickInfo";
 import { pendingTxAtom } from "@/store/pendingTx";
 import { settingsAtom } from "@/store/settings";
 import { balancesAtom } from "@/store/balances";
-import { calculateRewards } from "@/utils";
+import { calculateRewards, decodeUint8ArrayTx } from "@/utils";
 import { toast } from "react-hot-toast";
 import { unLockQubic } from "@/services/qearn.service";
 import { broadcastTx } from "@/services/rpc.service";
@@ -85,6 +85,7 @@ export const useLockHistory = () => {
         tickInfo?.tick + settings.tickOffset,
       );
       const { tx: signedTx } = await getSignedTx(tx);
+      const decodedTx = decodeUint8ArrayTx(signedTx);
       const res = await broadcastTx(signedTx);
 
       setPendingTx({
@@ -93,7 +94,7 @@ export const useLockHistory = () => {
         initAmount: userLockInfo[accounts[selectedAccount].value]?.[tableData[selectedIdx || 0].lockedEpoch] || 0,
         amount: -tableData[selectedIdx || 0].lockedAmount || 0,
         epoch: tableData[selectedIdx || 0].lockedEpoch,
-        targetTick: tickInfo?.tick + settings.tickOffset,
+        targetTick: decodedTx.tick,
         type: "qearn",
       });
 
