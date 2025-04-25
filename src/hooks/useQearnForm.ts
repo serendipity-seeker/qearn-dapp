@@ -10,6 +10,7 @@ import { settingsAtom } from "@/store/settings";
 import { balancesAtom } from "@/store/balances";
 import { pendingTxAtom } from "@/store/pendingTx";
 import { userLockInfoAtom } from "@/store/userLockInfo";
+import { decodeUint8ArrayTx } from "@/utils";
 
 export const useQearnForm = () => {
   const [tickInfo] = useAtom(tickInfoAtom);
@@ -66,6 +67,7 @@ export const useQearnForm = () => {
       const numAmount = Number(amount);
       const tx = await lockQubic(accounts[selectedAccount].value, numAmount, tickInfo?.tick + settings.tickOffset);
       const { tx: signedTx } = await getSignedTx(tx);
+      const decodedTx = decodeUint8ArrayTx(signedTx);
       const res = await broadcastTx(signedTx);
       setPendingTx({
         txId: res.transactionId,
@@ -73,7 +75,7 @@ export const useQearnForm = () => {
         initAmount: userLockInfo[accounts[selectedAccount].value]?.[tickInfo?.epoch || 0] || 0,
         amount: numAmount,
         epoch: tickInfo?.epoch || 0,
-        targetTick: tickInfo?.tick + settings.tickOffset,
+        targetTick: decodedTx.tick,
         type: "qearn",
       });
       toast.success(t("qearnForm.Transaction sent, it will take some time to be confirmed and executed"));

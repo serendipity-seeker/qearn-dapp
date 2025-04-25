@@ -9,6 +9,7 @@ import { createTx } from "@/services/tx.service";
 import { balancesAtom } from "@/store/balances";
 import { pendingTxAtom } from "@/store/pendingTx";
 import { settingsAtom } from "@/store/settings";
+import { decodeUint8ArrayTx } from "@/utils";
 export const useTransferForm = () => {
   const { t } = useTranslation();
   const [tickInfo] = useAtom(tickInfoAtom);
@@ -61,6 +62,7 @@ export const useTransferForm = () => {
       const numAmount = Number(amount);
       const tx = createTx(accounts[selectedAccount].value, recipient, numAmount, tickInfo?.tick + settings.tickOffset);
       const { tx: signedTx } = await getSignedTx(tx);
+      const decodedTx = decodeUint8ArrayTx(signedTx);
       const result = await broadcastTx(signedTx);
 
       if (result.error) {
@@ -72,7 +74,7 @@ export const useTransferForm = () => {
         initAmount: Number(balances[selectedAccount].balance),
         amount: numAmount,
         epoch: tickInfo?.epoch || 0,
-        targetTick: tickInfo?.tick + settings.tickOffset,
+        targetTick: decodedTx.tick,
         type: "transfer",
       });
       toast.success(t("transferForm.Transaction submitted"));
