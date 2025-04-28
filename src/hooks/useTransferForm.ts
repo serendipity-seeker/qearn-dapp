@@ -18,17 +18,17 @@ export const useTransferForm = () => {
   const [amount, setAmount] = useState("");
   const [selectedAccount, setSelectedAccount] = useState(0);
   const [accounts, setAccounts] = useState<{ label: string; value: string }[]>([]);
-  const { getSignedTx } = useQubicConnect();
+  const { wallet, getSignedTx } = useQubicConnect();
   const [balances] = useAtom(balancesAtom);
   const [settings] = useAtom(settingsAtom);
 
   useEffect(() => {
-    if (balances.length > 0) {
-      setAccounts([{ label: t("qearnForm.Account") + " 1", value: balances[0].id }]);
+    if (wallet) {
+      setAccounts([{ label: wallet?.alias || t("qearnForm.Account") + " 1", value: wallet?.publicKey || "" }]);
     } else {
       setAccounts([]);
     }
-  }, [balances]);
+  }, [wallet]);
 
   const handleRecipientChange = (value: string) => {
     setRecipient(value);

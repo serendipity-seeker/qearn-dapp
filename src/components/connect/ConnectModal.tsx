@@ -18,6 +18,7 @@ import WalletConnectLogo from "@/assets/wallet-connect.svg";
 import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence } from "framer-motion";
 import { isMobile } from "react-device-detect";
+import AccountSelector from "../ui/AccountSelector.tsx";
 
 export enum MetamaskActions {
   SetInstalled = "SetInstalled",
@@ -35,19 +36,18 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
   const [privateSeed, setPrivateSeed] = useState("");
   const [errorMsgPrivateSeed, setErrorMsgPrivateSeed] = useState("");
   // Vault file handling
-  const [vault] = useState(new QubicVault());
+  // const [vault] = useState(new QubicVault());
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [password, setPassword] = useState("");
   // Context connect handling
-  const { connect, disconnect, connected, wcConnect, mmSnapConnect, privateKeyConnect, vaultFileConnect } =
-    useQubicConnect();
+  const { connect, disconnect, connected, mmSnapConnect, privateKeyConnect, vaultFileConnect } = useQubicConnect();
   // account selection
   const [accounts, setAccounts] = useState<Account[]>([]);
   const [selectedAccount, setSelectedAccount] = useState(0);
   // WC
   const [qrCode, setQrCode] = useState<string>("");
   const [connectionURI, setConnectionURI] = useState<string>("");
-  const { connect: walletConnectConnect, isConnected } = useWalletConnect();
+  const { connect: walletConnectConnect, isConnected, requestAccounts } = useWalletConnect();
 
   const modalVariants = {
     hidden: { opacity: 0, scale: 0.9 },
@@ -77,9 +77,17 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
 
   useEffect(() => {
     if (isConnected) {
-      wcConnect();
-      setSelectedMode("none");
-      onClose();
+      const fetchAccounts = async () => {
+        const accounts = await requestAccounts();
+        setAccounts(
+          accounts.map((account) => ({
+            publicId: account.address,
+            alias: account.name,
+          })),
+        );
+        setSelectedMode("account-select");
+      };
+      fetchAccounts();
     }
   }, [isConnected]);
 
@@ -97,16 +105,16 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
     setPrivateSeed(pk);
   };
 
-  const selectAccount = () => {
-    // get the first account of the vault
-    const pkSeed = vault.revealSeed(accounts[parseInt(selectedAccount.toString())]?.publicId);
-    connect({
-      connectType: "vaultFile",
-      publicKey: accounts[parseInt(selectedAccount.toString())]?.publicId,
-      privateKey: pkSeed,
-    });
-    onClose(); // reset and close
-  };
+  // const selectAccount = () => {
+  //   // get the first account of the vault
+  //   const pkSeed = vault.revealSeed(accounts[parseInt(selectedAccount.toString())]?.publicId);
+  //   connect({
+  //     connectType: "vaultFile",
+  //     publicKey: accounts[parseInt(selectedAccount.toString())]?.publicId,
+  //     privateKey: pkSeed,
+  //   });
+  //   onClose(); // reset and close
+  // };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -164,7 +172,7 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
                     {!connected && (
                       <>
                         <button
-                          className="disabled:bg-gray-400 mt-4 flex items-center justify-center gap-3 rounded-lg bg-primary-40 p-2 text-black"
+                          className="mt-4 flex items-center justify-center gap-3 rounded-lg bg-primary-40 p-2 text-black disabled:bg-gray-400"
                           onClick={() => setSelectedMode("metamask")}
                           disabled={isMobile}
                         >
@@ -296,17 +304,15 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
                     exit="exit"
                   >
                     {t("connect.Select an account:")}
-                    <select
-                      className="mt-4 w-full rounded-lg p-4"
-                      value={selectedAccount}
-                      onChange={(e) => setSelectedAccount(Number(e.target.value))}
-                    >
-                      {accounts.map((account, idx) => (
-                        <option key={account.publicId} value={idx}>
-                          {account.alias}
-                        </option>
-                      ))}
-                    </select>
+                    <AccountSelector
+                      label={t("Account")}
+                      options={accounts.map((account, idx) => ({
+                        label: account.alias || `Account ${idx + 1}`,
+                        value: account.publicId
+                      }))}
+                      selected={selectedAccount}
+                      setSelected={setSelectedAccount}
+                    />
                     <div className="mt-4 grid grid-cols-2 gap-4">
                       <button
                         className="mt-4 rounded-lg bg-primary-40 p-4 text-black"
@@ -317,7 +323,18 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
                       >
                         {t("connect.Lock Wallet")}
                       </button>
-                      <button className="mt-4 rounded-lg bg-primary-40 p-4 text-black" onClick={() => selectAccount()}>
+                      <button
+                        className="mt-4 rounded-lg bg-primary-40 p-4 text-black"
+                        onClick={() => {
+                          connect({
+                            connectType: "walletconnect",
+                            publicKey: accounts[parseInt(selectedAccount.toString())]?.publicId,
+                            alias: accounts[parseInt(selectedAccount.toString())]?.alias,
+                          });
+                          setSelectedMode("none");
+                          onClose();
+                        }}
+                      >
                         {t("connect.Select Account")}
                       </button>
                     </div>
@@ -371,7 +388,7 @@ const ConnectModal = ({ open, onClose, darkMode }: { open: boolean; onClose: () 
                       </div>
                       <button
                         onClick={() => window.open(`qubic-wallet://pairwc/${connectionURI}`, "_blank")}
-                        className="disabled:bg-gray-400 flex items-center justify-center gap-3 rounded-lg bg-primary-40 p-3 text-black"
+                        className="flex items-center justify-center gap-3 rounded-lg bg-primary-40 p-3 text-black disabled:bg-gray-400"
                         disabled={!connectionURI || !isMobile}
                       >
                         {t("connect.Open in Qubic Wallet")}

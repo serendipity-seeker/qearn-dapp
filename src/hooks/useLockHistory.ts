@@ -35,16 +35,16 @@ export const useLockHistory = () => {
   const [, setPendingTx] = useAtom(pendingTxAtom);
   const [settings] = useAtom(settingsAtom);
   const [balances] = useAtom(balancesAtom);
-  const { getSignedTx } = useQubicConnect();
+  const { wallet, getSignedTx } = useQubicConnect();
   const { t } = useTranslation();
 
   useEffect(() => {
-    if (balances.length > 0) {
-      setAccounts([{ label: `${t("qearnForm.Account")} 1`, value: balances[0].id }]);
+    if (wallet) {
+      setAccounts([{ label: wallet?.alias || `${t("qearnForm.Account")} 1`, value: wallet?.publicKey || "" }]);
     } else {
       setAccounts([]);
     }
-  }, [userLockInfo, t, balances]);
+  }, [wallet, t]);
 
   useEffect(() => {
     if (accounts.length < 0 || !qearnStats || !userLockInfo) return;
