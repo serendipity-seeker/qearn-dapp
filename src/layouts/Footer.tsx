@@ -24,7 +24,7 @@ const Footer: React.FC<FooterProps> = ({ appVersion }): JSX.Element | null => {
           className="leading-18 font-space text-12 text-foreground"
           target="_blank"
           rel="noreferrer"
-          href="https://qubic.org/Terms-of-service"
+          href="https://qubic.org/terms-of-service"
         >
           {t("footer.Terms of service")}
         </a>
@@ -34,7 +34,7 @@ const Footer: React.FC<FooterProps> = ({ appVersion }): JSX.Element | null => {
           className="leading-18 font-space text-12 text-foreground"
           target="_blank"
           rel="noreferrer"
-          href="https://qubic.org/Privacy-policy"
+          href="https://qubic.org/privacy-policy"
         >
           {t("footer.Privacy Policy")}
         </a>
